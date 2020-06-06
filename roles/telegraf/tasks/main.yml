@@ -1,0 +1,54 @@
+- name: add GPG key for repo on Debian based systems
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+  become: true
+  when : ansible_facts['os_family'] == "Debian"
+
+- name: add repo for Debian based systems
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/ubuntu bionic stable"
+    state: present
+    update_cache: no
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: add repo for Redhat based systems
+  yum_repository:
+    name: influxdb
+    description: influx db software
+    baseurl: https://repos.influxdata.com/centos/8/x86_64/stable/
+    gpgcheck: yes
+    gpgkey: https://repos.influxdata.com/influxdb.key
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
+
+- name: install Telegraf on Debian based systems
+  apt:
+    name: telegraf
+    update_cache: true
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: install Telegraf on Redhat based systems
+  dnf:
+    name: telegraf
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: copy Telegraf config
+  template:
+    src: telegraf.j2
+    dest: /etc/telegraf/telegraf.conf
+  become: true
+
+- name: start and enable Telegraf
+  systemd:
+    name: telegraf
+    enabled: yes
+    state: restarted
+  become: true
