@@ -10,8 +10,8 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name armin.local.mathiasp.me;
-    ssl_certificate /etc/nginx/.pem;
-    ssl_certificate_key /etc/nginx/armin_key.pem;
+    ssl_certificate /etc/nginx/certs/{{ grafana_fqdn }}/cert.pem;
+    ssl_certificate_key /etc/nginx/certs/{{ grafana_fqdn }}/privkey.pem;
 
     # Add headers to serve security related headers
     # Before enabling Strict-Transport-Security headers please read into this

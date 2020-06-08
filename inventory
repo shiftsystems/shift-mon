@@ -1,9 +1,9 @@
 all: 
   hosts:
-    test-rmm.example.com
+    test-rmm.shiftsystems.net
   vars:
-    influxdb_fqdn: influxdb.example.com
-    grafana_fqdn: grafana.example.com
-    meshcentral_fqdn: mesh.example.com
+    influxdb_fqdn: influxdb.shiftsystems.net
+    grafana_fqdn: grafana.shiftsystems.net
+    meshcentral_fqdn: mesh.shiftsystems.net
     from_email: text.example.com
     ansible_python_interpreter: /usr/bin/python3

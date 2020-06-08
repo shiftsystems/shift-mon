@@ -19,7 +19,7 @@
   with_items: "{{ services }}"
 
 - name: get a certificate
-  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
+  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }} -d {{ grafana_fqdn }}
   become: true
  
 - name: soft link the letsencrypt keys

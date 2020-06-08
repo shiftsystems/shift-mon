@@ -1,0 +1,6 @@
+packages:
+  - grafana
+
+plugins: 
+  - grafana-worldmap-panel
+  - grafana-piechart-panel
