@@ -1,0 +1,27 @@
+- name: add GPG key for repo on Debian based systems
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+  become: true
+  when : ansible_facts['os_family'] == "Debian"
+
+- name: add repo for Debian based systems
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/ubuntu bionic stable"
+    state: present
+    update_cache: no
+  become: true
+
+- name: install install packages for Influxdb
+  apt:
+    name: "{{ packages }}"
+    update_cache: true
+    state: present
+  become: true
+
+- name: start and enable Influxdb
+  systemd:
+    name: influxdb
+    enabled: yes
+    state: restarted
+  become: true

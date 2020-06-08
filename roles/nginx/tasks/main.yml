@@ -1,0 +1,46 @@
+- name: Install packages nginx
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+
+- name: remove default configs from nginx
+  file: 
+    name: "/etc/nginx/sites-enabled/default"
+    state: absent
+  become: true
+
+
+- name: paste in nginx configs
+  template:
+    src: "{{ item }}.j2"
+    dest: /etc/nginx/sites-available/{{ item }}.conf
+  become: true
+  with_items: "{{ services }}"
+
+- name: get a certificate
+  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
+  become: true
+ 
+- name: soft link the letsencrypt keys
+  file:
+    src: "/etc/letsencrypt/live/"
+    dest: "/etc/nginx/certs"
+    mode: '0644'
+    group: www-data
+    owner: www-data
+    state: link
+  become: true
+
+- name: restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+  become: true
+
+- name: start and enable nginx
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: true
+  become: true

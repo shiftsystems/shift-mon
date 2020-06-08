@@ -1,0 +1,5 @@
+packages:
+  - certbot
+  - nginx
+services:
+  - influxdb

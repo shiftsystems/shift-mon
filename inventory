@@ -1,0 +1,9 @@
+all: 
+  hosts:
+    test-rmm.example.com
+  vars:
+    influxdb_fqdn: influxdb.example.com
+    grafana_fqdn: grafana.example.com
+    meshcentral_fqdn: mesh.example.com
+    from_email: text.example.com
+    ansible_python_interpreter: /usr/bin/python3
