@@ -1,6 +1,8 @@
 - hosts: all
   tasks:
     - import_role:
+        name: meshcentral
+    - import_role:
         name: influxdb
     - import_role:
         name: grafana

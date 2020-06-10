@@ -1,0 +1,42 @@
+- name: Install dependencies for Meshcentral
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+
+- name: create meshcentral group
+  group:
+    name: meshcentral
+    state: present
+  become: true
+
+- name: create meshcentral user
+  user:
+    name: meshcentral
+    group: meshcentral
+    shell: /sbin/nologin
+    state: present
+  become: true
+  
+- name: create meshcentral directory
+  file:
+    name: /opt/meshcentral
+    state: directory
+    owner: meshcentral
+    group: meshcentral
+  become: true
+
+- name: Install Meshcentral via npm
+  npm:
+    name: meshcentral
+    path: /opt/meshcentral
+  become: true
+
+# - name: copy in meshcentral config file
+
+# - name: Add service file for meshcentral
+
+# - name: start and enable services required for Meshcentral
+
+
+

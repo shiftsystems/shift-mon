@@ -1,0 +1,4 @@
+packages:
+  - nodejs
+  - npm
+  - mongodb
