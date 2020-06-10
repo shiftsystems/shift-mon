@@ -3,3 +3,4 @@ packages:
   - nginx
 services:
   - influxdb
+  - grafana
