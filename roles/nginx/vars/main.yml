@@ -4,3 +4,4 @@ packages:
 services:
   - influxdb
   - grafana
+  - meshcentral

@@ -4,13 +4,13 @@
     state: present
   become: true
 
-- name: create meshcentral group
+- name: Create Meshcentral group
   group:
     name: meshcentral
     state: present
   become: true
 
-- name: create meshcentral user
+- name: Create Meshcentral user
   user:
     name: meshcentral
     group: meshcentral
@@ -18,7 +18,7 @@
     state: present
   become: true
   
-- name: create meshcentral directory
+- name: Create Meshcentral directory
   file:
     name: /opt/meshcentral
     state: directory
@@ -32,11 +32,25 @@
     path: /opt/meshcentral
   become: true
 
-# - name: copy in meshcentral config file
+- name: Copy in meshcentral config file
+  template:
+    src: mesh-config.j2
+    dest: /opt/meshcentral/meshcentral-data/config.json
+  become: true
+- name: Add in service file for Meshcentral
+  copy: 
+    src: meshcentral.service
+    dest: /etc/systemd/system/meshcentral.service
+  become: true
 
-# - name: Add service file for meshcentral
 
-# - name: start and enable services required for Meshcentral
-
+  
+- name: start and enable services required for Meshcentral
+  systemd:
+    name: meshcentral
+    state: restarted
+    enabled: true
+    daemon-reload: true
+  become: true
 
 

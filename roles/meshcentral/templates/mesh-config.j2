@@ -1,0 +1,167 @@
+{
+  "__comment__" : "This is a sample configuration file, edit a section and remove the _ in front of the name. Refer to the user's guide for details.",
+  "settings": {
+    "_Cert": "rmm.shiftsystems.net",
+    "_MongoDb": "mongodb://127.0.0.1:27017",
+    "_MongoDbName": "meshcentral",
+    "_MongoDbChangeStream": true,
+    "WANonly": true,
+    "_LANonly": true,
+    "_Minify": 1,
+    "_SessionTime": 30,
+    "_SessionKey": "MyReallySecretPassword1",
+    "_SessionSameSite": "strict",
+    "_DbEncryptKey": "MyReallySecretPassword2",
+    "_DbRecordsEncryptKey": "MyReallySecretPassword",
+    "_DbRecordsDecryptKey": "MyReallySecretPassword",
+    "_DbExpire": {
+      "events": 1728000,
+      "powerevents": 864000
+    },
+    "Port": 4430,
+    "AliasPort": 443,
+    "RedirPort": 800,
+    "_AllowLoginToken": true,
+    "_AllowFraming": true,
+    "_WebRTC": false,
+    "_Nice404": false,
+    "_ClickOnce": false,
+    "SelfUpdate": true,
+    "_AgentPing": 60,
+    "AgentPong": 300,
+    "_AgentIdleTimeout": 150,
+    "_MeshErrorLogPath": "c:\\tmp",
+    "_NpmPath": "c:\\npm.exe",
+    "_NpmProxy": "http://1.2.3.4:80",
+    "_AllowHighQualityDesktop": true,
+    "_UserAllowedIP": "127.0.0.1,192.168.1.0/24",
+    "_UserBlockedIP": "127.0.0.1,::1,192.168.0.100",
+    "_AgentAllowedIP": "192.168.0.100/24",
+    "_AgentBlockedIP": "127.0.0.1,::1",
+    "_AuthLog": "c:\\temp\\auth.log",
+    "_LocalDiscovery": {
+      "name": "Local server name",
+      "info": "Information about this server"
+    },
+    "TlsOffload": "127.0.0.1",
+    "MpsPort": 44330,
+    "MpsAliasPort": 4433,
+    "MpsAliasHost": "{{ meshcentral_fqdn }}",
+    "MpsTlsOffload": true,
+    "_No2FactorAuth": true,
+    "_Log": "main,web,webrequest,cert",
+    "_WebRtConfig": {
+      "iceServers": [
+        { "urls": "stun:stun.services.mozilla.com" },
+        { "urls": "stun:stun.l.google.com:19302" }
+      ]
+    },
+    "_AutoBackup": {
+      "backupIntervalHours": 24,
+      "keepLastDaysBackup": 10,
+      "zipPassword": "MyReallySecretPassword3",
+      "_backupPath": "C:\\backups"
+    },
+    "_Redirects": {
+      "meshcommander": "https://www.meshcommander.com/"
+    },
+    "__MaxInvalidLogin": "Time in minutes, max amount of bad logins from a source IP in the time before logins are rejected.",
+    "MaxInvalidLogin": { "time": 10, "count": 10, "coolofftime": 10 },
+    "plugins": {
+        "enabled": true
+    }
+  },
+  "domains": {
+    "": {
+      "Title": "{{ title }}",
+      "Title2": " {{ title2 }}",
+      "TitlePicture": "favicons/favicons/apple-icon-60x60.png",
+      "_UserQuota": 1048576,
+      "_MeshQuota": 248576,
+      "_NewAccounts": true,
+      "_UserNameIsEmail": true,
+      "_NewAccountEmailDomains": [ "shiftsystems.net" ],
+      "_NewAccountsRights": [ "nonewgroups", "notools" ],
+      "_ManageAllDeviceGroups": [ "admin" ],
+      "Footer": "<a href='https://twitter.com/mytwitter'>Twitter</a>",
+      "CertUrl": "https://127.0.0.1:443/",
+      "_PasswordRequirements": { "min": 8, "max": 128, "upper": 1, "lower": 1, "numeric": 1, "nonalpha": 1, "reset": 90, "force2factor": true, "skip2factor": "127.0.0.1,192.168.2.0/24" },
+      "_AgentNoProxy": true,
+      "_GeoLocation": true,
+      "_UserAllowedIP": "127.0.0.1,192.168.1.0/24",
+      "_UserBlockedIP": "127.0.0.1,::1,192.168.0.100",
+      "_AgentAllowedIP": "192.168.0.100/24",
+      "_AgentBlockedIP": "127.0.0.1,::1",
+      "___UserSessionIdleTimeout__" : "Number of user idle minutes before auto-disconnect",
+      "_UserSessionIdleTimeout" : 30,
+      "__UserConsentFlags__" : "Set to: 1 for desktop, 2 for terminal, 3 for files, 7 for all",
+      "_UserConsentFlags" : 7,
+      "_Limits": {
+        "_MaxDevices": 100,
+        "_MaxUserAccounts": 100,
+        "_MaxUserSessions": 100,
+        "_MaxAgentSessions": 100,
+        "MaxSingleUserSessions": 10
+      },
+      "_AmtAcmActivation": {
+        "log": "amtactivation.log",
+        "certs": {
+          "mycertname": {
+            "certfiles": [ "amtacm-leafcert.crt", "amtacm-intermediate1.crt", "amtacm-intermediate2.crt", "amtacm-rootcert.crt" ],
+            "keyfile": "amtacm-leafcert.key"
+          }
+        }
+      },
+      "_Redirects": {
+        "meshcommander": "https://www.meshcommander.com/"
+      },
+      "_yubikey": { "id": "0000", "secret": "xxxxxxxxxxxxxxxxxxxxx", "_proxy": "http://myproxy.domain.com:80" },
+      "_httpheaders": {
+        "Strict-Transport-Security": "max-age=360000",
+        "x-frame-options": "SAMEORIGIN",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; frame-src 'self'; media-src 'self'"
+      },
+      "_agentConfig": [ "webSocketMaskOverride=1" ],
+      "_SessionRecording": {
+        "_filepath": "C:\\temp",
+        "_index": true,
+        "__protocols__": "Is an array: 1 = Terminal, 2 = Desktop, 5 = Files, 100 = Intel AMT WSMAN, 101 = Intel AMT Redirection",
+        "protocols": [ 1, 2, 101 ]
+      }
+    },
+    "_customer1": {
+      "_DNS": "customer1.myserver.com",
+      "_Title": "Customer1",
+      "_Title2": "TestServer",
+      "_NewAccounts": 1,
+      "_Auth": "sspi",
+      "_Footer": "Test",
+      "_CertUrl": "https://192.168.2.106:443/"
+    },
+    "_info": {
+      "_share": "C:\\ExtraWebSite"
+    }
+  },
+  "_letsencrypt": {
+    "__comment__": "Requires NodeJS 10.12 or better, Go to https://letsdebug.net/ first before trying Let's Encrypt.",
+    "_email": "",
+    "_names": "",
+    "_rsaKeySize": 3072,
+    "_production": true
+  },
+  "_peers": {
+    "serverId": "server1",
+    "servers": {
+      "server1": { "url": "wss://192.168.2.133:443/" },
+      "server2": { "url": "wss://192.168.1.106:443/" }
+    }
+  },
+  "smtp": {
+    "host": "{{ mail_host }}",
+    "port": {{ email_port }},
+    "from": "{{ from_address }}",
+        "user": "{{ email_password }}",
+        "pass": "{{ email_password }}",
+    "tls": true
+  }
+}

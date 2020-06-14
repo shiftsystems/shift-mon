@@ -9,7 +9,7 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name armin.local.mathiasp.me;
+    server_name {{ influxdb_fqdn }};
     ssl_certificate /etc/letsencrypt/live/{{ influxdb_fqdn }}/cert.pem;
     ssl_certificate_key /etc/letsencrypt/live/{{ influxdb_fqdn }}/privkey.pem;
 

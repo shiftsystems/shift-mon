@@ -1,7 +1,6 @@
-# HTTP server. In this example, we use a wildcard as server name.
 server {
     server_name _;
-#    server_name {{ meshcentral_fqdn }};
+    server_name {{ meshcentral_fqdn }};
     proxy_send_timeout 330s;
     proxy_read_timeout 330s;
     location / {
@@ -14,22 +13,19 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/{{ influxdb_fqdn }}/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/{{ influxdb_fqdn }}/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
+    ssl_certificate /etc/letsencrypt/live/{{ influxdb_fqdn }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ influxdb_fqdn }}/privkey.pem;
 } 
 
 server {
     if ($host = {{ meshcentral_fqdn }}) {
         return 302 https://$host$request_uri;
-    } # managed by Certbot
+    }
 
 
     listen 80;
     server_name {{ meshcentral_fqdn }};
-    return 404; # managed by Certbot
+    return 404;
 
 
 }
