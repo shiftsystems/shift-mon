@@ -7,3 +7,10 @@ all:
     meshcentral_fqdn: mesh.shiftsystems.net
     from_email: text.example.com
     ansible_python_interpreter: /usr/bin/python3
+    title: "Shift Shiftsystems RMM"
+    title2: "a dope RMM server"
+    mail_host: ""
+    email_port: 465
+    from_address: ""
+    email_username: ""
+    email_password: ""
