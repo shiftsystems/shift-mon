@@ -2,3 +2,7 @@ packages:
   - nodejs
   - npm
   - mongodb
+
+services:
+  - mongodb
+  - meshcentral

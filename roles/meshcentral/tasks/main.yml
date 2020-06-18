@@ -47,10 +47,11 @@
   
 - name: start and enable services required for Meshcentral
   systemd:
-    name: meshcentral
+    name: "{{ item }}"
     state: restarted
     enabled: true
     daemon-reload: true
   become: true
+  with_items: "{{ services }}"
 
 
