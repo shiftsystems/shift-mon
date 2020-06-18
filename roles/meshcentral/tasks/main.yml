@@ -17,7 +17,7 @@
     shell: /sbin/nologin
     state: present
   become: true
-  
+
 - name: Create Meshcentral directory
   file:
     name: /opt/meshcentral
@@ -25,6 +25,15 @@
     owner: meshcentral
     group: meshcentral
   become: true
+
+- name: Create Meshcentral directory
+  file:
+    name: /opt/meshcentral/meshcentral-data
+    state: directory
+    owner: meshcentral
+    group: meshcentral
+  become: true
+
 
 - name: Install Meshcentral via npm
   npm:
@@ -38,13 +47,13 @@
     dest: /opt/meshcentral/meshcentral-data/config.json
   become: true
 - name: Add in service file for Meshcentral
-  copy: 
+  copy:
     src: meshcentral.service
     dest: /etc/systemd/system/meshcentral.service
   become: true
 
 
-  
+
 - name: start and enable services required for Meshcentral
   systemd:
     name: "{{ item }}"
