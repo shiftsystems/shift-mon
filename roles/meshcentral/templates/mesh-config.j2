@@ -1,12 +1,12 @@
 {
   "__comment__" : "This is a sample configuration file, edit a section and remove the _ in front of the name. Refer to the user's guide for details.",
   "settings": {
-    "_Cert": "rmm.shiftsystems.net",
+    "Cert": "{{ meshcentral_fqdn }}",
     "MongoDb": "mongodb://127.0.0.1:27017",
     "MongoDbName": "meshcentral",
     "_MongoDbChangeStream": true,
     "WANonly": true,
-    "_LANonly": true,
+    "LANonly": false,
     "_Minify": 1,
     "_SessionTime": 30,
     "_SessionKey": "MyReallySecretPassword1",
@@ -160,8 +160,8 @@
     "host": "{{ mail_host }}",
     "port": {{ email_port }},
     "from": "{{ from_address }}",
-        "user": "{{ email_password }}",
-        "pass": "{{ email_password }}",
+    "user": "{{ email_username }}",
+    "pass": "{{ email_password }}",
     "tls": true
   }
 }
