@@ -26,7 +26,7 @@
     group: meshcentral
   become: true
 
-- name: Create Meshcentral directory
+- name: Create Meshcentral data directory
   file:
     name: /opt/meshcentral/meshcentral-data
     state: directory
@@ -34,6 +34,21 @@
     group: meshcentral
   become: true
 
+- name: Create Meshcentral Images directory
+  file:
+    name: /opt/meshcentral/meshcentral-data/images/
+    state: directory
+    owner: meshcentral
+    group: meshcentral
+  become: true
+
+- name: Add frontpage logo
+  copy:
+    src: logo.png
+    dest: /opt/meshcentral/meshcentral-data/images/logo.png
+    owner: meshcentral
+    group: meshcentral
+  become: true
 
 - name: Install Meshcentral via npm
   npm:
