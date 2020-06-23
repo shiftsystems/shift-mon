@@ -1,10 +1,14 @@
-all: 
+all:
   hosts:
     test-rmm.shiftsystems.net
+	  mesh: true
+	  grafana: true
+	  influxdb: true
   vars:
     influxdb_fqdn: influxdb.shiftsystems.net
     grafana_fqdn: grafana.shiftsystems.net
     meshcentral_fqdn: mesh.shiftsystems.net
+	nginx: false
     from_email: text.example.com
     ansible_python_interpreter: /usr/bin/python3
     title: "Shift Shiftsystems RMM"
