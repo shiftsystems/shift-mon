@@ -10,8 +10,8 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name {{ grafana_fqdn }};
-    ssl_certificate /etc/letsencrypt/live/{{ influxdb_fqdn }}/cert.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ influxdb_fqdn }}/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/{{ grafana_fqdn }}/cert.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ grafana_fqdn }}/privkey.pem;
 
     # Add headers to serve security related headers
     # Before enabling Strict-Transport-Security headers please read into this

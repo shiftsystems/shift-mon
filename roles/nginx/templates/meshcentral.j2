@@ -13,8 +13,8 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/{{ influxdb_fqdn }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ influxdb_fqdn }}/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/{{ meshcentral_fqdn }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ meshcentral_fqdn }}/privkey.pem;
 } 
 
 server {
