@@ -1,18 +1,19 @@
 all:
   hosts:
-    test-rmm.shiftsystems.net
-	  mesh: true
-	  grafana: true
-	  influxdb: true
+    test.example.com:
+	    mesh: true
+	    grafana: true
+	    influxdb: true
   vars:
-    influxdb_fqdn: influxdb.shiftsystems.net
-    grafana_fqdn: grafana.shiftsystems.net
-    meshcentral_fqdn: mesh.shiftsystems.net
+    influxdb_fqdn: influxdb.example.com
+    grafana_fqdn: grafana.example.com
+    meshcentral_fqdn: mesh.example.com
 	nginx: false
-    from_email: text.example.com
+    from_email: text@example.com
     ansible_python_interpreter: /usr/bin/python3
-    title: "Shift Shiftsystems RMM"
-    title2: "a dope RMM server"
+    title_text: "Shift Shiftsystems RMM"
+    welcome_text: "a dope RMM server"
+    footer_text: "<a href='https://shiftsystems.net'>Shift Systems</a>"
     mail_host: ""
     email_port: 465
     from_address: ""

@@ -42,18 +42,26 @@
     group: meshcentral
   become: true
 
-- name: Add frontpage logo
-  copy:
-    src: logo.png
-    dest: /opt/meshcentral/meshcentral-data/images/logo.png
-    owner: meshcentral
-    group: meshcentral
-  become: true
-
 - name: Install Meshcentral via npm
   npm:
     name: meshcentral
     path: /opt/meshcentral
+  become: true
+
+- name: Add Title Image
+  copy:
+    src: title.png
+    dest: /opt/meshcentral/meshcentral-data/images/title.png
+    owner: meshcentral
+    group: meshcentral
+  become: true
+
+- name: Add Welcome Image
+  copy:
+    src: welcome.png
+    dest: /opt/meshcentral/meshcentral-data/images/welcome.png
+    owner: meshcentral
+    group: meshcentral
   become: true
 
 - name: Copy in meshcentral config file
@@ -61,6 +69,7 @@
     src: mesh-config.j2
     dest: /opt/meshcentral/meshcentral-data/config.json
   become: true
+
 - name: Add in service file for Meshcentral
   copy:
     src: meshcentral.service
