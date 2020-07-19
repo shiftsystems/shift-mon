@@ -1,2 +1,10 @@
 packages: 
 - influxdb
+
+influx_directories:
+- /var/lib/influxdb2/
+- /var/lib/influxdb2/engine/
+
+info_files:
+- /usr/local/bin/LICENSE
+- /usr/local/bin/README.md

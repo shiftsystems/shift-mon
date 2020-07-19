@@ -1,27 +1,49 @@
-- name: add GPG key for repo on Debian based systems
-  apt_key:
-    url: https://repos.influxdata.com/influxdb.key
-    state: present
-  become: true
-  when : ansible_facts['os_family'] == "Debian"
-
-- name: add repo for Debian based systems
-  apt_repository:
-    repo: "deb https://repos.influxdata.com/ubuntu bionic stable"
-    state: present
-    update_cache: no
+- name: download and extract influxdb
+  unarchive:
+    src: https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.14_linux_amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
   become: true
 
-- name: install install packages for Influxdb
-  apt:
-    name: "{{ packages }}"
-    update_cache: true
-    state: present
+- name: remove info files
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ info_files }}"
   become: true
 
-- name: start and enable Influxdb
-  systemd:
+- name: create influxdb group
+  group:
     name: influxdb
-    enabled: yes
-    state: restarted
+    state: present
   become: true
+
+- name: create influxdb user
+  user: 
+    name: influxdb
+    state: present
+  become: true
+
+- name: create influxdb storage directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: influxdb
+    group: influxdb
+  become: true
+  with_items: "{{ influx_directories }}"  
+
+- name: copy influxdb service
+  copy:
+    src: influxd2.service
+    dest: /etc/systemd/system/influxd2.service
+  become: true
+
+- name: start and enable influxdb service
+  systemd:
+    name: influxd2
+    state: restarted
+    enabled: true
+  become: true
+
+
