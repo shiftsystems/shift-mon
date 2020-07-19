@@ -39,16 +39,29 @@
     state: present
   become: true
   when: ansible_facts['os_family'] == "RedHat"
-
-- name: copy Telegraf config
+- name: add telegraf defaults file
   template:
-    src: telegraf.j2
-    dest: /etc/telegraf/telegraf.conf
+    src: telegraf-defaults.j2
+    dest: /etc/default/telegraf
   become: true
 
-- name: start and enable Telegraf
+- name: copy Shift Metrics service
+  template:
+    src: shift-metrics.j2
+    dest: /usr/lib/systemd/system/shift-metrics.service
+  become: true
+
+- name: stop and disable default telegraf service
+  systemd:
+    name: telegraf
+    enabled: false
+    state: stopped
+  become: true
+
+  - name: start and enable shift-metrics service
   systemd:
     name: telegraf
     enabled: yes
     state: restarted
+    daemon-reload: true
   become: true
