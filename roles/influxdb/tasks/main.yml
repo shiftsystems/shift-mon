@@ -1,6 +1,6 @@
 - name: download and extract influxdb
   unarchive:
-    src: https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.14_linux_amd64.tar.gz
+    src: https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.15_linux_amd64.tar.gz
     dest: /usr/local/bin
     remote_src: yes
   become: true
@@ -19,7 +19,7 @@
   become: true
 
 - name: create influxdb user
-  user: 
+  user:
     name: influxdb
     state: present
   become: true
@@ -31,7 +31,7 @@
     owner: influxdb
     group: influxdb
   become: true
-  with_items: "{{ influx_directories }}"  
+  with_items: "{{ influx_directories }}"
 
 - name: copy influxdb service
   copy:
