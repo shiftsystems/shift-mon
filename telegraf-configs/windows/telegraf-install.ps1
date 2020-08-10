@@ -29,7 +29,7 @@ If(!(test-path $path))
 }
 
 # download and install telegraf config
-$url = "https://gitlab.com/tiny6996/ansible-playbooks/-/raw/master/inventories/win-telegraf.conf"
+$url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/telegraf.conf"
 $output = "C:\Program Files\telegraf\conf\telegraf.conf"
 Invoke-WebRequest -Uri $url -OutFile $output
 
