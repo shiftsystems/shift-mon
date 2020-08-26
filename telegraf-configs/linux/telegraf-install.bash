@@ -20,10 +20,10 @@ case $ID in
         apt update
         apt -y install telegraf
         ;;
-    "ubuntu")
+    "ubuntu"|"neon")
         source /etc/lsb-release
         wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
-        echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
+        echo "deb https://repos.influxdata.com/ubuntu ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
         apt update
         apt -y dist-upgrade
         ;;
