@@ -11,7 +11,7 @@ source /etc/os-release
 case $ID in
     "debian")
         apt update
-        apt install apt-transport-https
+        apt install apt-transport-https curl software-properties-common
         wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
         test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | tee /etc/apt/sources.list.d/influxdb.list
         test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | tee /etc/apt/sources.list.d/influxdb.list
@@ -21,11 +21,12 @@ case $ID in
         apt -y install telegraf
         ;;
     "ubuntu"|"neon")
+        apt update
+        apt install software-properties-common apt-trasnport-https curl
         source /etc/lsb-release
         wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
         echo "deb https://repos.influxdata.com/ubuntu ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
-        apt update
-        apt -y dist-upgrade
+        apt -y install telegraf
         ;;
     "fedora")
         cat <<EOF | tee /etc/yum.repos.d/influxdb.repo
