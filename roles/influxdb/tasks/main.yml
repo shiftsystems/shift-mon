@@ -54,5 +54,3 @@
     enabled: true
     daemon-reload: true
   become: true
-
-
