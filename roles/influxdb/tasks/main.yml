@@ -5,11 +5,13 @@
     remote_src: yes
   become: true
 
-- name: copy influxd and influx binaries
+- name: link influxd and influx binaries
   file:
-    src: /usr/local/bin/influxdb_2.0.0-beta.16_linux_amd64/{{ item }}
-    dest: /usr/local/bin/{{ item }}
-  with_items: {{ binaries }}
+    src: "/usr/local/bin/influxdb_2.0.0-beta.16_linux_amd64/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    state: link
+  with_items: "{{ binaries }}"
+  become: true
   
 - name: remove info files
   file:
