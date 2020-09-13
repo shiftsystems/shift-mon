@@ -29,7 +29,7 @@
 - name: get a certificate for influxdb 
   shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
   become: true
-  when: influx
+  when: influxdb
 
 - name: get a certificate for grafana
   shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ grafana_fqdn }}

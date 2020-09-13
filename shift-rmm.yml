@@ -5,7 +5,7 @@
       when: mesh
     - import_role:
         name: influxdb
-      when: influx
+      when: influxdb
     - import_role:
         name: grafana
       when: grafana

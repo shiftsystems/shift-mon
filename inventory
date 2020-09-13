@@ -2,8 +2,9 @@ all:
   hosts:
     test.example.com:
 	    mesh: true
-	    grafana: true
+	    grafana: false
 	    influxdb: true
+      nginx: true
   vars:
     influxdb_fqdn: influxdb.example.com
     grafana_fqdn: grafana.example.com
@@ -20,5 +21,4 @@ all:
     email_username: ""
     email_password: ""
     influx_token: ""
-    influx_remote_config: ""
 
