@@ -1,17 +1,16 @@
 all:
   hosts:
     test.example.com:
-	    mesh: true
-	    grafana: false
-	    influxdb: true
-      nginx: true
+      mesh: true
+      grafana: false
+      influxdb: true
   vars:
     influxdb_fqdn: influxdb.example.com
     grafana_fqdn: grafana.example.com
     meshcentral_fqdn: mesh.example.com
-	nginx: false
-    from_email: text@example.com
+    nginx: true
     ansible_python_interpreter: /usr/bin/python3
+    ansible_connection: local
     title_text: "Shift Shiftsystems RMM"
     welcome_text: "a dope RMM server"
     footer_text: "<a href='https://shiftsystems.net'>Shift Systems</a>"
@@ -21,4 +20,5 @@ all:
     email_username: ""
     email_password: ""
     influx_token: ""
+    influx_org: "shiftsystems"
 
