@@ -86,7 +86,7 @@ WIP
 ## Installing Telegraf on Other Devices
 
 ### Proxmox
-Use the instructions located on the [Shfit Systems blog](https://shiftsystems.net/blog/proxmox-metrics-to-influx/)
+Use the instructions located on the [Shift Systems blog](https://shiftsystems.net/blog/proxmox-metrics-to-influx/)
 
 ### Pfsense
 WIP
