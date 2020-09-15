@@ -20,7 +20,7 @@ Please make sure you have DNS A and/or AAAA records for the domains you want Mes
 To prevent conflicts in the future, I recommend copying the Ansible inventory outside of the git repo. I copy mine to the parent folder of the repo by running ```cp inventory ../```
 
 Next, Fill out the inventory. I will explain what each of the values means.
-* ansible_connection: how Ansible should communicate with the host(s) use local if you are running the playbook from the host that you are running Shift RMM on if you are using a remote host or multiple hosts change it from local to SSH
+* ansible_connection: how Ansible should communicate with the host(s) use local if you are running the playbook from the host that you are running Shift RMM on if you are using a remote host or multiple hosts change it from local to ssh
 * influx_fqdn: the domain your want InfluxDB to be on. Requires a DNS A and/or AAAA record pointed to it
 * grafana_fqdn: the domain you want Grafana to be on. Requires a DNS A and/or AAAA record pointed to it Grafana is not officially supported but there if you prefer it for dashboarding
 * meshcentral_fqdn: the domain you want MeshCentral to be on. Requires a DNS A and/or AAAA record pointed to it
@@ -43,7 +43,7 @@ while in the shift-rmm directory, run the following command:
 ### Setup the Admin User for InfluxDB
 First, navigate to the URL you defined for InfluxDB and click get started.
 Then fill out your username and password. 
-For the initial org name use ShiftSystems if you don't want to change any scripts or configs later, and set the initial bucket to anything but Windows, Linux, Proxmox, or Pfsense otherwise you will not be able to import the template.
+For the initial org name use shiftsystems if you don't want to change any scripts or configs later, and set the initial bucket to anything but Windows, Linux, Proxmox, or Pfsense otherwise you will not be able to import the template.
 You can add additional buckets later.
 In the next screen, just click on configure later since we will be configuring our own buckets and dashboards.
 
