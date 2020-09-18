@@ -9,7 +9,7 @@ An open source remote monitoring and management tool based on Telegraf, Influxdb
 ## Installation
 
 ### Setup Ansible on your machine 
-* On Ubuntu, install Ansible by running ```sudo apt update && sudo apt install Ansible git python3-apt software-properties-common```
+* On Ubuntu, install Ansible by running ```sudo apt update && sudo apt install ansible git python3-apt software-properties-common```
 
 ### Clone the Repo
 Clone the repo by running the following command ```git clone https://gitlab.com/shiftsystems/shift-rmm.git && cd shift-rmm```
