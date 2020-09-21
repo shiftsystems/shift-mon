@@ -14,6 +14,7 @@ all:
     title_text: "Shift Shiftsystems RMM"
     welcome_text: "a dope RMM server"
     footer_text: "<a href='https://shiftsystems.net'>Shift Systems</a>"
+    certbot_email: ""
     mail_host: ""
     email_port: 465
     from_address: ""
