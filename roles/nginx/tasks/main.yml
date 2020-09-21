@@ -27,17 +27,17 @@
   with_items: "{{ services }}"
 
 - name: get a certificate for influxdb 
-  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
+  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ certbot_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
   become: true
   when: influxdb
 
 - name: get a certificate for grafana
-  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ grafana_fqdn }}
+  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ certbot_email }} --agree-tos --renew-by-default -d {{ grafana_fqdn }}
   become: true
   when: grafana
 
 - name: get a certificate for meshcentral
-  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ from_email }} --agree-tos --renew-by-default -d {{ meshcentral_fqdn }}
+  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ certbot_email }} --agree-tos --renew-by-default -d {{ meshcentral_fqdn }}
   become: true
   when: mesh
 
