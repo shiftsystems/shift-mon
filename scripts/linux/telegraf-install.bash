@@ -22,7 +22,7 @@ case $ID in
         ;;
     "ubuntu"|"neon")
         apt update
-        apt install software-properties-common apt-trasnport-https curl
+        apt install software-properties-common apt-transport-https curl
         source /etc/lsb-release
         wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
         echo "deb https://repos.influxdata.com/ubuntu ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
