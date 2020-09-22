@@ -11,7 +11,7 @@ source /etc/os-release
 case $ID in
     "debian")
         apt update
-        apt install apt-transport-https curl software-properties-common
+        apt -y install apt-transport-https curl software-properties-common
         wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
         test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | tee /etc/apt/sources.list.d/influxdb.list
         test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | tee /etc/apt/sources.list.d/influxdb.list
@@ -22,7 +22,7 @@ case $ID in
         ;;
     "ubuntu"|"neon")
         apt update
-        apt install software-properties-common apt-transport-https curl
+        apt -y install software-properties-common apt-transport-https curl
         source /etc/lsb-release
         wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
         echo "deb https://repos.influxdata.com/ubuntu ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
@@ -52,6 +52,7 @@ url="$INFLUXDB_URL"
 EOF
 # copy telegraf config from gitlab
 curl -o /etc/telegraf/telegraf.conf $TELEGRAF_CONFIG_URL
+
 # restart and enable telegraf
 systemctl enable telegraf
 systemctl restart telegraf
