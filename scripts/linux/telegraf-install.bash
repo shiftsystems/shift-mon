@@ -28,7 +28,7 @@ case $ID in
         echo "deb https://repos.influxdata.com/ubuntu ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
         apt -y install telegraf
         ;;
-    "fedora")
+    "fedora"|"centos"|"rhel")
         cat <<EOF | tee /etc/yum.repos.d/influxdb.repo
 [influxdb]
 name = InfluxDB Repository
