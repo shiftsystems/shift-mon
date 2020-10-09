@@ -1,6 +1,6 @@
 # Shift RMM
 
-An open source remote monitoring and management tool based on Telegraf, Influxdb, and MeshCentral.
+An open source remote monitoring and management tool based on Telegraf, InfluxDB, and MeshCentral.
 
 ## Requirements
 * Ubuntu 20.04 (Probably works with 18.04)
@@ -20,24 +20,29 @@ Please make sure you have DNS A and/or AAAA records for the domains you want Mes
 To prevent conflicts in the future, I recommend copying the Ansible inventory outside of the git repo. I copy mine to the parent folder of the repo by running ```cp inventory ../```
 
 Next, Fill out the inventory by running ```nano ../inventory```.
-DO NOT EDIT THE INVENTORY IN THE REPO THIS WILL CAUSE PROBELEMS LATER.
+*DO NOT EDIT THE INVENTORY IN THE REPO THIS WILL CAUSE PROBELEMS LATER*
 I will explain what each of the values means.
-* The host section requires you have one hostname software will be installed. Each line below that list the components that make up shift rmm. true means turn it on, and false means turn it off.  If you want to use separate hosts for influxdb and meshcentral, copy the host block and change all components you want installed that box to true for each host.
+* The host section requires you have one host where software will be installed. 
+Each indented line below  lists the components that make up Shift RMM. 
+True means turn it on and false means turn it off. 
+If you want to use separate hosts for InfluxDB and MeshCentral, copy the host block and change all components you want installed on that box to true for each host.
 * influx_fqdn: the domain your want InfluxDB to be on. Requires a DNS A and/or AAAA record pointed to it
 * grafana_fqdn: the domain you want Grafana to be on. Requires a DNS A and/or AAAA record pointed to it Grafana is not officially supported but there if you prefer it for dashboarding
 * meshcentral_fqdn: the domain you want MeshCentral to be on. Requires a DNS A and/or AAAA record pointed to it
-* nginx: weather or not to use nginx as a reverse proxy on all hosts.
-* ansible_python_interpreter: the python interpreter that Ansible to use please do not change as this could cause Ansible to not work correctly or ignore the inventory.
-* ansible_connection: how Ansible should communicate with the host(s) use local if you are running the playbook from the host that you are running Shift RMM on if you are using a remote host or multiple hosts change it from local to ssh
+* nginx: whether or not to use NGINX as a reverse proxy on all hosts.
+* ansible_python_interpreter: the Python interpreter that Ansible to use please do not change as this could cause Ansible to not work correctly or ignore the inventory.
+* ansible_connection: how Ansible should communicate with the host(s). 
+Use local if you are running the playbook from the host that Shift RMM runs on. 
+If you are using a remote host or multiple hosts, change it from local to ssh
 * title_text: "Title that shows on main page"
 * welcome_text: "tag line that shows on the login page"
-* footer_text: HTML that displays on the button left of every page.
+* footer_text: HTML that displays on the bottom left of every page.
 * certbot_email: the email address used for Let's Encrypt certs
 * mail_host: the SMTP server you wish to use
 * from_address: the email address email will be sent from
 * email_username: username for the email account that you wish to send email from
 * email_password: password for the email account that you wish to send email from
-* influx_token: Leave empty for now we will add our influx token after influxdb has been installed
+* influx_token: leave empty for now we will add our Influx token after InfluxDB has been installed
 * influx_org: leave as shiftsystems unless you want to edit a bunch of scripts later for custom branding.
 
 If you want to use your logo, replace the logo.png file with your own image.
@@ -59,7 +64,7 @@ Once you have set up your admin account click on data then click on tokens then 
 
 ### Import the InfluxDB Dashboards and Buckets
 Now that you have an access token defined, run the Ansible task for importing the Shift RMM template by running ```ansible-playbook shift-rmm.yml -i ../inventory --ask-become-pass --tags "influx_template"```. Whenever you run this playbook to update Shift-rmm, this will import the latest version of this Influx template.
-For the MeshCentral integration to work correctly, PLEASE CHANGE the ```mesh_info``` variable from test.example.com to your domain by clicking on settings > variables mesh_info. This will need to be done after each update.
+For the MeshCentral integration to work correctly, *PLEASE CHANGE* the ```mesh_info``` variable from test.example.com to your domain by clicking on settings > variables mesh_info. This will need to be done after each update.
 
 ### Generate Additional Tokens for Each Bucket
 It is not good practice to use all access tokens for Telegraf collectors because if one endpoint gets compromised, they will be able to have their way with your InfluxDB instance.
@@ -74,7 +79,7 @@ You will now need to create a device group by clicking on the create device grou
 There is no limit to the number of device groups you can have.
 
 ### Add the Scripting Plugin for MeshCentral
-Out of the box Meshcentral cannot push scripts a plugin needs to be installed, to do this, click on the "my server" icon which is the bottom icon on the left. Click on the Plugins tab, and click on download plugin then paste in ```https://raw.githubusercontent.com/ryanblenis/MeshCentral-ScriptTask/master/config.json```. Next, on the action dropdown menu click on install.
+Out-of-the-box MeshCentral cannot push scripts. A plugin needs to be installed. To install the plugin, click on the "my server" icon which is the bottom icon on the left. Click on the Plugins tab, and click on download plugin then paste in ```https://raw.githubusercontent.com/ryanblenis/MeshCentral-ScriptTask/master/config.json```. Next, on the action dropdown menu click on install.
 
 ### Adding Your First Agents 
 Agents can either be added by downloading an agent from MeshCentral by clicking on add agent in the UI and selecting the correct option from the dropdown.
