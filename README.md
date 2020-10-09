@@ -20,7 +20,7 @@ Please make sure you have DNS A and/or AAAA records for the domains you want Mes
 To prevent conflicts in the future, I recommend copying the Ansible inventory outside of the git repo. I copy mine to the parent folder of the repo by running ```cp inventory ../```
 
 Next, Fill out the inventory by running ```nano ../inventory```.
-*DO NOT EDIT THE INVENTORY IN THE REPO THIS WILL CAUSE PROBELEMS LATER*
+**DO NOT EDIT THE INVENTORY IN THE REPO THIS WILL CAUSE PROBELEMS LATER**
 I will explain what each of the values means.
 * The host section requires you have one host where software will be installed. 
 Each indented line below  lists the components that make up Shift RMM. 
@@ -64,7 +64,7 @@ Once you have set up your admin account click on data then click on tokens then 
 
 ### Import the InfluxDB Dashboards and Buckets
 Now that you have an access token defined, run the Ansible task for importing the Shift RMM template by running ```ansible-playbook shift-rmm.yml -i ../inventory --ask-become-pass --tags "influx_template"```. Whenever you run this playbook to update Shift-rmm, this will import the latest version of this Influx template.
-For the MeshCentral integration to work correctly, *PLEASE CHANGE* the ```mesh_info``` variable from test.example.com to your domain by clicking on settings > variables mesh_info. This will need to be done after each update.
+For the MeshCentral integration to work correctly, **PLEASE CHANGE** the ```mesh_info``` variable from test.example.com to your domain by clicking on settings > variables mesh_info. This will need to be done after each update.
 
 ### Generate Additional Tokens for Each Bucket
 It is not good practice to use all access tokens for Telegraf collectors because if one endpoint gets compromised, they will be able to have their way with your InfluxDB instance.
