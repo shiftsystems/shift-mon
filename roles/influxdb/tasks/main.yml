@@ -1,13 +1,13 @@
 - name: Download and extract influxdb
   unarchive:
-    src: https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0_linux_amd64.tar.gz
+    src: https://dl.influxdata.com/influxdb/releases/influxdb-2.0.1_linux_amd64.tar.gz
     dest: /usr/local/bin
     remote_src: yes
   become: true
 
 - name: Link influxd and influx binaries
   file:
-    src: "/usr/local/bin/influxdb-2.0.0_linux_amd64/{{ item }}"
+    src: "/usr/local/bin/influxdb-2.0.1_linux_amd64/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
     state: link
   with_items: "{{ binaries }}"
