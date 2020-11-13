@@ -1,11 +1,5 @@
-influx_directories:
-- /var/lib/influxdb2/
-- /var/lib/influxdb2/engine/
+packages:
+  - influxdb
 
-info_files:
-- /usr/local/bin/LICENSE
-- /usr/local/bin/README.md
-
-binaries:
-- influxd
-- influx
+services:
+  - influxdb

@@ -1,62 +1,30 @@
-- name: Download and extract influxdb
-  unarchive:
-    src: https://dl.influxdata.com/influxdb/releases/influxdb-2.0.1_linux_amd64.tar.gz
-    dest: /usr/local/bin
-    remote_src: yes
-  become: true
 
-- name: Link influxd and influx binaries
-  file:
-    src: "/usr/local/bin/influxdb-2.0.1_linux_amd64/{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    state: link
-  with_items: "{{ binaries }}"
+- name: add GPG key for repo on Debian based systems
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
   become: true
+  when : ansible_facts['os_family'] == "Debian"
 
-- name: Remove info files
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items: "{{ info_files }}"
+- name: add repo for Debian based systems
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/ubuntu focal stable"
+    state: present
+    update_cache: no
   become: true
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: Create influxdb group
-  group:
-    name: influxdb
+- name: Install influxdb
+  apt:
+    name: "{{ packages }}"
     state: present
   become: true
 
-- name: Create influxdb user
-  user:
-    name: influxdb
-    state: present
-  become: true
-
-- name: Create influxdb storage directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: influxdb
-    group: influxdb
-  become: true
-  with_items: "{{ influx_directories }}"
-
-- name: Copy influxdb service
-  copy:
-    src: influxd2.service
-    dest: /etc/systemd/system/influxd2.service
-  become: true
-
-- name: Start and enable influxdb service
+- name: start and enable influxdb
   systemd:
-    name: influxd2
+    name: "{{ item }}"
     state: restarted
     enabled: true
     daemon-reload: true
   become: true
-
-- name: Import Shift Systems template
-  shell: influx apply -o {{ influx_org }} -u https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/influx-template.yml -t {{ influx_token }} --force true
-  when: influx_token != "" and influx_org != ""
-  tags:
-    - influx_template
+  with_items: "{{ services }}"
