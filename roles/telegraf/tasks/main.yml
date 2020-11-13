@@ -24,7 +24,6 @@
   become: true
   when: ansible_facts['os_family'] == "RedHat"
 
-
 - name: install Telegraf on Debian based systems
   apt:
     name: telegraf
@@ -39,29 +38,23 @@
     state: present
   become: true
   when: ansible_facts['os_family'] == "RedHat"
+
 - name: add telegraf defaults file
   template:
     src: telegraf-defaults.j2
     dest: /etc/default/telegraf
   become: true
 
-- name: copy Shift Metrics service
-  template:
-    src: shift-metrics.j2
-    dest: /usr/lib/systemd/system/shift-metrics.service
+- name: Download telegraf config
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
   become: true
 
-- name: stop and disable default telegraf service
+- name: Start and Enable Telegraf
   systemd:
     name: telegraf
-    enabled: false
-    state: stopped
-  become: true
-
-  - name: start and enable shift-metrics service
-  systemd:
-    name: telegraf
-    enabled: yes
+    enabled: true
     state: restarted
-    daemon-reload: true
   become: true
+
