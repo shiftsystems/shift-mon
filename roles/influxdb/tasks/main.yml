@@ -1,62 +1,11 @@
-- name: Download and extract influxdb
-  unarchive:
-    src: https://dl.influxdata.com/influxdb/releases/influxdb-2.0.1_linux_amd64.tar.gz
-    dest: /usr/local/bin
-    remote_src: yes
+- name: Install Influxdb from Deb File
+  apt:
+    deb: https://dl.influxdata.com/influxdb/releases/influxdb_{{ influx_version }}_amd64.deb
   become: true
 
-- name: Link influxd and influx binaries
-  file:
-    src: "/usr/local/bin/influxdb-2.0.1_linux_amd64/{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    state: link
-  with_items: "{{ binaries }}"
-  become: true
-
-- name: Remove info files
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items: "{{ info_files }}"
-  become: true
-
-- name: Create influxdb group
-  group:
-    name: influxdb
-    state: present
-  become: true
-
-- name: Create influxdb user
-  user:
-    name: influxdb
-    state: present
-  become: true
-
-- name: Create influxdb storage directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: influxdb
-    group: influxdb
-  become: true
-  with_items: "{{ influx_directories }}"
-
-- name: Copy influxdb service
-  copy:
-    src: influxd2.service
-    dest: /etc/systemd/system/influxd2.service
-  become: true
-
-- name: Start and enable influxdb service
-  systemd:
-    name: influxd2
+- name: Start and Enable Influxdb
+  systemd: 
+    name: influxd
     state: restarted
     enabled: true
-    daemon-reload: true
   become: true
-
-- name: Import Shift Systems template
-  shell: influx apply -o {{ influx_org }} -u https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/influx-template.yml -t {{ influx_token }} --force true
-  when: influx_token != "" and influx_org != ""
-  tags:
-    - influx_template

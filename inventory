@@ -20,6 +20,5 @@ all:
     from_address: ""
     email_username: ""
     email_password: ""
-    influx_token: ""
     influx_org: "shiftsystems"
 
