@@ -1,40 +1,71 @@
 apiVersion: influxdata.com/v2alpha1
 kind: Label
 metadata:
-    name: lucid-snyder-480001
+    name: amazing-liskov-880001
 spec:
     color: '#9bf445'
     name: shift-rmm
 ---
 apiVersion: influxdata.com/v2alpha1
-kind: CheckDeadman
+kind: Bucket
 metadata:
-    name: friendly-tereshkova-c8000b
+    name: hardcore-lalande-880011
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    every: 1m0s
-    level: CRIT
-    name: Proxmox Node Down
-    query: |-
-        from(bucket: "proxmox")
-          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "cpustat")
-          |> filter(fn: (r) => r["_field"] == "avg5")
-    staleTime: 10m0s
-    status: active
-    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.host}'
-    timeSince: 5m0s
+        name: amazing-liskov-880001
+    name: windows
+    retentionRules:
+      - everySeconds: 1.2096e+06
+        type: expire
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: hopeful-wright-880005
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    name: linux
+    retentionRules:
+      - everySeconds: 1.2096e+06
+        type: expire
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: nifty-wozniak-88000d
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    name: proxmox
+    retentionRules:
+      - everySeconds: 1.2096e+06
+        type: expire
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: wondrous-curran-880009
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    name: pfsense
+    retentionRules:
+      - everySeconds: 1.2096e+06
+        type: expire
 ---
 apiVersion: influxdata.com/v2alpha1
 kind: CheckDeadman
 metadata:
-    name: inspiring-dubinsky-c80003
+    name: affectionate-merkle-080011
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 15m0s
     level: CRIT
     name: Pfsense Host Down
@@ -51,11 +82,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckDeadman
 metadata:
-    name: quizzical-meitner-880015
+    name: burfect-visvesvaraya-080005
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 1m0s
     level: CRIT
     name: Linux host Down
@@ -73,11 +104,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckDeadman
 metadata:
-    name: unruffled-kirch-c8001b
+    name: dangerous-booth-480017
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 1m0s
     level: CRIT
     name: Windows Host Down
@@ -92,131 +123,46 @@ spec:
     timeSince: 1m30s
 ---
 apiVersion: influxdata.com/v2alpha1
-kind: CheckThreshold
+kind: CheckDeadman
 metadata:
-    name: admiring-euler-880005
+    name: youthful-solomon-480007
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 1m0s
-    name: Failed SSL
+    level: CRIT
+    name: Proxmox Node Down
     query: |-
-        from(bucket: "linux")
+        from(bucket: "proxmox")
           |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "x509_cert")
-          |> filter(fn: (r) => r["_field"] == "verification_code")
-          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-          |> yield(name: "mean")
+          |> filter(fn: (r) => r["_measurement"] == "cpustat")
+          |> filter(fn: (r) => r["_field"] == "avg5")
+    staleTime: 10m0s
     status: active
-    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.source}'
-    thresholds:
-      - level: CRIT
-        type: greater
-        value: 0.1
+    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.host}'
+    timeSince: 5m0s
 ---
 apiVersion: influxdata.com/v2alpha1
 kind: CheckThreshold
 metadata:
-    name: affectionate-mclaren-c8000f
+    name: adventuring-poincare-480013
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    every: 24h0m0s
-    name: SSL Epiry Notice
-    query: |-
-        from(bucket: "linux")
-          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "x509_cert")
-          |> filter(fn: (r) => r["_field"] == "expiry")
-          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-          |> yield(name: "mean")
-    status: active
-    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.source}'
-    thresholds:
-      - level: WARN
-        type: lesser
-        value: 2.456943e+06
----
-apiVersion: influxdata.com/v2alpha1
-kind: CheckThreshold
-metadata:
-    name: compassionate-lamarr-c80007
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 10m0s
-    name: Pfsense Low disk Space
+    name: Windows High Ram Usage
     query: |-
-        from(bucket: "pfsense")
+        from(bucket: "windows")
           |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "disk")
+          |> filter(fn: (r) => r["_measurement"] == "mem")
           |> filter(fn: (r) => r["_field"] == "used_percent")
-          |> filter(fn: (r) => r["path"] == "/")
-          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-          |> yield(name: "mean")
-    status: active
-    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on host ${r.host} '
-    thresholds:
-      - level: CRIT
-        type: greater
-        value: 90
-      - level: WARN
-        type: greater
-        value: 70
----
-apiVersion: influxdata.com/v2alpha1
-kind: CheckThreshold
-metadata:
-    name: infallible-cohen-880009
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
-    every: 15m0s
-    name: Linux High CPU Usage
-    query: |-
-        from(bucket: "linux")
-          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "cpu")
-          |> filter(fn: (r) => r["_field"] == "usage_idle")
           |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
           |> yield(name: "mean")
     status: active
     statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.host}'
     thresholds:
-      - level: CRIT
-        type: lesser
-        value: 10
-      - level: WARN
-        type: lesser
-        value: 25
----
-apiVersion: influxdata.com/v2alpha1
-kind: CheckThreshold
-metadata:
-    name: infallible-montalcini-c8001f
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
-    every: 1m0s
-    name: Windows Low Disk Space
-    query: |-
-        from(bucket: "windows")
-          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "disk")
-          |> filter(fn: (r) => r["_field"] == "used_percent")
-          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-          |> yield(name: "mean")
-    status: active
-    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level }'
-    thresholds:
-      - level: WARN
-        type: greater
-        value: 70
       - level: CRIT
         type: greater
         value: 95
@@ -224,15 +170,15 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckThreshold
 metadata:
-    name: jolly-tharp-88000d
+    name: dreamy-keller-08000d
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 10m0s
-    name: Linux High Ram Usage
+    name: Pfsense High Ram Usage
     query: |-
-        from(bucket: "linux")
+        from(bucket: "pfsense")
           |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
           |> filter(fn: (r) => r["_measurement"] == "mem")
           |> filter(fn: (r) => r["_field"] == "used_percent")
@@ -248,64 +194,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckThreshold
 metadata:
-    name: lucid-albattani-480005
+    name: friendly-wilbur-c80007
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    every: 1h0m0s
-    name: Ansible Pull Failed
-    query: |-
-        from(bucket: "linux")
-          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "systemd_units")
-          |> filter(fn: (r) => r["name"] == "ansible-pull@base.service" or r["name"] == "ansible-pull@desktop.service")
-          |> filter(fn: (r) => r["_field"] == "active_code")
-          |> filter(fn: (r) => r["active"] == "failed")
-          |> aggregateWindow(every: 1m, fn: min, createEmpty: false)
-          |> yield(name: "min")
-    status: active
-    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${ r.host}'
-    thresholds:
-      - level: WARN
-        type: greater
-        value: 2
----
-apiVersion: influxdata.com/v2alpha1
-kind: CheckThreshold
-metadata:
-    name: lucid-turing-880011
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
-    every: 10m0s
-    name: Linux Low Disk Space
-    query: |-
-        from(bucket: "linux")
-          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "disk")
-          |> filter(fn: (r) => r["_field"] == "used_percent")
-          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-          |> yield(name: "mean")
-    status: active
-    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on host ${r.host} '
-    thresholds:
-      - level: CRIT
-        type: greater
-        value: 90
-      - level: WARN
-        type: greater
-        value: 70
----
-apiVersion: influxdata.com/v2alpha1
-kind: CheckThreshold
-metadata:
-    name: musing-kirch-880001
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 1m0s
     name: Failed HTTP
     query: |-
@@ -325,11 +218,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckThreshold
 metadata:
-    name: pensive-lamport-c80013
+    name: frosty-ritchie-48000f
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 5m0s
     name: Windows High CPU Usage
     query: |-
@@ -353,23 +246,156 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckThreshold
 metadata:
-    name: quirky-cartwright-c80017
+    name: goofy-stonebraker-480003
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 10m0s
-    name: Windows High Ram Usage
+    name: Pfsense Low disk Space
     query: |-
-        from(bucket: "windows")
+        from(bucket: "pfsense")
           |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "mem")
+          |> filter(fn: (r) => r["_measurement"] == "disk")
           |> filter(fn: (r) => r["_field"] == "used_percent")
+          |> filter(fn: (r) => r["path"] == "/")
+          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+          |> yield(name: "mean")
+    status: active
+    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on host ${r.host} '
+    thresholds:
+      - level: CRIT
+        type: greater
+        value: 90
+      - level: WARN
+        type: greater
+        value: 70
+---
+apiVersion: influxdata.com/v2alpha1
+kind: CheckThreshold
+metadata:
+    name: lucid-varahamihira-c8000b
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    every: 1m0s
+    name: Failed SSL
+    query: |-
+        from(bucket: "linux")
+          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+          |> filter(fn: (r) => r["_measurement"] == "x509_cert")
+          |> filter(fn: (r) => r["_field"] == "verification_code")
+          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+          |> yield(name: "mean")
+    status: active
+    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.source}'
+    thresholds:
+      - level: CRIT
+        type: greater
+        value: 0.1
+---
+apiVersion: influxdata.com/v2alpha1
+kind: CheckThreshold
+metadata:
+    name: mystifying-haibt-48000b
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    every: 24h0m0s
+    name: SSL Epiry Notice
+    query: |-
+        from(bucket: "linux")
+          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+          |> filter(fn: (r) => r["_measurement"] == "x509_cert")
+          |> filter(fn: (r) => r["_field"] == "expiry")
+          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+          |> yield(name: "mean")
+    status: active
+    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.source}'
+    thresholds:
+      - level: WARN
+        type: lesser
+        value: 2.456943e+06
+---
+apiVersion: influxdata.com/v2alpha1
+kind: CheckThreshold
+metadata:
+    name: optimistic-vaughan-080001
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    every: 10m0s
+    name: Linux Low Disk Space
+    query: |-
+        from(bucket: "linux")
+          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+          |> filter(fn: (r) => r["_measurement"] == "disk")
+          |> filter(fn: (r) => r["_field"] == "used_percent")
+          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+          |> yield(name: "mean")
+    status: active
+    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on host ${r.host} '
+    thresholds:
+      - level: CRIT
+        type: greater
+        value: 90
+      - level: WARN
+        type: greater
+        value: 70
+---
+apiVersion: influxdata.com/v2alpha1
+kind: CheckThreshold
+metadata:
+    name: rusty-yalow-c8000f
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    every: 15m0s
+    name: Linux High CPU Usage
+    query: |-
+        from(bucket: "linux")
+          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+          |> filter(fn: (r) => r["_measurement"] == "cpu")
+          |> filter(fn: (r) => r["_field"] == "usage_idle")
           |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
           |> yield(name: "mean")
     status: active
     statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${r.host}'
     thresholds:
+      - level: CRIT
+        type: lesser
+        value: 10
+      - level: WARN
+        type: lesser
+        value: 25
+---
+apiVersion: influxdata.com/v2alpha1
+kind: CheckThreshold
+metadata:
+    name: serene-ride-48001b
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    every: 1m0s
+    name: Windows Low Disk Space
+    query: |-
+        from(bucket: "windows")
+          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+          |> filter(fn: (r) => r["_measurement"] == "disk")
+          |> filter(fn: (r) => r["_field"] == "used_percent")
+          |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+          |> yield(name: "mean")
+    status: active
+    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level }'
+    thresholds:
+      - level: WARN
+        type: greater
+        value: 70
       - level: CRIT
         type: greater
         value: 95
@@ -377,15 +403,15 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckThreshold
 metadata:
-    name: silly-gates-88001d
+    name: sharp-thompson-c80013
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     every: 10m0s
-    name: Pfsense High Ram Usage
+    name: Linux High Ram Usage
     query: |-
-        from(bucket: "pfsense")
+        from(bucket: "linux")
           |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
           |> filter(fn: (r) => r["_measurement"] == "mem")
           |> filter(fn: (r) => r["_field"] == "used_percent")
@@ -401,11 +427,37 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: CheckThreshold
 metadata:
-    name: strange-tharp-880019
+    name: spectacular-williams-c80003
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
+    every: 1h0m0s
+    name: Ansible Pull Failed
+    query: |-
+        from(bucket: "linux")
+          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+          |> filter(fn: (r) => r["_measurement"] == "systemd_units")
+          |> filter(fn: (r) => r["name"] == "ansible-pull@base.service" or r["name"] == "ansible-pull@desktop.service")
+          |> filter(fn: (r) => r["_field"] == "active_code")
+          |> filter(fn: (r) => r["active"] == "failed")
+          |> aggregateWindow(every: 1m, fn: min, createEmpty: false)
+          |> yield(name: "min")
+    status: active
+    statusMessageTemplate: 'Check: ${ r._check_name } is: ${ r._level } on ${ r.host}'
+    thresholds:
+      - level: WARN
+        type: greater
+        value: 2
+---
+apiVersion: influxdata.com/v2alpha1
+kind: CheckThreshold
+metadata:
+    name: vibrant-cray-080009
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
     every: 15m0s
     name: Pfsense High CPU Usage
     query: |-
@@ -428,11 +480,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: NotificationEndpointPagerDuty
 metadata:
-    name: great-yalow-080003
+    name: condescending-maxwell-48001f
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     name: StubEndpoint
     routingKey:
         secretRef:
@@ -443,12 +495,12 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: NotificationRule
 metadata:
-    name: charming-ptolemy-080007
+    name: serene-allen-880003
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    endpointName: great-yalow-080003
+        name: amazing-liskov-880001
+    endpointName: condescending-maxwell-48001f
     every: 5m0s
     messageTemplate: 'Notification Rule: ${ r._notification_rule_name } triggered
         by check: ${ r._check_name }: ${ r._message }'
@@ -459,12 +511,12 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: NotificationRule
 metadata:
-    name: quizzical-tharp-08000b
+    name: wizardly-turing-880007
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    endpointName: great-yalow-080003
+        name: amazing-liskov-880001
+    endpointName: condescending-maxwell-48001f
     every: 1h0m0s
     messageTemplate: 'Notification Rule: ${ r._notification_rule_name } triggered
         by check: ${ r._check_name }: ${ r._message }'
@@ -475,31 +527,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: Variable
 metadata:
-    name: agreeing-sinoussi-08001b
+    name: dazzling-poitras-880013
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    language: flux
-    name: pfsense_interface
-    query: |-
-        from(bucket: "pfsense")
-          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-          |> filter(fn: (r) => r["_measurement"] == "net")
-          |> filter(fn: (r) => r["host"] == v.pfsense_host)
-          |> filter(fn: (r) => r["_field"] == "bytes_recv")
-          |> keyValues(keyColumns: ["interface"])
-          |> keep(columns: ["_value"])
-    type: query
----
-apiVersion: influxdata.com/v2alpha1
-kind: Variable
-metadata:
-    name: determined-bose-080013
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     name: mesh_info
     selected:
       - mesh_domain
@@ -510,11 +542,56 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: Variable
 metadata:
-    name: gifted-hellman-080027
+    name: dreamy-kowalevski-880023
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
+    language: flux
+    name: windows_host
+    query: |-
+        import "influxdata/influxdb/v1"
+        v1.measurementTagValues(bucket: "windows", measurement: "cpu", tag: "host")
+    type: query
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Variable
+metadata:
+    name: eerie-chandrasekhar-880017
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    language: flux
+    name: linux_host
+    query: |-
+        import "influxdata/influxdb/v1"
+        v1.measurementTagValues(bucket: "linux", measurement: "cpu", tag: "host")
+    type: query
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Variable
+metadata:
+    name: fervent-heyrovsky-88001f
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    language: flux
+    name: pve_node
+    query: |-
+        import "influxdata/influxdb/v1"
+        v1.measurementTagValues(bucket: "proxmox", measurement: "nics", tag: "nodename")
+    type: query
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Variable
+metadata:
+    name: friendly-carson-88000f
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
     language: flux
     name: linux_interface
     query: |-
@@ -530,56 +607,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: Variable
 metadata:
-    name: hopeful-moser-08000f
+    name: jolly-morse-88001b
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    language: flux
-    name: pve_node
-    query: |-
-        import "influxdata/influxdb/v1"
-        v1.measurementTagValues(bucket: "proxmox", measurement: "nics", tag: "nodename")
-    type: query
----
-apiVersion: influxdata.com/v2alpha1
-kind: Variable
-metadata:
-    name: optimistic-curie-080017
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
-    language: flux
-    name: windows_host
-    query: |-
-        import "influxdata/influxdb/v1"
-        v1.measurementTagValues(bucket: "windows", measurement: "cpu", tag: "host")
-    type: query
----
-apiVersion: influxdata.com/v2alpha1
-kind: Variable
-metadata:
-    name: romantic-brown-08001f
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
-    language: flux
-    name: linux_host
-    query: |-
-        import "influxdata/influxdb/v1"
-        v1.measurementTagValues(bucket: "linux", measurement: "cpu", tag: "host")
-    type: query
----
-apiVersion: influxdata.com/v2alpha1
-kind: Variable
-metadata:
-    name: stoic-williamson-080023
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     language: flux
     name: windows_interface
     query: |-
@@ -595,11 +627,11 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: Variable
 metadata:
-    name: stubborn-ritchie-08002b
+    name: rainy-ride-880027
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     language: flux
     name: pfsense_host
     query: |-
@@ -608,627 +640,33 @@ spec:
     type: query
 ---
 apiVersion: influxdata.com/v2alpha1
-kind: Dashboard
+kind: Variable
 metadata:
-    name: confident-shaw-080001
+    name: thirsty-borg-88000b
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    charts:
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: Channel
-            fieldName: Channel
-            visible: true
-          - displayName: Computer
-            fieldName: Computer
-            visible: true
-          - displayName: EventID
-            fieldName: EventID
-            visible: true
-          - displayName: Keywords
-            fieldName: Keywords
-            visible: true
-          - displayName: Level
-            fieldName: Level
-            visible: true
-          - displayName: LevelText
-            fieldName: LevelText
-            visible: true
-          - displayName: Source
-            fieldName: Source
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: Data_Category Name
-            fieldName: Data_Category Name
-            visible: true
-          - displayName: Data_Error Description
-            fieldName: Data_Error Description
-            visible: true
-          - displayName: Data_Path
-            fieldName: Data_Path
-            visible: true
-          - displayName: Data_Process Name
-            fieldName: Data_Process Name
-            visible: true
-          - displayName: Data_Remediation User
-            fieldName: Data_Remediation User
-            visible: true
-          - displayName: Data_Signature Version
-            fieldName: Data_Signature Version
-            visible: true
-          - displayName: Data_Threat ID
-            fieldName: Data_Threat ID
-            visible: true
-          - displayName: Data_Threat Name
-            fieldName: Data_Threat Name
-            visible: true
-        height: 4
-        kind: Table
-        name: Unremediated threats
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
-                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
-                  |> filter(fn: (r) => r["EventID"] == "1119" or r["EventID"] == "1118")
-                  |> filter(fn: (r) => r["_field"] == "Data_Category Name" or r["_field"] == "Data_Error Description" or r["_field"] == "Data_Path" or r["_field"] == "Data_Process Name" or r["_field"] == "Data_Signature Version" or r["_field"] == "Data_Threat ID" or r["_field"] == "Data_Threat Name")
-                  |> group(columns: ["host"], mode: "by")
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> drop(columns: ["_start","_stop"])
-                  |> group()
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 9
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: Channel
-            fieldName: Channel
-            visible: true
-          - displayName: Computer
-            fieldName: Computer
-            visible: true
-          - displayName: EventID
-            fieldName: EventID
-            visible: true
-          - displayName: Keywords
-            fieldName: Keywords
-            visible: true
-          - displayName: Level
-            fieldName: Level
-            visible: true
-          - displayName: LevelText
-            fieldName: LevelText
-            visible: true
-          - displayName: Source
-            fieldName: Source
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: Data_Category Name
-            fieldName: Data_Category Name
-            visible: true
-          - displayName: Data_Path
-            fieldName: Data_Path
-            visible: true
-          - displayName: Data_Threat Name
-            fieldName: Data_Threat Name
-            visible: true
-          - displayName: Message
-            fieldName: Message
-            visible: true
-        height: 4
-        kind: Table
-        name: Remediated Threats
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
-                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
-                  |> filter(fn: (r) => r["EventID"] == "1117")
-                  |> filter(fn: (r) => r["_field"] == "Data_Path" or r["_field"] == "Data_Threat Name" or r["_field"] == "Data_Category Name")
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> drop(columns: ["_start","_stop","Channel","EventID","Keywords","Level","LevelText"])
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 9
-        yPos: 4
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: Channel
-            fieldName: Channel
-            visible: true
-          - displayName: Computer
-            fieldName: Computer
-            visible: true
-          - displayName: EventID
-            fieldName: EventID
-            visible: true
-          - displayName: Keywords
-            fieldName: Keywords
-            visible: true
-          - displayName: Level
-            fieldName: Level
-            visible: true
-          - displayName: LevelText
-            fieldName: LevelText
-            visible: true
-          - displayName: Source
-            fieldName: Source
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: Data_Error Description
-            fieldName: Data_Error Description
-            visible: true
-          - displayName: Data_Source Path
-            fieldName: Data_Source Path
-            visible: true
-          - displayName: Message
-            fieldName: Message
-            visible: true
-        height: 4
-        kind: Table
-        name: Update Failure
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
-                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
-                  |> filter(fn: (r) => r["EventID"] == "2001")
-                  |> filter(fn: (r) => r["_field"] == "Data_Error Description" or r["_field"] == "Data_Source Path" or r["_field"] == "Message")
-                  |> group(columns: ["host"], mode: "by")
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> drop(columns: ["_start","_stop"])
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 3
-        xPos: 9
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: Channel
-            fieldName: Channel
-            visible: true
-          - displayName: Computer
-            fieldName: Computer
-            visible: true
-          - displayName: EventID
-            fieldName: EventID
-            visible: true
-          - displayName: Keywords
-            fieldName: Keywords
-            visible: true
-          - displayName: Level
-            fieldName: Level
-            visible: true
-          - displayName: LevelText
-            fieldName: LevelText
-            visible: true
-          - displayName: Source
-            fieldName: Source
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: Data_Last full scan end time
-            fieldName: Data_Last full scan end time
-            visible: true
-          - displayName: Data_Last quick scan end time
-            fieldName: Data_Last quick scan end time
-            visible: true
-        height: 4
-        kind: Table
-        name: Last AV Scan
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
-                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
-                  |> filter(fn: (r) => r["EventID"] == "1151")
-                  |> filter(fn: (r) => r["_field"] == "Data_Last quick scan end time" or r["_field"] == "Data_Last full scan end time")
-                  |> last()
-                  |> group(columns: ["host"], mode: "by")
-                  |> pivot(rowKey:["host","_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> group()
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 3
-        xPos: 9
-        yPos: 4
-    name: Microsoft Defender
+        name: amazing-liskov-880001
+    language: flux
+    name: pfsense_interface
+    query: |-
+        from(bucket: "pfsense")
+          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+          |> filter(fn: (r) => r["_measurement"] == "net")
+          |> filter(fn: (r) => r["host"] == v.pfsense_host)
+          |> filter(fn: (r) => r["_field"] == "bytes_recv")
+          |> keyValues(keyColumns: ["interface"])
+          |> keep(columns: ["_value"])
+    type: query
 ---
 apiVersion: influxdata.com/v2alpha1
 kind: Dashboard
 metadata:
-    name: frosty-lewin-880001
+    name: earning-liskov-080001
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
-    charts:
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            id: base
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 4
-        kind: Single_Stat_Plus_Line
-        name: Ram usage per node
-        position: overlaid
-        queries:
-          - query: |-
-                from(bucket: "proxmox")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "memory")
-                  |> filter(fn: (r) => r["_field"] == "memused" or r["_field"] == "memtotal")
-                  |> filter(fn: (r) => r["host"] == v.pve_node)
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> map(fn: (r) => ({ r with _value: r.memused / r.memtotal * 100.0}))
-        width: 5
-        xCol: _time
-        yCol: _value
-      - colors:
-          - hex: '#ffffff'
-            name: white
-            type: text
-        decimalPlaces: 2
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: nodename
-            fieldName: nodename
-            visible: true
-          - displayName: object
-            fieldName: object
-            visible: true
-          - displayName: vmid
-            fieldName: vmid
-            visible: true
-          - displayName: cpus
-            fieldName: cpus
-            visible: true
-          - displayName: maxmem
-            fieldName: maxmem
-            visible: true
-          - displayName: mem
-            fieldName: mem
-            visible: true
-          - displayName: percentmem
-            fieldName: percentmem
-            visible: true
-          - displayName: cpu
-            fieldName: cpu
-            visible: true
-          - displayName: qmpstatus
-            fieldName: qmpstatus
-            visible: true
-        height: 4
-        kind: Table
-        name: Containers
-        queries:
-          - query: |-
-                import "math"
-                from(bucket: "proxmox")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["nodename"] == v.pve_node)
-                  |> filter(fn: (r) => r["object"] == "lxc" or r["object"] == "qemu")
-                  |> filter(fn: (r) => r["_field"] == "cpus" or r["_field"] == "maxmem" or r["_field"] == "mem" or r["_field"] == "cpu" or r["_field"] == "qmpstatus")
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> map(fn: (r) => ({ r with maxmem: r.maxmem / 1073742000.0}))
-                  |> map(fn: (r) => ({ r with mem: r.mem / 1073742000.0}))
-                  |> map(fn: (r) => ({ r with percentmem: r.mem / r.maxmem * 100.0}))
-                  |> map(fn: (r) => ({ r with cpu: r.cpu * 100.0}))
-                  |> sort(columns: ["_time"], desc: true)
-                  |> limit(n:1, offset: 0)
-                  |> group()
-                  |> keep(columns: ["host","vmid","object","cpus","cpu","mem","maxmem","percentmem"])
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 10
-        yPos: 4
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            id: base
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 4
-        kind: Single_Stat_Plus_Line
-        name: CPU
-        position: overlaid
-        queries:
-          - query: |-
-                from(bucket: "proxmox")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
-                  |> filter(fn: (r) => r["_field"] == "cpu" or r["_field"] == "cpus")
-                  |> filter(fn: (r) => r["host"] == v.pve_node)
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> map(fn: (r) => ({ r with _value: r.cpu * 100.0}))
-        width: 5
-        xCol: _time
-        xPos: 5
-        yCol: _value
-      - colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Load1
-        queries:
-          - query: |-
-                from(bucket: "proxmox")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
-                  |> filter(fn: (r) => r["_field"] == "avg1")
-                  |> filter(fn: (r) => r["host"] == v.pve_node)
-        width: 2
-        xPos: 10
-      - colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Load 15
-        queries:
-          - query: |-
-                from(bucket: "proxmox")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
-                  |> filter(fn: (r) => r["_field"] == "avg15")
-                  |> filter(fn: (r) => r["host"] == v.pve_node)
-        width: 2
-        xPos: 10
-        yPos: 1
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 2
-        kind: Single_Stat_Plus_Line
-        name: IO Wait
-        position: overlaid
-        queries:
-          - query: |-
-                from(bucket: "proxmox")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
-                  |> filter(fn: (r) => r["host"] == v.pve_node)
-                  |> filter(fn: (r) => r["_field"] == "wait")
-                  |> map(fn: (r) => ({ r with _value: r._value * 100.0}))
-        width: 2
-        xCol: _time
-        xPos: 10
-        yCol: _value
-        yPos: 2
-      - colors:
-          - hex: '#ffffff'
-            name: white
-            type: text
-        decimalPlaces: 0
-        fieldOptions:
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: nodename
-            fieldName: nodename
-            visible: true
-          - displayName: object
-            fieldName: object
-            visible: true
-          - displayName: total
-            fieldName: total
-            visible: true
-          - displayName: type
-            fieldName: type
-            visible: true
-          - displayName: used
-            fieldName: used
-            visible: true
-          - displayName: percent
-            fieldName: percent
-            visible: true
-          - displayName: pool
-            fieldName: pool
-            visible: true
-        height: 4
-        kind: Table
-        name: Storage
-        queries:
-          - query: |-
-                from(bucket: "proxmox")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["nodename"] == v.pve_node)
-                  |> filter(fn: (r) => r["_measurement"] == "system")
-                  |> filter(fn: (r) => r["_field"] == "used" or r["_field"] == "total")
-                  |> filter(fn: (r) => r["object"] == "storages")
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> map(fn: (r) => ({ r with _value: r.used / r.total * 100.0}))
-                  |> map(fn: (r) => ({ r with used: r.used / (1.00737*10.0^9.0)}))
-                  |> map(fn: (r) => ({ r with total: r.total / (1.00737*10.0^9.0)}))
-                  |> last()
-                  |> group()
-                  |> rename(columns: {host: "pool", _value: "percent"})
-                  |> keep(columns: ["used","total","percent","pool"])
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 2
-        xPos: 10
-        yPos: 4
-    name: Proxmox Metrics
----
-apiVersion: influxdata.com/v2alpha1
-kind: Dashboard
-metadata:
-    name: goofy-chandrasekhar-480001
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
     charts:
       - axes:
           - base: "10"
@@ -1712,11 +1150,1481 @@ spec:
 apiVersion: influxdata.com/v2alpha1
 kind: Dashboard
 metadata:
-    name: rustling-golick-080001
+    name: endangered-matsumoto-c80001
 spec:
     associations:
       - kind: Label
-        name: lucid-snyder-480001
+        name: amazing-liskov-880001
+    charts:
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: Channel
+            fieldName: Channel
+            visible: true
+          - displayName: Computer
+            fieldName: Computer
+            visible: true
+          - displayName: EventID
+            fieldName: EventID
+            visible: true
+          - displayName: Keywords
+            fieldName: Keywords
+            visible: true
+          - displayName: Level
+            fieldName: Level
+            visible: true
+          - displayName: LevelText
+            fieldName: LevelText
+            visible: true
+          - displayName: Source
+            fieldName: Source
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: Data_Category Name
+            fieldName: Data_Category Name
+            visible: true
+          - displayName: Data_Error Description
+            fieldName: Data_Error Description
+            visible: true
+          - displayName: Data_Path
+            fieldName: Data_Path
+            visible: true
+          - displayName: Data_Process Name
+            fieldName: Data_Process Name
+            visible: true
+          - displayName: Data_Remediation User
+            fieldName: Data_Remediation User
+            visible: true
+          - displayName: Data_Signature Version
+            fieldName: Data_Signature Version
+            visible: true
+          - displayName: Data_Threat ID
+            fieldName: Data_Threat ID
+            visible: true
+          - displayName: Data_Threat Name
+            fieldName: Data_Threat Name
+            visible: true
+        height: 4
+        kind: Table
+        name: Unremediated threats
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
+                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
+                  |> filter(fn: (r) => r["EventID"] == "1119" or r["EventID"] == "1118")
+                  |> filter(fn: (r) => r["_field"] == "Data_Category Name" or r["_field"] == "Data_Error Description" or r["_field"] == "Data_Path" or r["_field"] == "Data_Process Name" or r["_field"] == "Data_Signature Version" or r["_field"] == "Data_Threat ID" or r["_field"] == "Data_Threat Name")
+                  |> group(columns: ["host"], mode: "by")
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> drop(columns: ["_start","_stop"])
+                  |> group()
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 9
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: Channel
+            fieldName: Channel
+            visible: true
+          - displayName: Computer
+            fieldName: Computer
+            visible: true
+          - displayName: EventID
+            fieldName: EventID
+            visible: true
+          - displayName: Keywords
+            fieldName: Keywords
+            visible: true
+          - displayName: Level
+            fieldName: Level
+            visible: true
+          - displayName: LevelText
+            fieldName: LevelText
+            visible: true
+          - displayName: Source
+            fieldName: Source
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: Data_Category Name
+            fieldName: Data_Category Name
+            visible: true
+          - displayName: Data_Path
+            fieldName: Data_Path
+            visible: true
+          - displayName: Data_Threat Name
+            fieldName: Data_Threat Name
+            visible: true
+          - displayName: Message
+            fieldName: Message
+            visible: true
+        height: 4
+        kind: Table
+        name: Remediated Threats
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
+                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
+                  |> filter(fn: (r) => r["EventID"] == "1117")
+                  |> filter(fn: (r) => r["_field"] == "Data_Path" or r["_field"] == "Data_Threat Name" or r["_field"] == "Data_Category Name")
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> drop(columns: ["_start","_stop","Channel","EventID","Keywords","Level","LevelText"])
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 9
+        yPos: 4
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: Channel
+            fieldName: Channel
+            visible: true
+          - displayName: Computer
+            fieldName: Computer
+            visible: true
+          - displayName: EventID
+            fieldName: EventID
+            visible: true
+          - displayName: Keywords
+            fieldName: Keywords
+            visible: true
+          - displayName: Level
+            fieldName: Level
+            visible: true
+          - displayName: LevelText
+            fieldName: LevelText
+            visible: true
+          - displayName: Source
+            fieldName: Source
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: Data_Error Description
+            fieldName: Data_Error Description
+            visible: true
+          - displayName: Data_Source Path
+            fieldName: Data_Source Path
+            visible: true
+          - displayName: Message
+            fieldName: Message
+            visible: true
+        height: 4
+        kind: Table
+        name: Update Failure
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
+                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
+                  |> filter(fn: (r) => r["EventID"] == "2001")
+                  |> filter(fn: (r) => r["_field"] == "Data_Error Description" or r["_field"] == "Data_Source Path" or r["_field"] == "Message")
+                  |> group(columns: ["host"], mode: "by")
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> drop(columns: ["_start","_stop"])
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 3
+        xPos: 9
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: Channel
+            fieldName: Channel
+            visible: true
+          - displayName: Computer
+            fieldName: Computer
+            visible: true
+          - displayName: EventID
+            fieldName: EventID
+            visible: true
+          - displayName: Keywords
+            fieldName: Keywords
+            visible: true
+          - displayName: Level
+            fieldName: Level
+            visible: true
+          - displayName: LevelText
+            fieldName: LevelText
+            visible: true
+          - displayName: Source
+            fieldName: Source
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: Data_Last full scan end time
+            fieldName: Data_Last full scan end time
+            visible: true
+          - displayName: Data_Last quick scan end time
+            fieldName: Data_Last quick scan end time
+            visible: true
+        height: 4
+        kind: Table
+        name: Last AV Scan
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
+                  |> filter(fn: (r) => r["Channel"] == "Microsoft-Windows-Windows Defender/Operational")
+                  |> filter(fn: (r) => r["EventID"] == "1151")
+                  |> filter(fn: (r) => r["_field"] == "Data_Last quick scan end time" or r["_field"] == "Data_Last full scan end time")
+                  |> last()
+                  |> group(columns: ["host"], mode: "by")
+                  |> pivot(rowKey:["host","_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> group()
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 3
+        xPos: 9
+        yPos: 4
+    name: Microsoft Defender
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Dashboard
+metadata:
+    name: endangered-proskuriakova-080001
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    charts:
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: common_name
+            fieldName: common_name
+            visible: true
+          - displayName: country
+            fieldName: country
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: issuer_common_name
+            fieldName: issuer_common_name
+            visible: true
+          - displayName: organization
+            fieldName: organization
+            visible: true
+          - displayName: public_key_algorithm
+            fieldName: public_key_algorithm
+            visible: true
+          - displayName: serial_number
+            fieldName: serial_number
+            visible: true
+          - displayName: signature_algorithm
+            fieldName: signature_algorithm
+            visible: true
+          - displayName: source
+            fieldName: source
+            visible: true
+          - displayName: verification
+            fieldName: verification
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: san
+            fieldName: san
+            visible: true
+          - displayName: enddate
+            fieldName: enddate
+            visible: true
+          - displayName: verification_code
+            fieldName: verification_code
+            visible: true
+          - displayName: expire_time
+            fieldName: expire_time
+            visible: true
+          - displayName: cur_time
+            fieldName: cur_time
+            visible: true
+          - displayName: exipre_dur
+            fieldName: exipre_dur
+            visible: true
+          - displayName: expire_dur
+            fieldName: expire_dur
+            visible: true
+          - displayName: exire_dur
+            fieldName: exire_dur
+            visible: true
+          - displayName: current_time
+            fieldName: current_time
+            visible: true
+          - displayName: Expire Date
+            fieldName: Expire Date
+            visible: true
+          - displayName: Time Till Expiration
+            fieldName: Time Till Expiration
+            visible: true
+          - displayName: Certifcate Authority
+            fieldName: Certifcate Authority
+            visible: true
+        height: 4
+        kind: Table
+        name: Invalid SSL Checks
+        queries:
+          - query: "from(bucket: \"linux\")\n  |> range(start: v.timeRangeStart, stop:
+                v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"x509_cert\")\n
+                \ |> filter(fn: (r) => r[\"_field\"] == \"verification_code\" or r[\"_field\"]
+                == \"enddate\") \n  |> filter(fn: (r) => r[\"verification\"] == \"invalid\")\n
+                \ |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn:
+                \"_value\")\n  |> group(columns: [\"common_name\"], mode: \"by\")\n
+                \ //|> drop(columns: [\"_start\",\"_stop\",\"country\",\"host\",\"serial_number\",\"_time\",\"_measurement\",\"verification_code\",\"public_key_algorithm\"])\n
+                \ |> map(fn:(r) => ({ r with enddate: int(v: r.enddate) * 1000000000}))\n
+                \ |> map(fn: (r) => ({ r with expire_dur: r.enddate - int(v: uint(v:
+                now())) }))\n  |> map(fn:(r) => ({ r with expire_time: string(v: duration(v:
+                r.expire_dur)) }))\n  |> map(fn:(r) => ({ r with _value: time(v: (r.enddate))
+                }))\n  |> last()\n  |> group()\n  |> keep(columns: [\"common_name\",\"issuer_common_name\",\"_value\",\"expire_time\",\"source\"])\n
+                \ |> rename(columns: {issuer_common_name: \"Certifcate Authority\",
+                _value: \"Expire Date\", expire_time: \"Time Till Expiration\"})"
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 8
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: method
+            fieldName: method
+            visible: true
+          - displayName: server
+            fieldName: server
+            visible: true
+          - displayName: status_code
+            fieldName: status_code
+            visible: true
+          - displayName: content_length
+            fieldName: content_length
+            visible: true
+          - displayName: http_response_code
+            fieldName: http_response_code
+            visible: true
+          - displayName: response_time
+            fieldName: response_time
+            visible: true
+          - displayName: result_code
+            fieldName: result_code
+            visible: true
+          - displayName: result_type
+            fieldName: result_type
+            visible: true
+        height: 3
+        kind: Table
+        name: Successful HTTP Checks
+        queries:
+          - query: |-
+                from(bucket: "linux")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "http_response")
+                  |> filter(fn: (r) => r["result"] == "success")
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> map(fn: (r) => ({ r with _value: r.method }))
+                  |> last()
+                  |> group()
+                  |> keep(columns: ["server", "status_code","response_time","result_code"])
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 12
+        yPos: 4
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: common_name
+            fieldName: common_name
+            visible: true
+          - displayName: country
+            fieldName: country
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: issuer_common_name
+            fieldName: issuer_common_name
+            visible: true
+          - displayName: organization
+            fieldName: organization
+            visible: true
+          - displayName: public_key_algorithm
+            fieldName: public_key_algorithm
+            visible: true
+          - displayName: serial_number
+            fieldName: serial_number
+            visible: true
+          - displayName: signature_algorithm
+            fieldName: signature_algorithm
+            visible: true
+          - displayName: source
+            fieldName: source
+            visible: true
+          - displayName: verification
+            fieldName: verification
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: san
+            fieldName: san
+            visible: true
+          - displayName: enddate
+            fieldName: enddate
+            visible: true
+          - displayName: verification_code
+            fieldName: verification_code
+            visible: true
+          - displayName: expire_time
+            fieldName: expire_time
+            visible: true
+          - displayName: cur_time
+            fieldName: cur_time
+            visible: true
+          - displayName: exipre_dur
+            fieldName: exipre_dur
+            visible: true
+          - displayName: expire_dur
+            fieldName: expire_dur
+            visible: true
+          - displayName: exire_dur
+            fieldName: exire_dur
+            visible: true
+          - displayName: current_time
+            fieldName: current_time
+            visible: true
+          - displayName: Expire Date
+            fieldName: Expire Date
+            visible: true
+          - displayName: Time Till Expiration
+            fieldName: Time Till Expiration
+            visible: true
+          - displayName: Certifcate Authority
+            fieldName: Certifcate Authority
+            visible: true
+        height: 4
+        kind: Table
+        name: ALL SSL Checks
+        queries:
+          - query: "from(bucket: \"linux\")\n  |> range(start: v.timeRangeStart, stop:
+                v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"x509_cert\")\n
+                \ |> filter(fn: (r) => r[\"_field\"] == \"verification_code\" or r[\"_field\"]
+                == \"enddate\") \n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"],
+                valueColumn: \"_value\")\n  |> group(columns: [\"common_name\"], mode:
+                \"by\")\n  //|> drop(columns: [\"_start\",\"_stop\",\"country\",\"host\",\"serial_number\",\"_time\",\"_measurement\",\"verification_code\",\"public_key_algorithm\"])\n
+                \ |> map(fn:(r) => ({ r with enddate: int(v: r.enddate) * 1000000000}))\n
+                \ |> map(fn: (r) => ({ r with expire_dur: r.enddate - int(v: uint(v:
+                now())) }))\n  |> map(fn:(r) => ({ r with expire_time: string(v: duration(v:
+                r.expire_dur)) }))\n  |> map(fn:(r) => ({ r with _value: time(v: (r.enddate))
+                }))\n  |> last()\n  |> group()\n  |> keep(columns: [\"common_name\",\"issuer_common_name\",\"_value\",\"expire_time\",\"source\",\"verification\"])\n
+                \ |> rename(columns: {issuer_common_name: \"Certifcate Authority\",
+                _value: \"Expire Date\", expire_time: \"Time Till Expiration\"})"
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 12
+        yPos: 7
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: method
+            fieldName: method
+            visible: true
+          - displayName: server
+            fieldName: server
+            visible: true
+          - displayName: status_code
+            fieldName: status_code
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+        height: 4
+        kind: Table
+        name: Failed HTTP Checks
+        queries:
+          - query: |-
+                from(bucket: "linux")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "http_response")
+                  |> filter(fn: (r) => r["_field"] == "result_type")
+                  |> filter(fn: (r) => r["result"] != "success")
+                  |> last()
+                  |> group()
+                  |> keep(columns: ["server",,"result"])
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 4
+        xPos: 8
+    name: Web Stuff
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Dashboard
+metadata:
+    name: fasting-knuth-080001
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    charts:
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            id: base
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 4
+        kind: Single_Stat_Plus_Line
+        name: Ram usage per node
+        position: overlaid
+        queries:
+          - query: |-
+                from(bucket: "proxmox")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "memory")
+                  |> filter(fn: (r) => r["_field"] == "memused" or r["_field"] == "memtotal")
+                  |> filter(fn: (r) => r["host"] == v.pve_node)
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> map(fn: (r) => ({ r with _value: r.memused / r.memtotal * 100.0}))
+        width: 5
+        xCol: _time
+        yCol: _value
+      - colors:
+          - hex: '#ffffff'
+            name: white
+            type: text
+        decimalPlaces: 2
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: nodename
+            fieldName: nodename
+            visible: true
+          - displayName: object
+            fieldName: object
+            visible: true
+          - displayName: vmid
+            fieldName: vmid
+            visible: true
+          - displayName: cpus
+            fieldName: cpus
+            visible: true
+          - displayName: maxmem
+            fieldName: maxmem
+            visible: true
+          - displayName: mem
+            fieldName: mem
+            visible: true
+          - displayName: percentmem
+            fieldName: percentmem
+            visible: true
+          - displayName: cpu
+            fieldName: cpu
+            visible: true
+          - displayName: qmpstatus
+            fieldName: qmpstatus
+            visible: true
+        height: 4
+        kind: Table
+        name: Containers
+        queries:
+          - query: |-
+                import "math"
+                from(bucket: "proxmox")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["nodename"] == v.pve_node)
+                  |> filter(fn: (r) => r["object"] == "lxc" or r["object"] == "qemu")
+                  |> filter(fn: (r) => r["_field"] == "cpus" or r["_field"] == "maxmem" or r["_field"] == "mem" or r["_field"] == "cpu" or r["_field"] == "qmpstatus")
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> map(fn: (r) => ({ r with maxmem: r.maxmem / 1073742000.0}))
+                  |> map(fn: (r) => ({ r with mem: r.mem / 1073742000.0}))
+                  |> map(fn: (r) => ({ r with percentmem: r.mem / r.maxmem * 100.0}))
+                  |> map(fn: (r) => ({ r with cpu: r.cpu * 100.0}))
+                  |> sort(columns: ["_time"], desc: true)
+                  |> limit(n:1, offset: 0)
+                  |> group()
+                  |> keep(columns: ["host","vmid","object","cpus","cpu","mem","maxmem","percentmem"])
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 10
+        yPos: 4
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            id: base
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 4
+        kind: Single_Stat_Plus_Line
+        name: CPU
+        position: overlaid
+        queries:
+          - query: |-
+                from(bucket: "proxmox")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
+                  |> filter(fn: (r) => r["_field"] == "cpu" or r["_field"] == "cpus")
+                  |> filter(fn: (r) => r["host"] == v.pve_node)
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> map(fn: (r) => ({ r with _value: r.cpu * 100.0}))
+        width: 5
+        xCol: _time
+        xPos: 5
+        yCol: _value
+      - colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Load1
+        queries:
+          - query: |-
+                from(bucket: "proxmox")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
+                  |> filter(fn: (r) => r["_field"] == "avg1")
+                  |> filter(fn: (r) => r["host"] == v.pve_node)
+        width: 2
+        xPos: 10
+      - colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Load 15
+        queries:
+          - query: |-
+                from(bucket: "proxmox")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
+                  |> filter(fn: (r) => r["_field"] == "avg15")
+                  |> filter(fn: (r) => r["host"] == v.pve_node)
+        width: 2
+        xPos: 10
+        yPos: 1
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 2
+        kind: Single_Stat_Plus_Line
+        name: IO Wait
+        position: overlaid
+        queries:
+          - query: |-
+                from(bucket: "proxmox")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "cpustat")
+                  |> filter(fn: (r) => r["host"] == v.pve_node)
+                  |> filter(fn: (r) => r["_field"] == "wait")
+                  |> map(fn: (r) => ({ r with _value: r._value * 100.0}))
+        width: 2
+        xCol: _time
+        xPos: 10
+        yCol: _value
+        yPos: 2
+      - colors:
+          - hex: '#ffffff'
+            name: white
+            type: text
+        decimalPlaces: 0
+        fieldOptions:
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: nodename
+            fieldName: nodename
+            visible: true
+          - displayName: object
+            fieldName: object
+            visible: true
+          - displayName: total
+            fieldName: total
+            visible: true
+          - displayName: type
+            fieldName: type
+            visible: true
+          - displayName: used
+            fieldName: used
+            visible: true
+          - displayName: percent
+            fieldName: percent
+            visible: true
+          - displayName: pool
+            fieldName: pool
+            visible: true
+        height: 4
+        kind: Table
+        name: Storage
+        queries:
+          - query: |-
+                from(bucket: "proxmox")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["nodename"] == v.pve_node)
+                  |> filter(fn: (r) => r["_measurement"] == "system")
+                  |> filter(fn: (r) => r["_field"] == "used" or r["_field"] == "total")
+                  |> filter(fn: (r) => r["object"] == "storages")
+                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+                  |> map(fn: (r) => ({ r with _value: r.used / r.total * 100.0}))
+                  |> map(fn: (r) => ({ r with used: r.used / (1.00737*10.0^9.0)}))
+                  |> map(fn: (r) => ({ r with total: r.total / (1.00737*10.0^9.0)}))
+                  |> last()
+                  |> group()
+                  |> rename(columns: {host: "pool", _value: "percent"})
+                  |> keep(columns: ["used","total","percent","pool"])
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 2
+        xPos: 10
+        yPos: 4
+    name: Proxmox Metrics
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Dashboard
+metadata:
+    name: naughty-kepler-880001
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
+    charts:
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            id: base
+            name: laser
+            type: text
+          - hex: '#FFD255'
+            id: 7ad08427-2243-4cd2-be6a-3f30bf398e19
+            name: thunder
+            type: text
+            value: 75
+          - hex: '#DC4E58'
+            id: ea9ba36d-5106-4b57-8b9b-f6e1a4047577
+            name: fire
+            type: text
+            value: 90
+        decimalPlaces: 2
+        height: 3
+        kind: Single_Stat_Plus_Line
+        name: CPU usage
+        position: overlaid
+        queries:
+          - query: "import \"math\"\nfrom(bucket: \"windows\")\n  |> range(start:
+                v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"]
+                == \"cpu\")\n  |> filter(fn: (r) => r[\"host\"] == v.windows_host)\n
+                \ |> filter(fn: (r) => r[\"cpu\"] == \"cpu-total\")\n  |> filter(fn:
+                (r) => r[\"_field\"] == \"usage_idle\")\n  |> map(fn: (r) => ({\n
+                \     r with \n      _value: 100.0 - r._value\n      })\n  )"
+        width: 3
+        xCol: _time
+        yCol: _value
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 2
+        kind: Single_Stat_Plus_Line
+        name: Outbound Traffic
+        position: overlaid
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "net")
+                  |> filter(fn: (r) => r["_field"] == "bytes_sent")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+                  |> filter(fn: (r) => r["interface"] == v.windows_interface)
+                  |> map(fn: (r) => ({
+                      r with
+                      _value: r._value / 125
+                    })
+                  )
+                  |> derivative(unit: 1s, nonNegative: false)
+                  |> yield(name: "derivative")
+                  |> last()
+        width: 3
+        yPos: 3
+      - colors:
+          - hex: '#ffffff'
+            id: base
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: Channel
+            fieldName: Channel
+            visible: true
+          - displayName: Computer
+            fieldName: Computer
+            visible: true
+          - displayName: EventID
+            fieldName: EventID
+            visible: true
+          - displayName: Keywords
+            fieldName: Keywords
+            visible: true
+          - displayName: Level
+            fieldName: Level
+            visible: true
+          - displayName: LevelText
+            fieldName: LevelText
+            visible: true
+          - displayName: Source
+            fieldName: Source
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+        height: 3
+        kind: Table
+        name: Defender logs
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+                  |> filter(fn: (r) => r["_field"] == "Message")
+                  |> group()
+                  |> keep(columns: ["EventID","LevelText","_value","_time"])
+                  |> limit(n:10, offset: 0)
+        tableOptions:
+            sortBy: _time
+            verticalTimeAxis: true
+        timeFormat: YYYY/MM/DD HH:mm:ss
+        width: 10
+        yPos: 5
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            id: base
+            name: laser
+            type: text
+          - hex: '#FFD255'
+            id: cf788902-8e79-480c-8082-9868e7371c43
+            name: thunder
+            type: text
+            value: 70
+          - hex: '#DC4E58'
+            id: dcd379b1-b952-4671-8538-15638459ba7c
+            name: fire
+            type: text
+            value: 95
+        decimalPlaces: 2
+        height: 3
+        kind: Single_Stat_Plus_Line
+        name: Ram usage
+        position: overlaid
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "mem")
+                  |> filter(fn: (r) => r["_field"] == "used_percent")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+        width: 3
+        xCol: _time
+        xPos: 3
+        yCol: _value
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 2
+        kind: Single_Stat_Plus_Line
+        name: Inbound traffic
+        position: overlaid
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "net")
+                  |> filter(fn: (r) => r["_field"] == "bytes_recv")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+                  |> filter(fn: (r) => r["interface"] == v.windows_interface)
+                  |> map(fn: (r) => ({
+                      r with
+                      _value: r._value / 125
+                    })
+                  )
+                  |> derivative(unit: 1s, nonNegative: false)
+                  |> yield(name: "derivative")
+                  |> last()
+        width: 3
+        xCol: _time
+        xPos: 3
+        yCol: _value
+        yPos: 3
+      - axes:
+          - base: "10"
+            name: x
+            scale: linear
+          - base: "10"
+            name: y
+            scale: linear
+        colors:
+          - hex: '#00C9FF'
+            id: base
+            name: laser
+            type: text
+          - hex: '#FFD255'
+            id: a22aad54-4730-475a-b450-f7c57ffad4ba
+            name: thunder
+            type: text
+            value: 70
+          - hex: '#DC4E58'
+            id: 76df6157-e560-4a32-a4ec-e5d30f38993c
+            name: fire
+            type: text
+            value: 95
+        decimalPlaces: 2
+        height: 2
+        kind: Single_Stat_Plus_Line
+        name: Disk usage
+        position: overlaid
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "disk")
+                  |> filter(fn: (r) => r["_field"] == "used_percent")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+        width: 4
+        xCol: _time
+        xPos: 6
+        yCol: _value
+      - colors:
+          - hex: '#ffffff'
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: _start
+            fieldName: _start
+            visible: true
+          - displayName: _stop
+            fieldName: _stop
+            visible: true
+          - displayName: _time
+            fieldName: _time
+            visible: true
+          - displayName: _value
+            fieldName: _value
+            visible: true
+          - displayName: _field
+            fieldName: _field
+            visible: true
+          - displayName: _measurement
+            fieldName: _measurement
+            visible: true
+          - displayName: display_name
+            fieldName: display_name
+            visible: true
+          - displayName: host
+            fieldName: host
+            visible: true
+          - displayName: service_name
+            fieldName: service_name
+            visible: true
+          - displayName: status
+            fieldName: status
+            visible: true
+          - displayName: startup_mode
+            fieldName: startup_mode
+            visible: true
+          - displayName: state
+            fieldName: state
+            visible: true
+          - displayName: startup
+            fieldName: startup
+            visible: true
+          - displayName: starup_mode
+            fieldName: starup_mode
+            visible: true
+        height: 3
+        kind: Table
+        name: Services
+        queries:
+          - query: "from(bucket: \"windows\")\n  |> range(start: v.timeRangeStart,
+                stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"]
+                == \"win_services\")\n  |> filter(fn: (r) => r[\"_field\"] == \"state\"
+                or r[\"_field\"] == \"starup_mode_mode\")\n  |> filter(fn: (r) =>
+                r[\"host\"] == v.windows_host) \n  |> first()\n  |> group()\n    |>
+                pivot(rowKey:[\"service_name\"], columnKey: [\"_field\"], valueColumn:
+                \"_value\")\n  |> map(fn: (r) => ({ r with state: \n    if r.state
+                == 1 then \"stopped\" \n    else if r.state == 2 then \"starting\"\n
+                \   else if r.state == 3 then \"stopping\"\n    else if r.state ==
+                4 then \"running\"\n    else if r.state == 5 then \"continuing\"\n
+                \   else if r.state == 6 then \"pausing\"\n    else if r.state ==
+                7 then \"paused\"\n    else \"unkown\" }))\n  |> map(fn: (r) => ({
+                r with starup_mode: \n    if r.starup_mode == 0 then \"boot start\"
+                \n    else if r.starup_mode == 1 then \"system start\"\n    else if
+                r.starup_mode == 2 then \"auto start\"\n    else if r.starup_mode
+                == 3 then \"manual\"\n    else if r.starup_mode == 4 then \"disabled\"\n
+                \   else \"unkown\" }))"
+        tableOptions:
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 4
+        xPos: 6
+        yPos: 2
+      - colors:
+          - hex: '#ffffff'
+            name: white
+            type: text
+        fieldOptions:
+          - displayName: URL
+            fieldName: _value
+            visible: true
+        height: 1
+        kind: Table
+        name: Remote Access
+        queries:
+          - query: |-
+                import "strings"
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "exec_meshinfo")
+                  |> filter(fn: (r) => r["_field"] == "value")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+                  |> last()
+                  |> keep(columns: ["_value"])
+                  |> map(fn: (r) => ({ r with _value: strings.joinStr(arr: ["https://",v.mesh_info, "/?viewmode=11&gotonode=",r._value], v: "")}))
+        tableOptions:
+            fixFirstColumn: true
+            verticalTimeAxis: true
+        timeFormat: YYYY-MM-DD HH:mm:ss
+        width: 2
+        xPos: 10
+      - colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Uptime
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |>filter(fn: (r) => r["host"] == v.windows_host)
+                  |> filter(fn: (r) => r["_measurement"] == "system")
+                  |> filter(fn: (r) => r["_field"] == "uptime_format")
+        width: 2
+        xPos: 10
+        yPos: 1
+      - colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Load 1
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "system")
+                  |> filter(fn: (r) => r["_field"] == "load5")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+        width: 2
+        xPos: 10
+        yPos: 2
+      - colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Load 15
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "system")
+                  |> filter(fn: (r) => r["_field"] == "load5")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+        width: 2
+        xPos: 10
+        yPos: 3
+      - colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 0
+        height: 1
+        kind: Single_Stat
+        name: CPU Count
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "system")
+                  |> filter(fn: (r) => r["_field"] == "n_cpus")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+        width: 2
+        xPos: 10
+        yPos: 4
+      - colors:
+          - hex: '#00C9FF'
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Memory
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "mem")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+                  |> filter(fn: (r) => r["_field"] == "total")
+                  |> map(fn: (r) => ({
+                      r with
+                      _value: r._value / 1000000000
+                    })
+                  )
+        width: 2
+        xPos: 10
+        yPos: 5
+      - colors:
+          - hex: '#00C9FF'
+            id: base
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Edition
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "exec_win_ver")
+                  |> filter(fn: (r) => r["_field"] == "Caption")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+        width: 2
+        xPos: 10
+        yPos: 6
+      - colors:
+          - hex: '#00C9FF'
+            id: base
+            name: laser
+            type: text
+        decimalPlaces: 2
+        height: 1
+        kind: Single_Stat
+        name: Build
+        queries:
+          - query: |-
+                from(bucket: "windows")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "exec_win_ver")
+                  |> filter(fn: (r) => r["_field"] == "Version")
+                  |> filter(fn: (r) => r["host"] == v.windows_host)
+        width: 2
+        xPos: 10
+        yPos: 7
+    name: Windows Metrics
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Dashboard
+metadata:
+    name: suspicious-curie-480001
+spec:
+    associations:
+      - kind: Label
+        name: amazing-liskov-880001
     charts:
       - axes:
           - base: "10"
@@ -2391,859 +3299,3 @@ spec:
         yCol: _value
         yPos: 8
     name: Pfsense Metrics
----
-apiVersion: influxdata.com/v2alpha1
-kind: Dashboard
-metadata:
-    name: strange-hellman-480001
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
-    charts:
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: common_name
-            fieldName: common_name
-            visible: true
-          - displayName: country
-            fieldName: country
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: issuer_common_name
-            fieldName: issuer_common_name
-            visible: true
-          - displayName: organization
-            fieldName: organization
-            visible: true
-          - displayName: public_key_algorithm
-            fieldName: public_key_algorithm
-            visible: true
-          - displayName: serial_number
-            fieldName: serial_number
-            visible: true
-          - displayName: signature_algorithm
-            fieldName: signature_algorithm
-            visible: true
-          - displayName: source
-            fieldName: source
-            visible: true
-          - displayName: verification
-            fieldName: verification
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: san
-            fieldName: san
-            visible: true
-          - displayName: enddate
-            fieldName: enddate
-            visible: true
-          - displayName: verification_code
-            fieldName: verification_code
-            visible: true
-          - displayName: expire_time
-            fieldName: expire_time
-            visible: true
-          - displayName: cur_time
-            fieldName: cur_time
-            visible: true
-          - displayName: exipre_dur
-            fieldName: exipre_dur
-            visible: true
-          - displayName: expire_dur
-            fieldName: expire_dur
-            visible: true
-          - displayName: exire_dur
-            fieldName: exire_dur
-            visible: true
-          - displayName: current_time
-            fieldName: current_time
-            visible: true
-          - displayName: Expire Date
-            fieldName: Expire Date
-            visible: true
-          - displayName: Time Till Expiration
-            fieldName: Time Till Expiration
-            visible: true
-          - displayName: Certifcate Authority
-            fieldName: Certifcate Authority
-            visible: true
-        height: 4
-        kind: Table
-        name: Invalid SSL Checks
-        queries:
-          - query: "from(bucket: \"linux\")\n  |> range(start: v.timeRangeStart, stop:
-                v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"x509_cert\")\n
-                \ |> filter(fn: (r) => r[\"_field\"] == \"verification_code\" or r[\"_field\"]
-                == \"enddate\") \n  |> filter(fn: (r) => r[\"verification\"] == \"invalid\")\n
-                \ |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn:
-                \"_value\")\n  |> group(columns: [\"common_name\"], mode: \"by\")\n
-                \ //|> drop(columns: [\"_start\",\"_stop\",\"country\",\"host\",\"serial_number\",\"_time\",\"_measurement\",\"verification_code\",\"public_key_algorithm\"])\n
-                \ |> map(fn:(r) => ({ r with enddate: int(v: r.enddate) * 1000000000}))\n
-                \ |> map(fn: (r) => ({ r with expire_dur: r.enddate - int(v: uint(v:
-                now())) }))\n  |> map(fn:(r) => ({ r with expire_time: string(v: duration(v:
-                r.expire_dur)) }))\n  |> map(fn:(r) => ({ r with _value: time(v: (r.enddate))
-                }))\n  |> last()\n  |> group()\n  |> keep(columns: [\"common_name\",\"issuer_common_name\",\"_value\",\"expire_time\",\"source\"])\n
-                \ |> rename(columns: {issuer_common_name: \"Certifcate Authority\",
-                _value: \"Expire Date\", expire_time: \"Time Till Expiration\"})"
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 8
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: method
-            fieldName: method
-            visible: true
-          - displayName: server
-            fieldName: server
-            visible: true
-          - displayName: status_code
-            fieldName: status_code
-            visible: true
-          - displayName: content_length
-            fieldName: content_length
-            visible: true
-          - displayName: http_response_code
-            fieldName: http_response_code
-            visible: true
-          - displayName: response_time
-            fieldName: response_time
-            visible: true
-          - displayName: result_code
-            fieldName: result_code
-            visible: true
-          - displayName: result_type
-            fieldName: result_type
-            visible: true
-        height: 3
-        kind: Table
-        name: Successful HTTP Checks
-        queries:
-          - query: |-
-                from(bucket: "linux")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "http_response")
-                  |> filter(fn: (r) => r["result"] == "success")
-                  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-                  |> map(fn: (r) => ({ r with _value: r.method }))
-                  |> last()
-                  |> group()
-                  |> keep(columns: ["server", "status_code","response_time","result_code"])
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 12
-        yPos: 4
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: common_name
-            fieldName: common_name
-            visible: true
-          - displayName: country
-            fieldName: country
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: issuer_common_name
-            fieldName: issuer_common_name
-            visible: true
-          - displayName: organization
-            fieldName: organization
-            visible: true
-          - displayName: public_key_algorithm
-            fieldName: public_key_algorithm
-            visible: true
-          - displayName: serial_number
-            fieldName: serial_number
-            visible: true
-          - displayName: signature_algorithm
-            fieldName: signature_algorithm
-            visible: true
-          - displayName: source
-            fieldName: source
-            visible: true
-          - displayName: verification
-            fieldName: verification
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: san
-            fieldName: san
-            visible: true
-          - displayName: enddate
-            fieldName: enddate
-            visible: true
-          - displayName: verification_code
-            fieldName: verification_code
-            visible: true
-          - displayName: expire_time
-            fieldName: expire_time
-            visible: true
-          - displayName: cur_time
-            fieldName: cur_time
-            visible: true
-          - displayName: exipre_dur
-            fieldName: exipre_dur
-            visible: true
-          - displayName: expire_dur
-            fieldName: expire_dur
-            visible: true
-          - displayName: exire_dur
-            fieldName: exire_dur
-            visible: true
-          - displayName: current_time
-            fieldName: current_time
-            visible: true
-          - displayName: Expire Date
-            fieldName: Expire Date
-            visible: true
-          - displayName: Time Till Expiration
-            fieldName: Time Till Expiration
-            visible: true
-          - displayName: Certifcate Authority
-            fieldName: Certifcate Authority
-            visible: true
-        height: 4
-        kind: Table
-        name: ALL SSL Checks
-        queries:
-          - query: "from(bucket: \"linux\")\n  |> range(start: v.timeRangeStart, stop:
-                v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"x509_cert\")\n
-                \ |> filter(fn: (r) => r[\"_field\"] == \"verification_code\" or r[\"_field\"]
-                == \"enddate\") \n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"],
-                valueColumn: \"_value\")\n  |> group(columns: [\"common_name\"], mode:
-                \"by\")\n  //|> drop(columns: [\"_start\",\"_stop\",\"country\",\"host\",\"serial_number\",\"_time\",\"_measurement\",\"verification_code\",\"public_key_algorithm\"])\n
-                \ |> map(fn:(r) => ({ r with enddate: int(v: r.enddate) * 1000000000}))\n
-                \ |> map(fn: (r) => ({ r with expire_dur: r.enddate - int(v: uint(v:
-                now())) }))\n  |> map(fn:(r) => ({ r with expire_time: string(v: duration(v:
-                r.expire_dur)) }))\n  |> map(fn:(r) => ({ r with _value: time(v: (r.enddate))
-                }))\n  |> last()\n  |> group()\n  |> keep(columns: [\"common_name\",\"issuer_common_name\",\"_value\",\"expire_time\",\"source\",\"verification\"])\n
-                \ |> rename(columns: {issuer_common_name: \"Certifcate Authority\",
-                _value: \"Expire Date\", expire_time: \"Time Till Expiration\"})"
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 12
-        yPos: 7
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: method
-            fieldName: method
-            visible: true
-          - displayName: server
-            fieldName: server
-            visible: true
-          - displayName: status_code
-            fieldName: status_code
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-        height: 4
-        kind: Table
-        name: Failed HTTP Checks
-        queries:
-          - query: |-
-                from(bucket: "linux")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "http_response")
-                  |> filter(fn: (r) => r["_field"] == "result_type")
-                  |> filter(fn: (r) => r["result"] != "success")
-                  |> last()
-                  |> group()
-                  |> keep(columns: ["server",,"result"])
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 4
-        xPos: 8
-    name: Web Stuff
----
-apiVersion: influxdata.com/v2alpha1
-kind: Dashboard
-metadata:
-    name: wondrous-agnesi-880001
-spec:
-    associations:
-      - kind: Label
-        name: lucid-snyder-480001
-    charts:
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            id: base
-            name: laser
-            type: text
-          - hex: '#FFD255'
-            id: 7ad08427-2243-4cd2-be6a-3f30bf398e19
-            name: thunder
-            type: text
-            value: 75
-          - hex: '#DC4E58'
-            id: ea9ba36d-5106-4b57-8b9b-f6e1a4047577
-            name: fire
-            type: text
-            value: 90
-        decimalPlaces: 2
-        height: 3
-        kind: Single_Stat_Plus_Line
-        name: CPU usage
-        position: overlaid
-        queries:
-          - query: "import \"math\"\nfrom(bucket: \"windows\")\n  |> range(start:
-                v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"]
-                == \"cpu\")\n  |> filter(fn: (r) => r[\"host\"] == v.windows_host)\n
-                \ |> filter(fn: (r) => r[\"cpu\"] == \"cpu-total\")\n  |> filter(fn:
-                (r) => r[\"_field\"] == \"usage_idle\")\n  |> map(fn: (r) => ({\n
-                \     r with \n      _value: 100.0 - r._value\n      })\n  )"
-        width: 3
-        xCol: _time
-        yCol: _value
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 2
-        kind: Single_Stat_Plus_Line
-        name: Outbound Traffic
-        position: overlaid
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "net")
-                  |> filter(fn: (r) => r["_field"] == "bytes_sent")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-                  |> filter(fn: (r) => r["interface"] == v.windows_interface)
-                  |> map(fn: (r) => ({
-                      r with
-                      _value: r._value / 125
-                    })
-                  )
-                  |> derivative(unit: 1s, nonNegative: false)
-                  |> yield(name: "derivative")
-                  |> last()
-        width: 3
-        yPos: 3
-      - colors:
-          - hex: '#ffffff'
-            id: base
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: Channel
-            fieldName: Channel
-            visible: true
-          - displayName: Computer
-            fieldName: Computer
-            visible: true
-          - displayName: EventID
-            fieldName: EventID
-            visible: true
-          - displayName: Keywords
-            fieldName: Keywords
-            visible: true
-          - displayName: Level
-            fieldName: Level
-            visible: true
-          - displayName: LevelText
-            fieldName: LevelText
-            visible: true
-          - displayName: Source
-            fieldName: Source
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-        height: 3
-        kind: Table
-        name: Defender logs
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "win_eventlog")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-                  |> filter(fn: (r) => r["_field"] == "Message")
-                  |> group()
-                  |> keep(columns: ["EventID","LevelText","_value","_time"])
-                  |> limit(n:10, offset: 0)
-        tableOptions:
-            sortBy: _time
-            verticalTimeAxis: true
-        timeFormat: YYYY/MM/DD HH:mm:ss
-        width: 10
-        yPos: 5
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            id: base
-            name: laser
-            type: text
-          - hex: '#FFD255'
-            id: cf788902-8e79-480c-8082-9868e7371c43
-            name: thunder
-            type: text
-            value: 70
-          - hex: '#DC4E58'
-            id: dcd379b1-b952-4671-8538-15638459ba7c
-            name: fire
-            type: text
-            value: 95
-        decimalPlaces: 2
-        height: 3
-        kind: Single_Stat_Plus_Line
-        name: Ram usage
-        position: overlaid
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "mem")
-                  |> filter(fn: (r) => r["_field"] == "used_percent")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-        width: 3
-        xCol: _time
-        xPos: 3
-        yCol: _value
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 2
-        kind: Single_Stat_Plus_Line
-        name: Inbound traffic
-        position: overlaid
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "net")
-                  |> filter(fn: (r) => r["_field"] == "bytes_recv")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-                  |> filter(fn: (r) => r["interface"] == v.windows_interface)
-                  |> map(fn: (r) => ({
-                      r with
-                      _value: r._value / 125
-                    })
-                  )
-                  |> derivative(unit: 1s, nonNegative: false)
-                  |> yield(name: "derivative")
-                  |> last()
-        width: 3
-        xCol: _time
-        xPos: 3
-        yCol: _value
-        yPos: 3
-      - axes:
-          - base: "10"
-            name: x
-            scale: linear
-          - base: "10"
-            name: y
-            scale: linear
-        colors:
-          - hex: '#00C9FF'
-            id: base
-            name: laser
-            type: text
-          - hex: '#FFD255'
-            id: a22aad54-4730-475a-b450-f7c57ffad4ba
-            name: thunder
-            type: text
-            value: 70
-          - hex: '#DC4E58'
-            id: 76df6157-e560-4a32-a4ec-e5d30f38993c
-            name: fire
-            type: text
-            value: 95
-        decimalPlaces: 2
-        height: 2
-        kind: Single_Stat_Plus_Line
-        name: Disk usage
-        position: overlaid
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "disk")
-                  |> filter(fn: (r) => r["_field"] == "used_percent")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-        width: 4
-        xCol: _time
-        xPos: 6
-        yCol: _value
-      - colors:
-          - hex: '#ffffff'
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: _start
-            fieldName: _start
-            visible: true
-          - displayName: _stop
-            fieldName: _stop
-            visible: true
-          - displayName: _time
-            fieldName: _time
-            visible: true
-          - displayName: _value
-            fieldName: _value
-            visible: true
-          - displayName: _field
-            fieldName: _field
-            visible: true
-          - displayName: _measurement
-            fieldName: _measurement
-            visible: true
-          - displayName: display_name
-            fieldName: display_name
-            visible: true
-          - displayName: host
-            fieldName: host
-            visible: true
-          - displayName: service_name
-            fieldName: service_name
-            visible: true
-          - displayName: status
-            fieldName: status
-            visible: true
-          - displayName: startup_mode
-            fieldName: startup_mode
-            visible: true
-          - displayName: state
-            fieldName: state
-            visible: true
-          - displayName: startup
-            fieldName: startup
-            visible: true
-          - displayName: starup_mode
-            fieldName: starup_mode
-            visible: true
-        height: 3
-        kind: Table
-        name: Services
-        queries:
-          - query: "from(bucket: \"windows\")\n  |> range(start: v.timeRangeStart,
-                stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"]
-                == \"win_services\")\n  |> filter(fn: (r) => r[\"_field\"] == \"state\"
-                or r[\"_field\"] == \"starup_mode_mode\")\n  |> filter(fn: (r) =>
-                r[\"host\"] == v.windows_host) \n  |> first()\n  |> group()\n    |>
-                pivot(rowKey:[\"service_name\"], columnKey: [\"_field\"], valueColumn:
-                \"_value\")\n  |> map(fn: (r) => ({ r with state: \n    if r.state
-                == 1 then \"stopped\" \n    else if r.state == 2 then \"starting\"\n
-                \   else if r.state == 3 then \"stopping\"\n    else if r.state ==
-                4 then \"running\"\n    else if r.state == 5 then \"continuing\"\n
-                \   else if r.state == 6 then \"pausing\"\n    else if r.state ==
-                7 then \"paused\"\n    else \"unkown\" }))\n  |> map(fn: (r) => ({
-                r with starup_mode: \n    if r.starup_mode == 0 then \"boot start\"
-                \n    else if r.starup_mode == 1 then \"system start\"\n    else if
-                r.starup_mode == 2 then \"auto start\"\n    else if r.starup_mode
-                == 3 then \"manual\"\n    else if r.starup_mode == 4 then \"disabled\"\n
-                \   else \"unkown\" }))"
-        tableOptions:
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 4
-        xPos: 6
-        yPos: 2
-      - colors:
-          - hex: '#ffffff'
-            name: white
-            type: text
-        fieldOptions:
-          - displayName: URL
-            fieldName: _value
-            visible: true
-        height: 1
-        kind: Table
-        name: Remote Access
-        queries:
-          - query: |-
-                import "strings"
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "exec_meshinfo")
-                  |> filter(fn: (r) => r["_field"] == "value")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-                  |> last()
-                  |> keep(columns: ["_value"])
-                  |> map(fn: (r) => ({ r with _value: strings.joinStr(arr: ["https://",v.mesh_info, "/?viewmode=11&gotonode=",r._value], v: "")}))
-        tableOptions:
-            fixFirstColumn: true
-            verticalTimeAxis: true
-        timeFormat: YYYY-MM-DD HH:mm:ss
-        width: 2
-        xPos: 10
-      - colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Uptime
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |>filter(fn: (r) => r["host"] == v.windows_host)
-                  |> filter(fn: (r) => r["_measurement"] == "system")
-                  |> filter(fn: (r) => r["_field"] == "uptime_format")
-        width: 2
-        xPos: 10
-        yPos: 1
-      - colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Load 1
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "system")
-                  |> filter(fn: (r) => r["_field"] == "load5")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-        width: 2
-        xPos: 10
-        yPos: 2
-      - colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Load 15
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "system")
-                  |> filter(fn: (r) => r["_field"] == "load5")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-        width: 2
-        xPos: 10
-        yPos: 3
-      - colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 0
-        height: 1
-        kind: Single_Stat
-        name: CPU Count
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "system")
-                  |> filter(fn: (r) => r["_field"] == "n_cpus")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-        width: 2
-        xPos: 10
-        yPos: 4
-      - colors:
-          - hex: '#00C9FF'
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Memory
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "mem")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-                  |> filter(fn: (r) => r["_field"] == "total")
-                  |> map(fn: (r) => ({
-                      r with
-                      _value: r._value / 1000000000
-                    })
-                  )
-        width: 2
-        xPos: 10
-        yPos: 5
-      - colors:
-          - hex: '#00C9FF'
-            id: base
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Edition
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "exec_win_ver")
-                  |> filter(fn: (r) => r["_field"] == "Caption")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-        width: 2
-        xPos: 10
-        yPos: 6
-      - colors:
-          - hex: '#00C9FF'
-            id: base
-            name: laser
-            type: text
-        decimalPlaces: 2
-        height: 1
-        kind: Single_Stat
-        name: Build
-        queries:
-          - query: |-
-                from(bucket: "windows")
-                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-                  |> filter(fn: (r) => r["_measurement"] == "exec_win_ver")
-                  |> filter(fn: (r) => r["_field"] == "Version")
-                  |> filter(fn: (r) => r["host"] == v.windows_host)
-        width: 2
-        xPos: 10
-        yPos: 7
-    name: Windows Metrics
