@@ -1,6 +1,19 @@
-- name: Install Influxdb from Deb File
+- name: add signing keys
+  apt_key:
+    state: present
+    url: https://repos.influxdata.com/influxdb.key
+  become: true
+
+- name: add influx data repo
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/ubuntu {{ ansible_facts['lsb']['codename'] }} stable"
+    state: present
+  become: true
+
+- name:
   apt:
-    deb: https://dl.influxdata.com/influxdb/releases/influxdb_{{ influx_version }}_amd64.deb
+    name: influxdb2
+    state: present
   become: true
 
 - name: Start and Enable Influxdb
