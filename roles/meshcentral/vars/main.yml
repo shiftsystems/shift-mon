@@ -1,8 +1,17 @@
-packages:
+debian_packages:
   - nodejs
   - npm
   - mongodb
 
-services:
+redhat_packages:
+  - nodejs
+  - npm
+  - mongodb-org
+
+debian_services:
   - mongodb
+  - meshcentral
+
+redhat_services:
+  - mongod
   - meshcentral

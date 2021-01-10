@@ -1,9 +1,27 @@
-- name: Install dependencies for Meshcentral
+- name: Install dependencies for Meshcentral on Ubuntu based systems
   apt:
-    name: "{{ packages }}"
+    name: "{{ ubuntu_packages }}"
     state: present
   become: true
+  when: ansible_facts['os_family'] == "Debian"
 
+- name: add repo for Redhat based systems
+  yum_repository:
+    name: MongoDB
+    description: MongoDB
+    baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
+    gpgcheck: yes
+    gpgkey: https://www.mongodb.org/static/pgp/server-4.4.asc
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install dependencies for Meshcentral on Redhat Based Systems
+  yum:
+    name: "{{ redhat_packages }}"
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
 - name: Create Meshcentral group
   group:
     name: meshcentral
@@ -76,15 +94,22 @@
     dest: /etc/systemd/system/meshcentral.service
   become: true
 
-
-
-- name: start and enable services required for Meshcentral
+- name: start and enable services required for Meshcentral on Debian Based systems
   systemd:
     name: "{{ item }}"
     state: restarted
     enabled: true
     daemon-reload: true
   become: true
-  with_items: "{{ services }}"
+  with_items: "{{ ubuntu_services }}"
+  when: ansible_facts['os_family'] == "Debian"
 
-
+- name: start and enable services required for Meshcentral on Redhat based Systems
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+    daemon-reload: true
+  become: true
+  with_items: "{{ redhat_services }}"
+  when: ansible_facts['os_family'] == "RedHat"
