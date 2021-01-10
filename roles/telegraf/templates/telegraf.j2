@@ -13,11 +13,11 @@
   hostname = ""
   omit_hostname = false
 
-[[outputs.influxdb_v2]]	
-  urls = ["{{ influxdb2.url }}"]
-  token = "{{ influxdb2.token }}"
-  organization = "{{ influxdb2.org }}"
-  bucket = "{{ influxdb2.bucket }}"
+[[outputs.influxdb_v2]]
+  urls = ["$url"]
+  token = "$token"
+  organization = "$org"
+  bucket = "$bucket"
 
 [[inputs.cpu]]
   percpu = false
@@ -33,3 +33,8 @@
 [[inputs.swap]]
 [[inputs.system]]
 [[inputs.systemd_units]]
+[[inputs.exec]]
+  commands = ["grep -Ew 'NAME|VERSION' /etc/os-release"]
+  data_format = "logfmt"
+  name_suffix = "_os_release"
+  interval = "15m"
