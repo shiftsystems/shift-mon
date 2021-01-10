@@ -1,21 +1,42 @@
-- name: add signing keys
+- name: add signing keys on Ubuntu based systems
   apt_key:
     state: present
     url: https://repos.influxdata.com/influxdb.key
   become: true
+  when: ansible_distribution == "Ubuntu"
 
-- name: add influx data repo
+- name: add influx data repo on Ubuntu based systems
   apt_repository:
     repo: "deb https://repos.influxdata.com/ubuntu {{ ansible_facts['lsb']['codename'] }} stable"
     state: present
   become: true
+  when: ansible_distribution == "Ubuntu"
 
-- name:
+- name: Install influxdb and Ubuntu based systems
   apt:
     name: influxdb2
     state: present
   become: true
+  when: ansible_distribution == "Ubuntu"
 
+- name: add Influx data repo for Redhat based systems
+  yum_repository:
+    name: influxdb
+    description: influx db software
+    baseurl: https://repos.influxdata.com/centos/8/x86_64/stable/
+    gpgcheck: yes
+    gpgkey: https://repos.influxdata.com/influxdb.key
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install influxdb on Redhat based systems
+  dnf:
+    name: influxdb
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+  
 - name: Start and Enable Influxdb
   systemd: 
     name: influxd
