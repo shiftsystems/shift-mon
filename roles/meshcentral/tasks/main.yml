@@ -17,7 +17,7 @@
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install dependencies for Meshcentral on Redhat Based Systems
-  yum:
+  dnf:
     name: "{{ redhat_packages }}"
     state: present
   become: true

@@ -1,30 +1,51 @@
-- name: Install packages nginx
+- name: Install Certbot and Nginx on Debian based systems
   apt:
     name: "{{ packages }}"
     state: present
   become: true
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: remove default configs from nginx
+- name: Enable EPEL on Redhat systemes
+  dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    state: present
+    enablerepo: epel-release
+  become: true
+  when: ansible_facts['os_family'] == "RedHat" and ansible_distribution != "Fedora"
+
+- name: Install Certbot and Nginx on Redhat based systems
+  dnf:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: remove default configs from nginx on Debian Based systems
   file: 
     name: "/etc/nginx/sites-enabled/default"
     state: absent
   become: true
+  when: ansible_facts['os_family'] == "Debian"
 
 
-- name: paste in nginx configs
+- name: paste in nginx configs on Debian based systems
   template:
     src: "{{ item }}.j2"
     dest: /etc/nginx/sites-available/{{ item }}.conf
   become: true
   with_items: "{{ services }}"
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: enable nginx configs
+
+- name: enable nginx configs on Debian Based Systems
   file:
     src: /etc/nginx/sites-available/{{ item}}.conf
     dest: /etc/nginx/sites-enabled/{{ item }}.conf
     state: link
   become: true
   with_items: "{{ services }}"
+  when: ansible_facts['os_family'] == "Debian"
+
 
 - name: get a certificate for influxdb 
   shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ certbot_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
