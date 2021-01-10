@@ -32,11 +32,18 @@
 
 - name: Install influxdb on Redhat based systems
   dnf:
-    name: influxdb
+    name: influxdb2
     state: present
   become: true
   when: ansible_facts['os_family'] == "RedHat"
   
+- name: Put SELinux in Permissive mode for Influxdb
+  selinux:
+    policy: targeted
+    state: permissive
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
 - name: Start and Enable Influxdb
   systemd: 
     name: influxd

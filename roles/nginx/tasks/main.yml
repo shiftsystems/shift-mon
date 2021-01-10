@@ -36,6 +36,13 @@
   with_items: "{{ services }}"
   when: ansible_facts['os_family'] == "Debian"
 
+- name: paste in nginx configs on RedHat based systems
+  template:
+    src: "{{ item }}.j2"
+    dest: /etc/nginx/conf.d/{{ item }}.conf
+  become: true
+  with_items: "{{ services }}"
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: enable nginx configs on Debian Based Systems
   file:
@@ -61,6 +68,13 @@
   shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ certbot_email }} --agree-tos --renew-by-default -d {{ meshcentral_fqdn }}
   become: true
   when: mesh
+  
+- name: Put SELinux in Permissive mode for Nginx
+  selinux:
+    policy: targeted
+    state: permissive
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: start and enable nginx
   systemd:
