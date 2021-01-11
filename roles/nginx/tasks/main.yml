@@ -36,6 +36,13 @@
   with_items: "{{ services }}"
   when: ansible_facts['os_family'] == "Debian"
 
+- name: Change base config for Nginx on Redhat based systems
+  copy: 
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
 - name: paste in nginx configs on RedHat based systems
   template:
     src: "{{ item }}.j2"
