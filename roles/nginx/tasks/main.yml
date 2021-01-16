@@ -5,13 +5,12 @@
   become: true
   when: ansible_facts['os_family'] == "Debian"
 
-- name: Enable EPEL on Redhat systemes
+- name: Add EPEL Release on Redhat Based Systems
   dnf:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    name: epel-release
     state: present
-    enablerepo: epel-release
   become: true
-  when: ansible_facts['os_family'] == "RedHat" and ansible_distribution != "Fedora"
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install Certbot and Nginx on Redhat based systems
   dnf:
