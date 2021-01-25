@@ -75,12 +75,17 @@
   become: true
   when: mesh
   
-- name: Put SELinux in Permissive mode for Nginx
-  selinux:
-    policy: targeted
-    state: permissive
-  become: true
-  when: ansible_facts['os_family'] == "RedHat"
+- name: Allow httpd to can network connect
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
+- name: Allow nis to enabled
+  seboolean:
+    name: nis_enabled
+    state: yes
+    persistent: yes
 
 - name: start and enable nginx
   systemd:

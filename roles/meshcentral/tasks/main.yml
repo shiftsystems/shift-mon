@@ -104,13 +104,6 @@
   with_items: "{{ ubuntu_services }}"
   when: ansible_facts['os_family'] == "Debian"
 
-- name: Put SELinux in Permissive mode for Meshcentral
-  selinux:
-    policy: targeted
-    state: permissive
-  become: true
-  when: ansible_facts['os_family'] == "RedHat"
-
 - name: start and enable services required for Meshcentral on Redhat based Systems
   systemd:
     name: "{{ item }}"
