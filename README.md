@@ -1,9 +1,9 @@
 # Shift RMM
 
-An open source remote monitoring and management tool based on Telegraf, InfluxDB, and MeshCentral.
+An open source remote monitoring and management tool based on Telegraf, InfluxDB, and MeshCentral. It cares about everything you manage not just windows boxes.
 
 ## Installation
-[Follow the intructions in the docs](dcos/Install.md)
+[Follow the intructions in the docs](docs/Install.md)
 
 
 ## Contribution
@@ -12,15 +12,17 @@ An open source remote monitoring and management tool based on Telegraf, InfluxDB
 We appreciate your contribution by helping with documentation, contributing code, or submitting an issue
 
 ### Active hardware
-If there a device you would like us to monitor and are willing to give us the ability to monitor it please reach out to mathias@shiftsystems.net
+If there is a platform you wish we supported and are willing to send us monitoring data please reach out to mathias@shiftsystems.net
 
 ### Money 
-You can purchase hosting shift-rmm or get purchase consulting for ansible, meshcentrall, telegraf, or influxdb by email sales@shiftsystems.net
+You can purchase shift-rmm as a managed or solution. 
+We also do consulting for ansible, meshcentral, telegraf, and influxdb. 
+Please fill out the contact form on shiftsystems.net or email sales@shiftsystems.net
 
 [Paypal](https://www.paypal.com/donate?hosted_button_id=384786R5ULJRC)
 
 
 ## Social Media
-[Facebook](https://facebook.com/shiftsystems)
+There is an RSS feed for our blog on [the shiftsystems website](https://shiftsystems.net)
 
-[Youtube](https://www.youtube.com/channel/UCO2EZwVPok3Plop3ekonf7A)
+Thrusday nights at 8 PM CT we stream a development session on [Youtube](https://www.youtube.com/channel/UCO2EZwVPok3Plop3ekonf7A).
