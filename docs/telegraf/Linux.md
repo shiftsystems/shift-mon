@@ -9,13 +9,13 @@ The only thing that is required is that SSH needs to accessible on all endpoints
 Ansible can be installed by following [the Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems) and git can be installed from your Linux distribution's repository.
 
 ### What does the script/role do? 
-* places connection info your influxdb in /etc/default/telegraf
-* adds code signing keys and repos from influxdata
-* install the telegraf agent
-* edits config files in /etc/telegraf/
+* Places connection info your influxdb in /etc/default/telegraf
+* Adds code signing keys and repos from influxdata
+* Install the telegraf agent
+* Edits config files in /etc/telegraf/
 
 ### setting up your inventory 
-you will need the following in your Ansible inventory. The default inventory is in ```/etc/ansible/hosts```. 
+You will need the following in your Ansible inventory. The default inventory is in ```/etc/ansible/hosts```. 
 We use a YAML inventory so if you are using an ini inventory then you should keep a separate inventory for Shift-RMM. 
 you will need the following lines under vars
 ```
@@ -68,4 +68,4 @@ The Bash script assumes that wget is installed, curl is installed, you are runni
 INFLUXDB_URL="https://test.example.com"
 TELEGRAF_TOKEN="GET_YOUR_OWN_TOKEN"
 ```
-To run the script run ```sudo bash telegraf-install.bash``` or ```bash telegraf-install.bash``` if you are logged in as root. 
+To run the script run ```sudo bash telegraf-install.bash``` or ```bash telegraf-install.bash``` if you are logged in as root.
