@@ -63,7 +63,7 @@ If you are using separate sudo passwords on each machine then you can use the -l
 If you are running into issues with SSH and ansible follow [the Ansible docs](https://docs.ansible.com/ansible/latest/user_guide/connection_details.html)
 
 ## Bash Script
-The Bash script assumes that wget is installed, curl is installed, you are running it as root or as sudo with root permissions, and you can access gitlab.com. To download the script run ```wget https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/linux/telegraf-install.bash```. Next you have to edit the following variables in the first few lines of the script to match your settings 
+The Bash script assumes that wget is installed, curl is installed, you are running it as root or as sudo with root permissions, and you can access gitlab.com. You can upload the script from [here](https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/linux/telegraf-install.bash) to meshcentral and push it from meshcentral or download the script run ```wget https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/linux/telegraf-install.bash```. Next you have to edit the following variables in the first few lines of the script to match your settings
 ```
 INFLUXDB_URL="https://test.example.com"
 TELEGRAF_TOKEN="GET_YOUR_OWN_TOKEN"
