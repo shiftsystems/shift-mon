@@ -26,3 +26,12 @@ Please fill out the contact form on shiftsystems.net or email sales@shiftsystems
 There is an RSS feed for our blog on [the shiftsystems website](https://shiftsystems.net)
 
 Thrusday nights at 8 PM CT we stream a development session on [Youtube](https://www.youtube.com/channel/UCO2EZwVPok3Plop3ekonf7A).
+
+## New Platforms
+We are currently looking at instrumenting the following platforms with telegraf
+* VMWare vSphere
+* php-fpm
+* php error logging
+* mysql
+* Microsoft SQL Server
+* IIS logs
