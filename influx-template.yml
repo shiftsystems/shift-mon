@@ -217,7 +217,7 @@ metadata:
 spec:
     associations:
       - kind: Label
-        name: obstinate-wescoff-b6a001
+        name: vibrant-banach-29c001
     every: 5m0s
     name: Microsoft Defender Threat
     query: |-
