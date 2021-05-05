@@ -3,4 +3,3 @@ packages:
   - nginx
 services:
   - influxdb
-  - meshcentral
