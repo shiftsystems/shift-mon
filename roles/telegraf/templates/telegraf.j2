@@ -12,13 +12,12 @@
   logfile = ""
   hostname = ""
   omit_hostname = false
-
 [[outputs.influxdb_v2]]
   urls = ["$url"]
   token = "$token"
   organization = "$org"
   bucket = "$bucket"
-
+  insecure_skip_verify = true
 [[inputs.cpu]]
   percpu = false
   totalcpu = true
