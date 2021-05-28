@@ -1,14 +1,8 @@
 - hosts: all
   tasks:
     - import_role:
-        name: meshcentral
-      when: mesh
-    - import_role:
         name: influxdb
       when: influxdb
-    - import_role:
-        name: grafana
-      when: grafana
     - import_role:
         name: nginx
       when: nginx
