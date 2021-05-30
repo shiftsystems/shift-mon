@@ -10,7 +10,7 @@
     name: epel-release
     state: present
   become: true
-  when: ansible_facts['os_family'] == "RedHat"
+  when: ansible_facts['os_family'] in ["RedHat","Alma Linux"]
 
 - name: Install Certbot and Nginx on Redhat based systems
   dnf:
@@ -40,7 +40,7 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
   become: true
-  when: ansible_facts['os_family'] == "RedHat"
+  when: ansible_facts['os_family'] in ["RedHat","Alma Linux"]
 
 - name: paste in nginx configs on RedHat based systems
   template:
@@ -48,7 +48,7 @@
     dest: /etc/nginx/conf.d/{{ item }}.conf
   become: true
   with_items: "{{ services }}"
-  when: ansible_facts['os_family'] == "RedHat"
+  when: ansible_facts['os_family'] in ["RedHat","Alma Linux"]
 
 - name: enable nginx configs on Debian Based Systems
   file:
@@ -63,8 +63,7 @@
 - name: get a certificate for influxdb 
   shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ certbot_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
   become: true
-  when: influxdb
-
+  when: nginx
   
 - name: Allow httpd to can network connect
   seboolean:

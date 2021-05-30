@@ -2,7 +2,6 @@
   tasks:
     - import_role:
         name: influxdb
-      when: influxdb
     - import_role:
         name: nginx
       when: nginx
