@@ -70,10 +70,10 @@
 
 - name: Add Nginx config When nginx is installed
   get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/crowdsec.conf
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/nginx.conf
     dest: /etc/telegraf/telegraf.d/nginx.conf
   become: true
-  when: "'nginx.service' in ansible_facts.service"
+  when: "'nginx.service' in ansible_facts.services"
 
 - name: Start and Enable Telegraf
   systemd:
