@@ -32,6 +32,9 @@ if($service) {
     $url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/iis.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\iis.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
+    $url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/iis-logs.conf"
+    $output = "C:\Program Files\telegraf\telegraf.d\iis-logs.conf"
+    Invoke-WebRequest -Uri $url -OutFile $output
 }
 # Create registry entries for telegraf
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\telegraf"-Name "Environment" -PropertyType MultiString -Value $telegraf_env -Force
