@@ -51,10 +51,33 @@
     dest: /etc/telegraf/telegraf.conf
   become: true
 
+- name: Gather Systemd units
+  service_facts:
+
+- name: Add Meshcentral Config if Meshcentral is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/mesh-central.conf
+    dest: /etc/telegraf/telegraf.d/mesh-central.conf
+  become: true
+  when: "'meshagent.service' in ansible_facts.services"
+
+- name: Add Crowdsec Config if Crowdsec is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/crowdsec.conf
+    dest: /etc/telegraf/telegraf.d/crowdsec.conf
+  become: true
+  when: "'crowdsec.service' in ansible_facts.services"
+
+- name: Add Nginx config When nginx is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/nginx.conf
+    dest: /etc/telegraf/telegraf.d/nginx.conf
+  become: true
+  when: "'nginx.service' in ansible_facts.services"
+
 - name: Start and Enable Telegraf
   systemd:
     name: telegraf
     enabled: true
     state: restarted
   become: true
-

@@ -1,20 +1,9 @@
 all:
   hosts:
-    test.example.com:
-      influxdb: true
+    influxdb.shiftsystems.net:
   vars:
-    meshcentral_fqdn: mesh.example.com
+    influxdb_fqdn: influxdb.example.com
     nginx: true
     ansible_python_interpreter: /usr/bin/python3
-    ansible_connection: local
-    title_text: "Shift Shiftsystems RMM"
-    welcome_text: "a dope RMM server"
-    footer_text: "<a href='https://shiftsystems.net'>Shift Systems</a>"
-    certbot_email: ""
-    mail_host: ""
-    email_port: 465
-    from_address: ""
-    email_username: ""
-    email_password: ""
     influx_org: "shiftsystems"
-
+    certbot_email: "insert_email_here"
