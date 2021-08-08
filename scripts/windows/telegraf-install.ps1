@@ -1,9 +1,22 @@
+# Victoria Metrics Settings
+$victoria_url = "https://victoriametrics.example.com"
+$victoria_username = "telegraf"
+$victoria_password = "telegraf"
+$victoria_database = "windows"
+
+# Loki Metrics Settings
+$loki_url = "https://loki.example.com"
+$loki_username = "loki"
+$loki_password = "loki"
+
+# Influxdb 2 settings
 $telegraf_url="https://telegraf.exmpale.com"
 $telegraf_org="shiftsystems"
 $telegraf_bucket="windows"
 $telegraf_token="GET_YOUR_TOKEN"
-$telegraf_env =("server=$telegraf_url","organization=$telegraf_org","token=$telegraf_token","bucket=$telegraf_bucket")
 
+# env registry key
+$telegraf_env =("server=$telegraf_url","organization=$telegraf_org","token=$telegraf_token","bucket=$telegraf_bucket","victoria_url=$victoria_url","victoria_user=$victoria_user","victoria_password=$victoria_password","victoria_database=$victoria_database","loki_url=$loki_url","loki_user=$loki_user","loki_password=$loki_password")
 
 C:\ProgramData\chocolatey\choco.exe install telegraf -y
 C:\ProgramData\chocolatey\choco.exe upgrade telegraf -y
@@ -16,6 +29,11 @@ If(!(test-path $path))
 # download and install telegraf config
 $url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/telegraf.conf"
 $output = "C:\Program Files\telegraf\telegraf.conf"
+Invoke-WebRequest -Uri $url -OutFile $output
+
+# download and install telegraf config
+$url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/new-outputs.conf"
+$output = "C:\Program Files\telegraf\telegraf.d\new-outputs.conf"
 Invoke-WebRequest -Uri $url -OutFile $output
 
 # Add Defender config if server 2016 or newer or windows 10
