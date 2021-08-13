@@ -51,6 +51,12 @@
     dest: /etc/telegraf/telegraf.conf
   become: true
 
+- name: Download telegraf new outputs config
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/new-outputs.conf
+    dest: /etc/telegraf/telegraf.d/new-outputs.conf
+  become: true
+
 - name: Gather Systemd units
   service_facts:
 
@@ -61,7 +67,7 @@
   become: true
   when: "'meshagent.service' in ansible_facts.services"
 
-- name: Add Meshcentral Config if Meshcentral is installed
+- name: Add Crowdsec Config if Crowdsec is installed
   get_url:
     url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/crowdsec.conf
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
