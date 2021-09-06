@@ -35,4 +35,6 @@
   commands = ["grep -Ew 'NAME|VERSION' /etc/os-release"]
   data_format = "logfmt"
   name_suffix = "_os_release"
-  interval = "15m"
+  interval = "5m"
+  [[inputs.exec.tags]]
+    type="os-info"
