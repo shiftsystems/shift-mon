@@ -74,12 +74,50 @@
   become: true
   when: "'crowdsec.service' in ansible_facts.services"
 
+- name: Add telegraf to the nginx group on RedHat based systems
+  user: 
+    name: telegraf
+    group: root
+    append: true
+  become: true
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Add telegraf to the nginx group on Debian based systems
+  user:
+    name: telegraf
+    group: adm
+    append: true
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
+
 - name: Add Nginx config When nginx is installed
   get_url:
     url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/nginx.conf
     dest: /etc/telegraf/telegraf.d/nginx.conf
   become: true
   when: "'nginx.service' in ansible_facts.services"
+
+- name:  Add telegraf to the MySQL group on RedHat based systems
+  user:
+    name: telegraf
+    group: mysql
+    append: true
+  become: true
+  when: "'mysqld.service' in ansible_facts.services"
+
+- name: MySQL config when MySQL is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/mysql.conf
+    dest: /etc/telegraf/telegraf.d/mysql.conf
+  become: true
+  when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
+
+- name: Add telegraf to the MySQL group on Debian based systems
+  file:
+    path: '/tmp/stubby'
+    state: absent
+
+  when: "'mysql.service' in ansible_facts.services"
 
 - name: Start and Enable Telegraf
   systemd:
