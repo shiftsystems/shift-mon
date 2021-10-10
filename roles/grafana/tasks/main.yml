@@ -1,0 +1,49 @@
+- name: add GPG key for repo on Debian based systems
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+    state: present
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: add repo for Debian based systems
+  apt_repository:
+    repo: "deb https://packages.grafana.com/oss/deb stable main"
+    state: present
+    update_cache: no
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: add repo for RedHat Based Systems
+  yum_repository:
+    name: grafana
+    description: 'Grafana data visualiztion software'
+    baseurl: https://packages.grafana.com/oss/rpm
+    gpgcheck: true
+    sslverify: true
+    gpgkey: https://packages.grafana.com/gpg.key
+    state: present
+    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+  become: true
+  when: ansible_facts['os_family'] in ["AlmaLinux","RedHat"]
+
+- name: install install packages for grafana
+  apt:
+    name: "{{ packages }}"
+    update_cache: true
+    state: latest
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: install install packages for grafana
+  dnf:
+    name: "{{ packages }}"
+    state: latest
+  become: true
+  when: ansible_facts['os_family'] in ["AlmaLinux","RedHat"]
+
+- name: start and enable Grafana
+  systemd:
+    name: grafana-server
+    enabled: yes
+    state: restarted
+  become: true
