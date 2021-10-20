@@ -9,4 +9,4 @@ User=victoriametrics
 Group=victoriametrics
 Restart=on-failure
 WorkingDirectory=/opt/victoriametrics
-ExecStart=/opt/victoriametrics/victoriametrics --storageDataPath=/opt/victoriametrics/storage --graphiteListenAddr=:2003
+ExecStart=/opt/victoriametrics/victoria-metrics-prod --storageDataPath=/opt/victoriametrics-storage --graphiteListenAddr=:2003

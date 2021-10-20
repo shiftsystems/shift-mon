@@ -4,12 +4,6 @@
     dest: '/tmp/victoriametrics-{{ version }}.tar.gz'
   become: true
 
-- name: extract victoriametrics archive
-  unarchive:
-    src: '/tmp/victoriametrics-{{ version }}.tar.gz'
-    dest: /opt/victoriametrics
-  become: true
-
 - name: create victoriametrics user
   user:
     name: victoriametrics
@@ -25,12 +19,11 @@
    group: victoriametrics
   become: true
 
-- name: create victoriametrics folder
-  file:
-   path: /opt/victoriametrics/storage
-   state: directory
-   owner: victoriametrics
-   group: victoriametrics
+- name: extract victoriametrics archive
+  unarchive:
+    src: '/tmp/victoriametrics-{{ version }}.tar.gz'
+    dest: /opt/victoriametrics
+    remote_src: true
   become: true
 
 - name: create the service
