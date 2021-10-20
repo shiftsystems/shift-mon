@@ -1,0 +1,12 @@
+[Unit]
+Description=Victoria Metrics time series database
+Documentation=https://docs.victoriametrics.com/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=victoriametrics
+Group=victoriametrics
+Restart=on-failure
+WorkingDirectory=/opt/victoriametrics
+ExecStart=/opt/victoriametrics/victoriametrics --storageDataPath=/opt/victoriametrics/storage --graphiteListenAddr=:2003
