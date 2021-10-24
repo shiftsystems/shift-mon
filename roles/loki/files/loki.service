@@ -1,0 +1,12 @@
+[Unit]
+Description=loki log storage system
+Documentation=https://grafana.com/docs/loki/latest/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=loki
+Group=loki
+Restart=on-failure
+WorkingDirectory=/opt/loki
+ExecStart=/opt/loki/loki-linux-amd64 -config.file=loki-config.yml

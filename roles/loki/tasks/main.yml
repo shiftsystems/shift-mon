@@ -1,0 +1,57 @@
+- name: Make sure dependancies are installed
+  package:
+    name: zip
+    state: latest
+  become: true
+
+- name: Download Loki
+  get_url: 
+    url: 'https://github.com/grafana/loki/releases/download/v{{ version }}/loki-linux-amd64.zip'
+    dest: '/tmp/loki-{{ version }}.zip'
+  become: true
+
+- name: create Loki user
+  user:
+    name: loki
+    state: present
+    shell: /usr/sbin/nologin
+  become: true
+
+- name: create Loki folder
+  file:
+   path: /opt/loki
+   state: directory
+   owner: loki
+   group: loki
+  become: true
+
+- name: extract Loki
+  unarchive:
+    src: '/tmp/loki-{{ version }}.zip'
+    dest: /opt/loki
+    remote_src: true
+  become: true
+
+- name: copy loki configs
+  template:
+    src: loki-config.yml
+    dest: /opt/loki/loki-config.yml
+  become: true
+
+- name: create the Loki service
+  copy:
+    src: loki.service
+    dest: /etc/systemd/system/loki.service
+  become: true
+
+- name: Reload systemd units
+  systemd:
+    daemon-reload: true
+  become: true
+
+- name: Enable and restart the loki
+  systemd:
+    name: loki
+    enabled: true
+    state: restarted
+  become: true

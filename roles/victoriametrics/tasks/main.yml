@@ -32,7 +32,7 @@
     dest: /etc/systemd/system/victoriametrics.service
   become: true
 
-- name: reload systemd units
+- name: Reload systemd units
   systemd:
     daemon-reload: true
   become: true
