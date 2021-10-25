@@ -41,6 +41,14 @@
   become: true
   when: ansible_facts['os_family'] in ["AlmaLinux","RedHat"]
 
+- name: Configure datasources
+  copy:
+    src: datasources.yml
+    dest: /var/lib/grafana/provisioning/datasources/default.yml
+  become: true
+
+- name: Configure dashboards
+
 - name: start and enable Grafana
   systemd:
     name: grafana-server

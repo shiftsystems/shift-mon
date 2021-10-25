@@ -1,0 +1,6 @@
+apiVersion: 1
+datasources:
+  - name: metrics
+    type: prometheus
+  - name: logs
+    type: loki
