@@ -1,9 +1,21 @@
 all:
   hosts:
-    influxdb.shiftsystems.net:
+    shiftmon.example.com:
   vars:
-    influxdb_fqdn: influxdb.example.com
-    nginx: true
+    loki:
+      url: 'https://shiftmon.example.com:3100'
+      user: 'test'
+      password: 'test'
+    victoria:
+      url: 'http://shiftmon.example.com:8428'
+      user: 'test'
+      password: 'test'
     ansible_python_interpreter: /usr/bin/python3
-    influx_org: "shiftsystems"
-    certbot_email: "insert_email_here"
+    grafana:
+      domain: 'grafana.example.com'
+    email:
+      enabled: false
+      host: 'mail.example.com'
+      alert_from_address: 'alerts@example.com'
+      alert_from_name: 'Shiftmon Alerts'
+      port: '587'
