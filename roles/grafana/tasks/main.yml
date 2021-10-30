@@ -65,6 +65,12 @@
     dest: /etc/grafana/provisioning/dashboards/shift-dashboards.yml
   become: true
 
+- name: Copy Grafana config
+  template:
+    src: grafana.ini
+    dest: /etc/grafana/grafana.ini
+  become: true
+
 - name: start and enable Grafana
   systemd:
     name: grafana-server
