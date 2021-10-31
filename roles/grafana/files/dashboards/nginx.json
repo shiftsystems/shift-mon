@@ -1,965 +1,965 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": "-- Grafana --",
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "target": {
-            "limit": 100,
-            "matchAny": false,
-            "tags": [],
-            "type": "dashboard"
-          },
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
           "type": "dashboard"
-        }
-      ]
-    },
-    "description": "",
-    "editable": true,
-    "gnetId": null,
-    "graphTooltip": 0,
-    "id": 9,
-    "iteration": 1633895207812,
-    "links": [],
-    "panels": [
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
         },
-        "gridPos": {
-          "h": 5,
-          "w": 7,
-          "x": 0,
-          "y": 0
-        },
-        "id": 4,
-        "options": {
-          "colorMode": "none",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [],
-            "fields": "",
-            "values": false
-          },
-          "text": {},
-          "textMode": "auto"
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "count_over_time({host=\"$host\",path=~\"/var/log/nginx/.*\"}[$__range])",
-            "instant": false,
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Requests",
-        "type": "stat"
-      },
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 7,
-          "x": 7,
-          "y": 0
-        },
-        "id": 7,
-        "options": {
-          "colorMode": "none",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [],
-            "fields": "",
-            "values": false
-          },
-          "text": {},
-          "textMode": "auto"
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt | status >= 300  | status < 400",
-            "instant": false,
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Redirects",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {
-              "valueLabel": "host"
-            }
-          },
-          {
-            "id": "reduce",
-            "options": {
-              "includeTimeField": false,
-              "labelsToFields": true,
-              "mode": "seriesToRows",
-              "reducers": [
-                "count"
-              ]
-            }
-          },
-          {
-            "id": "reduce",
-            "options": {}
-          }
-        ],
-        "type": "stat"
-      },
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 5,
-          "x": 14,
-          "y": 0
-        },
-        "id": 5,
-        "options": {
-          "colorMode": "none",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [],
-            "fields": "",
-            "values": false
-          },
-          "text": {},
-          "textMode": "auto"
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt | status >= 400",
-            "instant": false,
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Errors",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {
-              "valueLabel": "host"
-            }
-          },
-          {
-            "id": "reduce",
-            "options": {
-              "includeTimeField": false,
-              "labelsToFields": true,
-              "mode": "seriesToRows",
-              "reducers": [
-                "count"
-              ]
-            }
-          },
-          {
-            "id": "reduce",
-            "options": {}
-          }
-        ],
-        "type": "stat"
-      },
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              }
-            },
-            "mappings": []
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 12,
-          "w": 5,
-          "x": 19,
-          "y": 0
-        },
-        "id": 11,
-        "options": {
-          "displayLabels": [
-            "value"
-          ],
-          "legend": {
-            "displayMode": "table",
-            "placement": "bottom",
-            "values": [
-              "percent"
-            ]
-          },
-          "pieType": "donut",
-          "reduceOptions": {
-            "calcs": [
-              "count"
-            ],
-            "fields": "",
-            "values": true
-          },
-          "tooltip": {
-            "mode": "single"
-          }
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt",
-            "refId": "A"
-          }
-        ],
-        "title": "User Agents",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {}
-          },
-          {
-            "id": "groupBy",
-            "options": {
-              "fields": {
-                "http_user_agent": {
-                  "aggregations": [],
-                  "operation": "groupby"
-                },
-                "id": {
-                  "aggregations": [
-                    "count"
-                  ],
-                  "operation": "aggregate"
-                },
-                "status": {
-                  "aggregations": [],
-                  "operation": null
-                }
-              }
-            }
-          }
-        ],
-        "type": "piechart"
-      },
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "displayMode": "auto"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "verb"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 79
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "bytes_sent"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 110
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "remote_addr"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 159
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "http_user_agent"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 343
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "time_local"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 219
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "http_path"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 213
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "http_referer"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 312
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "status"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 70
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 12,
-          "w": 14,
-          "x": 0,
-          "y": 5
-        },
-        "id": 2,
-        "options": {
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "{path=~\"/var/log/nginx/.*\",host=\"$host\"} | logfmt",
-            "refId": "A"
-          }
-        ],
-        "title": "Request Log",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {}
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "bytes_sent": true,
-                "host": true,
-                "http_version": true,
-                "id": true,
-                "line": true,
-                "path": true,
-                "remote_user": true,
-                "ts": true,
-                "tsNs": true
-              },
-              "indexByName": {
-                "bytes_sent": 7,
-                "host": 10,
-                "http_path": 2,
-                "http_referer": 5,
-                "http_user_agent": 4,
-                "http_version": 11,
-                "id": 14,
-                "line": 13,
-                "path": 9,
-                "remote_addr": 6,
-                "remote_user": 12,
-                "status": 3,
-                "time_local": 0,
-                "ts": 8,
-                "tsNs": 15,
-                "verb": 1
-              },
-              "renameByName": {}
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              }
-            },
-            "mappings": []
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 12,
-          "w": 5,
-          "x": 14,
-          "y": 5
-        },
-        "id": 9,
-        "options": {
-          "displayLabels": [
-            "value"
-          ],
-          "legend": {
-            "displayMode": "list",
-            "placement": "right",
-            "values": [
-              "percent"
-            ]
-          },
-          "pieType": "donut",
-          "reduceOptions": {
-            "calcs": [
-              "count"
-            ],
-            "fields": "",
-            "values": true
-          },
-          "tooltip": {
-            "mode": "single"
-          }
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt",
-            "refId": "A"
-          }
-        ],
-        "title": "Status Codes",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {}
-          },
-          {
-            "id": "groupBy",
-            "options": {
-              "fields": {
-                "id": {
-                  "aggregations": [
-                    "count"
-                  ],
-                  "operation": "aggregate"
-                },
-                "status": {
-                  "aggregations": [],
-                  "operation": "groupby"
-                }
-              }
-            }
-          }
-        ],
-        "type": "piechart"
-      },
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "displayMode": "auto"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "verb"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 79
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "bytes_sent"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 110
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "remote_addr"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 159
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "http_user_agent"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 343
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "time_local"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 219
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "http_path"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 213
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "http_referer"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 312
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "status"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 70
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 10,
-          "w": 14,
-          "x": 0,
-          "y": 17
-        },
-        "id": 6,
-        "options": {
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "{path=~\"/var/log/nginx/.*\",host=\"$host\"} | logfmt | status >= 400",
-            "refId": "A"
-          }
-        ],
-        "title": "Error Requests",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {}
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "bytes_sent": true,
-                "host": true,
-                "http_version": true,
-                "id": true,
-                "line": true,
-                "path": true,
-                "remote_user": true,
-                "ts": true,
-                "tsNs": true
-              },
-              "indexByName": {
-                "bytes_sent": 7,
-                "host": 10,
-                "http_path": 2,
-                "http_referer": 5,
-                "http_user_agent": 4,
-                "http_version": 11,
-                "id": 14,
-                "line": 13,
-                "path": 9,
-                "remote_addr": 6,
-                "remote_user": 12,
-                "status": 3,
-                "time_local": 0,
-                "ts": 8,
-                "tsNs": 15,
-                "verb": 1
-              },
-              "renameByName": {}
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "datasource": "${Logs}",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              }
-            },
-            "mappings": []
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 10,
-          "w": 5,
-          "x": 14,
-          "y": 17
-        },
-        "id": 10,
-        "options": {
-          "displayLabels": [
-            "value"
-          ],
-          "legend": {
-            "displayMode": "table",
-            "placement": "bottom",
-            "values": [
-              "percent"
-            ]
-          },
-          "pieType": "donut",
-          "reduceOptions": {
-            "calcs": [
-              "count"
-            ],
-            "fields": "",
-            "limit": 10,
-            "values": true
-          },
-          "tooltip": {
-            "mode": "single"
-          }
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt",
-            "refId": "A"
-          }
-        ],
-        "title": "top 10 endpoints",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {}
-          },
-          {
-            "id": "groupBy",
-            "options": {
-              "fields": {
-                "http_path": {
-                  "aggregations": [],
-                  "operation": "groupby"
-                },
-                "id": {
-                  "aggregations": [
-                    "count"
-                  ],
-                  "operation": "aggregate"
-                },
-                "status": {
-                  "aggregations": [],
-                  "operation": null
-                }
-              }
-            }
-          }
-        ],
-        "type": "piechart"
+        "type": "dashboard"
       }
-    ],
-    "schemaVersion": 30,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-      "list": [
-        {
-          "current": {
-            "selected": false,
-            "text": "VictoriaMetrics",
-            "value": "VictoriaMetrics"
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 9,
+  "iteration": 1635715821400,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          "description": null,
-          "error": null,
-          "hide": 0,
-          "includeAll": false,
-          "label": null,
-          "multi": false,
-          "name": "Metrics",
-          "options": [],
-          "query": "prometheus",
-          "queryValue": "",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "type": "datasource"
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
-        {
-          "current": {
-            "selected": false,
-            "text": "Loki",
-            "value": "Loki"
-          },
-          "description": null,
-          "error": null,
-          "hide": 0,
-          "includeAll": false,
-          "label": null,
-          "multi": false,
-          "name": "Logs",
-          "options": [],
-          "query": "loki",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "type": "datasource"
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 7,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
         },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
         {
-          "allValue": null,
-          "current": {
-            "isNone": true,
-            "selected": true,
-            "text": "None",
-            "value": ""
-          },
-          "datasource": "${Logs}",
-          "definition": "label_values({path=~\"/var/log/nginx/.*\"},host)",
-          "description": null,
-          "error": null,
-          "hide": 0,
-          "includeAll": false,
-          "label": null,
-          "multi": false,
-          "name": "host",
-          "options": [],
-          "query": "label_values({path=~\"/var/log/nginx/.*\"},host)",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "type": "query"
+          "expr": "count_over_time({host=\"$host\",path=~\"/var/log/nginx/.*\"}[$__range])",
+          "instant": false,
+          "range": true,
+          "refId": "A"
         }
-      ]
+      ],
+      "title": "Requests",
+      "type": "stat"
     },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 7,
+        "x": 7,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt | status >= 300  | status < 400",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Redirects",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "host"
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "labelsToFields": true,
+            "mode": "seriesToRows",
+            "reducers": [
+              "count"
+            ]
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {}
+        }
+      ],
+      "type": "stat"
     },
-    "timepicker": {
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ]
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 14,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt | status >= 400",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Errors",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "host"
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "labelsToFields": true,
+            "mode": "seriesToRows",
+            "reducers": [
+              "count"
+            ]
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {}
+        }
+      ],
+      "type": "stat"
     },
-    "timezone": "",
-    "title": "Nginx",
-    "uid": "cWrlIMS7k",
-    "version": 4
-  }
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 5,
+        "x": 19,
+        "y": 0
+      },
+      "id": 11,
+      "options": {
+        "displayLabels": [
+          "value"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "User Agents",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "http_user_agent": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "id": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              },
+              "status": {
+                "aggregations": [],
+                "operation": null
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "verb"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 79
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_sent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "remote_addr"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 159
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_user_agent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 343
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time_local"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 219
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_path"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 213
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_referer"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 312
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 14,
+        "x": 0,
+        "y": 5
+      },
+      "id": 2,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "expr": "{path=~\"/var/log/nginx/.*\",host=\"$host\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "Request Log",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "bytes_sent": true,
+              "host": true,
+              "http_version": true,
+              "id": true,
+              "line": true,
+              "path": true,
+              "remote_user": true,
+              "ts": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "bytes_sent": 7,
+              "host": 10,
+              "http_path": 2,
+              "http_referer": 5,
+              "http_user_agent": 4,
+              "http_version": 11,
+              "id": 14,
+              "line": 13,
+              "path": 9,
+              "remote_addr": 6,
+              "remote_user": 12,
+              "status": 3,
+              "time_local": 0,
+              "ts": 8,
+              "tsNs": 15,
+              "verb": 1
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 5,
+        "x": 14,
+        "y": 5
+      },
+      "id": 9,
+      "options": {
+        "displayLabels": [
+          "value"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "Status Codes",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "id": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              },
+              "status": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "verb"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 79
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_sent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "remote_addr"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 159
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_user_agent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 343
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time_local"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 219
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_path"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 213
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_referer"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 312
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 14,
+        "x": 0,
+        "y": 17
+      },
+      "id": 6,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "expr": "{path=~\"/var/log/nginx/.*\",host=\"$host\"} | logfmt | status >= 400",
+          "refId": "A"
+        }
+      ],
+      "title": "Error Requests",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "bytes_sent": true,
+              "host": true,
+              "http_version": true,
+              "id": true,
+              "line": true,
+              "path": true,
+              "remote_user": true,
+              "ts": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "bytes_sent": 7,
+              "host": 10,
+              "http_path": 2,
+              "http_referer": 5,
+              "http_user_agent": 4,
+              "http_version": 11,
+              "id": 14,
+              "line": 13,
+              "path": 9,
+              "remote_addr": 6,
+              "remote_user": 12,
+              "status": 3,
+              "time_local": 0,
+              "ts": 8,
+              "tsNs": 15,
+              "verb": 1
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "${Logs}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 5,
+        "x": 14,
+        "y": 17
+      },
+      "id": 10,
+      "options": {
+        "displayLabels": [
+          "value"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "limit": 10,
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "top 10 endpoints",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "http_path": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "id": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              },
+              "status": {
+                "aggregations": [],
+                "operation": null
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    }
+  ],
+  "schemaVersion": 30,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "VictoriaMetrics",
+          "value": "VictoriaMetrics"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Metrics",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Loki",
+          "value": "Loki"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Logs",
+        "options": [],
+        "query": "loki",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "selected": true,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "${Logs}",
+        "definition": "label_values({path=~\"/var/log/nginx/.*\"},host)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "host",
+        "options": [],
+        "query": "label_values({path=~\"/var/log/nginx/.*\"},host)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Nginx",
+  "uid": "cWrlIMS7k",
+  "version": 4
+}
