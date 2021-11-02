@@ -1,6 +1,14 @@
 loki_url="{{ loki.url }}"
+{% if loki.user is defined %}
 loki_user="{{ loki.user }}"
+{% endif %}
+{% if loki.password is defined %}
 loki_password="{{ loki.password }}"
+{% endif %}
 victoria_url="{{ victoria.url }}"
+{% if victoria.user is defined %}
 victoria_user="{{ victoria.user }}"
+{% endif %}
+{% if victoria.password is defined %}
 victoria_password="{{ victoria.password }}"
+{% endif %}
