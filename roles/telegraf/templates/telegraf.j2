@@ -14,15 +14,23 @@
   omit_hostname = false
 [[ outputs.influxdb]] 
   urls = ["$victoria_url"]
+{% if victoria.user is defined %}
   username = "$victora_user"
+{% endif %}
+{% if victoria.password is defined %}
   password = "$victoria_password"
+{% endif %}
   database = "linux"
   namepass = ["cpu","disk","diskio","mem","net","swap","system","docker","http_response","cs_*","systemd_units"]
   insecure_skip_verify = true
 [[ outputs.loki]]
   domain = "$loki_url"
+{% if loki.user is defined %}
   username = "$loki_user"
+{% endif %}
+{% if loki.password is defined %}
   password = "$loki_password"
+{% endif %}
   namepass = ["tail*","exec*","x509_cert"]
   gzip_request = true
 [[inputs.cpu]]
