@@ -19,6 +19,14 @@
    group: victoriametrics
   become: true
 
+- name: create victoriametrics storage folder
+  file:
+   path: /opt/victoriametrics-storage
+   state: directory
+   owner: victoriametrics
+   group: victoriametrics
+  become: true
+
 - name: extract victoriametrics archive
   unarchive:
     src: '/tmp/victoriametrics-{{ version }}.tar.gz'
