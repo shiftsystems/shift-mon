@@ -1,5 +1,11 @@
-packages:
+redhat_packages:
+  - certbot
+  - nginx
+  - python3-libsemanage
+ubuntu_packages:
   - certbot
   - nginx
 services:
-  - influxdb
+  - grafana
+  - victoriametrics
+  - loki

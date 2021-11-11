@@ -29,7 +29,7 @@
 
 - name: paste in nginx configs on Debian based systems
   template:
-    src: "{{ item }}.j2"
+    src: "{{ item }}.conf"
     dest: /etc/nginx/sites-available/{{ item }}.conf
   become: true
   with_items: "{{ services }}"
@@ -44,7 +44,7 @@
 
 - name: paste in nginx configs on RedHat based systems
   template:
-    src: "{{ item }}.j2"
+    src: "{{ item }}.conf"
     dest: /etc/nginx/conf.d/{{ item }}.conf
   become: true
   with_items: "{{ services }}"
@@ -60,22 +60,41 @@
   when: ansible_facts['os_family'] == "Debian"
 
 
-- name: get a certificate for influxdb 
-  shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ certbot_email }} --agree-tos --renew-by-default -d {{ influxdb_fqdn }}
-  become: true
-  when: nginx
-  
+- name: get an ssl cert
+  block:
+  - name: get letsencrypt certificate
+    shell: certbot certonly --standalone --pre-hook "sudo systemctl stop nginx" --email {{ email.alert_to_address }} --agree-tos -d {{ grafana.domain }} -d {{ victoria.domain }} -d {{ loki.domain }}
+    become: true
+
+  - name: soft link victoriametrics certs
+    file: 
+      src: '/etc/letsencrypt/live/{{ grafana.domain }}'
+      dest: '/etc/letsencrypt/live/{{ victoria.domain }}'
+      state: link
+    become: true
+
+  - name: soft link loki certs
+    file: 
+      src: '/etc/letsencrypt/live/{{ grafana.domain }}'
+      dest: '/etc/letsencrypt/live/{{ loki.domain }}'
+      state: link
+    become: true
+
 - name: Allow httpd to can network connect
   seboolean:
     name: httpd_can_network_connect
     state: yes
     persistent: yes
+  become: true
+  when: ansible_facts['os_family'] in ['AlmaLinux','RedHat'] 
 
 - name: Allow nis to enabled
   seboolean:
     name: nis_enabled
     state: yes
     persistent: yes
+  become: true
+  when: ansible_facts['os_family'] in ['AlmaLinux','RedHat']
 
 - name: start and enable nginx
   systemd:
