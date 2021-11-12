@@ -2,7 +2,7 @@ redhat_packages:
   - certbot
   - nginx
   - python3-libsemanage
-ubuntu_packages:
+debian_packages:
   - certbot
   - nginx
 services:
