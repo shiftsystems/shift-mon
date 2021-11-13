@@ -9,14 +9,8 @@ $loki_url = "https://loki.example.com"
 $loki_username = "loki"
 $loki_password = "loki"
 
-# Influxdb 2 settings
-$telegraf_url="https://telegraf.exmpale.com"
-$telegraf_org="shiftsystems"
-$telegraf_bucket="windows"
-$telegraf_token="GET_YOUR_TOKEN"
-
 # env registry key
-$telegraf_env =("server=$telegraf_url","organization=$telegraf_org","token=$telegraf_token","bucket=$telegraf_bucket","victoria_url=$victoria_url","victoria_user=$victoria_user","victoria_password=$victoria_password","victoria_database=$victoria_database","loki_url=$loki_url","loki_user=$loki_user","loki_password=$loki_password")
+$telegraf_env =("victoria_url=$victoria_url","victoria_user=$victoria_user","victoria_password=$victoria_password","victoria_database=$victoria_database","loki_url=$loki_url","loki_user=$loki_user","loki_password=$loki_password")
 
 C:\ProgramData\chocolatey\choco.exe install telegraf -y
 C:\ProgramData\chocolatey\choco.exe upgrade telegraf -y

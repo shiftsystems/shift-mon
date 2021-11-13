@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # environment settings
-TELEGRAF_CONFIG_URL="https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/telegraf.conf"
-INFLUXDB_URL="https://test.example.com"
-TELEGRAF_BUCKET="linux"
-TELEGRAF_ORG="shiftsystems"
-TELEGRAF_TOKEN="GET_YOUR_OWN_TOKEN"
+VICTORIA_URL="https://metrics.example.com"
+LOKI_URL="https://logs.example.com"
+VICTORIA_USER="test"
+VICTOIRA_PASS="test"
+LOKI_USER="test"
+LOKI_PASS="test"
 source /etc/os-release
 
 case $ID in
@@ -45,10 +46,12 @@ esac
 
 # setup environment variables
 cat <<EOF | tee /etc/default/telegraf
-bucket="$TELEGRAF_BUCKET"
-org="$TELEGRAF_ORG"
-token="$TELEGRAF_TOKEN"
-url="$INFLUXDB_URL"
+loki_url="$LOKI_URL"
+loki_user="$LOKI_USER"
+loki_password="$LOKI_PASS"
+victoria_url="$VICTORIA_URL"
+victoria_user="$VICTORIA_USER"
+victoria_password="$VICTORIA_PASS"
 EOF
 # copy telegraf config from gitlab
 curl -o /etc/telegraf/telegraf.conf $TELEGRAF_CONFIG_URL
