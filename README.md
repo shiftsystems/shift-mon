@@ -1,4 +1,4 @@
-# Shift RMM
+# Shift Mon
 
 An open source remote monitoring and management tool based on Telegraf, InfluxDB, and MeshCentral. It cares about everything you manage not just windows boxes.
 
@@ -15,7 +15,7 @@ We appreciate your contribution by helping with documentation, contributing code
 If there is a platform you wish we supported and are willing to send us monitoring data please reach out to mathias@shiftsystems.net
 
 ### Money 
-You can purchase shift-rmm as a managed or solution. 
+You can purchase shift-mon as a managed or solution. 
 We also do consulting for ansible, meshcentral, telegraf, and influxdb. 
 Please fill out the contact form on shiftsystems.net or email sales@shiftsystems.net
 
@@ -34,4 +34,3 @@ We are currently looking at instrumenting the following platforms with telegraf
 * php error logging
 * mysql
 * Microsoft SQL Server
-* IIS logs
