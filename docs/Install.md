@@ -65,11 +65,11 @@ In the next screen, just click on configure later since we will be configuring o
 You should be able to find various scripts in the Scripts folder that you can upload to your MeshCentral server and push out to agents on an ad hoc or scheduled basis. To upload a script, copy the script and click on a node where the MeshAgent is installed click on plugins then click on new. Name the script and give it the correct file extension. Then paste in the script and hit save. Right now there are some issues with this plugin. You might have to edit the script and paste it in and hit save multiple times. 
 
 
-### [Pushing Telegraf to Windows and Linux Endpoints via MeshCentral](docs/Windows.md)
+### [Pushing Telegraf to Windows and Linux Endpoints via MeshCentral](docs/Telegraf/Windows.md)
 This should a be a similar workflow to most RMMs. upload the scripts, change your particulars, and yeet it on to your endpoints
 
 
-[## [Pushing Telegraf to Linux hosts via Ansible or shell script](docs/Linux.md)
+### [Pushing Telegraf to Linux hosts via Ansible or shell script](docs/Telegraf/Linux.md)
 
 
 ## Installing Telegraf on Other Devices
@@ -77,7 +77,7 @@ This should a be a similar workflow to most RMMs. upload the scripts, change you
 ### Proxmox
 Use the instructions located on the [Shift Systems blog](https://shiftsystems.net/blog/proxmox-metrics-to-influx/)
 
-### [Pfsense](docs/PFSense.md)
+### [Pfsense](docs/Telegraf/PFSense.md)
 First, login to your Pfsense firewall as an administrative user.
 Next, click on system > package manager then click on available packages.
 Type Telegraf in the search box, then click on the install button next to were it says Telegraf.
@@ -88,4 +88,4 @@ Change influxdb.example.com to your InfluxDB domain, replace GET_A_TOKEN_FROM_YO
 If you are not sure how to get a token, please refer to the Generate Additional Tokens for Each Bucket section of this document
 
 
-### [OPNSense](docs/OPNSense.md)
+### [OPNSense](docs/Telegraf/OPNSense.md)
