@@ -91,6 +91,21 @@
   become: true
   when: "'nginx.service' in ansible_facts.services"
 
+- name: Add telegraf to docker group when docker is installed
+  user:
+    name: telegraf
+    group: docker
+    append: true
+  become: true
+  when: "'docker.service' in ansible_facts.services"
+
+- name: Add Nginx config When nginx is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/docker.conf
+    dest: /etc/telegraf/telegraf.d/docker.conf
+  become: true
+  when: "'docker.service' in ansible_facts.services"
+
 - name:  Add telegraf to the MySQL group on RedHat based systems
   user:
     name: telegraf
@@ -110,7 +125,6 @@
   file:
     path: '/tmp/stubby'
     state: absent
-
   when: "'mysql.service' in ansible_facts.services"
 
 - name: Start and Enable Telegraf
