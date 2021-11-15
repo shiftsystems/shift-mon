@@ -19,11 +19,12 @@
     ]
   },
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 11,
-  "iteration": 1635716277206,
+  "iteration": 1636922483536,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "datasource": "${metrics}",
@@ -74,7 +75,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -136,7 +137,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -185,7 +186,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -335,7 +336,7 @@
       "type": "piechart"
     },
     {
-      "datasource": null,
+      "datasource": "${metrics}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -383,7 +384,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"} +  docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"}) /1000000",
+          "expr": "docker_container_blkio_io_service_bytes_recursive_total{host=\"$host\"} / 1000000",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "refId": "A"
@@ -442,7 +443,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "mailcowdockerized_sogo-mailcow_1"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -465,7 +491,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "docker_container_cpu_usage_percent{host=\"$host\",container_name=\"$container\"}",
+          "expr": "docker_container_cpu_usage_percent{host=\"$host\"}",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "refId": "A"
@@ -546,7 +572,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "docker_container_mem_usage_percent{host=\"$host\",container_name=\"$container\"}",
+          "expr": "docker_container_mem_usage_percent{host=\"$host\"}",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "refId": "A"
@@ -556,7 +582,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${metrics}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -605,7 +631,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "mailcowdockerized_php-fpm-mailcow_1"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -627,25 +678,17 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\",container_name=\"$container\"} /1000000",
+          "expr": "deriv(docker_container_blkio_io_service_bytes_recursive_total{host=\"$host\"}) / 1000000",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\",container_name=\"$container\"} / 1000000",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{container_name}}",
-          "refId": "B"
         }
       ],
       "title": "Container DiskIO in Megabytes",
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${metrics}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -702,7 +745,7 @@
       "type": "piechart"
     },
     {
-      "datasource": null,
+      "datasource": "${metrics}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -773,9 +816,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "deriv(docker_container_net_tx_bytes{host=\"$host\",container_name=\"$container\"}/125000)",
+          "expr": "deriv(docker_container_net_tx_bytes{host=\"$host\"}/125000)",
           "interval": "",
-          "legendFormat": "{{container_name}}_tx",
+          "legendFormat": "{{container_name}}",
           "refId": "A"
         }
       ],
@@ -783,7 +826,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${metrics}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -836,11 +879,11 @@
           "refId": "A"
         }
       ],
-      "title": "Mbit received",
+      "title": "Mbit sent",
       "type": "piechart"
     },
     {
-      "datasource": null,
+      "datasource": "${metrics}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -912,9 +955,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "deriv(docker_container_net_rx_bytes{host=\"$host\",container_name=\"$container\"}/125000)",
+          "expr": "deriv(docker_container_net_rx_bytes{host=\"$host\"}/125000)",
           "interval": "",
-          "legendFormat": "{{container_name}}_tx",
+          "legendFormat": "{{container_name}}",
           "refId": "A"
         }
       ],
@@ -922,7 +965,7 @@
       "type": "timeseries"
     }
   ],
-  "schemaVersion": 30,
+  "schemaVersion": 31,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -930,8 +973,8 @@
       {
         "current": {
           "selected": false,
-          "text": "VictoriaMetrics",
-          "value": "VictoriaMetrics"
+          "text": "shift-metrics",
+          "value": "shift-metrics"
         },
         "description": null,
         "error": null,
@@ -950,8 +993,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Loki",
-          "value": "Loki"
+          "text": "shift-logs",
+          "value": "shift-logs"
         },
         "description": null,
         "error": null,
@@ -970,10 +1013,9 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
-          "selected": true,
-          "text": "None",
-          "value": ""
+          "selected": false,
+          "text": "mail.mathiasp.me",
+          "value": "mail.mathiasp.me"
         },
         "datasource": "${metrics}",
         "definition": "label_values(docker_n_containers{},host)",
@@ -994,44 +1036,16 @@
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "isNone": true,
-          "selected": true,
-          "text": "None",
-          "value": ""
-        },
-        "datasource": "${metrics}",
-        "definition": "label_values(docker_container_cpu_usage_percent{host=\"$host\"},container_name)",
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "container",
-        "options": [],
-        "query": {
-          "query": "label_values(docker_container_cpu_usage_percent{host=\"$host\"},container_name)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 10
+  "version": 5
 }
