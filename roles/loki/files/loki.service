@@ -10,3 +10,6 @@ Group=loki
 Restart=on-failure
 WorkingDirectory=/opt/loki
 ExecStart=/opt/loki/loki-linux-amd64 -config.file=loki-config.yml
+
+[Install]
+WantedBy=network.target
