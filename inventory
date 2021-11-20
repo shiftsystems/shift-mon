@@ -10,6 +10,7 @@ all:
       url: 'http://shiftmon.example.com:8428'
       user: 'test'
       password: 'test'
+      retention_period: 90d 
     ansible_python_interpreter: /usr/bin/python3
     grafana:
       domain: 'grafana.example.com'

@@ -35,7 +35,7 @@
   become: true
 
 - name: create the service
-  copy:
+  template:
     src: victoriametrics.service
     dest: /etc/systemd/system/victoriametrics.service
   become: true
@@ -49,5 +49,5 @@
   systemd:
     name: victoriametrics
     enabled: true
-    state: started
+    state: restarted
   become: true

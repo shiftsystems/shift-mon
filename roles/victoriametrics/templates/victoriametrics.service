@@ -9,4 +9,4 @@ User=victoriametrics
 Group=victoriametrics
 Restart=on-failure
 WorkingDirectory=/opt/victoriametrics
-ExecStart=/opt/victoriametrics/victoria-metrics-prod --storageDataPath=/opt/victoriametrics-storage
+ExecStart=/opt/victoriametrics/victoria-metrics-prod --storageDataPath=/opt/victoriametrics-storage --retentionPeriod={{ victoria.retention_period }}
