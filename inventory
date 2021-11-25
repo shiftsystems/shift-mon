@@ -2,6 +2,7 @@ all:
   hosts:
     shiftmon.example.com:
   vars:
+    nginx: true
     loki:
       url: 'https://shiftmon.example.com:3100'
       user: 'test'
