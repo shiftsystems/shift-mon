@@ -52,7 +52,7 @@ Conditions: Evaluate every 2m for 10m\
 
 
 ### Low Disk Space
-Query: ```disk_used_percent{} > 92```\
+Query: ```disk_used_percent{device !="devfs"} > 92```\
 Operation: Reduce\
 Function: Mean\
 Input: A \
