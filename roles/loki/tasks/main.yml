@@ -25,6 +25,14 @@
    group: loki
   become: true
 
+- name: create Fake folder for loki
+  file:
+    path: /opt/loki/rules/fake
+    state: directory
+    owner: loki
+    group: loki
+  become: true
+
 - name: extract Loki
   unarchive:
     src: '/tmp/loki-{{ version }}.zip'

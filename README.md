@@ -5,6 +5,8 @@ An open source remote monitoring and management tool based on Telegraf, InfluxDB
 ## Installation
 [Follow the intructions in the docs](docs/Install.md)
 
+## Configuring Alerts
+[Instructions for configuring alerts can be found here](docs/Alerting.md)
 
 ## Contribution
 

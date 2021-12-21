@@ -4,6 +4,7 @@ datasources:
     type: prometheus
     #url: '{{ victoria.url }}'
     url: 'http://localhost:8428'
+
   - name: shift-logs
     type: loki
     #url: '{{ loki.url }}'
