@@ -5,11 +5,15 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
+Restart=on-failure
+RestartSec1
+PIDFile=/run/victoriametrics/victoriametrics.pid
 User=victoriametrics
 Group=victoriametrics
 Restart=on-failure
 WorkingDirectory=/opt/victoriametrics
 ExecStart=/opt/victoriametrics/victoria-metrics-prod --storageDataPath=/opt/victoriametrics-storage --retentionPeriod={{ victoria.retention_period }}
+ExecStop=/bin/kill -s SIGTERM $MAINPID
 
 [Install]
 WantedBy=network.target
