@@ -19,14 +19,16 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1635897145873,
+  "iteration": 1640833657395,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -71,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -86,7 +88,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -131,7 +135,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -146,7 +150,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -191,7 +197,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -205,7 +211,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -246,7 +254,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -273,7 +281,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -297,7 +307,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 20,
         "y": 0
@@ -318,7 +328,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -332,7 +342,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -379,7 +391,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -393,7 +405,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -440,7 +454,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -454,7 +468,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -501,7 +517,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -515,7 +531,9 @@
       "type": "bargauge"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -539,10 +557,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 20,
-        "y": 4
+        "y": 5
       },
       "id": 18,
       "options": {
@@ -560,7 +578,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -574,116 +592,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${logs}",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "uid": "${metrics}"
       },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 20,
-        "y": 8
-      },
-      "id": 16,
-      "maxDataPoints": null,
-      "options": {
-        "frameIndex": 0,
-        "showHeader": false
-      },
-      "pluginVersion": "8.1.0",
-      "targets": [
-        {
-          "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
-          "hide": false,
-          "instant": false,
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "OS Version",
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": {
-            "valueLabel": "host"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Field": false,
-              "Last": false,
-              "NAME": false,
-              "Time": true,
-              "Time ns": true,
-              "id": true,
-              "rose.local.shiftsystems.net": true,
-              "sasha.local.mathiasp.me": true,
-              "ts": true,
-              "tsNs": true,
-              "value": true
-            },
-            "indexByName": {
-              "arch": 2,
-              "id": 6,
-              "os": 0,
-              "rose.local.shiftsystems.net": 5,
-              "ssl_type": 3,
-              "ts": 4,
-              "tsNs": 7,
-              "value": 8,
-              "version": 1
-            },
-            "renameByName": {}
-          }
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "lastNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Field": true
-            },
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": "${metrics}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -765,7 +676,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -847,7 +760,430 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${logs}",
+      "datasource": {
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 10
+      },
+      "id": 16,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": false
+      },
+      "pluginVersion": "8.3.2",
+      "targets": [
+        {
+          "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
+          "hide": false,
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "OS Version",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "host"
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Field": false,
+              "Last": false,
+              "NAME": false,
+              "Time": true,
+              "Time ns": true,
+              "id": true,
+              "rose.local.shiftsystems.net": true,
+              "sasha.local.mathiasp.me": true,
+              "ts": true,
+              "tsNs": true,
+              "value": true
+            },
+            "indexByName": {
+              "arch": 2,
+              "id": 6,
+              "os": 0,
+              "rose.local.shiftsystems.net": 5,
+              "ssl_type": 3,
+              "ts": 4,
+              "tsNs": 7,
+              "value": 8,
+              "version": 1
+            },
+            "renameByName": {}
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Field": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 0,
+        "y": 16
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^ts \\(count\\)$/",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.3.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "expr": "{__name=\"resolver\",host=\"rose.local.shiftsystems.net\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "Queried Domains",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "domain": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "id": {
+                "aggregations": [
+                  "count"
+                ]
+              },
+              "querying_ip": {
+                "aggregations": []
+              },
+              "ts": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 5,
+        "y": 16
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^ts \\(count\\)$/",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.3.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "expr": "{__name=\"resolver\",host=\"rose.local.shiftsystems.net\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "Querying IPs",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "path"
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "id": {
+                "aggregations": [
+                  "count"
+                ]
+              },
+              "querying_ip": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "ts": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 31,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "8.3.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "expr": "{__name=\"resolver\",host=\"rose.local.shiftsystems.net\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "unbound logs",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "__name": true,
+              "host": true,
+              "hostname": true,
+              "id": true,
+              "level": true,
+              "line": true,
+              "path": true,
+              "pid": true,
+              "thread": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "__name": 9,
+              "domain": 4,
+              "host": 11,
+              "hostname": 12,
+              "id": 7,
+              "level": 13,
+              "line": 6,
+              "path": 14,
+              "pid": 10,
+              "querying_ip": 2,
+              "record_type": 3,
+              "thread": 5,
+              "timestamp": 0,
+              "ts": 1,
+              "tsNs": 8
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "uid": "${logs}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -899,10 +1235,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 7,
+        "w": 24,
         "x": 0,
-        "y": 16
+        "y": 25
       },
       "id": 29,
       "options": {
@@ -917,101 +1253,26 @@
       },
       "title": "Suricata alerts",
       "type": "timeseries"
-    },
-    {
-      "datasource": "${logs}",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 16
-      },
-      "id": 31,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "title": "top DNS lookups",
-      "type": "timeseries"
     }
   ],
   "refresh": "",
-  "schemaVersion": 30,
+  "schemaVersion": 33,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
-          "isNone": true,
-          "selected": true,
-          "text": "None",
-          "value": ""
+          "selected": false,
+          "text": "rose.local.shiftsystems.net",
+          "value": "rose.local.shiftsystems.net"
         },
-        "datasource": "${metrics}",
+        "datasource": {
+          "uid": "${metrics}"
+        },
         "definition": "label_values(cpu_usage_idle{db=\"opnsense\"},host)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "host",
         "options": [],
@@ -1028,14 +1289,11 @@
       {
         "current": {
           "selected": false,
-          "text": "VictoriaMetrics",
-          "value": "VictoriaMetrics"
+          "text": "shift-metrics",
+          "value": "shift-metrics"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "metrics",
         "options": [],
@@ -1048,14 +1306,11 @@
       {
         "current": {
           "selected": false,
-          "text": "Loki",
-          "value": "Loki"
+          "text": "shift-logs",
+          "value": "shift-logs"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "logs",
         "options": [],
@@ -1076,5 +1331,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 7
+  "version": 13,
+  "weekStart": ""
 }
