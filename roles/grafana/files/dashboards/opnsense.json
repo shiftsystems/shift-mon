@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1640833657395,
+  "iteration": 1640836163006,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -73,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -135,7 +135,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -197,7 +197,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -254,7 +254,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -328,7 +328,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -391,7 +391,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -454,7 +454,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -517,7 +517,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -578,7 +578,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -807,7 +807,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
@@ -1121,7 +1121,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.3.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "datasource": {
@@ -1155,11 +1155,13 @@
               "path": true,
               "pid": true,
               "thread": true,
+              "timestamp": false,
+              "ts": true,
               "tsNs": true
             },
             "indexByName": {
               "__name": 9,
-              "domain": 4,
+              "domain": 1,
               "host": 11,
               "hostname": 12,
               "id": 7,
@@ -1171,7 +1173,7 @@
               "record_type": 3,
               "thread": 5,
               "timestamp": 0,
-              "ts": 1,
+              "ts": 4,
               "tsNs": 8
             },
             "renameByName": {}
@@ -1256,7 +1258,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 33,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1331,6 +1333,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 13,
+  "version": 14,
   "weekStart": ""
 }
