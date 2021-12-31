@@ -68,13 +68,20 @@
   become: true
   when: "'crowdsec.service' in ansible_facts.services"
 
+- name: Add Crowdsec Config if Crowdsec is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/adgaurd.conf
+    dest: /etc/telegraf/telegraf.d/adgaurd.conf
+  become: true
+  when: "'AdGuardHome.service' in ansible_facts.services"
+
 - name: Add telegraf to the nginx group on RedHat based systems
   user: 
     name: telegraf
     group: root
     append: true
   become: true
-  when: ansible_facts['os_family'] == "RedHat"
+  when: "ansible_facts['os_family'] == 'RedHat' and 'nginx.service' in ansible_facts.services"
 
 - name: Add telegraf to the nginx group on Debian based systems
   user:

@@ -1,0 +1,907 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 10,
+    "iteration": 1640913405896,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${logs}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "footer": {
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": false,
+              "displayName": "AD"
+            }
+          ]
+        },
+        "pluginVersion": "8.3.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${logs}"
+            },
+            "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} | logfmt",
+            "refId": "A"
+          }
+        ],
+        "title": "All Queries",
+        "transformations": [
+          {
+            "id": "labelsToFields",
+            "options": {}
+          },
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "AD": true,
+                "CP": true,
+                "Cached": true,
+                "OrigAnswer": true,
+                "QC": true,
+                "Result_IPList_0": true,
+                "Result_IPList_1": true,
+                "Result_Reason": true,
+                "Result_Rules_0_FilterListID": true,
+                "Result_Rules_0_IP": true,
+                "Result_Rules_0_Text": true,
+                "Result_Rules_1_FilterListID": true,
+                "Result_Rules_1_IP": true,
+                "Result_Rules_1_Text": true,
+                "Upstream": true,
+                "__name": true,
+                "host": true,
+                "id": true,
+                "line": true,
+                "path": true,
+                "ts": true,
+                "tsNs": true
+              },
+              "indexByName": {
+                "CP": 14,
+                "Cached": 6,
+                "Elapsed": 4,
+                "IP": 1,
+                "OrigAnswer": 20,
+                "QC": 12,
+                "QH": 2,
+                "QT": 3,
+                "Result_IPList_0": 21,
+                "Result_IPList_1": 22,
+                "Result_IsFiltered": 5,
+                "Result_Reason": 17,
+                "Result_Rules_0_FilterListID": 19,
+                "Result_Rules_0_IP": 25,
+                "Result_Rules_0_Text": 18,
+                "Result_Rules_1_FilterListID": 23,
+                "Result_Rules_1_IP": 26,
+                "Result_Rules_1_Text": 24,
+                "T": 0,
+                "Upstream": 7,
+                "__name": 15,
+                "host": 16,
+                "id": 10,
+                "line": 9,
+                "path": 13,
+                "ts": 8,
+                "tsNs": 11
+              },
+              "renameByName": {
+                "Cached": "",
+                "Elapsed": "query time",
+                "IP": "Source",
+                "QC": "",
+                "QH": "domain",
+                "QT": "Query type",
+                "Result_IsFiltered": "filtered",
+                "T": "Time",
+                "Upstream": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${logs}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 3,
+        "options": {
+          "footer": {
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Result_Rules_1_Text"
+            }
+          ]
+        },
+        "pluginVersion": "8.3.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${logs}"
+            },
+            "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} |~ \"Result_IsFiltered\"| logfmt ",
+            "refId": "A"
+          }
+        ],
+        "title": "filtered queries",
+        "transformations": [
+          {
+            "id": "labelsToFields",
+            "options": {}
+          },
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "CP": true,
+                "Cached": true,
+                "OrigAnswer": true,
+                "QC": true,
+                "QT": false,
+                "Result_IPList_0": true,
+                "Result_IPList_1": true,
+                "Result_IsFiltered": true,
+                "Result_Reason": true,
+                "Result_Rules_0_FilterListID": true,
+                "Result_Rules_0_IP": true,
+                "Result_Rules_0_Text": false,
+                "Result_Rules_1_FilterListID": true,
+                "Result_Rules_1_IP": true,
+                "Result_Rules_1_Text": true,
+                "Upstream": true,
+                "__name": true,
+                "host": true,
+                "id": true,
+                "line": true,
+                "path": true,
+                "ts": true,
+                "tsNs": true
+              },
+              "indexByName": {
+                "CP": 17,
+                "Cached": 8,
+                "Elapsed": 4,
+                "IP": 1,
+                "OrigAnswer": 20,
+                "QC": 15,
+                "QH": 2,
+                "QT": 3,
+                "Result_IsFiltered": 9,
+                "Result_Reason": 7,
+                "Result_Rules_0_FilterListID": 6,
+                "Result_Rules_0_IP": 23,
+                "Result_Rules_0_Text": 5,
+                "Result_Rules_1_FilterListID": 21,
+                "Result_Rules_1_IP": 24,
+                "Result_Rules_1_Text": 22,
+                "T": 0,
+                "Upstream": 10,
+                "__name": 18,
+                "host": 19,
+                "id": 13,
+                "line": 12,
+                "path": 16,
+                "ts": 11,
+                "tsNs": 14
+              },
+              "renameByName": {
+                "Cached": "",
+                "Elapsed": "query time",
+                "IP": "source",
+                "QC": "",
+                "QH": "domain",
+                "QT": "type",
+                "Result_Rules_0_Text": "rule",
+                "T": "time",
+                "Upstream": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${logs}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "line (count)",
+                    "||phicdn.net^"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 6,
+          "x": 0,
+          "y": 9
+        },
+        "id": 5,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "list",
+            "placement": "right",
+            "values": [
+              "value",
+              "percent"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${logs}"
+            },
+            "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} | logfmt ",
+            "refId": "A"
+          }
+        ],
+        "title": "Top filtered domains",
+        "transformations": [
+          {
+            "id": "labelsToFields",
+            "options": {}
+          },
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "QH": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "Result_IsFiltered": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_IP": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_Text": {
+                  "aggregations": []
+                },
+                "line": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${logs}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "line (count)",
+                    "||phicdn.net^"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 6,
+          "x": 6,
+          "y": 9
+        },
+        "id": 7,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "list",
+            "placement": "right",
+            "values": [
+              "value",
+              "percent"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${logs}"
+            },
+            "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} | logfmt ",
+            "refId": "A"
+          }
+        ],
+        "title": "Top Queriers",
+        "transformations": [
+          {
+            "id": "labelsToFields",
+            "options": {}
+          },
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "IP": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "QH": {
+                  "aggregations": []
+                },
+                "Result_IsFiltered": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_IP": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_Text": {
+                  "aggregations": []
+                },
+                "line": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${logs}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "line (count)",
+                    "||phicdn.net^"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 6,
+          "x": 12,
+          "y": 9
+        },
+        "id": 4,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "list",
+            "placement": "right",
+            "values": [
+              "value",
+              "percent"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${logs}"
+            },
+            "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} |~ \"Result_IsFiltered\"| logfmt ",
+            "refId": "A"
+          }
+        ],
+        "title": "Top filtered domains",
+        "transformations": [
+          {
+            "id": "labelsToFields",
+            "options": {}
+          },
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "QH": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "Result_IsFiltered": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_IP": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_Text": {
+                  "aggregations": []
+                },
+                "line": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${logs}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "line (count)",
+                    "||phicdn.net^"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 6,
+          "x": 18,
+          "y": 9
+        },
+        "id": 6,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "list",
+            "placement": "right",
+            "values": [
+              "value",
+              "percent"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${logs}"
+            },
+            "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} |~ \"Result_IsFiltered\"| logfmt ",
+            "refId": "A"
+          }
+        ],
+        "title": "Top Filtered Hosts",
+        "transformations": [
+          {
+            "id": "labelsToFields",
+            "options": {}
+          },
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "IP": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "QH": {
+                  "aggregations": []
+                },
+                "Result_IsFiltered": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_IP": {
+                  "aggregations": []
+                },
+                "Result_Rules_0_Text": {
+                  "aggregations": []
+                },
+                "line": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      }
+    ],
+    "schemaVersion": 34,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "shift-logs",
+            "value": "shift-logs"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "logs",
+          "options": [],
+          "query": "loki",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "shift-metrics",
+            "value": "shift-metrics"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "metrics",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "dot",
+            "value": "dot"
+          },
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "definition": "label_values({path=\"/opt/AdGuardHome/data/querylog.json\"},host)",
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "host",
+          "options": [],
+          "query": "label_values({path=\"/opt/AdGuardHome/data/querylog.json\"},host)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Adguard",
+    "uid": "RXBFLS0nz",
+    "version": 6,
+    "weekStart": ""
+  }
