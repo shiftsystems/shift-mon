@@ -21,8 +21,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 10,
-    "iteration": 1640913405896,
+    "iteration": 1640916397587,
     "links": [],
     "liveNow": false,
     "panels": [
@@ -406,7 +405,7 @@
             "refId": "A"
           }
         ],
-        "title": "Top filtered domains",
+        "title": "Top queried domains",
         "transformations": [
           {
             "id": "labelsToFields",
@@ -871,9 +870,9 @@
         },
         {
           "current": {
-            "selected": false,
-            "text": "dot",
-            "value": "dot"
+            "selected": true,
+            "text": "gowther",
+            "value": "gowther"
           },
           "datasource": {
             "type": "loki",
@@ -902,6 +901,6 @@
     "timezone": "",
     "title": "Adguard",
     "uid": "RXBFLS0nz",
-    "version": 6,
+    "version": 8,
     "weekStart": ""
   }
