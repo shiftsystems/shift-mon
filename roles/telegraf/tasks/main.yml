@@ -68,7 +68,7 @@
   become: true
   when: "'crowdsec.service' in ansible_facts.services"
 
-- name: Add Adguard Config if Crowdsec is installed
+- name: Add Adguard Config if Adguard is installed
   get_url:
     url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/adgaurd.conf
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
