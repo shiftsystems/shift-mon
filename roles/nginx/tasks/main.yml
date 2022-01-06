@@ -26,6 +26,13 @@
   become: true
   when: ansible_facts['os_family'] == "Debian"
 
+- name: generate http usernames and passwords
+  htpasswd:
+    path: /etc/nginx/htpasswd
+    name: '{{ item.key }}'
+    password: '{{ item.value.passwd }}'
+  become: true
+  with_dict: '{{ http_users }}'
 
 - name: paste in nginx configs on Debian based systems
   template:
