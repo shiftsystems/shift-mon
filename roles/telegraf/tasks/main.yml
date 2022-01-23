@@ -160,6 +160,9 @@
   get_url:
     url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/syslog.conf
     dest: /etc/telegraf/telegraf.d/syslog.conf
+  become: true
+  when: syslog
+
 - name: Start and Enable Telegraf
   systemd:
     name: telegraf
