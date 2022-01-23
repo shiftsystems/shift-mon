@@ -1,17 +1,29 @@
 # Linux Install
 Currently on Linux We recomend using our Ansible role, but there is also a shell script availble if you are not able to use ansible.
 Currently we support Debian 10 or newer, Ubuntu 18.04 and newer, Fedora, and Redhat based distributions.
-We 
+The ansible role will detect if the following systemd services exist and will deploy telegraf configs for the services listed below.
+* mysql
+* nginx
+* php-fpm
+* crowdsec
+* meshcentral
+* adgaurd home
+* docker
+* syslog (requires ```syslog: true``` in ansible variables)
+
+There is no support for this in the bash script but we take pull requests.
+The configs can be added manually by adding one of the configs in the [telegraf configs folder](../../telegraf-configs/linux) in ```/etc/telegraf/telegraf.d/```
 
 ## Ansible
 The only thing that is required is that SSH needs to accessible on all endpoints and you have a Linux machine withansible and git installed. 
 Ansible can be installed by following [the Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems) and git can be installed from your Linux distribution's repository.
 
 ### What does the script/role do? 
-* Places connection info your influxdb in /etc/default/telegraf
+* Places connection info for Victoriametrics and Loki in /etc/default/telegraf
 * Adds code signing keys and repos from influxdata
 * Install the telegraf agent
 * Edits config files in /etc/telegraf/
+* Can install syslog if ```syslog: true``` is an ansible variable
 
 ### setting up your inventory 
 You will need the following in your Ansible inventory. The default inventory is in ```/etc/ansible/hosts```. 
@@ -50,6 +62,8 @@ all:
     eren:
     erwin:
   vars:
+    #set to true if you want telegraf to forward syslog to loki this will install rsyslog and telegraf will listen on tcp port 6514
+    syslog: false 
     loki:
       url: 'http://armin.local.mathiasp.me:3100'
       #user: 'test' # optional if you have setup auth for loki
