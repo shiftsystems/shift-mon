@@ -134,6 +134,32 @@
     state: absent
   when: "'mysql.service' in ansible_facts.services"
 
+- name: install rsyslog
+  package:
+    name: rsyslog
+    state: latest
+  become: true
+  when: syslog
+
+- name: place rsyslog config is installed when syslog is enabled
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/50-telegraf.conf
+    dest: /etc/rsyslog.d/50-telegraf.conf
+  become: true
+  when: syslog
+
+- name: restart  and enable rsyslog service
+  systemd:
+    name: rsyslog
+    state: restarted
+    enabled: true
+  become: true
+  when: syslog
+
+- name: add telegraf config for syslog
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/syslog.conf
+    dest: /etc/telegraf/telegraf.d/syslog.conf
 - name: Start and Enable Telegraf
   systemd:
     name: telegraf

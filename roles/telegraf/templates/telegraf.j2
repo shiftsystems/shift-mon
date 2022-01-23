@@ -31,7 +31,7 @@
 {% if loki.password is defined %}
   password = "$loki_password"
 {% endif %}
-  namepass = ["tail*","exec*","x509_cert"]
+  namepass = ["tail*","exec*","x509_cert","syslog"]
   gzip_request = true
 [[inputs.cpu]]
   percpu = false
