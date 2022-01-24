@@ -19,14 +19,16 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1635714546245,
+  "iteration": 1642997417240,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -71,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -86,7 +88,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -131,7 +135,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -146,7 +150,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -191,7 +197,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -205,7 +211,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -246,7 +254,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -273,7 +281,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -318,7 +328,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -332,7 +342,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -380,7 +392,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -394,7 +406,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -442,7 +456,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -456,7 +470,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -504,7 +520,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -518,7 +534,9 @@
       "type": "bargauge"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -563,7 +581,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -577,7 +595,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${logs}",
+      "datasource": {
+        "uid": "${logs}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -611,12 +631,18 @@
         "y": 8
       },
       "id": 16,
-      "maxDataPoints": null,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "expr": "{host=\"$host\"}| logfmt |~ \"NAME|VERSION\"",
@@ -633,6 +659,10 @@
           "options": {
             "valueLabel": "host"
           }
+        },
+        {
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "organize",
@@ -672,7 +702,9 @@
       "type": "table"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -754,7 +786,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -836,7 +870,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -871,9 +907,16 @@
       },
       "id": 27,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": false
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -897,6 +940,10 @@
         },
         {
           "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "merge",
           "options": {}
         },
         {
@@ -945,7 +992,9 @@
       "type": "table"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -980,9 +1029,16 @@
       },
       "id": 14,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -1009,6 +1065,10 @@
           "options": {
             "valueLabel": "host"
           }
+        },
+        {
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "groupBy",
@@ -1085,7 +1145,9 @@
       "type": "table"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1139,12 +1201,14 @@
           "refId": "A"
         }
       ],
-      "title": "Crowdsec logs",
+      "title": "Crowdsec detections",
       "transformations": [],
       "type": "piechart"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1176,10 +1240,17 @@
       },
       "id": 31,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "exemplar": true,
@@ -1212,28 +1283,63 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P53E94FA6B1E28789"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 33,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "expr": "{severity=~\"crit|err|warning\"}",
+          "refId": "A"
+        }
+      ],
+      "title": "syslog warning and higher",
+      "transformations": [],
+      "type": "logs"
     }
   ],
   "refresh": "",
-  "schemaVersion": 30,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
-          "selected": false,
-          "text": "bertolt.local.mathiasp.me",
-          "value": "bertolt.local.mathiasp.me"
+          "selected": true,
+          "text": "sasha.local.shiftsystems.net",
+          "value": "sasha.local.shiftsystems.net"
         },
-        "datasource": "${metrics}",
+        "datasource": {
+          "uid": "${metrics}"
+        },
         "definition": "label_values(cpu_usage_idle{db=\"linux\"},host)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "host",
         "options": [],
@@ -1249,15 +1355,12 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "VictoriaMetrics",
-          "value": "VictoriaMetrics"
+          "selected": true,
+          "text": "shift-metrics",
+          "value": "shift-metrics"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "metrics",
         "options": [],
@@ -1271,14 +1374,11 @@
       {
         "current": {
           "selected": false,
-          "text": "Loki",
-          "value": "Loki"
+          "text": "shift-logs",
+          "value": "shift-logs"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "logs",
         "options": [],
@@ -1299,5 +1399,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 29
+  "version": 15,
+  "weekStart": ""
 }
