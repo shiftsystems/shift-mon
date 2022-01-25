@@ -67,3 +67,7 @@ ruler:
     kvstore:
       store: inmemory
   enable_api: true
+querier:
+  max_concurrent: 2048
+query_scheduler:
+  max_outstanding_requests_per_tenant: 2048
