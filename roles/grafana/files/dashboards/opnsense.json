@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1640836163006,
+  "iteration": 1643483034374,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -73,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -135,7 +135,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -197,7 +197,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -254,7 +254,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -307,7 +307,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 4,
         "x": 20,
         "y": 0
@@ -328,7 +328,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -370,7 +370,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 6,
         "x": 0,
         "y": 2
@@ -391,7 +391,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -433,7 +433,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 7,
         "x": 6,
         "y": 2
@@ -454,7 +454,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -496,7 +496,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 7,
         "x": 13,
         "y": 2
@@ -517,7 +517,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -557,10 +557,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 4,
         "x": 20,
-        "y": 5
+        "y": 4
       },
       "id": 18,
       "options": {
@@ -578,7 +578,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "exemplar": true,
@@ -649,7 +649,7 @@
         "h": 7,
         "w": 10,
         "x": 0,
-        "y": 9
+        "y": 8
       },
       "id": 8,
       "options": {
@@ -733,7 +733,7 @@
         "h": 7,
         "w": 10,
         "x": 10,
-        "y": 9
+        "y": 8
       },
       "id": 10,
       "options": {
@@ -790,10 +790,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 4,
         "x": 20,
-        "y": 10
+        "y": 8
       },
       "id": 16,
       "options": {
@@ -807,7 +807,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
@@ -885,6 +885,115 @@
         "type": "loki",
         "uid": "${logs}"
       },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 35,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "expr": "{__name=\"syslog\",hostname=\"$host\",appname!=\"filterlog\"}",
+          "refId": "A"
+        }
+      ],
+      "title": "syslog",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 29,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "title": "Suricata alerts",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -905,7 +1014,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 16
+        "y": 33
       },
       "id": 33,
       "options": {
@@ -1002,7 +1111,7 @@
         "h": 9,
         "w": 7,
         "x": 5,
-        "y": 16
+        "y": 33
       },
       "id": 32,
       "options": {
@@ -1108,7 +1217,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 33
       },
       "id": 31,
       "options": {
@@ -1121,7 +1230,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -1181,80 +1290,6 @@
         }
       ],
       "type": "table"
-    },
-    {
-      "datasource": {
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 25
-      },
-      "id": 29,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "title": "Suricata alerts",
-      "type": "timeseries"
     }
   ],
   "refresh": "",
@@ -1333,6 +1368,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 14,
+  "version": 19,
   "weekStart": ""
 }
