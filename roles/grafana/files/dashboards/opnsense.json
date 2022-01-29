@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1643489959350,
+  "iteration": 1643490477480,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -913,7 +913,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 14,
+        "h": 9,
         "w": 8,
         "x": 0,
         "y": 15
@@ -977,7 +977,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 14,
+        "h": 9,
         "w": 8,
         "x": 8,
         "y": 15
@@ -1052,7 +1052,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 14,
+        "h": 9,
         "w": 8,
         "x": 16,
         "y": 15
@@ -1190,7 +1190,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 24
       },
       "id": 29,
       "options": {
@@ -1232,7 +1232,7 @@
               "__name": true,
               "alert_action": true,
               "alert_gid": true,
-              "alert_metadata_attack_target_0": true,
+              "alert_metadata_attack_target_0": false,
               "alert_metadata_created_at_0": true,
               "alert_metadata_updated_at_0": true,
               "alert_rev": true,
@@ -1255,49 +1255,53 @@
               "tx_id": true
             },
             "indexByName": {
-              "__name": 21,
-              "alert_action": 23,
-              "alert_category": 3,
-              "alert_gid": 18,
-              "alert_metadata_affected_product_0": 40,
-              "alert_metadata_attack_target_0": 32,
-              "alert_metadata_created_at_0": 26,
-              "alert_metadata_deployment_0": 38,
-              "alert_metadata_signature_severity_0": 33,
-              "alert_metadata_updated_at_0": 16,
-              "alert_rev": 27,
-              "alert_severity": 19,
-              "alert_signature": 4,
-              "alert_signature_id": 24,
-              "app_proto": 10,
-              "dest_ip": 2,
-              "dest_port": 5,
-              "event_type": 20,
-              "flow_bytes_toclient": 17,
-              "flow_bytes_toserver": 11,
-              "flow_id": 28,
-              "flow_pkts_toclient": 22,
-              "flow_pkts_toserver": 12,
-              "flow_start": 29,
-              "host": 25,
+              "__name": 22,
+              "alert_action": 24,
+              "alert_category": 5,
+              "alert_gid": 19,
+              "alert_metadata_affected_product_0": 41,
+              "alert_metadata_attack_target_0": 33,
+              "alert_metadata_created_at_0": 27,
+              "alert_metadata_deployment_0": 39,
+              "alert_metadata_signature_severity_0": 35,
+              "alert_metadata_updated_at_0": 17,
+              "alert_rev": 28,
+              "alert_severity": 20,
+              "alert_signature": 6,
+              "alert_signature_id": 25,
+              "anomaly_app_proto": 9,
+              "anomaly_event": 44,
+              "anomaly_layer": 45,
+              "anomaly_type": 46,
+              "app_proto": 11,
+              "dest_ip": 1,
+              "dest_port": 3,
+              "event_type": 21,
+              "flow_bytes_toclient": 18,
+              "flow_bytes_toserver": 12,
+              "flow_id": 29,
+              "flow_pkts_toclient": 23,
+              "flow_pkts_toserver": 13,
+              "flow_start": 30,
+              "host": 26,
               "http_hostname": 34,
-              "http_http_method": 37,
-              "http_http_port": 35,
-              "http_http_user_agent": 39,
-              "http_length": 41,
-              "http_protocol": 36,
-              "http_url": 42,
-              "id": 14,
+              "http_http_method": 38,
+              "http_http_port": 36,
+              "http_http_user_agent": 40,
+              "http_length": 42,
+              "http_protocol": 37,
+              "http_url": 43,
+              "id": 15,
               "in_iface": 7,
-              "line": 13,
-              "path": 30,
+              "line": 14,
+              "path": 31,
               "proto": 8,
-              "src_ip": 9,
-              "src_port": 6,
-              "timestamp": 1,
-              "ts": 0,
-              "tsNs": 15,
-              "tx_id": 31
+              "src_ip": 2,
+              "src_port": 4,
+              "timestamp": 0,
+              "ts": 10,
+              "tsNs": 16,
+              "tx_id": 32
             },
             "renameByName": {}
           }
@@ -1330,7 +1334,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 36
+        "y": 31
       },
       "id": 33,
       "options": {
@@ -1427,7 +1431,7 @@
         "h": 9,
         "w": 7,
         "x": 5,
-        "y": 36
+        "y": 31
       },
       "id": 32,
       "options": {
@@ -1533,7 +1537,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 31
       },
       "id": 31,
       "options": {
@@ -1676,9 +1680,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "vtnet0_vlan99",
-          "value": "vtnet0_vlan99"
+          "selected": true,
+          "text": "vtnet0",
+          "value": "vtnet0"
         },
         "datasource": {
           "type": "prometheus",
@@ -1703,13 +1707,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 21,
+  "version": 22,
   "weekStart": ""
 }
