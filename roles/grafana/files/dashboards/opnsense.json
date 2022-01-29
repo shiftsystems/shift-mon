@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1643483883022,
+  "iteration": 1643489959350,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1096,40 +1096,17 @@
     },
     {
       "datasource": {
+        "type": "loki",
         "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "align": "auto",
+            "displayMode": "auto"
           },
           "mappings": [],
           "thresholds": {
@@ -1146,7 +1123,68 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 241
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert_category"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 202
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert_signature"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 594
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "dest_port"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 84
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "src_port"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 86
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 7,
@@ -1156,17 +1194,116 @@
       },
       "id": 29,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "showHeader": true,
+        "sortBy": []
       },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "expr": "{__name=\"suricata\",host=\"$host\"}| logfmt",
+          "refId": "A"
+        }
+      ],
       "title": "Suricata alerts",
-      "type": "timeseries"
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "__name": true,
+              "alert_action": true,
+              "alert_gid": true,
+              "alert_metadata_attack_target_0": true,
+              "alert_metadata_created_at_0": true,
+              "alert_metadata_updated_at_0": true,
+              "alert_rev": true,
+              "alert_severity": true,
+              "alert_signature_id": true,
+              "event_type": true,
+              "flow_bytes_toclient": true,
+              "flow_bytes_toserver": true,
+              "flow_id": true,
+              "flow_pkts_toclient": true,
+              "flow_pkts_toserver": true,
+              "flow_start": true,
+              "host": true,
+              "http_hostname": true,
+              "id": true,
+              "line": true,
+              "path": true,
+              "ts": true,
+              "tsNs": true,
+              "tx_id": true
+            },
+            "indexByName": {
+              "__name": 21,
+              "alert_action": 23,
+              "alert_category": 3,
+              "alert_gid": 18,
+              "alert_metadata_affected_product_0": 40,
+              "alert_metadata_attack_target_0": 32,
+              "alert_metadata_created_at_0": 26,
+              "alert_metadata_deployment_0": 38,
+              "alert_metadata_signature_severity_0": 33,
+              "alert_metadata_updated_at_0": 16,
+              "alert_rev": 27,
+              "alert_severity": 19,
+              "alert_signature": 4,
+              "alert_signature_id": 24,
+              "app_proto": 10,
+              "dest_ip": 2,
+              "dest_port": 5,
+              "event_type": 20,
+              "flow_bytes_toclient": 17,
+              "flow_bytes_toserver": 11,
+              "flow_id": 28,
+              "flow_pkts_toclient": 22,
+              "flow_pkts_toserver": 12,
+              "flow_start": 29,
+              "host": 25,
+              "http_hostname": 34,
+              "http_http_method": 37,
+              "http_http_port": 35,
+              "http_http_user_agent": 39,
+              "http_length": 41,
+              "http_protocol": 36,
+              "http_url": 42,
+              "id": 14,
+              "in_iface": 7,
+              "line": 13,
+              "path": 30,
+              "proto": 8,
+              "src_ip": 9,
+              "src_port": 6,
+              "timestamp": 1,
+              "ts": 0,
+              "tsNs": 15,
+              "tx_id": 31
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -1539,9 +1676,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "vtnet0",
-          "value": "vtnet0"
+          "selected": false,
+          "text": "vtnet0_vlan99",
+          "value": "vtnet0_vlan99"
         },
         "datasource": {
           "type": "prometheus",
@@ -1566,13 +1703,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 20,
+  "version": 21,
   "weekStart": ""
 }
