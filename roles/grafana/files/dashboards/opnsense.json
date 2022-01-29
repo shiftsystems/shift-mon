@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1643483034374,
+  "iteration": 1643483883022,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -593,6 +593,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -665,6 +666,10 @@
       "pluginVersion": "8.0.5",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
           "expr": "deriv(net_bytes_recv{host=\"$host\",db=\"opnsense\"}) / 1000000",
           "interval": "",
@@ -677,6 +682,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -749,6 +755,10 @@
       "pluginVersion": "8.0.5",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
           "expr": "deriv(net_bytes_sent{host=\"$host\",db=\"opnsense\"}) / 1000000",
           "interval": "",
@@ -885,22 +895,190 @@
         "type": "loki",
         "uid": "${logs}"
       },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 11,
-        "w": 24,
+        "h": 14,
+        "w": 8,
         "x": 0,
         "y": 15
       },
-      "id": 35,
+      "id": 36,
       "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "expr": "topk(20,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*out.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
+          "legendFormat": "{{ source_ip }}",
+          "refId": "A"
+        }
+      ],
+      "title": "top outbound talkers",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 8,
+        "x": 8,
+        "y": 15
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "expr": "topk(5,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*in.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
+          "legendFormat": "{{ source_ip }}",
+          "refId": "A"
+        }
+      ],
+      "title": "inbound talkers",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "pattern": "443",
+                "result": {
+                  "index": 1,
+                  "text": "HTTP"
+                }
+              },
+              "type": "regex"
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 8,
+        "x": 16,
+        "y": 15
+      },
+      "id": 41,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
@@ -908,12 +1086,13 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{__name=\"syslog\",hostname=\"$host\",appname!=\"filterlog\"}",
+          "expr": "topk(15,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*out.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,<source_port>,<dest_port>,`[1m])) by (dest_port))",
+          "legendFormat": "{{ dest_port }}",
           "refId": "A"
         }
       ],
-      "title": "syslog",
-      "type": "logs"
+      "title": "Dest ports",
+      "type": "piechart"
     },
     {
       "datasource": {
@@ -973,7 +1152,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 29,
       "options": {
@@ -1014,7 +1193,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 33
+        "y": 36
       },
       "id": 33,
       "options": {
@@ -1111,7 +1290,7 @@
         "h": 9,
         "w": 7,
         "x": 5,
-        "y": 33
+        "y": 36
       },
       "id": 32,
       "options": {
@@ -1217,7 +1396,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 36
       },
       "id": 31,
       "options": {
@@ -1357,17 +1536,43 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "vtnet0",
+          "value": "vtnet0"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "definition": "label_values(net_bytes_sent{db=\"opnsense\",host=\"$host\"},interface)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "interface",
+        "options": [],
+        "query": {
+          "query": "label_values(net_bytes_sent{db=\"opnsense\",host=\"$host\"},interface)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 19,
+  "version": 20,
   "weekStart": ""
 }
