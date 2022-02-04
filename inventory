@@ -23,8 +23,6 @@ all:
       alert_from_address: 'alerts@example.com'
       alert_from_name: 'Shiftmon Alerts'
       port: '587'
-    http_users:
-      telegraf:
-        password: 'RANDOM_STRING'
-      grafana:
-        password: 'RANDOM_STRING'
+    users:
+      telegraf: 'RANDOM_STRING'
+      grafana: 'RANDOM_STRING'

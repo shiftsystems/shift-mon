@@ -1,1 +1,4 @@
 version: '1.72.0'
+services:
+ - victoriametrics
+ - vm-auth

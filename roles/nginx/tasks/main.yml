@@ -32,7 +32,7 @@
     name: '{{ item.key }}'
     password: '{{ item.value.passwd }}'
   become: true
-  with_dict: '{{ http_users }}'
+  with_dict: '{{ users }}'
 
 - name: paste in nginx configs on Debian based systems
   template:

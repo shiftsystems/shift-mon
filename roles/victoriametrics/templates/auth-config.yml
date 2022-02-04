@@ -1,0 +1,6 @@
+users:
+{% for user, password in users %}
+  - username: "{{ user }}"
+  - password: "{{ password }}"
+{%endfor %}
+  url_prefix: "http://127.0.0.1:8428"
