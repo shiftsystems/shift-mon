@@ -7,7 +7,7 @@
 - name: download vm-auth
   get_url:
     url: 'https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v{{ version }}/vmutils-amd64-v{{ version }}.tar.gz'
-    dest: 'tmp/vm-utils-{{ version }}.tar.gz'
+    dest: '/tmp/vm-utils-{{ version }}.tar.gz'
 - name: create victoriametrics user
   user:
     name: victoriametrics
@@ -40,14 +40,20 @@
 
 - name: extract vm-utils
   unarchive: 
-    src: '/tmp/vm-auth-{{ version }}'
+    src: '/tmp/vm-utils-{{ version }}.tar.gz'
     dest: /opt/victoriametrics
-  remote_src: true
+    remote_src: true
+  become: true
+
+- name: generate vm-auth config
+  template:
+    src: auth-config.yml
+    dest: /opt/victoriametrics/auth-config.yml
   become: true
 
 - name: create service files
   template:
-    src: victoriametrics.service
+    src: '{{ item}}.service'
     dest: /etc/systemd/system/{{ item}}.service
   become: true
   with_items: '{{ services }}'
@@ -59,8 +65,8 @@
 
 - name: start and enable services
   systemd:
-    name: '{{ services }}'
+    name: '{{ item }}'
     enabled: true
     state: restarted
   become: true
-  with_items: services
+  with_items: '{{ services }}'

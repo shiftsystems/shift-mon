@@ -1,6 +1,6 @@
 users:
-{% for user, password in users %}
+{% for user, password in users.items() %}
   - username: "{{ user }}"
-  - password: "{{ password }}"
+    password: "{{ password }}"
+    url_prefix: "http://127.0.0.1:8428"
 {%endfor %}
-  url_prefix: "http://127.0.0.1:8428"

@@ -12,7 +12,7 @@ User=victoriametrics
 Group=victoriametrics
 Restart=on-failure
 WorkingDirectory=/opt/victoriametrics
-ExecStart=/opt/victoriametrics/vm-auth-prod --httpListenAddr=127.0.0.1:8247 --auth.config /opt/victoriametrics/auth-config.yml
+ExecStart=/opt/victoriametrics/vmauth-prod --httpListenAddr=127.0.0.1:8427 --auth.config /opt/victoriametrics/auth-config.yml
 ExecStop=/bin/kill -s SIGTERM $MAINPID
 
 [Install]
