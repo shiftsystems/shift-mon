@@ -20,14 +20,15 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1636219543205,
+  "iteration": 1645317014234,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -79,7 +80,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -93,7 +94,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -145,7 +148,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -159,7 +162,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -208,7 +213,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -226,7 +231,9 @@
       "type": "gauge"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -262,9 +269,16 @@
       },
       "id": 2,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -299,7 +313,9 @@
       "type": "table"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -351,7 +367,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -365,7 +381,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -417,7 +435,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -431,7 +449,10 @@
       "type": "stat"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -442,6 +463,7 @@
             "displayMode": "auto"
           },
           "mappings": [],
+          "min": 100,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -454,7 +476,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -466,6 +489,13 @@
       },
       "id": 11,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 0,
         "showHeader": true,
         "sortBy": [
@@ -475,11 +505,15 @@
           }
         ]
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
-          "exemplar": true,
-          "expr": "system_used{object=\"storages\",nodename=\"$node\"} / 1099512000000",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "exemplar": false,
+          "expr": "system_used{object=\"storages\",nodename=\"$node\"} ",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -488,8 +522,12 @@
           "refId": "A"
         },
         {
-          "exemplar": true,
-          "expr": "system_total{object=\"storages\",nodename=\"$node\"} / 1099512000000",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "exemplar": false,
+          "expr": "system_total{object=\"storages\",nodename=\"$node\"}",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -520,7 +558,8 @@
             "mode": "binary",
             "reduce": {
               "reducer": "sum"
-            }
+            },
+            "replaceFields": false
           }
         },
         {
@@ -529,6 +568,8 @@
             "excludeByName": {
               "Time 1": true,
               "Time 2": true,
+              "__name__ 1": true,
+              "__name__ 2": true,
               "nodename 1": true,
               "nodename 2": true,
               "object 1": true,
@@ -552,8 +593,8 @@
             "renameByName": {
               "Percent": "",
               "Time 1": "",
-              "Value #A": "Usage in TB",
-              "Value #B": "Available in TB",
+              "Value #A": "Used",
+              "Value #B": "Available",
               "host": "Storage",
               "type 1": "Type"
             }
@@ -563,7 +604,9 @@
       "type": "table"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -608,10 +651,17 @@
       },
       "id": 16,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "8.2.3",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -744,7 +794,10 @@
       "type": "table"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -791,7 +844,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -809,20 +863,29 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
-          "expr": "irate(system_netin{object=~\"lxc|qemu\",nodename=\"$node\"}) /125000",
+          "expr": "irate(system_netin{object=~\"lxc|qemu\",nodename=\"$node\"})",
           "interval": "",
           "legendFormat": "{{host}}_in",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
-          "expr": "irate(system_netout{object=~\"lxc|qemu\",nodename=\"$node\"}) /125000",
+          "expr": "irate(system_netout{object=~\"lxc|qemu\",nodename=\"$node\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{host}}_out",
@@ -833,7 +896,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -898,7 +963,8 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -914,7 +980,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${metrics}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -961,7 +1030,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -979,20 +1049,29 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
-          "expr": "irate(system_diskread{nodename=\"$node\"}) / 1000000",
+          "expr": "irate(system_diskread{nodename=\"$node\"})",
           "interval": "",
           "legendFormat": "{{host}}",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
-          "expr": "irate(system_diskwrite{nodename=\"$node\"}) / 1000000",
+          "expr": "irate(system_diskwrite{nodename=\"$node\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{host}}",
@@ -1004,7 +1083,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 31,
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1015,11 +1094,8 @@
           "text": "shift-metrics",
           "value": "shift-metrics"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "metrics",
         "options": [],
@@ -1035,11 +1111,8 @@
           "text": "shift-logs",
           "value": "shift-logs"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "logs",
         "options": [],
@@ -1050,19 +1123,18 @@
         "type": "datasource"
       },
       {
-        "allValue": null,
         "current": {
           "selected": false,
           "text": "annie",
           "value": "annie"
         },
-        "datasource": "${metrics}",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
         "definition": "label_values(cpustat_idle{object=\"nodes\"},host)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "node",
         "options": [],
@@ -1077,19 +1149,18 @@
         "type": "query"
       },
       {
-        "allValue": null,
         "current": {
           "selected": false,
           "text": "historia",
           "value": "historia"
         },
-        "datasource": "${metrics}",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
         "definition": "label_values(system_cpu{object=~\"lxc|qemu\",nodename=\"$node\"},host)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "guest",
         "options": [],
@@ -1113,5 +1184,6 @@
   "timezone": "",
   "title": "Promxox metrics",
   "uid": "CcDBg5Knk",
-  "version": 9
+  "version": 27,
+  "weekStart": ""
 }
