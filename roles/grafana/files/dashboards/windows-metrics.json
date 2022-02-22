@@ -21,12 +21,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1644976498062,
+  "iteration": 1645316477132,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -41,13 +42,10 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -73,11 +71,15 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
-          "exemplar": true,
-          "expr": "mem_total{host=\"$host\",db=\"windows\"} / 1000000000",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "exemplar": false,
+          "expr": "mem_total{host=\"$host\",db=\"windows\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -135,7 +137,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -197,7 +199,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -212,6 +214,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -228,7 +231,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -254,11 +258,15 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
-          "exemplar": true,
-          "expr": "disk_total{host=\"$host\",db=\"windows\"} / 1073741824",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "exemplar": false,
+          "expr": "disk_total{host=\"$host\",db=\"windows\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -328,7 +336,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -391,7 +399,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -454,7 +462,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -517,7 +525,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -578,7 +586,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -640,7 +648,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "datasource": {
@@ -714,6 +722,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -762,7 +771,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -780,14 +790,19 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.0.5",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
-          "expr": "deriv(net_bytes_recv{host=\"$host\",db=\"windows\"}) / 1000000",
+          "expr": "deriv(net_bytes_recv{host=\"$host\",db=\"windows\"})",
           "interval": "",
           "legendFormat": "{{interface}}",
           "refId": "A"
@@ -798,6 +813,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -846,7 +862,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -864,14 +881,19 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.0.5",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
-          "expr": "deriv(net_bytes_sent{host=\"$host\",db=\"windows\"}) / 1000000",
+          "expr": "deriv(net_bytes_sent{host=\"$host\",db=\"windows\"})",
           "interval": "",
           "legendFormat": "{{interface}}",
           "refId": "A"
@@ -928,7 +950,7 @@
         "frameIndex": 7,
         "showHeader": false
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -1137,7 +1159,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "datasource": {
@@ -1284,6 +1306,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -1308,7 +1331,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -1329,11 +1353,15 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
           "exemplar": true,
-          "expr": "(diskio_read_bytes{host=\"$host\",db=\"windows\"} + diskio_read_bytes{host=\"$host\",db=\"windows\"})/ 1000000",
+          "expr": "(diskio_read_bytes{host=\"$host\",db=\"windows\"} + diskio_read_bytes{host=\"$host\",db=\"windows\"})",
           "interval": "",
           "legendFormat": "{{name}}",
           "refId": "A"
@@ -1354,7 +1382,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 34,
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1395,7 +1423,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "ESCANOR-WIN11",
           "value": "ESCANOR-WIN11"
         },
@@ -1429,6 +1457,6 @@
   "timezone": "",
   "title": "Windows Metrics",
   "uid": "LqfSpKn7y",
-  "version": 19,
+  "version": 20,
   "weekStart": ""
 }

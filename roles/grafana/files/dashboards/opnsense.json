@@ -21,12 +21,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1643490477480,
+  "iteration": 1645317346632,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -41,13 +42,10 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -73,11 +71,15 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
-          "exemplar": true,
-          "expr": "mem_total{host=\"$host\",db=\"opnsense\"} / 1000000000",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "exemplar": false,
+          "expr": "mem_total{host=\"$host\",db=\"opnsense\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -135,7 +137,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -197,7 +199,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -212,6 +214,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -228,7 +231,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -254,11 +258,15 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
-          "exemplar": true,
-          "expr": "disk_total{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\"} / 1073741824",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "exemplar": false,
+          "expr": "disk_total{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -328,7 +336,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -391,7 +399,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -454,7 +462,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -517,7 +525,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -578,7 +586,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "exemplar": true,
@@ -642,7 +650,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -660,7 +669,8 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.0.5",
@@ -671,13 +681,13 @@
             "uid": "P84D368831E8B3638"
           },
           "exemplar": true,
-          "expr": "deriv(net_bytes_recv{host=\"$host\",db=\"opnsense\"}) / 1000000",
+          "expr": "deriv(net_bytes_recv{host=\"$host\",db=\"opnsense\"})",
           "interval": "",
           "legendFormat": "{{interface}}",
           "refId": "A"
         }
       ],
-      "title": "Mbytes/sec received",
+      "title": "Inbound Traffic",
       "type": "timeseries"
     },
     {
@@ -731,7 +741,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -749,7 +760,8 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.0.5",
@@ -766,7 +778,7 @@
           "refId": "A"
         }
       ],
-      "title": "mbytes/sec sent",
+      "title": "Outbound Traffic",
       "type": "timeseries"
     },
     {
@@ -817,7 +829,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
@@ -936,7 +948,8 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.4",
@@ -1000,7 +1013,8 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.4",
@@ -1077,7 +1091,8 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -1204,7 +1219,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "datasource": {
@@ -1354,7 +1369,8 @@
           "values": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.2",
@@ -1451,7 +1467,8 @@
           "values": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.2",
@@ -1550,7 +1567,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "8.4.1",
       "targets": [
         {
           "datasource": {
@@ -1613,7 +1630,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 34,
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1681,8 +1698,8 @@
       {
         "current": {
           "selected": true,
-          "text": "vtnet0",
-          "value": "vtnet0"
+          "text": "ovpns1",
+          "value": "ovpns1"
         },
         "datasource": {
           "type": "prometheus",
@@ -1707,13 +1724,13 @@
     ]
   },
   "time": {
-    "from": "now-2d",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 22,
+  "version": 27,
   "weekStart": ""
 }
