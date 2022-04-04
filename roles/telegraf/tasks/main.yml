@@ -86,7 +86,7 @@
 - name: Add telegraf to the nginx group on Debian based systems
   user:
     name: telegraf
-    group: adm
+    groups: adm
     append: true
   become: true
   when: ansible_facts['os_family'] == "Debian"
@@ -101,7 +101,7 @@
 - name: Add telegraf to docker group when docker is installed
   user:
     name: telegraf
-    group: docker
+    groups: docker
     append: true
   become: true
   when: "'docker.service' in ansible_facts.services"
