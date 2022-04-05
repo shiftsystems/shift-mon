@@ -1,53 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_SHIFT-LOGS",
-      "label": "shift-logs",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "loki",
-      "pluginName": "Loki"
-    }
-  ],
-  "__elements": [],
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.4.5"
-    },
-    {
-      "type": "panel",
-      "id": "grafana-worldmap-panel",
-      "name": "Worldmap Panel",
-      "version": "0.3.2"
-    },
-    {
-      "type": "datasource",
-      "id": "loki",
-      "name": "Loki",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "piechart",
-      "name": "Pie chart",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -70,8 +21,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1649129393847,
+  "id": 23,
+  "iteration": 1649130403465,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -85,7 +36,7 @@
       ],
       "datasource": {
         "type": "loki",
-        "uid": "${DS_SHIFT-LOGS}"
+        "uid": "P53E94FA6B1E28789"
       },
       "decimals": 0,
       "esMetric": "Count",
@@ -119,7 +70,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_SHIFT-LOGS}"
+            "uid": "P53E94FA6B1E28789"
           },
           "expr": "sum(count_over_time({path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\" [$__interval])) by (country_code)",
           "legendFormat": "{{country_code}}",
@@ -137,7 +88,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_SHIFT-LOGS}"
+        "uid": "P53E94FA6B1E28789"
       },
       "fieldConfig": {
         "defaults": {
@@ -189,7 +140,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_SHIFT-LOGS}"
+            "uid": "P53E94FA6B1E28789"
           },
           "expr": "sum(count_over_time({path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\" [$__interval])) by (behavior)",
           "legendFormat": "{{behavior}}",
@@ -203,7 +154,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_SHIFT-LOGS}"
+        "uid": "P53E94FA6B1E28789"
       },
       "fieldConfig": {
         "defaults": {
@@ -248,7 +199,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_SHIFT-LOGS}"
+            "uid": "P53E94FA6B1E28789"
           },
           "expr": "sum(count_over_time({path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\" [$__interval])) by (asn) > 5",
           "legendFormat": "{{asn}}",
@@ -262,7 +213,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_SHIFT-LOGS}"
+        "uid": "P53E94FA6B1E28789"
       },
       "fieldConfig": {
         "defaults": {
@@ -313,7 +264,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_SHIFT-LOGS}"
+            "uid": "P53E94FA6B1E28789"
           },
           "expr": "{path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\"",
           "refId": "A"
@@ -371,10 +322,15 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
         "datasource": {
           "type": "loki",
-          "uid": "${DS_SHIFT-LOGS}"
+          "uid": "P53E94FA6B1E28789"
         },
         "definition": "label_values({path=\"/var/log/crowdsec.log\"},host)",
         "hide": 0,
@@ -415,7 +371,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Crowdsec",
-  "uid": "j4KEK3L7z",
+  "uid": "j4KEK3L7k",
   "version": 1,
   "weekStart": ""
 }
