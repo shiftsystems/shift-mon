@@ -29,7 +29,7 @@
       {
         "datasource": {
           "type": "loki",
-          "uid": "P53E94FA6B1E28789"
+          "uid": "${logs}"
         },
         "fieldConfig": {
           "defaults": {
@@ -104,7 +104,7 @@
           {
             "datasource": {
               "type": "loki",
-              "uid": "P53E94FA6B1E28789"
+              "uid": "${logs}"
             },
             "expr": "sum(count_over_time({__name=\"syslog\"}[1m])) by (appname)",
             "legendFormat": "{{appname}}",
