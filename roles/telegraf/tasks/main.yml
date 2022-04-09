@@ -128,6 +128,20 @@
   become: true
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
 
+- name: Deploy Loki config when Loki is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/loki.conf
+    dest: /etc/telegraf/telegraf.d/loki.conf
+  become: true
+  when: "'loki.service' in ansible_facts.services"
+
+- name: Deploy Victoriametrics config when Victoriametrics is installed
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/victoriametrics.conf
+    dest: /etc/telegraf/telegraf.d/victoriametrics.conf
+  become: true
+  when: "'victoriametrics.service' in ansible_facts.services"
+
 - name: Add telegraf to the MySQL group on Debian based systems
   file:
     path: '/tmp/stubby'
