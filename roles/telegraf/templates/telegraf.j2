@@ -21,7 +21,7 @@
   password = "$victoria_password"
 {% endif %}
   database = "linux"
-  namepass = ["cpu","disk","diskio","mem","net","swap","system","docker","http_response","cs_*","systemd_units"]
+  namepass = ["cpu","disk","diskio","mem","net","swap","system","docker","http_response","cs_*","cortex_*","logql_*","loki_*","prometheus_*","querier_*","vm*","systemd_units"]
   insecure_skip_verify = true
 [[ outputs.loki]]
   domain = "$loki_url"
