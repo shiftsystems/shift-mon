@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1649533914605,
+  "iteration": 1649536915944,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -641,6 +641,7 @@
           "custom": {
             "axisLabel": "",
             "axisPlacement": "auto",
+            "axisSoftMin": 0,
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -1460,7 +1461,7 @@
             "uid": "${metrics}"
           },
           "exemplar": true,
-          "expr": "loki_ingester_streams_created_total_counter{host=\"$host\"} - loki_ingester_streams_removed_total_counter{host=\"$host\"}",
+          "expr": "loki_store_series_total_counter{host=\"$host\",status=\"matched\"}",
           "interval": "",
           "legendFormat": "{{host}}",
           "refId": "A"
@@ -1619,7 +1620,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
