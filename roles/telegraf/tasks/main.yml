@@ -78,7 +78,7 @@
 - name: Add telegraf to the nginx group on RedHat based systems
   user: 
     name: telegraf
-    group: root
+    groups: root
     append: true
   become: true
   when: "ansible_facts['os_family'] == 'RedHat' and 'nginx.service' in ansible_facts.services"
@@ -106,20 +106,12 @@
   become: true
   when: "'docker.service' in ansible_facts.services"
 
-- name: Add Nginx config When nginx is installed
+- name: Deploy Docker config When Docker is installed
   get_url:
     url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/docker.conf
     dest: /etc/telegraf/telegraf.d/docker.conf
   become: true
   when: "'docker.service' in ansible_facts.services"
-
-- name:  Add telegraf to the MySQL group on RedHat based systems
-  user:
-    name: telegraf
-    group: mysql
-    append: true
-  become: true
-  when: "'mysqld.service' in ansible_facts.services"
 
 - name: MySQL config when MySQL is installed
   get_url:
