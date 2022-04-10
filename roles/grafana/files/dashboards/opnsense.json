@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1645317346632,
+  "iteration": 1649133928720,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -71,7 +71,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -137,7 +137,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "exemplar": true,
@@ -199,7 +199,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "exemplar": true,
@@ -258,7 +258,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -315,7 +315,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 20,
         "y": 0
@@ -336,7 +336,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "exemplar": true,
@@ -399,7 +399,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "exemplar": true,
@@ -462,7 +462,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "exemplar": true,
@@ -525,7 +525,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "exemplar": true,
@@ -565,10 +565,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 20,
-        "y": 4
+        "y": 5
       },
       "id": 18,
       "options": {
@@ -586,7 +586,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "exemplar": true,
@@ -812,10 +812,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 5,
         "w": 4,
         "x": 20,
-        "y": 8
+        "y": 10
       },
       "id": 16,
       "options": {
@@ -829,7 +829,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
@@ -844,6 +844,12 @@
         {
           "id": "labelsToFields",
           "options": {
+            "keepLabels": [
+              "ssl_type",
+              "version",
+              "arch",
+              "host"
+            ],
             "valueLabel": "host"
           }
         },
@@ -1219,7 +1225,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -1567,7 +1573,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -1697,7 +1703,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "ovpns1",
           "value": "ovpns1"
         },
@@ -1731,6 +1737,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 27,
+  "version": 38,
   "weekStart": ""
 }

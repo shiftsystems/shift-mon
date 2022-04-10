@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1645582677479,
+  "iteration": 1649536915944,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -86,7 +86,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -148,7 +148,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -210,7 +210,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -269,7 +269,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -331,7 +331,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -396,7 +396,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -461,7 +461,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -522,7 +522,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -641,6 +641,7 @@
           "custom": {
             "axisLabel": "",
             "axisPlacement": "auto",
+            "axisSoftMin": 0,
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -868,7 +869,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -931,7 +932,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -989,7 +990,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -1052,7 +1053,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -1114,7 +1115,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -1176,7 +1177,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -1513,7 +1514,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "datasource": {
@@ -1626,6 +1627,6 @@
   "timezone": "",
   "title": "Internal Metrics",
   "uid": "ALYMBhank",
-  "version": 1,
+  "version": 12,
   "weekStart": ""
 }
