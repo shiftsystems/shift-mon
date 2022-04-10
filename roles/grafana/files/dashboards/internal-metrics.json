@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1649536915944,
+  "iteration": 1649560625692,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -809,12 +809,162 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ts"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 170
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "procid"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 72
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severity"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 68
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 50,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.4.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "expr": "{appname=\"victoria-metrics-prod\",host=\"$host\"} | logfmt",
+          "refId": "A"
+        }
+      ],
+      "title": "VictoriaMetrics Logs",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "__error__": true,
+              "__name": true,
+              "appname": true,
+              "facility": true,
+              "facility_code": true,
+              "host": true,
+              "hostname": true,
+              "id": true,
+              "line": true,
+              "severity_code": true,
+              "timestamp": true,
+              "tsNs": true,
+              "version": true
+            },
+            "indexByName": {
+              "__error__": 15,
+              "__name": 11,
+              "appname": 12,
+              "facility": 7,
+              "facility_code": 13,
+              "host": 8,
+              "hostname": 9,
+              "id": 5,
+              "line": 4,
+              "message": 3,
+              "procid": 1,
+              "severity": 2,
+              "severity_code": 10,
+              "timestamp": 14,
+              "ts": 0,
+              "tsNs": 6,
+              "version": 16
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 21
       },
       "id": 28,
       "panels": [],
@@ -852,7 +1002,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 14
+        "y": 22
       },
       "id": 14,
       "options": {
@@ -915,7 +1065,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 14
+        "y": 22
       },
       "id": 20,
       "options": {
@@ -973,7 +1123,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 14
+        "y": 22
       },
       "id": 22,
       "options": {
@@ -1036,7 +1186,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 14
+        "y": 22
       },
       "id": 2,
       "options": {
@@ -1098,7 +1248,7 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 14
+        "y": 22
       },
       "id": 35,
       "options": {
@@ -1160,7 +1310,7 @@
         "h": 5,
         "w": 4,
         "x": 20,
-        "y": 14
+        "y": 22
       },
       "id": 26,
       "options": {
@@ -1255,7 +1405,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 27
       },
       "id": 6,
       "options": {
@@ -1357,7 +1507,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 27
       },
       "id": 34,
       "options": {
@@ -1439,7 +1589,7 @@
         "h": 8,
         "w": 18,
         "x": 0,
-        "y": 27
+        "y": 35
       },
       "id": 17,
       "options": {
@@ -1501,7 +1651,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 27
+        "y": 35
       },
       "id": 18,
       "options": {
@@ -1548,6 +1698,97 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 51,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "8.4.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "expr": "{appname=\"loki-linux-amd64\",host=\"$host\"}",
+          "maxLines": 200,
+          "refId": "A"
+        }
+      ],
+      "title": "Loki Logs",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "disabled": true,
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "disabled": true,
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "__error__": true,
+              "__name": true,
+              "appname": true,
+              "facility": true,
+              "facility_code": true,
+              "host": true,
+              "hostname": true,
+              "id": true,
+              "line": true,
+              "message": true,
+              "severity_code": true,
+              "timestamp": true,
+              "tsNs": true,
+              "version": true
+            },
+            "indexByName": {
+              "__error__": 15,
+              "__name": 11,
+              "appname": 12,
+              "facility": 7,
+              "facility_code": 13,
+              "host": 8,
+              "hostname": 9,
+              "id": 5,
+              "line": 4,
+              "message": 3,
+              "procid": 1,
+              "severity": 2,
+              "severity_code": 10,
+              "timestamp": 14,
+              "ts": 0,
+              "tsNs": 6,
+              "version": 16
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "logs"
     }
   ],
   "refresh": false,
@@ -1620,13 +1861,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Internal Metrics",
   "uid": "ALYMBhank",
-  "version": 12,
+  "version": 13,
   "weekStart": ""
 }
