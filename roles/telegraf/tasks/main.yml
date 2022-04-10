@@ -169,6 +169,29 @@
   become: true
   when: syslog is defined and syslog
 
+- name: add telegraf config for remote syslog
+  get_url:
+    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/remote-syslog.conf
+    dest: /etc/telegraf/telegraf.d/remote-syslog.conf
+  become: true
+  when: remote_syslog is defined and remote_syslog
+
+- name: Allow remote syslog traffic on UFW
+  community.general.ufw:
+    rule: allow
+    port: 6666
+    proto: udp
+  become: true
+  when: "remote_syslog is defined and remote_syslog and 'ufw.service' in ansible_facts.services"
+
+- name: Allow remote syslog traffic on firewalld
+  community.general.ufw:
+    rule: allow
+    port: 6666
+    proto: udp
+  become: true
+  when: "remote_syslog is defined and remote_syslog and 'firewalld.service' in ansible_facts.services"
+
 - name: Start and Enable Telegraf
   systemd:
     name: telegraf

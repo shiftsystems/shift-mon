@@ -3,6 +3,7 @@ all:
     shiftmon.example.com:
   vars:
     syslog: false
+    remote_syslog: false
     nginx: true
     loki:
       url: 'https://shiftmon.example.com:3100'
