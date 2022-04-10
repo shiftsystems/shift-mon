@@ -29,11 +29,11 @@ at the time of writing there is no loki out put configuration for logs so you wi
 3. add the following content to the file 
 ```
 [[outputs.loki]]
-  domain = "http://10.0.0.8:3100"
+  domain = "https://loki.example.com:3100"
   namepass = ["suricata","syslog","tail*","exec*","resolver*"]
 [[inputs.syslog]]
   server = "udp://:6514"
-  syslog_standard = "RFC3164"
+  syslog_standard = "RFC5424"
 [[inputs.exec]]
   commands = ["opnsense-version"]
   data_format = "grok"
