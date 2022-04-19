@@ -40,9 +40,13 @@
   report_active = false
 [[inputs.disk]]
   ignore_fs = ["tmpfs", "devtmpfs", "devfs", "overlay", "aufs", "squashfs"]
+  fielddrop = ["inodes*"]
 [[inputs.diskio]]
+  fielddrop = ["merged*"]
 [[inputs.mem]]
+  fielddrop = ["huge*","low*","high*","vm*","committed*","page_tables","dirty","slab","sreclaimable","sunreclaim"]
 [[inputs.net]]
+  ignore_protocol_stats = true
 [[inputs.swap]]
 [[inputs.system]]
 [[inputs.systemd_units]]
