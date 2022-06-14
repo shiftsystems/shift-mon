@@ -1,29 +1,26 @@
 all:
   hosts:
-    shiftmon.example.com:
+    armin.local.shiftsystems.net:
   vars:
-    syslog: false
+    syslog: true
     remote_syslog: false
-    nginx: true
+    nginx: false
     loki:
-      url: 'https://shiftmon.example.com:3100'
-      user: 'test'
-      password: 'test'
+      url: 'https://loki.example.com'
       retention_period: 90d
     victoria:
-      url: 'http://shiftmon.example.com:8428'
-      user: 'test'
-      password: 'test'
+      url: 'https://metrics.example.com'
       retention_period: 90d
     ansible_python_interpreter: /usr/bin/python3
     grafana:
-      domain: 'grafana.example.com'
+      domain: 'armin.local.shiftsystems.net'
     email:
-      enabled: false
+      enabled: true
       host: 'mail.example.com'
       alert_from_address: 'alerts@example.com'
+      user: 'alerts@example.com'
+      password: 'generate_this'
       alert_from_name: 'Shiftmon Alerts'
       port: '587'
     users:
-      telegraf: 'RANDOM_STRING'
-      grafana: 'RANDOM_STRING'
+      telegraf: 'generate_this'
