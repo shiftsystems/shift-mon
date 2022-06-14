@@ -65,6 +65,13 @@
     dest: /etc/grafana/grafana.ini
   become: true
 
+- name: Copy LDAP config
+  template:
+    src: ldap.toml
+    dest: /etc/grafana/ldap.toml
+  become: true
+  when: ldap_host is defined
+
 - name: start and enable Grafana
   systemd:
     name: grafana-server

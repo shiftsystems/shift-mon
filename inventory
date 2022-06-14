@@ -24,3 +24,17 @@ all:
       port: '587'
     users:
       telegraf: 'generate_this'
+    #ldap_host: 'dc1.example.com'
+    ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+    bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=example,dc=com'
+    base_dn: 'dc=example,dc=com'
+    bind_password: 'generate_this'
+    user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=example,dc=com))'
+    ldap_first_name: 'givenName'
+    member_of: 'memberOf'
+    ldap_last_name: 'sn'
+    ldap_user: 'uid'
+    ldap_email: 'mail'
+    admin_group: 'cn=grafana-admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+    viewer_group: 'cn=grafana-viewers,cn=groups,cn=accounts,dc=example,dc=com'
+    editor_group: 'cn=server-editors,cn=groups,cn=accounts,dc=example,dc=com'

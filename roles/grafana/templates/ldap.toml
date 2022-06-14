@@ -1,0 +1,74 @@
+# To troubleshoot and get more log info enable ldap debug logging in grafana.ini
+# [log]
+# filters = ldap:debug
+
+[[servers]]
+# Ldap server host (specify multiple hosts space separated)
+host = "{{ ldap_host }}"
+# Default port is 389 or 636 if use_ssl = true
+port = {{ ldap_port }}
+# Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS)
+use_ssl = false
+# If set to true, use LDAP with STARTTLS instead of LDAPS
+start_tls = true 
+# set to true if you want to skip ssl cert validation
+ssl_skip_verify = true 
+# set to the path to your root CA certificate or leave unset to use system defaults
+# root_ca_cert = "/path/to/certificate.crt"
+# Authentication against LDAP servers requiring client certificates
+# client_cert = "/path/to/client.crt"
+# client_key = "/path/to/client.key"
+
+# Search user bind dn
+bind_dn = "{{ bind_dn }}"
+# Search user bind password
+# If the password contains # or ; you have to wrap it with triple quotes. Ex """#password;"""
+bind_password = """{{ bind_password }}"""
+
+# User search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)"
+search_filter = "(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=shiftsystems,dc=net))"
+
+# An array of base dns to search through
+search_base_dns = ["{{ base_dn }}"]
+
+## For Posix or LDAP setups that does not support member_of attribute you can define the below settings
+## Please check grafana LDAP docs for examples
+# group_search_filter = "(&(objectClass=posixGroup)(memberUid=%s))"
+# group_search_base_dns = ["ou=groups,dc=grafana,dc=org"]
+# group_search_filter_user_attribute = "uid"
+
+# Specify names of the ldap attributes your ldap uses
+[servers.attributes]
+name = "{{ ladp_first_name }}"
+surname = "{{ ldap_last_name }}"
+username = "{{ ldap_user }}"
+member_of = "{{ member_of }}"
+email =  "{{ ldap_user }}"
+
+{% if admin_group is defined %}
+# Map ldap groups to grafana org roles
+[[servers.group_mappings]]
+group_dn = "{{ admin_group }}"
+org_role = "Admin"
+# To make user an instance admin  (Grafana Admin) uncomment line below
+grafana_admin = true
+# The Grafana organization database id, optional, if left out the default org (id 1) will be used
+# org_id = 1
+{% if editor_group is defined %}
+# Map ldap groups to grafana org roles
+[[servers.group_mappings]]
+group_dn = "{{ editor_group }}"
+org_role = "Editor"
+# To make user an instance admin  (Grafana Admin) uncomment line below
+grafana_admin = true
+# The Grafana organization database id, optional, if left out the default org (id 1) will be used
+# org_id = 1
+{% if viewer_group is defined %}
+# Map ldap groups to grafana org roles
+[[servers.group_mappings]]
+group_dn = "{{ viewer_group }}"
+org_role = "Viewer"
+# To make user an instance admin  (Grafana Admin) uncomment line below
+grafana_admin = true
+# The Grafana organization database id, optional, if left out the default org (id 1) will be used
+# org_id = 1
