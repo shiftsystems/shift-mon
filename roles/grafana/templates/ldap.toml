@@ -39,7 +39,7 @@ search_base_dns = ["{{ base_dn }}"]
 
 # Specify names of the ldap attributes your ldap uses
 [servers.attributes]
-name = "{{ ladp_first_name }}"
+name = "{{ ldap_first_name }}"
 surname = "{{ ldap_last_name }}"
 username = "{{ ldap_user }}"
 member_of = "{{ member_of }}"
@@ -54,6 +54,7 @@ org_role = "Admin"
 grafana_admin = true
 # The Grafana organization database id, optional, if left out the default org (id 1) will be used
 # org_id = 1
+{% endif %}
 {% if editor_group is defined %}
 # Map ldap groups to grafana org roles
 [[servers.group_mappings]]
@@ -63,6 +64,7 @@ org_role = "Editor"
 grafana_admin = true
 # The Grafana organization database id, optional, if left out the default org (id 1) will be used
 # org_id = 1
+{% endif %}
 {% if viewer_group is defined %}
 # Map ldap groups to grafana org roles
 [[servers.group_mappings]]
@@ -72,3 +74,4 @@ org_role = "Viewer"
 grafana_admin = true
 # The Grafana organization database id, optional, if left out the default org (id 1) will be used
 # org_id = 1
+{% endif %}
