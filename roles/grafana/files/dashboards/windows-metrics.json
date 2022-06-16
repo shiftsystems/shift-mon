@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1645316477132,
+  "iteration": 1655342817658,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -71,7 +74,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -137,7 +140,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -199,7 +202,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -258,7 +261,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -336,7 +339,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -399,7 +402,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -462,7 +465,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -512,6 +515,8 @@
       "id": 6,
       "options": {
         "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -525,7 +530,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -586,7 +591,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -611,7 +616,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -648,7 +654,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -665,14 +671,9 @@
       "title": "OS Version",
       "transformations": [
         {
-          "id": "labelsToFields",
+          "id": "extractFields",
           "options": {
-            "keepLabels": [
-              "host",
-              "Version",
-              "Caption"
-            ],
-            "mode": "columns"
+            "source": "labels"
           }
         },
         {
@@ -703,17 +704,15 @@
           }
         },
         {
-          "id": "merge",
-          "options": {}
-        },
-        {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Caption (lastNotNull)": false,
-              "host": true
+              "Caption (lastNotNull)": false
             },
-            "indexByName": {},
+            "indexByName": {
+              "Caption (lastNotNull)": 0,
+              "Version": 1
+            },
             "renameByName": {}
           }
         }
@@ -913,7 +912,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -950,7 +950,7 @@
         "frameIndex": 7,
         "showHeader": false
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -1038,7 +1038,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1159,7 +1160,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -1316,7 +1317,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1353,7 +1355,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -1382,7 +1384,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 35,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1457,6 +1459,6 @@
   "timezone": "",
   "title": "Windows Metrics",
   "uid": "LqfSpKn7y",
-  "version": 20,
+  "version": 46,
   "weekStart": ""
 }
