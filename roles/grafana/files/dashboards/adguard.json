@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1655341262928,
+  "iteration": 1655344761894,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -344,33 +344,7 @@
           },
           "mappings": []
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "line (count)",
-                  "||phicdn.net^"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 13,
@@ -392,11 +366,11 @@
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "sum"
           ],
-          "fields": "/^Line \\(count\\)$/",
+          "fields": "",
           "limit": 25,
-          "values": true
+          "values": false
         },
         "tooltip": {
           "mode": "single",
@@ -410,19 +384,24 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} | logfmt ",
+          "editorMode": "code",
+          "expr": "topk(20,sum(count_over_time({host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} | logfmt[1m])) by (QH))",
+          "legendFormat": "{{ QH }}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Top queried domains",
       "transformations": [
         {
+          "disabled": true,
           "id": "extractFields",
           "options": {
             "source": "labels"
           }
         },
         {
+          "disabled": true,
           "id": "groupBy",
           "options": {
             "fields": {
@@ -476,33 +455,7 @@
           },
           "mappings": []
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "line (count)",
-                  "||phicdn.net^"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 13,
@@ -524,10 +477,10 @@
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "sum"
           ],
           "fields": "",
-          "values": true
+          "values": false
         },
         "tooltip": {
           "mode": "single",
@@ -541,54 +494,15 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} | logfmt ",
+          "editorMode": "code",
+          "expr": "topk(20,sum(count_over_time({host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} | logfmt[1m])) by (IP))",
+          "legendFormat": "{{ IP }}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Top Queriers",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "IP": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "Line": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              },
-              "QH": {
-                "aggregations": []
-              },
-              "Result_IsFiltered": {
-                "aggregations": []
-              },
-              "Result_Rules_0_IP": {
-                "aggregations": []
-              },
-              "Result_Rules_0_Text": {
-                "aggregations": []
-              },
-              "line": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
+      "transformations": [],
       "type": "piechart"
     },
     {
@@ -610,33 +524,7 @@
           },
           "mappings": []
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "line (count)",
-                  "||phicdn.net^"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 13,
@@ -658,10 +546,10 @@
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "sum"
           ],
           "fields": "",
-          "values": true
+          "values": false
         },
         "tooltip": {
           "mode": "single",
@@ -675,52 +563,15 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} |~ \"Result_IsFiltered\"| logfmt ",
+          "editorMode": "code",
+          "expr": "topk(20,sum(count_over_time({host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} |~ \"Result_IsFiltered\"| logfmt[1m])) by (QH))",
+          "legendFormat": "{{ QH }}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Top filtered domains",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "replace": false,
-            "source": "labels"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "Line": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              },
-              "QH": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "Result_IsFiltered": {
-                "aggregations": []
-              },
-              "Result_Rules_0_IP": {
-                "aggregations": []
-              },
-              "Result_Rules_0_Text": {
-                "aggregations": []
-              },
-              "line": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
+      "transformations": [],
       "type": "piechart"
     },
     {
@@ -742,33 +593,7 @@
           },
           "mappings": []
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "line (count)",
-                  "||phicdn.net^"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 13,
@@ -790,10 +615,10 @@
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "sum"
           ],
           "fields": "",
-          "values": true
+          "values": false
         },
         "tooltip": {
           "mode": "single",
@@ -807,55 +632,15 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} |~ \"Result_IsFiltered\"| logfmt ",
+          "editorMode": "code",
+          "expr": "topk(20,sum(count_over_time({host=\"$host\",path=\"/opt/AdGuardHome/data/querylog.json\"} |~ \"Result_IsFiltered\"| logfmt[1m])) by (IP))",
+          "legendFormat": "{{ IP }}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Top Filtered Hosts",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "format": "auto",
-            "source": "labels"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "IP": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "QH": {
-                "aggregations": []
-              },
-              "Result_IsFiltered": {
-                "aggregations": []
-              },
-              "Result_Rules_0_IP": {
-                "aggregations": []
-              },
-              "Result_Rules_0_Text": {
-                "aggregations": []
-              },
-              "line": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              },
-              "tsNs": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
+      "transformations": [],
       "type": "piechart"
     }
   ],
@@ -931,6 +716,6 @@
   "timezone": "",
   "title": "Adguard",
   "uid": "RXBFLS0nz",
-  "version": 41,
+  "version": 42,
   "weekStart": ""
 }
