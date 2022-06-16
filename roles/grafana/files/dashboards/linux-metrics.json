@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1645316656748,
+  "iteration": 1655330333099,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -71,7 +74,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -137,7 +140,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -199,7 +202,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -258,7 +261,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -336,7 +339,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -400,7 +403,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -464,7 +467,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -515,6 +518,8 @@
       "id": 6,
       "options": {
         "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -528,7 +533,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -589,7 +594,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -614,7 +619,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -642,6 +648,7 @@
       "id": 35,
       "options": {
         "footer": {
+          "enablePagination": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -651,63 +658,78 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
+          "editorMode": "code",
           "expr": "{__name=\"exec_os_release\",host=\"$host\"} | logfmt",
-          "refId": "A"
+          "queryType": "range",
+          "refId": "A",
+          "resolution": 1
         }
       ],
       "title": "OS Version",
       "transformations": [
         {
-          "id": "labelsToFields",
-          "options": {
-            "mode": "columns"
-          }
-        },
-        {
           "id": "groupBy",
           "options": {
             "fields": {
-              "NAME": {
+              "Line": {
                 "aggregations": [
-                  "lastNotNull"
+                  "allValues"
                 ],
                 "operation": "aggregate"
               },
               "Time": {
-                "aggregations": []
-              },
-              "VERSION": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "__name": {
-                "aggregations": []
-              },
-              "host": {
                 "aggregations": [],
                 "operation": "groupby"
+              },
+              "labels": {
+                "aggregations": []
+              },
+              "tsNs": {
+                "aggregations": []
               }
             }
           }
         },
         {
-          "id": "merge",
-          "options": {}
+          "id": "extractFields",
+          "options": {
+            "format": "kvp",
+            "source": "Line (allValues)"
+          }
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "host": true
+              "Line (allValues)": true,
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "mode": "seriesToRows",
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Field": true
             },
             "indexByName": {},
             "renameByName": {}
@@ -909,7 +931,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -945,7 +968,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -1031,7 +1054,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1067,7 +1091,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "exemplar": true,
@@ -1248,7 +1272,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1288,7 +1313,7 @@
           }
         ]
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "9.0.0",
       "targets": [
         {
           "datasource": {
@@ -1365,16 +1390,16 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 35,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "armin",
-          "value": "armin"
+          "selected": false,
+          "text": "jean",
+          "value": "jean"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1441,6 +1466,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 23,
+  "version": 49,
   "weekStart": ""
 }
