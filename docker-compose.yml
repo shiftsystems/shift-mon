@@ -1,0 +1,33 @@
+services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    restart: unless-stopped
+    volumes: grafana:/var/lib/grafana
+    ports:
+      - 3000:3000
+  loki:
+    image: grafana/loki:latest
+    restart: unless-stopped
+    ports:
+      - 3100:3100
+    command:
+      - "--mount source=loki,target=/loki"
+  victoriametrics:
+    restart: unless-stopped
+    image: victoriametrics/victoria-metrics:latest
+    volumes: victoriametrics:/storage
+    ports:
+      - 8428:8428
+    command:
+      - "--retentionPeriod=90d"
+      - "--storageDataPath=/victoriametrics-storage"
+      - "--httpListenAddr=:8428"
+  vm-auth:
+    restart: unless-stopped
+    image: victoriametrics/vm-auth:latest
+    ports:
+      - 8427:8427
+volumes:
+  victoriametrics:
+  loki:
+  grafana:
