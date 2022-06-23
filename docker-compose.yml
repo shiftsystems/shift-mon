@@ -2,12 +2,22 @@ services:
   grafana:
     image: grafana/grafana-oss:latest
     restart: unless-stopped
-    volumes: grafana:/var/lib/grafana
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/grafana-config
+        target: /etc/grafana
+      - type: bind
+        source: /opt/shift-mon/grafana
+        target: /var/lib/grafana
     ports:
       - 3000:3000
   loki:
     image: grafana/loki:latest
     restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/victoriametrics/config.yaml
+        target: /opt/loki
     ports:
       - 3100:3100
     command:
@@ -15,19 +25,24 @@ services:
   victoriametrics:
     restart: unless-stopped
     image: victoriametrics/victoria-metrics:latest
-    volumes: victoriametrics:/storage
+    volumes: 
+      - type: bind
+        source: /opt/shift-mon/victoriametrics-storage
+        target: /storage
     ports:
       - 8428:8428
     command:
       - "--retentionPeriod=90d"
       - "--storageDataPath=/victoriametrics-storage"
       - "--httpListenAddr=:8428"
-  vm-auth:
+  vmauth:
     restart: unless-stopped
-    image: victoriametrics/vm-auth:latest
+    image: victoriametrics/vmauth:latest
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/victoriametrics
+        target: /config
     ports:
       - 8427:8427
-volumes:
-  victoriametrics:
-  loki:
-  grafana:
+    command:
+      - "--auth.config=/config/auth-config.yml"
