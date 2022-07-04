@@ -3,9 +3,9 @@ datasources:
   - name: shift-metrics
     type: prometheus
     #url: '{{ victoria.url }}'
-    url: 'http://localhost:8428'
+    url: 'http://victoriametrics:8428'
 
   - name: shift-logs
     type: loki
     #url: '{{ loki.url }}'
-    url: 'http://localhost:3100'
+    url: 'http://loki:3100'
