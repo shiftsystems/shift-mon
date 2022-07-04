@@ -16,12 +16,16 @@ services:
     restart: unless-stopped
     volumes:
       - type: bind
-        source: /opt/shift-mon/victoriametrics/config.yaml
-        target: /opt/loki
+        source: /opt/shift-mon/loki
+        target: /loki
+      - type: bind
+        source: /opt/shift-mon/loki-config
+        target: /etc/loki/
     ports:
       - 3100:3100
     command:
-      - "--mount source=loki,target=/loki"
+      #- "-mount source=loki,target=/loki"
+      - "-config.file=/etc/loki/loki-config.yml"
   victoriametrics:
     restart: unless-stopped
     image: victoriametrics/victoria-metrics:latest
