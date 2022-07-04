@@ -2,5 +2,5 @@ users:
 {% for user, password in users.items() %}
   - username: "{{ user }}"
     password: "{{ password }}"
-    url_prefix: "http://127.0.0.1:8428"
+    url_prefix: "http://victoriametrics:8428"
 {%endfor %}
