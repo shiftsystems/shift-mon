@@ -1,80 +1,39 @@
-- name: add GPG key for repo on Debian based systems
-  apt_key:
-    url: https://packages.grafana.com/gpg.key
-    state: present
-  become: true
-  when: ansible_facts['os_family'] == "Debian"
-
-- name: add repo for Debian based systems
-  apt_repository:
-    repo: "deb https://packages.grafana.com/oss/deb stable main"
-    state: present
-    update_cache: no
-  become: true
-  when: ansible_facts['os_family'] == "Debian"
-
-- name: add repo for RedHat Based Systems
-  yum_repository:
-    name: grafana
-    description: 'Grafana data visualiztion software'
-    baseurl: https://packages.grafana.com/oss/rpm
-    gpgcheck: true
-    sslverify: true
-    gpgkey: https://packages.grafana.com/gpg.key
-    state: present
-    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
-  become: true
-  when: ansible_facts['os_family'] in ["AlmaLinux","RedHat"]
-
-- name: install install packages for grafana
-  apt:
-    name: "{{ packages }}"
-    update_cache: true
-    state: latest
-  become: true
-  when: ansible_facts['os_family'] == "Debian"
-
-- name: install install packages for grafana
-  dnf:
-    name: "{{ packages }}"
-    state: latest
-  become: true
-  when: ansible_facts['os_family'] in ["AlmaLinux","RedHat"]
-
 - name: Copy dashboards
   copy: 
     src: dashboards  
-    dest: /var/lib/grafana/
+    dest: /opt/shift-mon/grafana
   become: true
+
+- name: create grafana directories
+  file:
+    state: directory
+    path: /opt/shift-mon/grafana-config/provisioning/{{ item }}
+  become: true
+  with_items:
+    - dashboards
+    - datasources
 
 - name: Configure dashboards
   copy:
     src: dashboards.yml
-    dest: /etc/grafana/provisioning/dashboards/shift-dashboards.yml
+    dest: /opt/shift-mon/grafana-config/provisioning/dashboards/shift-dashboards.yml
   become: true
 
 - name: Configure Datasources
   template:
     src: datasources.yml
-    dest: /etc/grafana/provisioning/datasources/shift-datasources.yml
+    dest: /opt/shift-mon/grafana-config/provisioning/datasources/shift-datasources.yml
   become: true
 
 - name: Copy Grafana config
   template:
     src: grafana.ini
-    dest: /etc/grafana/grafana.ini
+    dest: /opt/shift-mon/grafana-config/grafana.ini
   become: true
 
 - name: Copy LDAP config
   template:
     src: ldap.toml
-    dest: /etc/grafana/ldap.toml
+    dest: /opt/shift-mon/grafana-config/ldap.toml
   become: true
   when: ldap_host is defined
-
-- name: start and enable Grafana
-  systemd:
-    name: grafana-server
-    enabled: yes
-    state: restarted
-  become: true
