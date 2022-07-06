@@ -1,17 +1,19 @@
+- name: create grafana directories
+  file:
+    state: directory
+    path: '{{ item }}'
+    mode: '777'
+  become: true
+  with_items:
+    - /opt/shift-mon/grafana
+    - /opt/shift-mon/grafana-config/provisioning/dashboards
+    - /opt/shift-mon/grafana-config/provisioning/datasources
+
 - name: Copy dashboards
   copy: 
     src: dashboards  
     dest: /opt/shift-mon/grafana
   become: true
-
-- name: create grafana directories
-  file:
-    state: directory
-    path: /opt/shift-mon/grafana-config/provisioning/{{ item }}
-  become: true
-  with_items:
-    - dashboards
-    - datasources
 
 - name: Configure dashboards
   copy:
