@@ -6,6 +6,20 @@ entryPoints:
     address: ":80"
   websecure:
     address: ":443"
+certificatesResolvers:
+  sample:
+    acme:
+      email: '{{ tls.email }}'
+      storage: /etc/traefik/acme.json
+{% if tls.dns_provider is not defined %}
+      httpChallenge:
+        # used during the challenge
+        entryPoint: web
+{% else %}
+      dnsChallenge:
+        provider: '{{ tls.dns_provider }}'
+        delayBeforeCheck: 0
+{% endif %}
 api:
   dashboard: true
   insecure: true
@@ -21,27 +35,46 @@ metrics:
     addRoutersLabels: true
     addServicesLabels: true
 http:
+  middlewares:
+    basic-auth:
+      basicAuth:
+        usersFile: "/etc/traefik/htpasswd"
   routers:
     api:
       rule: Host(`api.local`)
       service: api@internal
       entryPoints:
         - web
+      middlewares:
+        - basic-auth
     grafana:
       rule: Host(`{{ grafana.domain }}`)
+      tls:
+        certResolver: acme
       service: grafana
       entryPoints:
         - web
+        - websecure
     loki:
       rule: Host(`{{ loki.domain }}`)
+      tls:
+        certResolver: acme
       service: loki
+      middlewares:
+        - basic-auth
       entryPoints:
         - web
-    vmauth:
+        - websecure
+    victoriametrics:
       rule: Host(`{{ victoria.domain }}`)
-      service: vmauth
+      tls:
+        certResolver: acme
+      service: victoriametrics
+      middlewares:
+        - basic-auth
       entryPoints:
         - web
+        - websucre
   services:
     grafana:
       loadBalancer:
@@ -51,7 +84,7 @@ http:
       loadBalancer:
         servers:
           - url: http://loki:3100
-    vmauth:
+    victoriametrics:
       loadBalancer:
         servers:
           - url: http://victoriametrics:8428

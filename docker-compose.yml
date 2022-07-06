@@ -49,14 +49,7 @@ services:
     ports:
      - 80:80
      - 443:443
-  vmauth:
-    restart: unless-stopped
-    image: victoriametrics/vmauth:latest
-    volumes:
-      - type: bind
-        source: /opt/shift-mon/victoriametrics
-        target: /config
-    ports:
-      - 8427:8427
+    environment:
+      CF_DNS_API_TOKEN: 'GENERATE_ME'
     command:
       - "--auth.config=/config/auth-config.yml"

@@ -1,9 +1,23 @@
+- name: install packages for configuring traefik
+  package:
+    name: python3-passlib
+    state: latest
+  become: true
+
 - name: create traefik folder
   file:
     path:  /opt/shift-mon/traefik
     state: directory
     mode: '777'
   become: true
+
+- name: generate http usernames and passwords
+  htpasswd:
+    path: /opt/shift-mon/traefik/htpasswd
+    name: '{{ item.key }}'
+    password: '{{ item.value }}'
+  become: true
+  with_dict: '{{ users }}'
 
 - name: copy traefik config
   template:
