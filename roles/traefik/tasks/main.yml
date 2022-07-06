@@ -1,0 +1,13 @@
+- name: create traefik folder
+  file:
+    path:  /opt/shift-mon/traefik
+    state: directory
+    mode: '777'
+  become: true
+
+- name: copy traefik config
+  template:
+    src: traefik.yml
+    dest: /opt/shift-mon/traefik/traefik.yml
+    mode: '777'
+  become: true

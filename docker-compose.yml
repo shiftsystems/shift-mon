@@ -39,6 +39,16 @@ services:
       - "--retentionPeriod=90d"
       - "--storageDataPath=/victoriametrics-storage"
       - "--httpListenAddr=:8428"
+  traefik:
+    restart: unless-stopped
+    image: traefik:latest
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/traefik
+        target: /etc/traefik
+    ports:
+     - 80:80
+     - 443:443
   vmauth:
     restart: unless-stopped
     image: victoriametrics/vmauth:latest

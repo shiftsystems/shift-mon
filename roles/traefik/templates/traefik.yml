@@ -1,0 +1,57 @@
+providers:
+  file:
+    filename: /etc/traefik/traefik.yml
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+api:
+  dashboard: true
+  insecure: true
+  debug: true
+log:
+  filePath: '/etc/traefik/traefik.log'
+  level: DEBUG
+metrics:
+  influxDB:
+    address: victoriametrics:8428
+    protocol: http
+    database: linux
+    addRoutersLabels: true
+    addServicesLabels: true
+http:
+  routers:
+    api:
+      rule: Host(`api.local`)
+      service: api@internal
+      entryPoints:
+        - web
+    grafana:
+      rule: Host(`{{ grafana.domain }}`)
+      service: grafana
+      entryPoints:
+        - web
+    loki:
+      rule: Host(`{{ loki.domain }}`)
+      service: loki
+      entryPoints:
+        - web
+    vmauth:
+      rule: Host(`{{ victoria.domain }}`)
+      service: vmauth
+      entryPoints:
+        - web
+  services:
+    grafana:
+      loadBalancer:
+        servers:
+          - url: http://grafana:3000
+    loki:
+      loadBalancer:
+        servers:
+          - url: http://loki:3100
+    vmauth:
+      loadBalancer:
+        servers:
+          - url: http://victoriametrics:8428
