@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: grafana/grafana-oss:latest
+    image: docker.io/grafana/grafana-oss:latest
     restart: unless-stopped
     volumes:
       - type: bind
@@ -12,7 +12,7 @@ services:
     ports:
       - 3000:3000
   loki:
-    image: grafana/loki:latest
+    image: docker.io/grafana/loki:latest
     restart: unless-stopped
     volumes:
       - type: bind
@@ -24,12 +24,11 @@ services:
     ports:
       - 3100:3100
     command:
-      #- "-mount source=loki,target=/loki"
       - "-config.file=/etc/loki/loki-config.yml"
   victoriametrics:
     restart: unless-stopped
-    image: victoriametrics/victoria-metrics:latest
-    volumes: 
+    image: docker.io/victoriametrics/victoria-metrics:latest
+    volumes:
       - type: bind
         source: /opt/shift-mon/victoriametrics-storage
         target: /storage
@@ -41,7 +40,7 @@ services:
       - "--httpListenAddr=:8428"
   traefik:
     restart: unless-stopped
-    image: traefik:latest
+    image: docker.io/traefik:latest
     volumes:
       - type: bind
         source: /opt/shift-mon/traefik
@@ -49,6 +48,7 @@ services:
     ports:
      - 80:80
      - 443:443
+     - 8080:8080
     environment:
       CF_DNS_API_TOKEN: 'GENERATE_ME'
     command:
