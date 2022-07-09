@@ -30,7 +30,7 @@
   htpasswd:
     path: /etc/nginx/htpasswd
     name: '{{ item.key }}'
-    password: '{{ item.value.passwd }}'
+    password: '{{ item.value }}'
   become: true
   with_dict: '{{ users }}'
 
