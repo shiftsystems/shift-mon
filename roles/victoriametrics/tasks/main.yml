@@ -1,12 +1,12 @@
 - name: download victoriametrics
   get_url: 
-    url: 'https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v{{ version }}/victoria-metrics-amd64-v{{ version }}.tar.gz'
+    url: 'https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v{{ version }}/victoria-metrics-linux-amd64-v{{ version }}.tar.gz'
     dest: '/tmp/victoriametrics-{{ version }}.tar.gz'
   become: true
 
 - name: download vm-auth
   get_url:
-    url: 'https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v{{ version }}/vmutils-amd64-v{{ version }}.tar.gz'
+    url: 'https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v{{ version }}/vmutils-linux-amd64-v{{ version }}.tar.gz'
     dest: '/tmp/vm-utils-{{ version }}.tar.gz'
 - name: create victoriametrics user
   user:
