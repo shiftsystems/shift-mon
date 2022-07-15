@@ -8,12 +8,18 @@ all:
     loki:
       url: 'https://loki.example.com'
       retention_period: 90d
+      #cert_path:
+      #key_path:
     victoria:
       url: 'https://metrics.example.com'
       retention_period: 90d
+      #cert_path:
+      #key_path:
     ansible_python_interpreter: /usr/bin/python3
     grafana:
       domain: 'armin.local.shiftsystems.net'
+      #cert_path:
+      #key_path:
     email:
       enabled: true
       host: 'mail.example.com'
