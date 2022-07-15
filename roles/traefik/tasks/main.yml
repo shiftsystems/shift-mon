@@ -4,12 +4,15 @@
     state: latest
   become: true
 
-- name: create traefik folder
+- name: create traefik folders
   file:
-    path:  /opt/shift-mon/traefik
+    path:  '{{ item }}'
     state: directory
     mode: '777'
   become: true
+  with_items:
+    - '/opt/shift-mon/traefik'
+    - '/opt/shift-mon/traefik/certs'
 
 - name: generate http usernames and passwords
   htpasswd:
@@ -25,3 +28,39 @@
     dest: /opt/shift-mon/traefik/traefik.yml
     mode: '777'
   become: true
+
+- name: copy grafana cert
+  copy:
+    src: '{{ grafana.cert_path }}'
+    dest: '/opt/shift-mon/traefik/certs/grafana.crt'
+  when: grafana.cert_path is defined
+
+- name: copy grafana key
+  copy:
+    src: '{{ grafana.key_path }}'
+    dest: '/opt/shift-mon/traefik/certs/grafana.key'
+  when: grafana.key_path is defined
+
+- name: copy victoriametrics cert
+  copy:
+    src: '{{ victoria.cert_path }}'
+    dest: '/opt/shift-mon/traefik/certs/victoria.crt'
+  when: victoria.cert_path is defined
+
+- name: copy victoriametrics key
+  copy:
+    src: '{{ victoria.key_path }}'
+    dest: '/opt/shift-mon/traefik/certs/victoria.key'
+  when: victoria.key_path is defined
+
+- name: copy loki cert
+  copy:
+    src: '{{ loki.cert_path }}'
+    dest: '/opt/shift-mon/traefik/certs/loki.crt'
+  when: loki.cert_path is defined
+
+- name: copy loki key
+  copy:
+    src: '{{ loki.key_path }}'
+    dest: '/opt/shift-mon/traefik/certs/loki.key'
+  when: loki.key_path is defined
