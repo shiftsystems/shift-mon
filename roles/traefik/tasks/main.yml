@@ -9,10 +9,12 @@
     path:  '{{ item }}'
     state: directory
     mode: '777'
+    setype: container_var_lib_t
   become: true
   with_items:
     - '/opt/shift-mon/traefik'
     - '/opt/shift-mon/traefik/certs'
+    - '/opt/shift-mon'
 
 - name: generate http usernames and passwords
   htpasswd:

@@ -1,12 +1,14 @@
 - name: Create victoriametrics directory
   file:
-    path: /opt/shift-mon/{{ item }}
+    path: '{{ item }}'
     state: directory
     mode: '777'
+    setype: container_var_lib_t
   become: true
   with_items:
-    - victoriametrics
-    - victoriametrics-storage
+    - /opt/shift-mon/
+    - /opt/shift-mon/victoriametrics
+    - /opt/shift-mon/victoriametrics-storage
 
 - name: generate vm-auth config
   template:
