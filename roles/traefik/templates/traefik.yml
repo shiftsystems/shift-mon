@@ -42,7 +42,7 @@ certificatesResolvers:
   dynamicResolver:
     acme:
       storage: /etc/traefik/acme.json
-{% if tls.dns_provider is not defined %}
+{% if dns.provider is not defined %}
       httpChallenge:
         entryPoint: web
 {% if acme_url is defined %}
@@ -51,7 +51,7 @@ certificatesResolvers:
       email: '{{ tls.email }}'
 {% else %}
       dnsChallenge:
-        provider: '{{ tls.dns_provider }}'
+        provider: '{{ dns.provider }}'
         delayBeforeCheck: 0
 {% endif %}
 api:

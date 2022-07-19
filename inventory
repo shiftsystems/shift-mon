@@ -28,9 +28,13 @@ all:
       password: 'generate_this'
       alert_from_name: 'Shiftmon Alerts'
       port: '587'
+    dns: # see Traefik's DNS challenge docs for the provider name and key values pairs for auth_vaules https://doc.traefik.io/traefik/https/acme/#providers
+      provider: cloudflare
+      auth_values:
+        CF_DNS_API_TOKEN: 'Generate Me'
     users:
       telegraf: 'generate_this'
-    #ldap_host: 'dc1.example.com'
+    ldap_host: 'dc1.example.com'
     ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
     bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=example,dc=com'
     base_dn: 'dc=example,dc=com'

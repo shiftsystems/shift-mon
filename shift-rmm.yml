@@ -8,3 +8,5 @@
         name: grafana
     - import_role:
         name: traefik
+    - import_role:
+        name: podman

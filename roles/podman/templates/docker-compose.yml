@@ -49,7 +49,11 @@ services:
      - 80:80
      - 443:443
      - 8080:8080
+{% if dns.provider is defined and dns.auth_values is defined %}
     environment:
-      CF_DNS_API_TOKEN: 'GENERATE_ME'
+{% for key, value in dns.auth_values.items() %}
+      {{key}}: '{{value}}'
+{% endfor %}
+{% endif %}
     command:
       - "--auth.config=/config/auth-config.yml"

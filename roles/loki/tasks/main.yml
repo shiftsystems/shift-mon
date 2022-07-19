@@ -1,13 +1,15 @@
 - name: create loki folders
   file:
-    path: "/opt/shift-mon/{{ item }}"
+    path: "{{ item }}"
     state: directory
     mode: '777'
+    setype: container_var_lib_t
   become: true
   with_items:
-    - loki
-    - loki-config
-    - loki/rules-temp
+    - /opt/shift-mon/
+    - /opt/shift-mon/loki
+    - /opt/shift-mon/loki-config
+    - /opt/shift-mon/loki/rules-temp
 
 - name: copy loki configs
   template:
