@@ -3,7 +3,7 @@
     state: directory
     path: '{{ item }}'
     mode: '777'
-    setype: container_var_lib_t
+    setype: container_file_t
   become: true
   with_items:
     - /opt/shift-mon
@@ -15,12 +15,13 @@
     state: directory
     path: '/opt/shift-mon/grafana'
     mode: '777'
-    setype: var_lib_t
+    #setype: var_lib_t
+    setype: container_file_t
   become: true
 
 - name: Copy dashboards
-  copy: 
-    src: dashboards  
+  copy:
+    src: dashboards
     dest: /opt/shift-mon/grafana
   become: true
 
