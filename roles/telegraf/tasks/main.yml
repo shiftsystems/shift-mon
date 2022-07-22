@@ -7,7 +7,7 @@
 
 - name: add repo for Debian based systems
   apt_repository:
-    repo: "deb https://repos.influxdata.com/ubuntu bionic stable"
+    repo: "deb https://repos.influxdata.com/ubuntu focal stable"
     state: present
     update_cache: no
   become: true
