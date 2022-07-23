@@ -71,6 +71,8 @@ metrics:
     database: linux
     addRoutersLabels: true
     addServicesLabels: true
+    additionalLabels:
+      host: {{ ansible_hostname }}
 http:
   middlewares:
     basic-auth:

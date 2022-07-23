@@ -66,3 +66,16 @@
     src: '{{ loki.key_path }}'
     dest: '/opt/shift-mon/traefik/certs/loki.key'
   when: loki.key_path is defined
+
+- name: add Traefik log config to telegraf
+  copy:
+    src: traefik.conf
+    dest: /etc/telegraf/telegraf.d/traefik.conf
+  become: true
+
+- name: restart telegraf
+  systemd:
+    name: telegraf
+    state: restarted
+    enabled: true
+  become: true
