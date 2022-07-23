@@ -31,7 +31,7 @@ services:
     volumes:
       - type: bind
         source: /opt/shift-mon/victoriametrics-storage
-        target: /storage
+        target: /victoriametrics-storage
     ports:
       - 8428:8428
     command:
