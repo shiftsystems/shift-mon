@@ -9,8 +9,8 @@ services:
       - type: bind
         source: /opt/shift-mon/grafana
         target: /var/lib/grafana
-    ports:
-      - 3000:3000
+    labels:
+      - "io.containers.autoupdate"
   loki:
     image: docker.io/grafana/loki:latest
     restart: unless-stopped
@@ -21,8 +21,8 @@ services:
       - type: bind
         source: /opt/shift-mon/loki-config
         target: /etc/loki/
-    ports:
-      - 3100:3100
+    labels:
+      - "io.containers.autoupdate"
     command:
       - "-config.file=/etc/loki/loki-config.yml"
   victoriametrics:
@@ -32,8 +32,8 @@ services:
       - type: bind
         source: /opt/shift-mon/victoriametrics-storage
         target: /victoriametrics-storage
-    ports:
-      - 8428:8428
+    labels:
+      - "io.containers.autoupdate"
     command:
       - "--retentionPeriod=90d"
       - "--storageDataPath=/victoriametrics-storage"
@@ -48,7 +48,8 @@ services:
     ports:
      - 80:80
      - 443:443
-     - 8080:8080
+    labels:
+      - "io.containers.autoupdate"
 {% if dns.provider is defined and dns.auth_values is defined %}
     environment:
 {% for key, value in dns.auth_values.items() %}
