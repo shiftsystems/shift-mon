@@ -16,3 +16,16 @@
     src: loki-config.yml
     dest: /opt/shift-mon/loki-config/loki-config.yml
   become: true
+
+- name: add  loki config to telegraf
+  copy:
+    src: loki-docker.conf
+    dest: /etc/telegraf/telegraf.d/loki-docker.conf
+  become: true
+
+- name: restart telegraf
+  systemd:
+    name: telegraf
+    state: restarted
+    enabled: true
+  become: true

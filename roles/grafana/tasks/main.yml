@@ -9,15 +9,7 @@
     - /opt/shift-mon
     - /opt/shift-mon/grafana-config/provisioning/dashboards
     - /opt/shift-mon/grafana-config/provisioning/datasources
-
-- name: create grafana directory with special SELinux context
-  file:
-    state: directory
-    path: '/opt/shift-mon/grafana'
-    mode: '777'
-    #setype: var_lib_t
-    setype: container_file_t
-  become: true
+    - /opt/shift-mon/grafana
 
 - name: Copy dashboards
   copy:

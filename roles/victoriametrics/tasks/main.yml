@@ -15,3 +15,16 @@
     src: auth-config.yml
     dest: /opt/shift-mon/victoriametrics/auth-config.yml
   become: true
+
+- name: add  victoriametrics config to telegraf
+  copy:
+    src: victoriametrics-docker.conf
+    dest: /etc/telegraf/telegraf.d/victoriametrics-docker.conf
+  become: true
+
+- name: restart telegraf
+  systemd:
+    name: telegraf
+    state: restarted
+    enabled: true
+  become: true
