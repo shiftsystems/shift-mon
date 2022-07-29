@@ -32,20 +32,6 @@
     src: docker-compose.yml
     dest: /opt/shift-mon/docker-compose.yml
 
-#- name: create update service
-#  template:
-#    src: shift-mon-update.service
-#    dest: /etc/systemd/system/shift-mon-update.service
-#  become: true
-#  notify: reload systemd
-
-#- name: create update timer
-#  template:
-#    src: shift-mon-update.timer
-#    dest: /etc/systemd/system/shift-mon-update.timer
-#  become: true
-#  notify: reload systemd
-
 - name: run podman-compose commands
   shell:
     cmd: podman-compose down && podman-compose up -d
