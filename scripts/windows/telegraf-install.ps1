@@ -25,11 +25,6 @@ $url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/
 $output = "C:\Program Files\telegraf\telegraf.conf"
 Invoke-WebRequest -Uri $url -OutFile $output
 
-# download and install telegraf config
-$url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/new-outputs.conf"
-$output = "C:\Program Files\telegraf\telegraf.d\new-outputs.conf"
-Invoke-WebRequest -Uri $url -OutFile $output
-
 # Add Defender config if server 2016 or newer or windows 10
 [int]$build = (Get-Item "HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('CurrentBuild')
 if ($build -gt 10000) {
