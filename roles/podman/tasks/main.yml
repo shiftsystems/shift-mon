@@ -32,8 +32,25 @@
     src: docker-compose.yml
     dest: /opt/shift-mon/docker-compose.yml
 
+- name: update all container images
+  shell:
+    cmd: podman images | grep -v REPOSITORY | awk '{print $1}' | uniq -u | xargs -L1 podman pull 
+  become: true
+  ignore_errors: true
+
 - name: run podman-compose commands
   shell:
     cmd: podman-compose down && podman-compose up -d
     chdir: /opt/shift-mon
   become: true
+
+- name: Gather Systemd units
+  service_facts:
+
+- name: start and enable podman automatic updates
+  systemd:
+    name: podman-auto-update.timer
+    state: started
+    enabled: true
+  become: true
+  when: "'podman-auto-update.service' in ansible_facts.services"
