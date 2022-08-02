@@ -11,4 +11,6 @@
     - import_role:
         name: traefik
     - import_role:
+        name: crowdsec
+    - import_role:
         name: podman

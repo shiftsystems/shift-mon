@@ -1,0 +1,4 @@
+filenames:
+  - /etc/traefik/access.json
+labels:
+  type: traefik
