@@ -1,0 +1,5 @@
+- name: copy acquis.yaml
+  template:
+    src: acquis.yaml
+    dest: /opt/shift-mon/crowdsec-config/acquis.yaml
+  become: true

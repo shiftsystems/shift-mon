@@ -38,6 +38,29 @@ services:
       - "--retentionPeriod=90d"
       - "--storageDataPath=/victoriametrics-storage"
       - "--httpListenAddr=:8428"
+  crowdsec:
+    image: docker.io/crowdsecurity/crowdsec:latest
+    restart: always
+    environment:
+     #this is the list of collections we want to install    
+     #https://hub.crowdsec.net/author/crowdsecurity/collections/nginx
+      COLLECTIONS: "crowdsecurity/traefik"
+      #GID: "${GID-1000}"
+    depends_on:
+     - 'traefik'
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/crowdsec-db
+        target: /var/lib/crowdsec/data/
+      - type: bind
+        source: /opt/shift-mon/crowdsec-config
+        target: /etc/crowdsec/
+      - type: bind
+        source: /opt/shift-mon/traefik
+        target: /etc/traefik
+      - type: bind
+        source: /opt/shift-mon/crowdsec-log
+        target: /var/log
   traefik:
     restart: unless-stopped
     image: docker.io/traefik:latest
@@ -50,23 +73,6 @@ services:
      - 443:443
     labels:
       - "io.containers.autoupdate=registry"
-  crowdsec:
-   image: crowdsecurity/crowdsec:vlatest
-   restart: always
-   environment:
-     #this is the list of collections we want to install    
-     #https://hub.crowdsec.net/author/crowdsecurity/collections/nginx
-     COLLECTIONS: "crowdsecurity/traefik"
-     GID: "${GID-1000}"
-   depends_on:
-     - 'reverse-proxy'
-   volumes:
-     - /opt/shift-mon/crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
-     - /opt/shift-mon/crowdsec/crowdsec-db:/var/lib/crowdsec/data/
-     - /opt/shift-mon/crowdsec-config:/etc/crowdsec/
-     - type: bind
-       source: /opt/shift-mon/traefik
-       target: /etc/traefik
 {% if dns.provider is defined and dns.auth_values is defined %}
     environment:
 {% for key, value in dns.auth_values.items() %}
