@@ -42,8 +42,6 @@ services:
     image: docker.io/crowdsecurity/crowdsec:latest
     restart: always
     environment:
-     #this is the list of collections we want to install    
-     #https://hub.crowdsec.net/author/crowdsecurity/collections/nginx
       COLLECTIONS: "crowdsecurity/traefik"
       #GID: "${GID-1000}"
     depends_on:
@@ -61,6 +59,17 @@ services:
       - type: bind
         source: /opt/shift-mon/crowdsec-log
         target: /var/log
+{% if crowdsec_api_key is defined %}
+  crowdsec-bouncer:
+    image: docker.io/fbonalair/traefik-crowdsec-bouncer:latest
+    restart: unless-stopped
+    depends_on: 
+      - crowdsec
+    environment:
+      CROWDSEC_BOUNCER_API_KEY: "{{ crowdsec_api_key }}"
+      CROWDSEC_AGENT_HOST: "crowdsec:8080"
+      GIN_MODE: "release"
+{% endif %}
   traefik:
     restart: unless-stopped
     image: docker.io/traefik:latest
