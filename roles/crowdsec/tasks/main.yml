@@ -1,3 +1,27 @@
+- name: Create Crowdsec folders
+  file:
+    name: '/opt/shift-mon/{{ item }}'
+    state: directory
+    mode: '777'
+  become: true
+  with_items:
+    - crowdsec
+    - crowdsec-config
+    - crowdsec-db
+    - crowdsec-log
+
+- name: copy crowdsec config
+  copy:
+    src: config.yaml
+    dest: config.yaml
+  become: true
+
+- name: copy telegraf config
+  copy:
+    src: crowdsec-docker.conf
+    dest: /etc/telegraf/telegraf.d/crowdsec-docker.conf
+  become: true
+
 - name: copy acquis.yaml
   template:
     src: acquis.yaml
