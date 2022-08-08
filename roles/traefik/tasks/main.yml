@@ -28,7 +28,7 @@
   template:
     src: traefik.yml
     dest: /opt/shift-mon/traefik/traefik.yml
-    mode: '777'
+    mode: '770'
   become: true
 
 - name: copy grafana cert
