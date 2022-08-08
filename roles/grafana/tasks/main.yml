@@ -2,7 +2,7 @@
   file:
     state: directory
     path: '{{ item }}'
-    mode: '777'
+    mode: '770'
     setype: container_file_t
   become: true
   with_items:

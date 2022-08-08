@@ -2,7 +2,7 @@
   file:
     name: '/opt/shift-mon/{{ item }}'
     state: directory
-    mode: '777'
+    mode: '770'
   become: true
   with_items:
     - crowdsec

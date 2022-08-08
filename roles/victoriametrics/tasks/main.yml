@@ -2,19 +2,13 @@
   file:
     path: '{{ item }}'
     state: directory
-    mode: '777'
+    mode: '770'
     setype: container_file_t
   become: true
   with_items:
     - /opt/shift-mon/
     - /opt/shift-mon/victoriametrics
     - /opt/shift-mon/victoriametrics-storage
-
-- name: generate vm-auth config
-  template:
-    src: auth-config.yml
-    dest: /opt/shift-mon/victoriametrics/auth-config.yml
-  become: true
 
 - name: add  victoriametrics config to telegraf
   copy:

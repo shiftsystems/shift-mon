@@ -2,11 +2,22 @@
   file:
     path: "{{ item }}"
     state: directory
-    mode: '777'
+    mode: '770'
     setype: container_file_t
   become: true
   with_items:
     - /opt/shift-mon/
+
+- name: create loki folders
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '770'
+    owner: '10001'
+    group: '10001'
+    setype: container_file_t
+  become: true
+  with_items:
     - /opt/shift-mon/loki
     - /opt/shift-mon/loki-config
     - /opt/shift-mon/loki/rules-temp
