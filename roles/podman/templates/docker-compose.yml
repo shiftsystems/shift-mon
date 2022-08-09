@@ -11,6 +11,8 @@ services:
         target: /var/lib/grafana
     labels:
       - "io.containers.autoupdate=registry"
+    environment:
+      GF_INSTALL_PLUGINS: "grafana-worldmap-panel"
   loki:
     image: docker.io/grafana/loki:latest
     restart: unless-stopped
