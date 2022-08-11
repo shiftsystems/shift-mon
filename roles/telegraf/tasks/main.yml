@@ -196,10 +196,9 @@
   when: "remote_syslog is defined and remote_syslog and 'ufw.service' in ansible_facts.services"
 
 - name: Allow remote syslog traffic on firewalld
-  community.general.ufw:
-    rule: allow
-    port: 6666
-    proto: udp
+  ansible.posix.firewalld:
+    state: enabled
+    port: 6666/udp
   become: true
   when: "remote_syslog is defined and remote_syslog and 'firewalld.service' in ansible_facts.services"
 
