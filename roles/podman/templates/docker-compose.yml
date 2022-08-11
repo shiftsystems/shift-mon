@@ -40,6 +40,10 @@ services:
       - "--retentionPeriod=90d"
       - "--storageDataPath=/victoriametrics-storage"
       - "--httpListenAddr=:8428"
+{% if victoriametics_insecure is defined and victoriametrics_insecure is true %}
+    ports:
+      - 8428:8428
+{% endif %}
   crowdsec:
     image: docker.io/crowdsecurity/crowdsec:latest
     restart: always
