@@ -15,6 +15,7 @@ all:
       retention_period: 90d
       #cert_path:
       #key_path:
+      #insecure: false
     ansible_python_interpreter: /usr/bin/python3
     grafana:
       domain: 'armin.local.shiftsystems.net'
