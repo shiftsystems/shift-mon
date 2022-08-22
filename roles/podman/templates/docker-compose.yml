@@ -40,7 +40,7 @@ services:
       - "--retentionPeriod=90d"
       - "--storageDataPath=/victoriametrics-storage"
       - "--httpListenAddr=:8428"
-{% if victoriametics_insecure is defined and victoriametrics_insecure is true %}
+{% if victoria.insecure is defined and victoria.insecure is true %}
     ports:
       - 8428:8428
 {% endif %}
