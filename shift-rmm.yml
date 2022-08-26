@@ -1,6 +1,8 @@
 - hosts: all
   tasks:
     - import_role:
+        name: uptime-kuma
+    - import_role:
         name: victoriametrics
     - import_role:
         name: loki
