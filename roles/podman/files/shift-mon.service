@@ -1,0 +1,14 @@
+Description=startup containers at boot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+RemainAfterExit = true
+WorkingDirectory=/opt/shift-mon
+ExecStart=/bin/bash /opt/shift-mon/startup.bash
+ExecStop=/bin/bash /opt/shift-mon/shutdown.bash
+
+[Install]
+WantedBy=multi-user.target
