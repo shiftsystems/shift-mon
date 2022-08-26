@@ -44,6 +44,13 @@ services:
     ports:
       - 8428:8428
 {% endif %}
+  uptime-kuma:
+    image: docker.io/louislam/uptime-kuma:1
+    restart: always
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/uptime-kuma
+        target: /app/data
   crowdsec:
     image: docker.io/crowdsecurity/crowdsec:latest
     restart: always

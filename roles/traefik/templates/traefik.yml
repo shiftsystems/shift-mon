@@ -17,6 +17,10 @@ tls:
     - certFile: /etc/traefik/certs/loki.crt
       keyFile: /etc/traefik/certs/loki.key
 {% endif %}
+{% if uptimekuma.cert_path is defined and uptimekuma.key_path is defined %}
+    - certFile: /etc/traefik/certs/uptime-kuma.crt
+      keyFile: /etc/traefik/certs/uptime-kuma.key
+{% endif %}
   options:
     default:
       minVersion: VersionTLS12
@@ -85,6 +89,17 @@ http:
         trustForwardHeader: true
 {% endif %}
   routers:
+    uptime-kuma:
+      rule: Host(`{{ uptimekuma.domain }}`)
+      tls:
+        certResolver: dynamicResolver
+      service: uptime-kuma
+{% if crowdsec_api_key is defined %}
+      middlewares:
+        - crowdsec-bouncer
+{% endif %}
+      entryPoints:
+        - websecure
     grafana:
       rule: Host(`{{ grafana.domain }}`)
       tls:
@@ -133,3 +148,7 @@ http:
       loadBalancer:
         servers:
           - url: http://victoriametrics:8428
+    uptime-kuma:
+      loadBalancer:
+        servers:
+          - url: http://uptime-kuma:3001

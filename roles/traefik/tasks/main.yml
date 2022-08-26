@@ -67,6 +67,18 @@
     dest: '/opt/shift-mon/traefik/certs/loki.key'
   when: loki.key_path is defined
 
+- name: copy uptime-kuma cert
+  copy:
+    src: '{{ uptimekuma.cert_path }}'
+    dest: '/opt/shift-mon/traefik/certs/uptime-kuma.crt'
+  when: loki.cert_path is defined
+
+- name: copy uptime-kuma key
+  copy:
+    src: '{{ uptimekuma.key_path }}'
+    dest: '/opt/shift-mon/traefik/certs/uptime-kuma.key'
+  when: loki.key_path is defined
+
 - name: add Traefik log config to telegraf
   copy:
     src: traefik.conf
