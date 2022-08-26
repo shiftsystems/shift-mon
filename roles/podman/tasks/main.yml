@@ -32,25 +32,29 @@
     src: docker-compose.yml
     dest: /opt/shift-mon/docker-compose.yml
 
-- name: update all container images
-  shell:
-    cmd: podman images | grep -v REPOSITORY | awk '{print $1}' | uniq -u | xargs -L1 podman pull 
+- name: Copy startup and shutdown scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/shift-mon/{{ item }}"
   become: true
-  ignore_errors: true
+  with_items:
+  - startup.bash
+  - shutdown.bash
 
-- name: run podman-compose commands
-  shell:
-    cmd: podman-compose down && podman-compose up -d
-    chdir: /opt/shift-mon
+- name: Create Systemd unit file
+  copy:
+    src: shift-mon.service
+    dest: /etc/systemd/system/shift-mon.service
   become: true
 
-- name: Gather Systemd units
-  service_facts:
-
-- name: start and enable podman automatic updates
+- name: reload systemd units
   systemd:
-    name: podman-auto-update.timer
-    state: started
-    enabled: true
+    daemon-reload: true
   become: true
-  when: "'podman-auto-update.service' in ansible_facts.services"
+
+- name: restart and enable shift-mon.service
+  systemd:
+    name: shift-mon.service
+    enabled: true
+    state: restarted
+  become: true
