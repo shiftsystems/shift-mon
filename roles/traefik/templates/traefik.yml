@@ -62,9 +62,6 @@ api:
   dashboard: true
   insecure: true
   debug: true
-log:
-  filePath: '/etc/traefik/traefik.log'
-  level: DEBUG
 accessLog:
   filePath: '/etc/traefik/access.json'
   format: json
