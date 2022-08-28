@@ -1,4 +1,4 @@
-Description=startup containers at boot
+Description=run startup scripts for shift-mon
 After=network-online.target
 Wants=network-online.target
 
