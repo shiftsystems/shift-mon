@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 17,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -219,7 +218,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -255,7 +255,7 @@
           "refId": "A"
         }
       ],
-      "title": "Response Time",
+      "title": "Response Time in Milliseconds",
       "type": "timeseries"
     },
     {
@@ -318,7 +318,7 @@
           "refId": "A"
         }
       ],
-      "title": "Response Time",
+      "title": "Response Time in Milliseconds",
       "transformations": [
         {
           "id": "reduce",
@@ -402,6 +402,6 @@
   "timezone": "",
   "title": "Uptime Kuma",
   "uid": "pF-zl-Z4k",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
