@@ -238,7 +238,7 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
+          "mode": "multi",
           "sort": "none"
         }
       },
@@ -402,6 +402,6 @@
   "timezone": "",
   "title": "Uptime Kuma",
   "uid": "pF-zl-Z4k",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
