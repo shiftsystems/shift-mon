@@ -23,5 +23,9 @@ all your logs have been copied and should appear when you run shift mon role on 
 This needs done before Deploying the new instance of Shift-mon. This will overwrite or courrupt grafana if you already have it configured
 1. Stop Grafana on the old server ```sudo systemctl stop grafana-server```
 2. run the grafana role on the new server to create the directories by running ```ansible-playbook -i your_inventory grafana.yml --ask-become-pass```
-3. Copy all of the /var/lib/grafana folder from the old server to /opt/shift-mon/grafana
+3. Copy the grafana sqlite database in ```/var/lib/grafana/grafana.db``` folder from the old server to your home folder and make yourself the owner```sudo cp /var/lib/grafan
+4. copy it over to ```/opt/shift-mon/grafana/grafana.db``` on the new server
+5. set the permissions on the grafana database by running ```sudo chown 472:root /opt/shift-mon/grafana/grafana.db && sudo chmod 640 /opt/shift-mon/grafana/grafana.db```
+6. install shift-mon as normal and any custom data you added to grafana should be there.
+
 all your grafana info has been copied over and you can run the through shift-mon install as normal.
