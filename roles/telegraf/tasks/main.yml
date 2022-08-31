@@ -202,6 +202,12 @@
   become: true
   when: "remote_syslog is defined and remote_syslog and 'firewalld.service' in ansible_facts.services"
 
+- name: create telegraf override directory
+  file:
+    name: /etc/systemd/system/telegraf.service.d
+    state: directory
+  become: true
+
 - name: configure telegraf to run as root
   copy:
     src: override.conf

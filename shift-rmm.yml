@@ -1,6 +1,8 @@
 - hosts: all
   tasks:
     - import_role:
+        name: telegraf
+    - import_role:
         name: uptime-kuma
     - import_role:
         name: victoriametrics
@@ -8,8 +10,6 @@
         name: loki
     - import_role:
         name: grafana
-    - import_role:
-        name: telegraf
     - import_role:
         name: traefik
     - import_role:
