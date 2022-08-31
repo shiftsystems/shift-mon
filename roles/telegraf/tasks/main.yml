@@ -7,7 +7,7 @@
 
 - name: add repo for Debian based systems
   apt_repository:
-    repo: "deb https://repos.influxdata.com/ubuntu focal stable"
+    repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release|lower }} stable"
     state: present
     update_cache: no
   become: true
@@ -39,14 +39,14 @@
   apt:
     name: telegraf
     update_cache: true
-    state: present
+    state: latest
   become: true
   when: ansible_facts['os_family'] == "Debian"
 
 - name: install Telegraf on Redhat based systems
   dnf:
     name: telegraf
-    state: present
+    state: latest
   become: true
   when: ansible_facts['os_family'] == "RedHat"
 
@@ -57,8 +57,8 @@
   become: true
 
 - name: Download telegraf config
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/telegraf.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/telegraf.conf"
     dest: /etc/telegraf/telegraf.conf
   become: true
 
@@ -66,22 +66,22 @@
   service_facts:
 
 - name: Add Meshcentral Config if Meshcentral is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/mesh-central.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/mesh-central.conf"
     dest: /etc/telegraf/telegraf.d/mesh-central.conf
   become: true
   when: "'meshagent.service' in ansible_facts.services"
 
 - name: Add Crowdsec Config if Crowdsec is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/crowdsec.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/crowdsec.conf"
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
   become: true
   when: "'crowdsec.service' in ansible_facts.services"
 
 - name: Add Adguard Config if Adguard is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/adgaurd.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/adgaurd.conf"
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
   become: true
   when: "'AdGuardHome.service' in ansible_facts.services"
@@ -103,8 +103,8 @@
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Add Nginx config When nginx is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/nginx.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/nginx.conf"
     dest: /etc/telegraf/telegraf.d/nginx.conf
   become: true
   when: "'nginx.service' in ansible_facts.services"
@@ -118,29 +118,29 @@
   when: "'docker.service' in ansible_facts.services"
 
 - name: Deploy Docker config When Docker is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/docker.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/docker.conf"
     dest: /etc/telegraf/telegraf.d/docker.conf
   become: true
   when: "'docker.service' in ansible_facts.services"
 
 - name: MySQL config when MySQL is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/mysql.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/mysql.conf"
     dest: /etc/telegraf/telegraf.d/mysql.conf
   become: true
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
 
 - name: Deploy Loki config when Loki is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/loki.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/loki.conf"
     dest: /etc/telegraf/telegraf.d/loki.conf
   become: true
   when: "'loki.service' in ansible_facts.services"
 
 - name: Deploy Victoriametrics config when Victoriametrics is installed
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/victoriametrics.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/victoriametrics.conf"
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
   become: true
   when: "'victoriametrics.service' in ansible_facts.services"
@@ -159,8 +159,8 @@
   when: syslog is defined and syslog
 
 - name: place rsyslog config is installed when syslog is enabled
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/50-telegraf.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/50-telegraf.conf"
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
   when: syslog is defined and syslog
@@ -174,15 +174,15 @@
   when: syslog is defined and syslog
 
 - name: add telegraf config for syslog
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/syslog.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
   become: true
   when: syslog is defined and syslog
 
 - name: add telegraf config for remote syslog
-  get_url:
-    url: https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/linux/remote-syslog.conf
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/remote-syslog.conf"
     dest: /etc/telegraf/telegraf.d/remote-syslog.conf
   become: true
   when: remote_syslog is defined and remote_syslog
@@ -213,6 +213,7 @@
     src: override.conf
     dest: /etc/systemd/system/telegraf.service.d/override.conf
   become: true
+  when: telegraf_root is defined and telegraf_root
 
 - name: Start and Enable Telegraf
   systemd:
