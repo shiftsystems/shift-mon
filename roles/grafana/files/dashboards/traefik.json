@@ -429,10 +429,15 @@
       },
       "id": 3,
       "options": {
+        "displayLabels": [],
         "legend": {
           "displayMode": "list",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
@@ -868,6 +873,6 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "UZdtIsRVz",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
