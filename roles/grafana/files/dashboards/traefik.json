@@ -25,14 +25,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 14,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "type": "prometheus",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -54,7 +53,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
+        "w": 5,
         "x": 0,
         "y": 0
       },
@@ -66,22 +65,23 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "sum"
           ],
           "fields": "",
           "values": false
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.4",
+      "pluginVersion": "9.1.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
-          "expr": "count_over_time({path=~`.*access.json`,host=\"$host\"}[$__range])",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "sum(traefik.router.requests.total_count{host=\"$host\"})",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -90,8 +90,129 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 5,
+        "y": 0
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum(traefik.router.requests.total_count{host=\"$host\",code=~\"4.*|5.*\"})",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Errored Requests",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 9,
+        "y": 0
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum(traefik.router.requests.total_count{host=\"$host\", code=~\"4.*|5.*\"}) / sum(traefik.router.requests.total_count{host=\"$host\"})",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Error Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -114,8 +235,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 9,
-        "x": 8,
+        "w": 6,
+        "x": 13,
         "y": 0
       },
       "id": 15,
@@ -133,15 +254,16 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.4",
+      "pluginVersion": "9.1.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
-          "expr": "count_over_time({path=~`.*access.json`,host=\"$host\"}[1m])",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "sum(sum_over_time(traefik.router.requests.total_count{host=\"$host\"}[1m]))",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -150,8 +272,8 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "type": "prometheus",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -167,20 +289,21 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "requests/min"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
-        "w": 7,
-        "x": 17,
+        "w": 5,
+        "x": 19,
         "y": 0
       },
-      "id": 14,
+      "id": 16,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -192,19 +315,20 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.4",
+      "pluginVersion": "9.1.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
-          "expr": "sum(count_over_time({path=~`.*access.json`,host=\"$host\"} | logfmt | DownstreamStatus >= 400[$__range]))",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "sum(sum_over_time(traefik.router.requests.total_count{host=\"$host\",code=~\"4.*|5.*\"}[1m]))",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Errored Requests",
+      "title": "Errored Request Rate",
       "type": "stat"
     },
     {
@@ -238,7 +362,12 @@
       "options": {
         "legend": {
           "displayMode": "list",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
@@ -246,7 +375,7 @@
             "sum"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "tooltip": {
           "mode": "single",
@@ -261,9 +390,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "topk(20,sum(count_over_time({path=~`.*access.json`,host=\"$host\"} | logfmt [1m])) by (RequestPath))",
+          "expr": "topk(20,sum(count_over_time({path=~`.*access.json`,host=~\"$host.*\"} | logfmt [$__range])) by (RequestPath))",
           "legendFormat": "{{  RequestPath }}",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -302,7 +431,8 @@
       "options": {
         "legend": {
           "displayMode": "list",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "pieType": "donut",
         "reduceOptions": {
@@ -325,7 +455,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "topk(20,sum(count_over_time({path=~`.*access.json`,host=\"$host\"} | logfmt [1m])) by (ClientHost))",
+          "expr": "topk(20,sum(count_over_time({path=~`.*access.json`,host=~\"$host.*\"} | logfmt [1m])) by (ClientHost))",
           "legendFormat": "{{  RequestPath }}",
           "queryType": "range",
           "refId": "A"
@@ -337,8 +467,8 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "type": "prometheus",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -366,7 +496,12 @@
       "options": {
         "legend": {
           "displayMode": "list",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
@@ -385,13 +520,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "topk(20,sum(count_over_time({path=~`.*access.json`,host=\"$host\"} | logfmt [1m])) by (OriginStatus))",
-          "legendFormat": "{{  RequestPath }}",
-          "queryType": "range",
+          "expr": "sum by (code) (traefik.router.requests.total_count{host=\"$host\"})",
+          "legendFormat": "{{code}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -410,11 +545,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 66,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -431,7 +568,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -465,10 +602,11 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
+          "mode": "multi",
           "sort": "none"
         }
       },
@@ -479,7 +617,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~`.*access.json`,host=\"$host\"} | logfmt [1m])) by (RequestHost)",
+          "expr": "sum(count_over_time({path=~`.*access.json`,host=~\"$host.*\"} | logfmt [1m])) by (RequestHost)",
           "legendFormat": "{{RequestHost}}",
           "queryType": "range",
           "refId": "A"
@@ -490,8 +628,8 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "type": "prometheus",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -499,6 +637,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -554,23 +694,24 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~`.*access.json`,host=\"$host\"} | logfmt [1m])) by (OriginStatus)",
-          "legendFormat": "{{RequestHost}}",
-          "queryType": "range",
+          "expr": "sum by (code) (traefik.router.requests.total_count{host=\"$host\"})",
+          "legendFormat": "{{code}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -605,7 +746,9 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{path=~`.*access.json`,host=\"$host\"} | logfmt",
+          "editorMode": "code",
+          "expr": "{path=~`.*access.json`,host=~\"$host.*\"} | logfmt",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -640,7 +783,9 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{path=~`.*access.json`,host=\"$host\"} | logfmt | DownstreamStatus >= 400",
+          "editorMode": "code",
+          "expr": "{path=~`.*access.json`,host=~\"$host.*\"} | logfmt | DownstreamStatus >= 400",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -648,7 +793,7 @@
       "type": "logs"
     }
   ],
-  "schemaVersion": 36,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -689,21 +834,24 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "tomas.local.shiftsystems.net",
-          "value": "tomas.local.shiftsystems.net"
+          "selected": false,
+          "text": "tomas",
+          "value": "tomas"
         },
         "datasource": {
-          "type": "loki",
-          "uid": "${logs}"
+          "type": "prometheus",
+          "uid": "${metrics}"
         },
-        "definition": "label_values({path=~`.*access.json`},host)",
+        "definition": "label_values(traefik.router.requests.total_count,host)",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "host",
         "options": [],
-        "query": "label_values({path=~`.*access.json`},host)",
+        "query": {
+          "query": "label_values(traefik.router.requests.total_count,host)",
+          "refId": "StandardVariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -720,6 +868,6 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "UZdtIsRVz",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
