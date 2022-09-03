@@ -21,6 +21,7 @@
     src: crowdsec-docker.conf
     dest: /etc/telegraf/telegraf.d/crowdsec-docker.conf
   become: true
+  notify: restart telegraf
 
 - name: copy acquis.yaml
   template:

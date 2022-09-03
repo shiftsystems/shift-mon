@@ -42,6 +42,7 @@
     state: latest
   become: true
   when: ansible_facts['os_family'] == "Debian"
+  notify: restart telegraf
 
 - name: install Telegraf on Redhat based systems
   dnf:
@@ -49,18 +50,21 @@
     state: latest
   become: true
   when: ansible_facts['os_family'] == "RedHat"
+  notify: restart telegraf
 
 - name: add telegraf defaults file
   template:
     src: telegraf-defaults.j2
     dest: /etc/default/telegraf
   become: true
+  notify: restart telegraf
 
 - name: Download telegraf config
   copy:
     src: "{{ playbook_dir }}/telegraf-configs/linux/telegraf.conf"
     dest: /etc/telegraf/telegraf.conf
   become: true
+  notify: restart telegraf
 
 - name: Gather Systemd units
   service_facts:
@@ -71,6 +75,7 @@
     dest: /etc/telegraf/telegraf.d/mesh-central.conf
   become: true
   when: "'meshagent.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Add Crowdsec Config if Crowdsec is installed
   copy:
@@ -78,6 +83,7 @@
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
   become: true
   when: "'crowdsec.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Add Adguard Config if Adguard is installed
   copy:
@@ -85,6 +91,7 @@
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
   become: true
   when: "'AdGuardHome.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Add telegraf to the nginx group on RedHat based systems
   user: 
@@ -93,6 +100,7 @@
     append: true
   become: true
   when: "ansible_facts['os_family'] == 'RedHat' and 'nginx.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Add telegraf to the nginx group on Debian based systems
   user:
@@ -101,6 +109,7 @@
     append: true
   become: true
   when: ansible_facts['os_family'] == "Debian"
+  notify: restart telegraf
 
 - name: Add Nginx config When nginx is installed
   copy:
@@ -108,6 +117,7 @@
     dest: /etc/telegraf/telegraf.d/nginx.conf
   become: true
   when: "'nginx.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Add telegraf to docker group when docker is installed
   user:
@@ -116,6 +126,7 @@
     append: true
   become: true
   when: "'docker.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Deploy Docker config When Docker is installed
   copy:
@@ -123,6 +134,7 @@
     dest: /etc/telegraf/telegraf.d/docker.conf
   become: true
   when: "'docker.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: MySQL config when MySQL is installed
   copy:
@@ -130,6 +142,7 @@
     dest: /etc/telegraf/telegraf.d/mysql.conf
   become: true
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Deploy Loki config when Loki is installed
   copy:
@@ -137,6 +150,7 @@
     dest: /etc/telegraf/telegraf.d/loki.conf
   become: true
   when: "'loki.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Deploy Victoriametrics config when Victoriametrics is installed
   copy:
@@ -144,12 +158,14 @@
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
   become: true
   when: "'victoriametrics.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: Add telegraf to the MySQL group on Debian based systems
   file:
     path: '/tmp/stubby'
     state: absent
   when: "'mysql.service' in ansible_facts.services"
+  notify: restart telegraf
 
 - name: install rsyslog
   package:
@@ -157,6 +173,7 @@
     state: latest
   become: true
   when: syslog is defined and syslog
+  notify: restart syslog
 
 - name: place rsyslog config is installed when syslog is enabled
   copy:
@@ -164,11 +181,12 @@
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
   when: syslog is defined and syslog
+  notify: restart syslog
 
-- name: restart  and enable rsyslog service
+- name: start and enable rsyslog service
   systemd:
     name: rsyslog
-    state: restarted
+    state: started
     enabled: true
   become: true
   when: syslog is defined and syslog
@@ -179,6 +197,7 @@
     dest: /etc/telegraf/telegraf.d/syslog.conf
   become: true
   when: syslog is defined and syslog
+  notify: restart telegraf
 
 - name: add telegraf config for remote syslog
   copy:
@@ -186,6 +205,7 @@
     dest: /etc/telegraf/telegraf.d/remote-syslog.conf
   become: true
   when: remote_syslog is defined and remote_syslog
+  notify: restart telegraf
 
 - name: Allow remote syslog traffic on UFW
   community.general.ufw:
@@ -207,6 +227,7 @@
     name: /etc/systemd/system/telegraf.service.d
     state: directory
   become: true
+  when: telegraf_root is defined and telegraf_root
 
 - name: configure telegraf to run as root
   copy:
@@ -214,10 +235,11 @@
     dest: /etc/systemd/system/telegraf.service.d/override.conf
   become: true
   when: telegraf_root is defined and telegraf_root
+  notify: restart telegraf
 
 - name: Start and Enable Telegraf
   systemd:
     name: telegraf
     enabled: true
-    state: restarted
+    state: started
   become: true

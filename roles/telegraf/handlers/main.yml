@@ -1,0 +1,13 @@
+- name: restart telegraf
+  systemd:
+    name: telegraf
+    state: restarted
+    enabled: true
+  become: true
+
+- name: restart syslog
+  systemd:
+    name: rsyslog
+    state: restarted
+    enabled: true
+  become: true

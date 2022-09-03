@@ -8,16 +8,3 @@
   with_items:
     - /opt/shift-mon/
     - /opt/shift-mon/uptime-kuma
-
-#- name: add  victoriametrics config to telegraf
-#  copy:
-#    src: uptime-kuma-docker.conf
-#    dest: /etc/telegraf/telegraf.d/uptime-kuma-docker.conf
-#  become: true
-
-#- name: restart telegraf
-#  systemd:
-#    name: telegraf
-#    state: restarted
-#    enabled: true
-#  become: true

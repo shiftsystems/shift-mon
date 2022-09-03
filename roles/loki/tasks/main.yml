@@ -33,10 +33,4 @@
     src: loki-docker.conf
     dest: /etc/telegraf/telegraf.d/loki-docker.conf
   become: true
-
-- name: restart telegraf
-  systemd:
-    name: telegraf
-    state: restarted
-    enabled: true
-  become: true
+  notify: restart telegraf
