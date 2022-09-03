@@ -81,8 +81,14 @@
 
 - name: add Traefik log config to telegraf
   copy:
-    src: traefik.conf
+    src: telegraf-traefik.conf
     dest: /etc/telegraf/telegraf.d/traefik.conf
+  become: true
+
+- name: add logrotate config
+  copy:
+    src: logrotate-traefik.conf
+    dest: /etc/logrotate.d/traefik.conf
   become: true
 
 - name: restart telegraf
