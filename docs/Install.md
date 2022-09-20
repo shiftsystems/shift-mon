@@ -15,10 +15,10 @@
 2. ```sudo dnf install ansible git```
 
 ### Clone the Repo
-Clone the repo by running the following command ```git clone https://gitlab.com/shiftsystems/shift-mon.git && cd shift-mon```
+Clone the repo by running the following command ```git clone https://gitlab.com/shiftsystems/shift-rmm.git && cd shift-rmm```
 
 ### Move your inventory somewhere else and fill it out
-Please make sure you have DNS A and/or AAAA records for the domains you want Victoirametrics, Loki, Uptime Kuma, and Grafana to respond to. 
+Please make sure you have DNS A and/or AAAA records for the domains you want Victoriametrics, Loki, Uptime Kuma, and Grafana to respond to. 
 
 To prevent conflicts in the future, I recommend copying the Ansible inventory outside of the git repo. I copy mine to the parent folder of the repo by running ```cp inventory ../```
 
