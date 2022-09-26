@@ -1,8 +1,23 @@
-- name: install packages for configuring traefik
-  package:
-    name: python3-passlib
-    state: latest
-  become: true
+- name: install packages
+  block:
+    - name: install packages for configuring traefik
+      package:
+        name: python3-passlib
+        state: latest
+      become: true
+  rescue:
+    - name: install pip
+      package:
+        name: python3-pip
+        state: latest
+      become: true
+
+    - name: install packages for configuring traefik from pip
+      pip:
+        name: passlib
+        state: latest
+      become: true
+   
 
 - name: create traefik folders
   file:
