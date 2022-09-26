@@ -8,11 +8,13 @@
 ### Setup Ansible on your machine 
 
 #### Ubuntu
- ```sudo apt update && sudo apt install ansible git python3-apt software-properties-common```
+1. ```sudo add-apt-repository ppa:ansible/ansible sudo apt update && sudo apt install ansible git python3-apt software-properties-common```
+2. ```ansible-galaxy collection install community.general ansible.posix```
+
 
 #### RedHat and RedHat Derivitaves
 1. ```sudo dnf install epel-release```
-2. ```sudo dnf install ansible git```
+2. ```sudo dnf install ansible git ansible-collection-community-general ansible-collection-ansible-posix```
 
 ### Clone the Repo
 Clone the repo by running the following command ```git clone https://gitlab.com/shiftsystems/shift-mon.git && cd shift-mon```
