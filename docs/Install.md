@@ -1,21 +1,26 @@
 ## Requirements
-* Ubuntu 20.04 (Probably works with 18.04)
-* A Redhat 8 based distro
-* A domain for obtaining Let's Encrypt certificates if you are using NGINX
+* Ubuntu 22.04
+* A Redhat 8 or 9 based distro (Alma, Rocky)
+* The Current version of Fedora
+* 4 subdomains to point at the at the server
+* As of Debian 11 there is not a good way of install podman >4.0
 
 ## Installation
 
 ### Setup Ansible on your machine 
 
-#### Ubuntu
+### Ubuntu
 1. ```sudo add-apt-repository ppa:ansible/ansible sudo apt update && sudo apt install ansible git python3-apt software-properties-common```
 2. ```ansible-galaxy collection install community.general ansible.posix```
 
 
-#### RedHat and RedHat Derivitaves
+### RedHat and RedHat Derivitaves
 1. ```sudo dnf install epel-release```
 2. ```sudo dnf install ansible git ansible-collection-community-general ansible-collection-ansible-posix```
 
+### Prepping Ubuntu Targets
+You will need to run the following commands on a debian machine before running ansible. Since python3, python3-apt, and gpg are not included in some minimal installs
+```sudo apt install python3 python3-apt gpg```
 ### Clone the Repo
 Clone the repo by running the following command ```git clone https://gitlab.com/shiftsystems/shift-mon.git && cd shift-mon```
 
@@ -28,11 +33,10 @@ Next, Fill out the inventory by running ```nano ../inventory```.
 **DO NOT EDIT THE INVENTORY IN THE REPO THIS WILL CAUSE PROBELEMS LATER**
 I will explain what each of the values means.
 * The hosts section requires you have one host where software will be installed. 
-* ansible_python_interpreter: the Python interpreter that Ansible to use please do not change as this could cause Ansible to not work correctly or ignore the inventory.
 
 ### This section is for ldap and only needs populated if you wish to use ldap
 * ldap_host: hostname of the ldap server to this is optional
-* ldap_port: port to use for ldap communication usually 389 for plaintext or starttls or 636 for ssl/tls
+* ldap_port: port to use for ldap communication usually 389 for plaintext(please don't use plain text ldap) or starttls or 636 for ssl/tls
 * bind_dn: bind user string for ldap auth
 * base_dn: base domain ldap string
 * bind_password: password for the ldap_bind account
@@ -52,14 +56,16 @@ I will explain what each of the values means.
 * loki:
   * url: url that telegraf should send logs to
   * domain: Fully qualified domain name (fqdn) for the loki server
+  * retention_period: how long to store data before deletion use d for day and y for years
   * cert_path:  absolute path to SSL certificate for loki should be pem encoded this is optional
   * key_path:  absolute path to SSL key for loki should be pem encoded this is optional
 * victoria:
   * url: url that telegraf should send metrics to
   * domain: Fully qualified domain name (fqdn) for the victoriametrics server
+  * retention_period: how long to store data before deletion use d for day and y for years
   * cert_path:  absolute path to SSL certificate for victoriametrics should be pem encoded this is optional
-  * insecure: weather or not to expose plain http metrics for victoriametrics outside of the container this is for things like proxmox that can be picky about basic auth and SSL please avoid using if possible
   * key_path:  absolute path to SSL key for victoriametrics should be pem encoded this is optional
+  * insecure: weather or not to expose plain http metrics for victoriametrics outside of the container this is for things like proxmox that can be picky about basic auth and SSL please avoid using if possible
 * grafana
   * domain: Fully qualified domain name of the grafana server
   * cert_path:  absolute path to SSL certificate for loki should be pem encoded this is optional
@@ -85,7 +91,7 @@ I will explain what each of the values means.
 ### TLS this is section is for SSL/TLS and the only rquired value is TLS email all other values are for certs that don't use letsencrypt with HTTP verification
 * tls.email: email address to use for sending letsencrypt certificates
 * providers is the list of DNS providers that traefik can use to obtain certs via DNS verification and it is optional by default traefik will attempt to use http verification. See the [Traefik Docs](https://doc.traefik.io/traefik/https/acme/#providers) for what to list for auth values and the provider
-  * acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
+* acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
 
 ### Run the Playbook for the First Time and Updating
 while in the shift-rmm directory, run the following command:

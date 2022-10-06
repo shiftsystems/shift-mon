@@ -3,4 +3,5 @@ redhat_packages:
   - podman-compose
 debian_packages:
   - podman
-
+  - python3-setuptools
+  - python3-pip

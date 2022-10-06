@@ -7,8 +7,8 @@ Type=oneshot
 User=root
 RemainAfterExit = true
 WorkingDirectory=/opt/shift-mon
-ExecStart=/bin/bash /opt/shift-mon/startup.bash
-ExecStop=/bin/bash /opt/shift-mon/shutdown.bash
+ExecStart=/opt/shift-mon/startup.bash
+ExecStop=/opt/shift-mon/shutdown.bash
 
 [Install]
 WantedBy=multi-user.target

@@ -1,51 +1,63 @@
 all:
   hosts:
-    armin.local.shiftsystems.net:
+    armin.local.example.com:
   vars:
+    #ldap_host: 'ladp01.local.example.com'
+    #ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+    #bind_dn: 'uid=semaphore,cn=users,cn=accounts,dc=local,dc=example,dc=com'
+    #base_dn: 'dc=local,dc=example,dc=com'
+    #bind_password: 'RANDOM_STRING_HERE'
+    #user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
+    #ldap_first_name: 'givenName'
+    #member_of: 'memberOf'
+    #ldap_last_name: 'sn'
+    #ldap_user: 'uid'
+    #ldap_email: 'mail'
+    #admin_group: 'cn=server-admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+    #viewer_group: 'cn=server-admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+    #editor_group: 'cn=server-admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
     syslog: true
-    remote_syslog: false
-    nginx: false
+    remote_syslog: true
+    #crowdsec_api_key: 'GET_YOUR_OWN'
     loki:
-      url: 'https://loki.example.com'
+      url: 'https://logs.local.example.com'
+      user: telegraf
+      password: 'GENERATE_ONE'
       retention_period: 90d
-      #cert_path:
-      #key_path:
+      domain: logs.local.example.com
+      #cert_path: /opt/certs/loki.crt
+      #key_path: /opt/certs/loki.key
     victoria:
-      url: 'https://metrics.example.com'
+      url: 'https://metrics.local.example.com'
+      user: telegraf
+      password: 'GENERATE_ONE'
       retention_period: 90d
-      #cert_path:
-      #key_path:
+      domain: metrics.local.example.com
+      #cert_path: /opt/certs/victoria.crt
+      #key_path: /opt/certs/victoria.key
       #insecure: false
-    ansible_python_interpreter: /usr/bin/python3
     grafana:
-      domain: 'armin.local.shiftsystems.net'
-      #cert_path:
-      #key_path:
+      domain: grafana.local.example.com
+      #cert_path: /opt/certs/grafana.crt
+      #key_path: /opt/certs/grafana.key
+    uptimekuma:
+      domain: uptime-kuma.local.example.com
+      #cert_path: /opt/certs/uptime-kuma.crt
+      #key_path: /opt/certs/uptime-kuma.key
     email:
       enabled: true
       host: 'mail.example.com'
       alert_from_address: 'alerts@example.com'
       user: 'alerts@example.com'
-      password: 'generate_this'
+      password: 'GENERATE_ONE'
       alert_from_name: 'Shiftmon Alerts'
       port: '587'
-    dns: # see Traefik's DNS challenge docs for the provider name and key values pairs for auth_vaules https://doc.traefik.io/traefik/https/acme/#providers
-      provider: cloudflare
-      auth_values:
-        CF_DNS_API_TOKEN: 'Generate Me'
     users:
-      telegraf: 'generate_this'
-    ldap_host: 'dc1.example.com'
-    ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
-    bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=example,dc=com'
-    base_dn: 'dc=example,dc=com'
-    bind_password: 'generate_this'
-    user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=example,dc=com))'
-    ldap_first_name: 'givenName'
-    member_of: 'memberOf'
-    ldap_last_name: 'sn'
-    ldap_user: 'uid'
-    ldap_email: 'mail'
-    admin_group: 'cn=grafana-admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
-    viewer_group: 'cn=grafana-viewers,cn=groups,cn=accounts,dc=example,dc=com'
-    editor_group: 'cn=server-editors,cn=groups,cn=accounts,dc=example,dc=com'
+      telegraf: 'GENERATE_ONE'
+    tls:
+      email: 'user@example.com'
+    #dns: # see Traefik's DNS challenge docs for the provider name and key values pairs for auth_vaules https://doc.traefik.io/traefik/https/acme/#providers
+      #provider: cloudflare
+      #auth_values:
+        #CF_DNS_API_TOKEN: 'GET_YOUR_OWN'
+    #acme_url: 'https://ldap01.local.example.com/acme/directory'
