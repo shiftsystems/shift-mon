@@ -20,7 +20,7 @@ all:
     remote_syslog: true
     #crowdsec_api_key: 'GET_YOUR_OWN'
     google:
-      auth: true
+      auth: false
       client_id: "client_id"
       client_secret: "client_secret"
       allowed_domains: "example.com example.net" # space seperated list
