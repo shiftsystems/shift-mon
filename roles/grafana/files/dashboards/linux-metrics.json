@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1655330333099,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -74,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "datasource": {
@@ -140,7 +139,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -202,7 +201,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -261,7 +260,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "datasource": {
@@ -339,7 +338,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -403,7 +402,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -467,7 +466,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -533,7 +532,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -594,7 +593,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -658,7 +657,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "datasource": {
@@ -749,6 +748,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -805,7 +806,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -840,6 +842,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -896,7 +900,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -968,7 +973,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -1091,7 +1096,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "exemplar": true,
@@ -1228,6 +1233,7 @@
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value"
           ]
@@ -1313,7 +1319,7 @@
           }
         ]
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "9.1.8",
       "targets": [
         {
           "datasource": {
@@ -1380,7 +1386,9 @@
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "{severity=~\"crit|err|warning\"}",
+          "editorMode": "code",
+          "expr": "{severity=~\"crit|err|warning\",hostname=\"$host\"}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -1390,16 +1398,16 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 36,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "jean",
-          "value": "jean"
+          "selected": true,
+          "text": "shift-mon",
+          "value": "shift-mon"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1466,6 +1474,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 49,
+  "version": 1,
   "weekStart": ""
 }
