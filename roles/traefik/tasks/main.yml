@@ -37,6 +37,7 @@
     name: '{{ item.key }}'
     password: '{{ item.value }}'
   become: true
+  no_log: true
   with_dict: '{{ users }}'
 
 - name: copy traefik config
