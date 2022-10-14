@@ -32,7 +32,7 @@ at the time of writing there is no loki out put configuration for logs so you wi
   domain = "https://loki.example.com:3100"
   namepass = ["suricata","syslog","tail*","exec*","resolver*"]
 [[inputs.syslog]]
-  server = "udp://:6514"
+  server = "udp://:6667"
   syslog_standard = "RFC5424"
 [[inputs.exec]]
   commands = ["opnsense-version"]
@@ -56,6 +56,6 @@ at the time of writing there is no loki out put configuration for logs so you wi
   * select the apps you want to log
   * select the Facilities you want to log
   * set the hostname to 127.0.0.1
-  * set the port to 6514
+  * set the port to 6667
 6. click save then click apply. 
 7. go to the explore tab and loki and make sure the firewall is shipping logs

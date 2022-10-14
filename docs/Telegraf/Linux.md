@@ -62,7 +62,7 @@ all:
     eren:
     erwin:
   vars:
-    #set to true if you want telegraf to forward syslog to loki this will install rsyslog and telegraf will listen on tcp port 6514
+    #set to true if you want telegraf to forward syslog to loki this will install rsyslog and telegraf will listen on tcp port 6667
     syslog: false 
     loki:
       url: 'http://armin.local.mathiasp.me:3100'
