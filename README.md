@@ -1,6 +1,6 @@
 # Shift Mon
 
-An open source remote monitoring and management tool based on Telegraf, InfluxDB, and MeshCentral. It cares about everything you manage not just windows boxes.
+An open source monitoring and logging tool based on Telegraf, Victoriametrics, Loki, Grafana, and Uptime Kuma. It cares about everything you manage not just windows boxes.
 
 ## Installation
 [Follow the intructions in the docs](docs/Install.md)
