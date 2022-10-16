@@ -30,79 +30,6 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P84D368831E8B3638"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-RdYlGr"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 0
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": ""
-              }
-            ]
-          },
-          "unit": "bool_on_off"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 6,
-      "options": {
-        "colWidth": 0.9,
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.1.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "{__name__=\"prometheus_monitor_status\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "{{monitor_name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Status",
-      "type": "status-history"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -132,7 +59,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 0
       },
       "id": 10,
       "options": {
@@ -149,7 +76,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.2.0",
       "targets": [
         {
           "datasource": {
@@ -197,7 +124,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 0
       },
       "id": 8,
       "options": {
@@ -214,7 +141,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.2.0",
       "targets": [
         {
           "datasource": {
@@ -287,13 +214,38 @@
           },
           "unit": "ms"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Victoriametrics internal"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 8
       },
       "id": 2,
       "options": {
@@ -360,7 +312,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 8
       },
       "id": 4,
       "options": {
@@ -371,9 +323,15 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Max"
+          }
+        ]
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.2.0",
       "targets": [
         {
           "datasource": {
@@ -444,7 +402,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "shift-metrics",
           "value": "shift-metrics"
         },
@@ -454,6 +412,7 @@
         "name": "metrics",
         "options": [],
         "query": "prometheus",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -462,13 +421,13 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Uptime Kuma",
   "uid": "pF-zl-Z4k",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }
