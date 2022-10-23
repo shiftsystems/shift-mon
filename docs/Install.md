@@ -46,7 +46,11 @@ I will explain what each of the values means.
 
 
 ### syslog
-* syslog: weather or not to configure telegraf to install rsyslog and setup forwarding to telegraf and pushing it to loki
+* syslog: weather or not to configure telegraf to listen for syslog RFC5424 messages on udp port 6666
+  * set to rsyslog if you want rsyslog installed configured to forward to telegraf 
+  * set it to anything besides rsyslog if you plan to configure log forwarding to udp://localhost:6666 yourself.
+  * comment out if you don't want syslog messages forwarded.
+
 * remote_syslog weather or not to listen to remote syslog RFC5424 on udp port 6666 for things like forwarding syslog from a firewall.
 
 ### Crowdsec api_key
