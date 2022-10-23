@@ -172,7 +172,7 @@
     name: rsyslog
     state: latest
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined and syslog == "rsyslog"
   notify: restart syslog
 
 - name: place rsyslog config is installed when syslog is enabled
@@ -180,7 +180,7 @@
     src: "{{ playbook_dir }}/telegraf-configs/linux/50-telegraf.conf"
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined and syslog == "rsyslog"
   notify: restart syslog
 
 - name: start and enable rsyslog service
@@ -189,14 +189,14 @@
     state: started
     enabled: true
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined and syslog == "rsyslog"
 
 - name: add telegraf config for syslog
   copy:
     src: "{{ playbook_dir }}/telegraf-configs/linux/syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined 
   notify: restart telegraf
 
 - name: add telegraf config for remote syslog
