@@ -43,7 +43,7 @@
   when: ldap_host is defined
 
 - name: add  grafana config to telegraf
-  copy:
+  template:
     src: grafana-docker.conf
     dest: /etc/telegraf/telegraf.d/grafana-docker.conf
   become: true

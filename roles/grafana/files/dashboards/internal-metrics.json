@@ -101,7 +101,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -163,7 +163,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -225,7 +225,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -284,7 +284,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -346,7 +346,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -411,7 +411,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -476,7 +476,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -537,7 +537,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -919,7 +919,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1057,7 +1057,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1120,7 +1120,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1178,7 +1178,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1237,7 +1237,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1301,7 +1301,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1338,7 +1338,7 @@
               }
             ]
           },
-          "unit": "decgbytes"
+          "unit": "decbytes"
         },
         "overrides": []
       },
@@ -1363,18 +1363,20 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "loki_chunk_store_stored_chunk_bytes_total_counter{host=\"$host\"} / (1 * 10^9)",
+          "expr": "loki_chunk_store_stored_chunk_bytes_total_counter{host=\"$host\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1710,7 +1712,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1915,6 +1917,6 @@
   "timezone": "",
   "title": "Internal Metrics",
   "uid": "ALYMBhank",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
