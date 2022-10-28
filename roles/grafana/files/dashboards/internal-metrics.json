@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,12 +24,15 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1649560625692,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -35,6 +41,15 @@
       },
       "id": 30,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Victoriametrics Info",
       "type": "row"
     },
@@ -81,12 +96,12 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^short_version$/",
+          "fields": "/^version$/",
           "values": false
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -148,7 +163,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -210,7 +225,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -269,7 +284,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -331,7 +346,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -396,7 +411,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -461,7 +476,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -522,7 +537,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -550,6 +565,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -605,7 +622,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -639,6 +657,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "axisSoftMin": 0,
@@ -696,7 +716,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -730,6 +751,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -785,7 +808,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -820,7 +844,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -894,7 +919,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -960,6 +985,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -968,6 +997,15 @@
       },
       "id": 28,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Loki Info",
       "type": "row"
     },
@@ -1019,7 +1057,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -1082,7 +1120,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -1140,7 +1178,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -1171,14 +1209,10 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "MBs"
+          "unit": "Bps"
         },
         "overrides": []
       },
@@ -1203,17 +1237,19 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(loki_distributor_bytes_received_total_counter{host=\"$host\"}[$__range]) / (1*10^6)",
+          "expr": "rate(loki_distributor_bytes_received_total_counter{host=\"$host\"}[$__range])",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1265,7 +1301,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -1327,7 +1363,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -1356,6 +1392,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1412,7 +1450,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1458,6 +1497,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1514,7 +1555,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1545,6 +1587,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1596,7 +1640,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1632,7 +1677,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1664,15 +1710,16 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "loki_discarded_samples_total_counter{host=\"$host\"}",
+          "expr": "increase(loki_discarded_samples_total_counter{host=\"$host\"})",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1792,7 +1839,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 35,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1834,8 +1881,8 @@
       {
         "current": {
           "selected": false,
-          "text": "armin",
-          "value": "armin"
+          "text": "muh-server",
+          "value": "muh-server"
         },
         "datasource": {
           "type": "prometheus",
@@ -1861,13 +1908,13 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Internal Metrics",
   "uid": "ALYMBhank",
-  "version": 13,
+  "version": 1,
   "weekStart": ""
 }
