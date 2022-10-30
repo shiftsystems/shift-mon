@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,69 +24,121 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 23,
-  "iteration": 1649130403465,
+  "id": 18,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "circleMaxSize": 30,
-      "circleMinSize": 2,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
-      ],
       "datasource": {
         "type": "loki",
         "uid": "P53E94FA6B1E28789"
       },
-      "decimals": 0,
-      "esMetric": "Count",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 16,
         "w": 12,
         "x": 0,
         "y": 0
       },
-      "hideEmpty": false,
-      "hideZero": false,
       "id": 2,
-      "initialZoom": "2.1",
-      "locationData": "countries",
-      "mapCenter": "(0°, 0°)",
-      "mapCenterLatitude": 0,
-      "mapCenterLongitude": 0,
       "maxDataPoints": 1,
-      "mouseWheelZoom": false,
-      "pluginVersion": "8.4.3-54429",
-      "showLegend": true,
-      "stickyLabels": false,
-      "tableQueryOptions": {
-        "geohashField": "geohash",
-        "latitudeField": "latitude",
-        "longitudeField": "longitude",
-        "metricField": "metric",
-        "queryType": "geohash"
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "blur": 15,
+              "radius": 5,
+              "weight": {
+                "fixed": 1,
+                "max": 1,
+                "min": 0
+              }
+            },
+            "location": {
+              "lookup": "country",
+              "mode": "lookup"
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "heatmap"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "zero",
+          "lat": 0,
+          "lon": 0,
+          "zoom": 1
+        }
       },
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "sum(count_over_time({path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\" [$__interval])) by (country_code)",
+          "editorMode": "code",
+          "expr": "{path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `",
           "legendFormat": "{{country_code}}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
-      "thresholds": "0,10",
       "title": "Attack World Map",
-      "transformations": [],
-      "type": "grafana-worldmap-panel",
-      "unitPlural": "",
-      "unitSingle": "",
-      "valueName": "total"
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        }
+      ],
+      "type": "geomap"
     },
     {
       "datasource": {
@@ -118,6 +173,7 @@
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "percent"
           ]
@@ -142,8 +198,10 @@
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "sum(count_over_time({path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\" [$__interval])) by (behavior)",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `[$__interval])) by (behavior)",
           "legendFormat": "{{behavior}}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -175,8 +233,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 12,
+        "h": 7,
+        "w": 6,
         "x": 12,
         "y": 10
       },
@@ -184,6 +242,8 @@
       "maxDataPoints": 1,
       "options": {
         "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -194,15 +254,80 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "sum(count_over_time({path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\" [$__interval])) by (asn) > 5",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__interval])) by (country)",
           "legendFormat": "{{asn}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Top ISPs",
+      "transformations": [],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P53E94FA6B1E28789"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 18,
+        "y": 10
+      },
+      "id": 7,
+      "maxDataPoints": 1,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__interval])) by (asn) > 3",
+          "legendFormat": "{{asn}}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -222,7 +347,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -245,7 +371,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 17
       },
       "id": 5,
       "options": {
@@ -259,55 +385,54 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "{path=~`.*crowdsec.log`} | logfmt | ban_length=\"4h\"",
+          "editorMode": "code",
+          "expr": "{path=~`.*crowdsec.log`,host=\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <_>\" `",
+          "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Ban Log",
       "transformations": [
         {
-          "id": "labelsToFields",
+          "id": "extractFields",
           "options": {
-            "keepLabels": [
-              "asn",
-              "ip",
-              "behavior",
-              "country_code",
-              "host"
-            ]
+            "source": "labels"
           }
-        },
-        {
-          "id": "merge",
-          "options": {}
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
+              "Line": true,
+              "__name": true,
+              "host": true,
               "id": true,
-              "line": true,
-              "traceID": true,
+              "labels": true,
+              "path": true,
               "tsNs": true
             },
             "indexByName": {
-              "asn": 5,
-              "behavior": 3,
-              "country_code": 4,
-              "host": 1,
-              "id": 7,
-              "ip": 2,
-              "line": 6,
-              "traceID": 9,
-              "ts": 0,
-              "tsNs": 8
+              "Line": 1,
+              "Time": 7,
+              "__name": 4,
+              "asn": 11,
+              "ban_duration": 12,
+              "ban_ip": 13,
+              "behavior": 8,
+              "country": 10,
+              "host": 5,
+              "id": 3,
+              "ip": 9,
+              "labels": 0,
+              "path": 6,
+              "tsNs": 2
             },
             "renameByName": {}
           }
@@ -316,17 +441,16 @@
       "type": "table"
     }
   ],
-  "schemaVersion": 35,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "wordpress-ubuntu-s-1vcpu-1gb-amd-nyc1-01",
+          "value": "wordpress-ubuntu-s-1vcpu-1gb-amd-nyc1-01"
         },
         "datasource": {
           "type": "loki",
@@ -365,13 +489,13 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Crowdsec",
+  "title": "Crowdsec dev",
   "uid": "j4KEK3L7k",
-  "version": 1,
+  "version": 5,
   "weekStart": ""
 }
