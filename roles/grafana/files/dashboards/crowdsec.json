@@ -268,7 +268,7 @@
           "refId": "A"
         }
       ],
-      "title": "Top ISPs",
+      "title": "Top countries",
       "transformations": [],
       "type": "bargauge"
     },
@@ -496,6 +496,6 @@
   "timezone": "",
   "title": "Crowdsec dev",
   "uid": "j4KEK3L7k",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
