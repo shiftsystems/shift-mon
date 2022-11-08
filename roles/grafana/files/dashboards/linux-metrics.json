@@ -73,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -139,7 +139,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -201,7 +201,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -260,7 +260,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -338,7 +338,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -402,7 +402,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -466,7 +466,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -532,7 +532,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -593,7 +593,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -657,7 +657,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -804,9 +804,13 @@
       "id": 8,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": [
+            "max",
+            "mean",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -898,9 +902,13 @@
       "id": 10,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": [
+            "max",
+            "mean",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -973,7 +981,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -1096,7 +1104,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -1319,7 +1327,7 @@
           }
         ]
       },
-      "pluginVersion": "9.1.8",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -1406,8 +1414,8 @@
       {
         "current": {
           "selected": true,
-          "text": "shift-mon",
-          "value": "shift-mon"
+          "text": "armin.local.shiftsystems.net",
+          "value": "armin.local.shiftsystems.net"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1474,6 +1482,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

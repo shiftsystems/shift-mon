@@ -46,8 +46,12 @@
                 "value": null
               },
               {
+                "color": "#EAB839",
+                "value": 0.95
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 0.99
               }
             ]
           },
@@ -76,7 +80,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -141,7 +145,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "9.2.2",
       "targets": [
         {
           "datasource": {
@@ -214,49 +218,29 @@
           },
           "unit": "ms"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Victoriametrics internal"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
+        "h": 11,
+        "w": 24,
         "x": 0,
         "y": 8
       },
       "id": 2,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
+          "mode": "multi",
           "sort": "none"
         }
       },
@@ -275,123 +259,6 @@
       ],
       "title": "Response Time in Milliseconds",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 8
-      },
-      "id": 4,
-      "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Max"
-          }
-        ]
-      },
-      "pluginVersion": "9.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
-          },
-          "panelId": 2,
-          "refId": "A"
-        }
-      ],
-      "title": "Response Time in Milliseconds",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "labelsToFields": true,
-            "reducers": [
-              "max",
-              "min",
-              "mean",
-              "lastNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Field": true,
-              "__name__": true,
-              "db": true,
-              "host": true,
-              "monitor_hostname": true,
-              "monitor_port": true,
-              "monitor_type": true,
-              "url": true
-            },
-            "indexByName": {
-              "Field": 6,
-              "Last *": 5,
-              "Max": 3,
-              "Mean": 4,
-              "Min": 2,
-              "__name__": 7,
-              "db": 8,
-              "host": 9,
-              "monitor_hostname": 10,
-              "monitor_name": 0,
-              "monitor_port": 12,
-              "monitor_type": 11,
-              "monitor_url": 1,
-              "url": 13
-            },
-            "renameByName": {
-              "Last *": "Last"
-            }
-          }
-        }
-      ],
-      "type": "table"
     }
   ],
   "refresh": false,
@@ -402,7 +269,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "shift-metrics",
           "value": "shift-metrics"
         },
@@ -428,6 +295,6 @@
   "timezone": "",
   "title": "Uptime Kuma",
   "uid": "pF-zl-Z4k",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
