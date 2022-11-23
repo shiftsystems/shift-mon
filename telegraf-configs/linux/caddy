@@ -1,0 +1,9 @@
+[[inputs.prometheus]]
+  urls = ["http://localhost:2019/metrics"]
+  metric_version = 2
+
+[[inputs.tail]]
+  files = ['''/var/log/caddy/*.log''']
+  data_format = "json"
+  json_string_fields = ["*"]
+  json_strict = false

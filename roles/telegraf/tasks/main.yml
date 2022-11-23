@@ -102,6 +102,14 @@
   when: "ansible_facts['os_family'] == 'RedHat' and 'nginx.service' in ansible_facts.services"
   notify: restart telegraf
 
+- name: Add Caddy Config if Caddy is installed
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/mesh-central.conf"
+    dest: /etc/telegraf/telegraf.d/caddy.conf
+  become: true
+  when: "'caddy.service' in ansible_facts.services"
+  notify: restart telegraf
+
 - name: Add telegraf to the nginx group on Debian based systems
   user:
     name: telegraf
