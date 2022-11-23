@@ -104,7 +104,7 @@
 
 - name: Add Caddy Config if Caddy is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/mesh-central.conf"
+    src: "{{ playbook_dir }}/telegraf-configs/linux/caddy.conf"
     dest: /etc/telegraf/telegraf.d/caddy.conf
   become: true
   when: "'caddy.service' in ansible_facts.services"
