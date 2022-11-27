@@ -1,0 +1,967 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 20,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 16,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "count_over_time({path=~\"$path\"}[1m])",
+            "legendFormat": "All Requests",
+            "queryType": "range",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "count_over_time({path=\"$path\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [1m])",
+            "hide": false,
+            "legendFormat": "Errored Requests",
+            "queryType": "range",
+            "refId": "B"
+          }
+        ],
+        "title": "Request Rate",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "datasource",
+          "uid": "-- Dashboard --"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 16,
+          "y": 0
+        },
+        "id": 6,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "count"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "datasource",
+              "uid": "-- Dashboard --"
+            },
+            "panelId": 2,
+            "refId": "A"
+          }
+        ],
+        "title": "Request Volume",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 20,
+          "y": 0
+        },
+        "id": 7,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "count_over_time({path=\"$path\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [$__range]) / count_over_time({path=~\"$path\"}[$__range])",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Error Rate",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 8,
+          "x": 0,
+          "y": 8
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "limit": 10,
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "{path=~\"$path\"}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "reqeusts by status code",
+        "transformations": [
+          {
+            "id": "extractFields",
+            "options": {
+              "source": "Line"
+            }
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "request_uri": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "status": {
+                  "aggregations": []
+                },
+                "ts": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 4,
+          "x": 8,
+          "y": 8
+        },
+        "id": 3,
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "value",
+              "percent"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "{path=~\"$path\"}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "reqeusts by status code",
+        "transformations": [
+          {
+            "id": "extractFields",
+            "options": {
+              "source": "Line"
+            }
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "request_uri": {
+                  "aggregations": []
+                },
+                "status": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "ts": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 4,
+          "x": 12,
+          "y": 8
+        },
+        "id": 11,
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "value",
+              "percent"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "{path=~\"$path\"}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "reqeusts by status code",
+        "transformations": [
+          {
+            "id": "extractFields",
+            "options": {
+              "source": "Line"
+            }
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "request_proto": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "request_tls_proto": {
+                  "aggregations": []
+                },
+                "request_uri": {
+                  "aggregations": []
+                },
+                "status": {
+                  "aggregations": []
+                },
+                "ts": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 4,
+          "x": 16,
+          "y": 8
+        },
+        "id": 8,
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "limit": 10,
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "{path=~\"$path\"}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Top IP",
+        "transformations": [
+          {
+            "id": "extractFields",
+            "options": {
+              "source": "Line"
+            }
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "request_headers_X-Forwarded-For_0": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "request_remote_ip": {
+                  "aggregations": []
+                },
+                "request_uri": {
+                  "aggregations": []
+                },
+                "status": {
+                  "aggregations": []
+                },
+                "ts": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 4,
+          "x": 20,
+          "y": 8
+        },
+        "id": 9,
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "limit": 10,
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "{path=~\"$path\"}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "GeoIP",
+        "transformations": [
+          {
+            "id": "extractFields",
+            "options": {
+              "source": "Line"
+            }
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "request_headers_Cf-Ipcountry_0": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "request_remote_ip": {
+                  "aggregations": []
+                },
+                "request_uri": {
+                  "aggregations": []
+                },
+                "status": {
+                  "aggregations": []
+                },
+                "ts": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 14,
+          "w": 24,
+          "x": 0,
+          "y": 18
+        },
+        "id": 10,
+        "options": {
+          "basemap": {
+            "config": {},
+            "name": "Layer 0",
+            "type": "default"
+          },
+          "controls": {
+            "mouseWheelZoom": true,
+            "showAttribution": true,
+            "showDebug": false,
+            "showMeasure": false,
+            "showScale": false,
+            "showZoom": true
+          },
+          "layers": [
+            {
+              "config": {
+                "blur": 15,
+                "radius": 5,
+                "weight": {
+                  "fixed": 1,
+                  "max": 1,
+                  "min": 0
+                }
+              },
+              "location": {
+                "lookup": "request_headers_Cf-Ipcountry_0",
+                "mode": "lookup"
+              },
+              "name": "Layer 1",
+              "tooltip": true,
+              "type": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "mode": "details"
+          },
+          "view": {
+            "allLayers": true,
+            "id": "zero",
+            "lat": 0,
+            "lon": 0,
+            "zoom": 1
+          }
+        },
+        "pluginVersion": "9.2.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${Loki}"
+            },
+            "editorMode": "code",
+            "expr": "{path=~\"$path\"}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "GeoIP",
+        "transformations": [
+          {
+            "id": "extractFields",
+            "options": {
+              "source": "Line"
+            }
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "request_headers_Cf-Ipcountry_0": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "request_remote_ip": {
+                  "aggregations": []
+                },
+                "request_uri": {
+                  "aggregations": []
+                },
+                "status": {
+                  "aggregations": []
+                },
+                "ts": {
+                  "aggregations": [
+                    "count"
+                  ],
+                  "operation": "aggregate"
+                }
+              }
+            }
+          }
+        ],
+        "type": "geomap"
+      }
+    ],
+    "schemaVersion": 37,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "shift-metrics",
+            "value": "shift-metrics"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "Metrics",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "shift-logs",
+            "value": "shift-logs"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "Loki",
+          "options": [],
+          "query": "loki",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": "/var/log/caddy/mesh-access.log",
+            "value": "/var/log/caddy/mesh-access.log"
+          },
+          "datasource": {
+            "type": "loki",
+            "uid": "${Loki}"
+          },
+          "definition": "",
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "path",
+          "options": [],
+          "query": {
+            "label": "path",
+            "refId": "LokiVariableQueryEditor-VariableQuery",
+            "stream": "{path=~\"/var/log/caddy/.*\"}",
+            "type": 1
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Caddy",
+    "uid": "kmrQlud4k",
+    "version": 6,
+    "weekStart": ""
+  }
