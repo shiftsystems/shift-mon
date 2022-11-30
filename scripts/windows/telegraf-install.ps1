@@ -1,12 +1,12 @@
 # Victoria Metrics Settings
 $victoria_url = "https://victoriametrics.example.com"
-$victoria_username = "telegraf"
+$victoria_user = "telegraf"
 $victoria_password = "telegraf"
 $victoria_database = "windows"
 
 # Loki Metrics Settings
 $loki_url = "https://loki.example.com"
-$loki_username = "loki"
+$loki_user = "loki"
 $loki_password = "loki"
 
 # env registry key
