@@ -102,6 +102,14 @@
   when: "ansible_facts['os_family'] == 'RedHat' and 'nginx.service' in ansible_facts.services"
   notify: restart telegraf
 
+- name: Add Caddy Config if Caddy is installed
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/caddy.conf"
+    dest: /etc/telegraf/telegraf.d/caddy.conf
+  become: true
+  when: "'caddy.service' in ansible_facts.services"
+  notify: restart telegraf
+
 - name: Add telegraf to the nginx group on Debian based systems
   user:
     name: telegraf
@@ -172,7 +180,7 @@
     name: rsyslog
     state: latest
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined and syslog == "rsyslog"
   notify: restart syslog
 
 - name: place rsyslog config is installed when syslog is enabled
@@ -180,7 +188,7 @@
     src: "{{ playbook_dir }}/telegraf-configs/linux/50-telegraf.conf"
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined and syslog == "rsyslog"
   notify: restart syslog
 
 - name: start and enable rsyslog service
@@ -189,14 +197,14 @@
     state: started
     enabled: true
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined and syslog == "rsyslog"
 
 - name: add telegraf config for syslog
   copy:
     src: "{{ playbook_dir }}/telegraf-configs/linux/syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
   become: true
-  when: syslog is defined and syslog
+  when: syslog is defined 
   notify: restart telegraf
 
 - name: add telegraf config for remote syslog
