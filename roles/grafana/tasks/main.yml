@@ -9,6 +9,9 @@
     - /opt/shift-mon
     - /opt/shift-mon/grafana-config/provisioning/dashboards
     - /opt/shift-mon/grafana-config/provisioning/datasources
+    - /opt/shift-mon/grafana-config/provisioning/plugins
+    - /opt/shift-mon/grafana-config/provisioning/alerting
+    - /opt/shift-mon/grafana-config/provisioning/notifiers
     - /opt/shift-mon/grafana
 
 - name: Copy dashboards
