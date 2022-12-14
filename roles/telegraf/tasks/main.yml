@@ -144,6 +144,14 @@
   when: "'docker.service' in ansible_facts.services"
   notify: restart telegraf
 
+- name: Deploy Podman config When Podman service is present
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/podman.conf"
+    dest: /etc/telegraf/telegraf.d/podman.conf
+  become: true
+  when: "'podman.service' in ansible_facts.services"
+  notify: restart telegraf
+
 - name: MySQL config when MySQL is installed
   copy:
     src: "{{ playbook_dir }}/telegraf-configs/linux/mysql.conf"
