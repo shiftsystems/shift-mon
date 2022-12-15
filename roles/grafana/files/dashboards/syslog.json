@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1649603836898,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -36,6 +38,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -90,9 +94,12 @@
       "id": 6,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "sum"
+          ],
           "displayMode": "list",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -106,9 +113,11 @@
             "type": "loki",
             "uid": "${logs}"
           },
+          "editorMode": "code",
           "expr": "sum(count_over_time({__name=\"syslog\"}[1m])) by (appname)",
           "legendFormat": "{{appname}}",
           "maxLines": 0,
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -141,8 +150,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 6,
+        "h": 3,
+        "w": 3,
         "x": 18,
         "y": 0
       },
@@ -162,7 +171,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.1",
       "targets": [
         {
           "datasource": {
@@ -175,6 +184,70 @@
         }
       ],
       "title": "Global Average Log Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 0
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(bytes_over_time({__name=\"syslog\"}[$__interval]))",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Global Average Log Volume",
       "type": "stat"
     },
     {
@@ -203,10 +276,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 6,
+        "h": 3,
+        "w": 3,
         "x": 18,
-        "y": 4
+        "y": 3
       },
       "id": 12,
       "options": {
@@ -224,7 +297,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.1",
       "targets": [
         {
           "datasource": {
@@ -242,6 +315,198 @@
     {
       "datasource": {
         "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 3
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\"}[$__interval]))",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Host Log Volume",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 18,
+        "y": 6
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",appname=\"$appname\"}[$__interval]))",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Appname Log Volume",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "logs/min"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 6
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({__name=\"syslog\",appname=\"$appname\"}[1m]))",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Appname Average Log Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
         "uid": "P53E94FA6B1E28789"
       },
       "fieldConfig": {
@@ -250,6 +515,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -296,7 +563,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 14,
         "w": 12,
         "x": 0,
         "y": 8
@@ -306,7 +573,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -330,8 +598,8 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
+        "type": "datasource",
+        "uid": "-- Dashboard --"
       },
       "fieldConfig": {
         "defaults": {
@@ -351,7 +619,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 14,
         "w": 6,
         "x": 12,
         "y": 8
@@ -361,6 +629,7 @@
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value"
           ]
@@ -382,11 +651,10 @@
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "datasource",
+            "uid": "-- Dashboard --"
           },
-          "expr": "sum(count_over_time({hostname=\"$host\",__name=\"syslog\"}[1m])) by (appname)",
-          "legendFormat": "{{appname}}",
+          "panelId": 8,
           "refId": "A"
         }
       ],
@@ -396,7 +664,135 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "P53E94FA6B1E28789"
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 18,
+        "y": 9
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"$appname\"}[$__interval]))",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Filtered Log Volume",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "logs/min"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 9
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"$appname\"}[1m]))",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Filtered Average Log Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Dashboard --"
       },
       "fieldConfig": {
         "defaults": {
@@ -416,16 +812,17 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 6,
         "x": 18,
-        "y": 8
+        "y": 12
       },
       "id": 14,
       "options": {
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value"
           ]
@@ -447,11 +844,10 @@
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "datasource",
+            "uid": "-- Dashboard --"
           },
-          "expr": "sum(count_over_time({__name=\"syslog\"}[1m])) by (appname)",
-          "legendFormat": "{{appname}}",
+          "panelId": 6,
           "refId": "A"
         }
       ],
@@ -464,10 +860,10 @@
         "uid": "${logs}"
       },
       "gridPos": {
-        "h": 9,
+        "h": 14,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 22
       },
       "id": 3,
       "options": {
@@ -492,45 +888,10 @@
       ],
       "title": "filtered syslog",
       "type": "logs"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 25
-      },
-      "id": 15,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
-          },
-          "expr": "{__name=\"syslog\",hostname=\"$host\"}",
-          "refId": "A"
-        }
-      ],
-      "title": "raw syslog",
-      "type": "logs"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 35,
+  "refresh": "",
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -572,8 +933,8 @@
       {
         "current": {
           "selected": true,
-          "text": "rose.local.shiftsystems.net",
-          "value": "rose.local.shiftsystems.net"
+          "text": "host1",
+          "value": "host1"
         },
         "datasource": {
           "type": "loki",
@@ -595,8 +956,8 @@
       {
         "current": {
           "selected": false,
-          "text": "filterlog",
-          "value": "filterlog"
+          "text": "systemd",
+          "value": "systemd"
         },
         "datasource": {
           "type": "loki",
@@ -625,6 +986,6 @@
   "timezone": "",
   "title": "syslog",
   "uid": "ILt16Sb7k",
-  "version": 31,
+  "version": 1,
   "weekStart": ""
 }
