@@ -29,6 +29,68 @@
   "panels": [
     {
       "datasource": {
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_n_cpus{host=\"$host\",db=\"windows\"}",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
         "type": "prometheus",
         "uid": "${metrics}"
       },
@@ -53,8 +115,8 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 3,
-        "x": 0,
+        "w": 4,
+        "x": 4,
         "y": 0
       },
       "id": 24,
@@ -73,7 +135,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -119,11 +181,11 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 3,
-        "x": 3,
+        "w": 4,
+        "x": 8,
         "y": 0
       },
-      "id": 22,
+      "id": 20,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -139,18 +201,17 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "exemplar": true,
-          "expr": "system_n_cpus{host=\"$host\",db=\"windows\"}",
-          "instant": true,
+          "expr": "(system_uptime{host=\"$host\",db=\"windows\"}) / 86400",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "CPU Count",
+      "title": "uptime in days",
       "type": "stat"
     },
     {
@@ -182,10 +243,10 @@
       "gridPos": {
         "h": 2,
         "w": 4,
-        "x": 6,
+        "x": 12,
         "y": 0
       },
-      "id": 20,
+      "id": 12,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -201,17 +262,78 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "exemplar": true,
-          "expr": "(system_uptime{host=\"$host\",db=\"windows\"}) / 86400",
+          "expr": "system_load1{host=\"$host\",db=\"windows\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "uptime in days",
+      "title": "Load 1",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_load15{host=\"$host\",db=\"windows\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Load 15",
       "type": "stat"
     },
     {
@@ -239,9 +361,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 10,
-        "x": 10,
+        "h": 8,
+        "w": 4,
+        "x": 20,
         "y": 0
       },
       "id": 26,
@@ -260,7 +382,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -288,67 +410,6 @@
           }
         }
       ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 0
-      },
-      "id": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_load1{host=\"$host\",db=\"windows\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Load 1",
       "type": "stat"
     },
     {
@@ -401,7 +462,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -464,7 +525,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -497,8 +558,12 @@
                 "value": null
               },
               {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 85
               }
             ]
           }
@@ -513,7 +578,7 @@
       },
       "id": 6,
       "options": {
-        "displayMode": "gradient",
+        "displayMode": "lcd",
         "minVizHeight": 10,
         "minVizWidth": 0,
         "orientation": "horizontal",
@@ -529,7 +594,7 @@
           "valueSize": 100
         }
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -541,67 +606,6 @@
       ],
       "title": "disk usage",
       "type": "bargauge"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 4
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_load15{host=\"$host\",db=\"windows\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Load 15",
-      "type": "stat"
     },
     {
       "datasource": {
@@ -636,7 +640,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 20,
         "y": 8
@@ -653,7 +657,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -946,10 +950,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 20,
-        "y": 12
+        "y": 13
       },
       "id": 27,
       "options": {
@@ -963,7 +967,7 @@
         "frameIndex": 7,
         "showHeader": false
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "exemplar": true,
@@ -1173,7 +1177,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -1355,7 +1359,7 @@
         "h": 8,
         "w": 4,
         "x": 20,
-        "y": 16
+        "y": 18
       },
       "id": 33,
       "options": {
@@ -1368,7 +1372,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -1438,10 +1442,9 @@
       },
       {
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "DESKTOP-Q3KB7SP",
+          "value": "DESKTOP-Q3KB7SP"
         },
         "datasource": {
           "type": "prometheus",
@@ -1473,6 +1476,6 @@
   "timezone": "",
   "title": "Windows Metrics",
   "uid": "LqfSpKn7y",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
