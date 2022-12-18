@@ -1379,14 +1379,16 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "(diskio_read_bytes{host=\"$host\",db=\"windows\"} + diskio_read_bytes{host=\"$host\",db=\"windows\"})",
+          "expr": "increase(diskio_read_bytes{host=\"$host\",db=\"windows\"} + diskio_read_bytes{host=\"$host\",db=\"windows\"})",
           "interval": "",
           "legendFormat": "{{name}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Total Disk IO",
       "transformations": [
         {
           "id": "reduce",
