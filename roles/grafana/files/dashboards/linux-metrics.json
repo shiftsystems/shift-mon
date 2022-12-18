@@ -29,68 +29,6 @@
   "panels": [
     {
       "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 4,
-        "x": 0,
-        "y": 0
-      },
-      "id": 22,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_n_cpus{host=\"$host\",db=\"linux\"}",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Count",
-      "type": "stat"
-    },
-    {
-      "datasource": {
         "type": "prometheus",
         "uid": "${metrics}"
       },
@@ -115,8 +53,8 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 4,
-        "x": 4,
+        "w": 3,
+        "x": 0,
         "y": 0
       },
       "id": 24,
@@ -142,7 +80,6 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
-          "editorMode": "code",
           "exemplar": false,
           "expr": "mem_total{host=\"$host\",db=\"linux\"}",
           "instant": true,
@@ -182,8 +119,70 @@
       },
       "gridPos": {
         "h": 2,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_n_cpus{host=\"$host\",db=\"linux\"}",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
         "w": 4,
-        "x": 8,
+        "x": 6,
         "y": 0
       },
       "id": 20,
@@ -217,128 +216,6 @@
     },
     {
       "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 4,
-        "x": 12,
-        "y": 0
-      },
-      "id": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_load1{host=\"$host\",db=\"linux\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Load 1",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 4,
-        "x": 16,
-        "y": 0
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_load15{host=\"$host\",db=\"linux\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Load 15",
-      "type": "stat"
-    },
-    {
-      "datasource": {
         "type": "prometheus",
         "uid": "${metrics}"
       },
@@ -362,9 +239,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 20,
+        "h": 2,
+        "w": 10,
+        "x": 10,
         "y": 0
       },
       "id": 26,
@@ -415,7 +292,67 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_load1{host=\"$host\",db=\"linux\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Load 1",
+      "type": "stat"
+    },
+    {
+      "datasource": {
         "uid": "${metrics}"
       },
       "description": "",
@@ -444,7 +381,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 7,
         "w": 6,
         "x": 0,
         "y": 2
@@ -468,16 +405,10 @@
       "pluginVersion": "9.3.2",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
           "exemplar": true,
           "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"linux\"}",
           "interval": "",
           "legendFormat": "",
-          "range": true,
           "refId": "A"
         }
       ],
@@ -486,7 +417,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${metrics}"
       },
       "description": "",
@@ -539,16 +469,10 @@
       "pluginVersion": "9.3.2",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
           "exemplar": true,
           "expr": "mem_used_percent{db=\"linux\",host=\"$host\"}",
           "interval": "",
           "legendFormat": "",
-          "range": true,
           "refId": "A"
         }
       ],
@@ -576,12 +500,8 @@
                 "value": null
               },
               {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
                 "color": "red",
-                "value": 85
+                "value": 80
               }
             ]
           }
@@ -596,7 +516,7 @@
       },
       "id": 6,
       "options": {
-        "displayMode": "lcd",
+        "displayMode": "gradient",
         "minVizHeight": 10,
         "minVizWidth": 0,
         "orientation": "horizontal",
@@ -608,7 +528,9 @@
           "values": false
         },
         "showUnfilled": true,
-        "text": {}
+        "text": {
+          "valueSize": 100
+        }
       },
       "pluginVersion": "9.3.2",
       "targets": [
@@ -620,22 +542,19 @@
           "refId": "A"
         }
       ],
-      "title": "Disk Usage",
+      "title": "disk usage",
       "type": "bargauge"
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${metrics}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -644,12 +563,8 @@
                 "value": null
               },
               {
-                "color": "#EAB839",
-                "value": 6
-              },
-              {
                 "color": "red",
-                "value": 8
+                "value": 80
               }
             ]
           }
@@ -657,12 +572,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 0,
-        "y": 6
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 4
       },
-      "id": 36,
+      "id": 18,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -670,30 +585,25 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
       "pluginVersion": "9.3.2",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
           "exemplar": true,
-          "expr": "cpu_usage_iowait{host=\"$host\",db=\"linux\"}",
+          "expr": "system_load15{host=\"$host\",db=\"linux\"}",
           "interval": "",
           "legendFormat": "",
-          "range": true,
           "refId": "A"
         }
       ],
-      "title": "iowait",
+      "title": "Load 15",
       "type": "stat"
     },
     {
@@ -1424,10 +1334,12 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(diskio_read_bytes{host=\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=\"$host\",db=\"linux\"})",
+          "expr": "increase(diskio_read_bytes{host=\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=\"$host\",db=\"linux\"})",
           "interval": "",
           "legendFormat": "{{name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1503,9 +1415,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "reiner.local.shiftsystems.net",
-          "value": "reiner.local.shiftsystems.net"
+          "selected": false,
+          "text": "armin.local.shiftsystems.net",
+          "value": "armin.local.shiftsystems.net"
         },
         "datasource": {
           "uid": "${metrics}"
