@@ -27,7 +27,7 @@ services:
       - "-config.file=/etc/loki/loki-config.yml"
   victoriametrics:
     restart: unless-stopped
-    image: docker.io/victoriametrics/victoria-metrics:latest
+    image: docker.io/victoriametrics/victoria-metrics:stable
     volumes:
       - type: bind
         source: /opt/shift-mon/victoriametrics-storage
