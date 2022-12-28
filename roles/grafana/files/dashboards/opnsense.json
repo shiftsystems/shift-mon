@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1649133928720,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -71,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -137,9 +139,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${metrics}"
+          },
           "exemplar": true,
           "expr": "system_n_cpus{host=\"$host\",db=\"opnsense\"}",
           "instant": true,
@@ -199,9 +204,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${metrics}"
+          },
           "exemplar": true,
           "expr": "(system_uptime{host=\"$host\",db=\"opnsense\"}) / 86400",
           "interval": "",
@@ -258,7 +266,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -336,9 +344,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${metrics}"
+          },
           "exemplar": true,
           "expr": "system_load1{host=\"$host\",db=\"opnsense\"}",
           "interval": "",
@@ -399,9 +410,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${metrics}"
+          },
           "exemplar": true,
           "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"opnsense\"}",
           "interval": "",
@@ -462,9 +476,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${metrics}"
+          },
           "exemplar": true,
           "expr": "mem_used_percent{db=\"opnsense\",host=\"$host\"}",
           "interval": "",
@@ -512,6 +529,8 @@
       "id": 6,
       "options": {
         "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -521,13 +540,14 @@
           "values": false
         },
         "showUnfilled": true,
-        "text": {
-          "valueSize": 100
-        }
+        "text": {}
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${metrics}"
+          },
           "exemplar": true,
           "expr": "disk_used_percent{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\"}",
           "interval": "",
@@ -586,9 +606,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${metrics}"
+          },
           "exemplar": true,
           "expr": "system_load15{host=\"$host\",db=\"opnsense\"}",
           "interval": "",
@@ -610,6 +633,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -666,7 +691,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -701,6 +727,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -757,7 +785,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -792,7 +821,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -829,9 +859,12 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "${logs}"
+          },
           "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
           "hide": false,
           "instant": false,
@@ -941,6 +974,7 @@
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value"
           ]
@@ -1006,6 +1040,7 @@
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value"
           ]
@@ -1083,6 +1118,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "percent",
             "value"
@@ -1127,7 +1163,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1225,7 +1262,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -1362,6 +1399,7 @@
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value"
           ]
@@ -1460,6 +1498,7 @@
         "legend": {
           "displayMode": "list",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value"
           ]
@@ -1537,7 +1576,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1573,7 +1613,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.4.5",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
@@ -1636,7 +1676,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 35,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1704,8 +1744,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ovpns1",
-          "value": "ovpns1"
+          "text": "igb0",
+          "value": "igb0"
         },
         "datasource": {
           "type": "prometheus",
@@ -1737,6 +1777,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 38,
+  "version": 1,
   "weekStart": ""
 }
