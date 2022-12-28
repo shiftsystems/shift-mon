@@ -590,9 +590,7 @@
           "values": false
         },
         "showUnfilled": true,
-        "text": {
-          "valueSize": 100
-        }
+        "text": {}
       },
       "pluginVersion": "9.3.2",
       "targets": [
@@ -1478,6 +1476,6 @@
   "timezone": "",
   "title": "Windows Metrics",
   "uid": "LqfSpKn7y",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }

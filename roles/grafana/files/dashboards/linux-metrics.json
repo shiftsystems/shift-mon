@@ -528,9 +528,7 @@
           "values": false
         },
         "showUnfilled": true,
-        "text": {
-          "valueSize": 100
-        }
+        "text": {}
       },
       "pluginVersion": "9.3.2",
       "targets": [
@@ -1484,6 +1482,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
