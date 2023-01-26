@@ -152,6 +152,14 @@
   when: "'podman.service' in ansible_facts.services"
   notify: restart telegraf
 
+- name: Deploy Podman config When Libvirt service is present
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/libvirt.conf"
+    dest: /etc/telegraf/telegraf.d/libvirt.conf
+  become: true
+  when: "'libvirtd.service' in ansible_facts.services"
+  notify: restart telegraf
+
 - name: MySQL config when MySQL is installed
   copy:
     src: "{{ playbook_dir }}/telegraf-configs/linux/mysql.conf"
