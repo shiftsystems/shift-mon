@@ -29,7 +29,7 @@
     name: influxdb
     description: influx db software
     baseurl: https://repos.influxdata.com/centos/9/x86_64/stable/
-    gpgcheck: yes
+    gpgcheck: no
     gpgkey: https://repos.influxdata.com/influxdb.key
     state: present
   become: true
