@@ -37,7 +37,7 @@
     description: influx db software
     baseurl: https://repos.influxdata.com/centos/9/x86_64/stable/
     gpgcheck: no
-    gpgkey: https://repos.influxdata.com/influxdb.key
+    gpgkey: https://repos.influxdata.com/influxdata-archive_compat.key
     state: present
   become: true
   when: ansible_distribution == "Fedora"
