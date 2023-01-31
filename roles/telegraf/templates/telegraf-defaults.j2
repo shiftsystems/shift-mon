@@ -12,3 +12,23 @@ victoria_user="{{ victoria.user }}"
 {% if victoria.password is defined %}
 victoria_password="{{ victoria.password }}"
 {% endif %}
+{% if metric_buffer_limit is defined %}
+metric_buffer_limit={{ metric_buffer_limit }}
+{% else %}
+metric_buffer_limit=10000
+{% endif %}
+{% if metric_batch_size is defined %}
+metric_batch_size={{ metric_batch_size }}
+{% else %}
+metric_batch_size=1000
+{% endif %}
+{% if interval is defined %}
+interval="{{ interval }}"
+{% else %}
+interval="10s"
+{% endif %}
+{% if flush_interval is defined %}
+flush_interval="{{ flush_interval }}"
+{% else %}
+flush_interval="10s"
+{% endif %}

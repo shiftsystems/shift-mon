@@ -52,6 +52,10 @@ loki_password="$LOKI_PASS"
 victoria_url="$VICTORIA_URL"
 victoria_user="$VICTORIA_USER"
 victoria_password="$VICTORIA_PASS"
+metric_buffer_limit=100000
+metric_batch_size=1000
+interval="10s"
+flush_interval="10s"
 EOF
 # copy telegraf config from gitlab
 curl -o /etc/telegraf/telegraf.conf $TELEGRAF_CONFIG_URL
