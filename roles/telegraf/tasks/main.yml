@@ -63,6 +63,9 @@
   template:
     src: telegraf-defaults.j2
     dest: /etc/default/telegraf
+    mode: "650"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   notify: restart telegraf
 
@@ -159,7 +162,7 @@
   when: "'podman.service' in ansible_facts.services"
   notify: restart telegraf
 
-- name: Deploy Podman config When Libvirt service is present
+- name: Deploy Libvirt config When Libvirt service is present
   copy:
     src: "{{ playbook_dir }}/telegraf-configs/linux/libvirt.conf"
     dest: /etc/telegraf/telegraf.d/libvirt.conf
@@ -189,6 +192,15 @@
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
   become: true
   when: "'victoriametrics.service' in ansible_facts.services"
+  notify: restart telegraf
+
+- name: Deploy VSphere config when Vsphere Creds are Available
+  copy:
+    src: "{{ playbook_dir }}/telegraf-configs/linux/vsphere.conf"
+    dest: /etc/telegraf/telegraf.d/vsphere.conf
+  become: true
+  when: "'victoriametrics.service' in ansible_facts.services"
+  when: "vsphere is defined"
   notify: restart telegraf
 
 - name: Add telegraf to the MySQL group on Debian based systems

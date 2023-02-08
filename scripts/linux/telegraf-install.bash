@@ -13,7 +13,7 @@ case $ID in
     "debian")
         apt update
         apt -y install apt-transport-https curl software-properties-common
-        wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
+        wget -qO- https://https://repos.influxdata.com/influxdata-archive_compat.key | apt-key add -
         test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | tee /etc/apt/sources.list.d/influxdb.list
         test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | tee /etc/apt/sources.list.d/influxdb.list
         test $VERSION_ID = "9" && echo "deb https://repos.influxdata.com/debian stretch stable" | tee /etc/apt/sources.list.d/influxdb.list
@@ -25,7 +25,7 @@ case $ID in
         apt update
         apt -y install software-properties-common apt-transport-https curl
         source /etc/lsb-release
-        wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
+        wget -qO- https://https://repos.influxdata.com/influxdata-archive_compat.key | apt-key add -
         echo "deb https://repos.influxdata.com/ubuntu ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
         apt -y install telegraf
         ;;
@@ -36,7 +36,7 @@ name = InfluxDB Repository
 baseurl = https://repos.influxdata.com/centos/8/x86_64/stable/
 enabled = 1
 gpgcheck = 1
-gpgkey = https://repos.influxdata.com/influxdb.key
+gpgkey = https://https://repos.influxdata.com/influxdata-archive_compat.key
 EOF
 
         yum -y install telegraf
