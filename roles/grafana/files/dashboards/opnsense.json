@@ -73,7 +73,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -139,7 +139,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -204,7 +204,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -266,7 +266,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -344,7 +344,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -410,7 +410,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -476,7 +476,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -542,7 +542,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -606,7 +606,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -812,6 +812,7 @@
     },
     {
       "datasource": {
+        "type": "loki",
         "uid": "${logs}"
       },
       "fieldConfig": {
@@ -859,15 +860,17 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "uid": "${logs}"
           },
-          "expr": "{host=\"$host\"} | logfmt |~ \"OPNsense\"",
+          "editorMode": "code",
+          "expr": "{host=\"$host\",__name=\"exec\"} |~ \"OPNsense\"",
           "hide": false,
           "instant": false,
+          "queryType": "range",
           "range": true,
           "refId": "A"
         }
@@ -875,54 +878,10 @@
       "title": "OS Version",
       "transformations": [
         {
-          "id": "labelsToFields",
-          "options": {
-            "keepLabels": [
-              "ssl_type",
-              "version",
-              "arch",
-              "host"
-            ],
-            "valueLabel": "host"
-          }
-        },
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Field": false,
-              "Last": false,
-              "NAME": false,
-              "Time": true,
-              "Time ns": true,
-              "id": true,
-              "rose.local.shiftsystems.net": true,
-              "sasha.local.mathiasp.me": true,
-              "ts": true,
-              "tsNs": true,
-              "value": true
-            },
-            "indexByName": {
-              "arch": 2,
-              "id": 6,
-              "os": 0,
-              "rose.local.shiftsystems.net": 5,
-              "ssl_type": 3,
-              "ts": 4,
-              "tsNs": 7,
-              "value": 8,
-              "version": 1
-            },
-            "renameByName": {}
-          }
-        },
-        {
           "id": "reduce",
           "options": {
+            "includeTimeField": false,
+            "mode": "reduceFields",
             "reducers": [
               "lastNotNull"
             ]
@@ -932,7 +891,11 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Field": true
+              "Field": true,
+              "Line": false,
+              "id": true,
+              "labels": true,
+              "tsNs": true
             },
             "indexByName": {},
             "renameByName": {}
@@ -1262,7 +1225,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -1424,7 +1387,9 @@
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "{__name=\"resolver\",host=\"rose.local.shiftsystems.net\"} | logfmt",
+          "editorMode": "code",
+          "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -1523,7 +1488,9 @@
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "{__name=\"resolver\",host=\"rose.local.shiftsystems.net\"} | logfmt",
+          "editorMode": "code",
+          "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -1613,14 +1580,16 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "{__name=\"resolver\",host=\"rose.local.shiftsystems.net\"} | logfmt",
+          "editorMode": "code",
+          "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -1777,6 +1746,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
