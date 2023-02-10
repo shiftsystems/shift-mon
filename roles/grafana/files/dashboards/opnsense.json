@@ -273,8 +273,9 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_total{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\"}",
+          "expr": "disk_total{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*`}",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -298,12 +299,18 @@
     },
     {
       "datasource": {
-        "uid": "${metrics}"
+        "type": "loki",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -323,45 +330,70 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 20,
         "y": 0
       },
-      "id": 12,
+      "id": 16,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+        "footer": {
           "fields": "",
-          "values": false
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "text": {},
-        "textMode": "auto"
+        "frameIndex": 0,
+        "showHeader": false
       },
       "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
-            "uid": "${metrics}"
+            "uid": "${logs}"
           },
-          "exemplar": true,
-          "expr": "system_load1{host=\"$host\",db=\"opnsense\"}",
-          "interval": "",
-          "legendFormat": "",
+          "editorMode": "code",
+          "expr": "{host=\"$host\",__name=\"exec\"} |~ \"OPNsense\"",
+          "hide": false,
+          "instant": false,
+          "queryType": "range",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Load 1",
-      "type": "stat"
+      "title": "OS Version",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "mode": "reduceFields",
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Field": true,
+              "Line": false,
+              "id": true,
+              "labels": true,
+              "tsNs": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -416,10 +448,12 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"opnsense\"}",
+          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"opnsense\",cpu=\"cpu-total\"}",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -494,6 +528,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -548,15 +583,84 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "disk_used_percent{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\"}",
+          "expr": "disk_used_percent{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*`}",
           "interval": "",
           "legendFormat": "{{path}}",
+          "range": true,
           "refId": "A"
         }
       ],
       "title": "disk usage",
       "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      },
+      "id": 44,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "pf_state_limit{host=\"$host\",db=\"opnsense\"}",
+          "interval": "",
+          "legendFormat": "",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "State Limited Packets",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -585,12 +689,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 4,
         "x": 20,
-        "y": 5
+        "y": 7
       },
-      "id": 18,
+      "id": 12,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -613,13 +717,13 @@
             "uid": "${metrics}"
           },
           "exemplar": true,
-          "expr": "system_load15{host=\"$host\",db=\"opnsense\"}",
+          "expr": "system_load1{host=\"$host\",db=\"opnsense\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Load 15",
+      "title": "Load 1",
       "type": "stat"
     },
     {
@@ -812,18 +916,12 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -843,198 +941,134 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 4,
         "x": 20,
-        "y": 10
+        "y": 11
       },
-      "id": 16,
+      "id": 18,
       "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
           ],
-          "show": false
+          "fields": "",
+          "values": false
         },
-        "frameIndex": 0,
-        "showHeader": false
+        "text": {},
+        "textMode": "auto"
       },
       "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
-            "uid": "${logs}"
+            "uid": "${metrics}"
+          },
+          "exemplar": true,
+          "expr": "system_load15{host=\"$host\",db=\"opnsense\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Load 15",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 1,
+        "y": 15
+      },
+      "id": 43,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "{host=\"$host\",__name=\"exec\"} |~ \"OPNsense\"",
-          "hide": false,
-          "instant": false,
-          "queryType": "range",
+          "expr": "pf_entries{}",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "OS Version",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "mode": "reduceFields",
-            "reducers": [
-              "lastNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Field": true,
-              "Line": false,
-              "id": true,
-              "labels": true,
-              "tsNs": true
-            },
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 0,
-        "y": 15
-      },
-      "id": 36,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.3.4",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
-          },
-          "expr": "topk(20,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*out.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
-          "legendFormat": "{{ source_ip }}",
-          "refId": "A"
-        }
-      ],
-      "title": "top outbound talkers",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 8,
-        "y": 15
-      },
-      "id": 40,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.3.4",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
-          },
-          "expr": "topk(5,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*in.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
-          "legendFormat": "{{ source_ip }}",
-          "refId": "A"
-        }
-      ],
-      "title": "inbound talkers",
-      "type": "piechart"
+      "title": "Current PF States",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1112,6 +1146,138 @@
         }
       ],
       "title": "Dest ports",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 23
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "expr": "topk(20,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*out.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
+          "legendFormat": "{{ source_ip }}",
+          "refId": "A"
+        }
+      ],
+      "title": "top outbound talkers",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 23
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "expr": "topk(5,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*in.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
+          "legendFormat": "{{ source_ip }}",
+          "refId": "A"
+        }
+      ],
+      "title": "inbound talkers",
       "type": "piechart"
     },
     {
@@ -1211,7 +1377,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 32
       },
       "id": 29,
       "options": {
@@ -1355,7 +1521,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 31
+        "y": 39
       },
       "id": 33,
       "options": {
@@ -1456,7 +1622,7 @@
         "h": 9,
         "w": 7,
         "x": 5,
-        "y": 31
+        "y": 39
       },
       "id": 32,
       "options": {
@@ -1567,7 +1733,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 31
+        "y": 39
       },
       "id": 31,
       "options": {
@@ -1746,6 +1912,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
