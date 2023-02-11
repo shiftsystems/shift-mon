@@ -1311,111 +1311,22 @@
         "type": "loki",
         "uid": "${logs}"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "timestamp"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 241
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert_category"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 202
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert_signature"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 594
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "dest_port"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 84
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "src_port"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 86
-              }
-            ]
-          }
-        ]
-      },
       "gridPos": {
-        "h": 7,
-        "w": 24,
+        "h": 10,
+        "w": 21,
         "x": 0,
         "y": 25
       },
       "id": 29,
       "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": []
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
       },
       "pluginVersion": "9.3.6",
       "targets": [
@@ -1429,98 +1340,69 @@
         }
       ],
       "title": "Suricata alerts",
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": {}
-        },
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "__name": true,
-              "alert_action": true,
-              "alert_gid": true,
-              "alert_metadata_attack_target_0": false,
-              "alert_metadata_created_at_0": true,
-              "alert_metadata_updated_at_0": true,
-              "alert_rev": true,
-              "alert_severity": true,
-              "alert_signature_id": true,
-              "event_type": true,
-              "flow_bytes_toclient": true,
-              "flow_bytes_toserver": true,
-              "flow_id": true,
-              "flow_pkts_toclient": true,
-              "flow_pkts_toserver": true,
-              "flow_start": true,
-              "host": true,
-              "http_hostname": true,
-              "id": true,
-              "line": true,
-              "path": true,
-              "ts": true,
-              "tsNs": true,
-              "tx_id": true
-            },
-            "indexByName": {
-              "__name": 22,
-              "alert_action": 24,
-              "alert_category": 5,
-              "alert_gid": 19,
-              "alert_metadata_affected_product_0": 41,
-              "alert_metadata_attack_target_0": 33,
-              "alert_metadata_created_at_0": 27,
-              "alert_metadata_deployment_0": 39,
-              "alert_metadata_signature_severity_0": 35,
-              "alert_metadata_updated_at_0": 17,
-              "alert_rev": 28,
-              "alert_severity": 20,
-              "alert_signature": 6,
-              "alert_signature_id": 25,
-              "anomaly_app_proto": 9,
-              "anomaly_event": 44,
-              "anomaly_layer": 45,
-              "anomaly_type": 46,
-              "app_proto": 11,
-              "dest_ip": 1,
-              "dest_port": 3,
-              "event_type": 21,
-              "flow_bytes_toclient": 18,
-              "flow_bytes_toserver": 12,
-              "flow_id": 29,
-              "flow_pkts_toclient": 23,
-              "flow_pkts_toserver": 13,
-              "flow_start": 30,
-              "host": 26,
-              "http_hostname": 34,
-              "http_http_method": 38,
-              "http_http_port": 36,
-              "http_http_user_agent": 40,
-              "http_length": 42,
-              "http_protocol": 37,
-              "http_url": 43,
-              "id": 15,
-              "in_iface": 7,
-              "line": 14,
-              "path": 31,
-              "proto": 8,
-              "src_ip": 2,
-              "src_port": 4,
-              "timestamp": 0,
-              "ts": 10,
-              "tsNs": 16,
-              "tx_id": 32
-            },
-            "renameByName": {}
+      "transformations": [],
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
           }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 3,
+        "x": 21,
+        "y": 25
+      },
+      "id": 45,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "editorMode": "builder",
+          "expr": "count(rate({__name=\"suricata\", host=\"$host\"} [$__range]))",
+          "queryType": "range",
+          "refId": "A"
         }
       ],
-      "type": "table"
+      "title": "Suricata alerts",
+      "transformations": [],
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1547,7 +1429,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 32
+        "y": 35
       },
       "id": 33,
       "options": {
@@ -1648,7 +1530,7 @@
         "h": 9,
         "w": 7,
         "x": 5,
-        "y": 32
+        "y": 35
       },
       "id": 32,
       "options": {
@@ -1759,7 +1641,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 35
       },
       "id": 31,
       "options": {
@@ -1938,6 +1820,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
