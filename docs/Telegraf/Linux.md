@@ -32,6 +32,8 @@ you will need the following lines under vars
 ```
   vars:
     ansible_python_interpreter: /usr/bin/python3
+    #metric_batch_size: 1000 # uncomment and increase if telegraf is not sending all data
+    #metric_buffer_size: 10000 # uncomment and increase if telegraf is not sending all data
     loki:
       url: 'http://armin.local.mathiasp.me:3100'
       #user: 'test' # optional if you have setup auth for loki
