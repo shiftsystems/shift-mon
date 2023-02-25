@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /opt/shift-mon
-podman images | grep -v REPOSITORY | awk '{print $1}' | uniq -u | xargs -L1 podman pull
+podman pull docker.io/grafana/grafana-oss:latest docker.io/grafana/loki:latest docker.io/victoriametrics/victoria-metrics:stable docker.io/louislam/uptime-kuma:1  docker.io/crowdsecurity/crowdsec:latest docker.io/fbonalair/traefik-crowdsec-bouncer:latest
 podman-compose up -d
 echo "y" | podman system prune
