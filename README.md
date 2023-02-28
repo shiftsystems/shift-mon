@@ -1,6 +1,9 @@
 # Shift Mon
 
-An open source monitoring and logging tool based on Telegraf, Victoriametrics, Loki, Grafana, and Uptime Kuma. It cares about everything you manage not just windows boxes.
+An open source monitoring and logging tool based on Telegraf, Victoriametrics, Loki, Grafana, and Uptime Kuma.
+
+![matrix room](https://img.shields.io/matrix/shiftsystems:matrix.org)
+
 
 ## Installation
 [Follow the intructions in the docs](docs/Install.md)
