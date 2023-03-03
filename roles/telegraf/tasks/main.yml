@@ -14,9 +14,9 @@
 
 - name: add repo for Debian based systems
   apt_repository:
-    repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release|lower }} stable"
+    repo: "deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable"
     state: present
-    update_cache: no
+    update_cache: false
   become: true
   when: ansible_facts['os_family'] == "Debian"
 
@@ -25,7 +25,7 @@
     name: influxdb
     description: influx db software
     baseurl: https://repos.influxdata.com/centos/{{ ansible_distribution_major_version }}/x86_64/stable/
-    gpgcheck: yes
+    gpgcheck: true
     gpgkey: https://repos.influxdata.com/influxdata-archive_compat.key
     state: present
   become: true
@@ -36,7 +36,7 @@
     name: influxdb
     description: influx db software
     baseurl: https://repos.influxdata.com/centos/9/x86_64/stable/
-    gpgcheck: no
+    gpgcheck: false
     gpgkey: https://repos.influxdata.com/influxdata-archive_compat.key
     state: present
   become: true

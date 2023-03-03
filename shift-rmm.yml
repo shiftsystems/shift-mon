@@ -1,18 +1,15 @@
 - hosts: all
   tasks:
-    - import_role:
-        name: telegraf
-    - import_role:
-        name: uptime-kuma
-    - import_role:
-        name: victoriametrics
-    - import_role:
-        name: loki
-    - import_role:
-        name: grafana
-    - import_role:
-        name: traefik
-    - import_role:
-        name: crowdsec
-    - import_role:
-        name: podman
+    - ansible.builtin.include_role:
+        name: "{{ role }}"
+      loop:
+        - telegraf
+        - uptime_kuma
+        - victoriametrics
+        - loki
+        - grafana
+        - traefik
+        - crowdsec
+        - podman
+      loop_control:
+        loop_var: role
