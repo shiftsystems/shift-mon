@@ -71,7 +71,7 @@
 
 - name: Download telegraf config
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/telegraf.conf"
+    src: "linux/telegraf.conf"
     dest: /etc/telegraf/telegraf.conf
   become: true
   notify: restart telegraf
@@ -81,7 +81,7 @@
 
 - name: Add Meshcentral Config if Meshcentral is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/mesh-central.conf"
+    src: "linux/mesh-central.conf"
     dest: /etc/telegraf/telegraf.d/mesh-central.conf
   become: true
   when: "'meshagent.service' in ansible_facts.services"
@@ -89,7 +89,7 @@
 
 - name: Add Crowdsec Config if Crowdsec is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/crowdsec.conf"
+    src: "linux/crowdsec.conf"
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
   become: true
   when: "'crowdsec.service' in ansible_facts.services"
@@ -97,7 +97,7 @@
 
 - name: Add Adguard Config if Adguard is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/adgaurd.conf"
+    src: "linux/adgaurd.conf"
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
   become: true
   when: "'AdGuardHome.service' in ansible_facts.services"
@@ -114,7 +114,7 @@
 
 - name: Add Caddy Config if Caddy is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/caddy.conf"
+    src: "linux/caddy.conf"
     dest: /etc/telegraf/telegraf.d/caddy.conf
   become: true
   when: "'caddy.service' in ansible_facts.services"
@@ -131,7 +131,7 @@
 
 - name: Add Nginx config When nginx is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/nginx.conf"
+    src: "linux/nginx.conf"
     dest: /etc/telegraf/telegraf.d/nginx.conf
   become: true
   when: "'nginx.service' in ansible_facts.services"
@@ -148,7 +148,7 @@
 
 - name: Deploy Docker config When Docker is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/docker.conf"
+    src: "linux/docker.conf"
     dest: /etc/telegraf/telegraf.d/docker.conf
   become: true
   when: "'docker.service' in ansible_facts.services"
@@ -156,7 +156,7 @@
 
 - name: Deploy Podman config When Podman service is present
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/podman.conf"
+    src: "linux/podman.conf"
     dest: /etc/telegraf/telegraf.d/podman.conf
   become: true
   when: "'podman.service' in ansible_facts.services"
@@ -164,7 +164,7 @@
 
 - name: Deploy Libvirt config When Libvirt service is present
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/libvirt.conf"
+    src: "linux/libvirt.conf"
     dest: /etc/telegraf/telegraf.d/libvirt.conf
   become: true
   when: "'libvirtd.service' in ansible_facts.services"
@@ -172,7 +172,7 @@
 
 - name: MySQL config when MySQL is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/mysql.conf"
+    src: "linux/mysql.conf"
     dest: /etc/telegraf/telegraf.d/mysql.conf
   become: true
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
@@ -180,7 +180,7 @@
 
 - name: Deploy Loki config when Loki is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/loki.conf"
+    src: "linux/loki.conf"
     dest: /etc/telegraf/telegraf.d/loki.conf
   become: true
   when: "'loki.service' in ansible_facts.services"
@@ -188,7 +188,7 @@
 
 - name: Deploy Victoriametrics config when Victoriametrics is installed
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/victoriametrics.conf"
+    src: "linux/victoriametrics.conf"
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
   become: true
   when: "'victoriametrics.service' in ansible_facts.services"
@@ -196,7 +196,7 @@
 
 - name: Deploy VSphere config when Vsphere Creds are Available
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/vsphere.conf"
+    src: "linux/vsphere.conf"
     dest: /etc/telegraf/telegraf.d/vsphere.conf
   become: true
   when: "'victoriametrics.service' in ansible_facts.services"
@@ -220,7 +220,7 @@
 
 - name: place rsyslog config is installed when syslog is enabled
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/50-telegraf.conf"
+    src: "linux/50-telegraf.conf"
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
   when: syslog is defined and syslog == "rsyslog"
@@ -236,7 +236,7 @@
 
 - name: add telegraf config for syslog
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/syslog.conf"
+    src: "linux/syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
   become: true
   when: syslog is defined 
@@ -244,7 +244,7 @@
 
 - name: add telegraf config for remote syslog
   copy:
-    src: "{{ playbook_dir }}/telegraf-configs/linux/remote-syslog.conf"
+    src: "linux/remote-syslog.conf"
     dest: /etc/telegraf/telegraf.d/remote-syslog.conf
   become: true
   when: remote_syslog is defined and remote_syslog
