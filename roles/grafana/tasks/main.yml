@@ -1,4 +1,4 @@
-- name: create grafana directories
+- name: Create Grafana directories
   ansible.builtin.file:
     state: directory
     path: '{{ item }}'
@@ -45,9 +45,9 @@
   become: true
   when: ldap_host is defined
 
-- name: add  grafana config to telegraf
+- name: Add Grafana config to telegraf
   ansible.builtin.template:
     src: grafana-docker.conf
     dest: /etc/telegraf/telegraf.d/grafana-docker.conf
   become: true
-  notify: restart telegraf
+  notify: Restart Telegraf

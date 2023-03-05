@@ -1,24 +1,24 @@
-- name: install packages
+- name: Install packages
   block:
-    - name: install packages for configuring traefik
+    - name: Install packages for configuring traefik
       ansible.builtin.package:
         name: python3-passlib
         state: latest
       become: true
   rescue:
-    - name: install pip
+    - name: Install pip
       ansible.builtin.package:
         name: python3-pip
         state: latest
       become: true
 
-    - name: install packages for configuring traefik from pip
+    - name: Install packages for configuring traefik from pip
       ansible.builtin.pip:
         name: passlib
         state: latest
       become: true
 
-- name: create traefik folders
+- name: Create Traefik folders
   ansible.builtin.file:
     path: '{{ item }}'
     state: directory
@@ -30,7 +30,7 @@
     - '/opt/shift-mon/traefik/certs'
     - '/opt/shift-mon'
 
-- name: generate http usernames and passwords
+- name: Generate http usernames and passwords
   community.general.htpasswd:
     path: /opt/shift-mon/traefik/htpasswd
     name: '{{ item.key }}'
@@ -39,70 +39,70 @@
   no_log: true
   with_dict: '{{ users }}'
 
-- name: copy traefik config
+- name: Copy Traefik config
   ansible.builtin.template:
     src: traefik.yml
     dest: /opt/shift-mon/traefik/traefik.yml
     mode: '770'
   become: true
 
-- name: copy grafana cert
+- name: Copy Grafana cert
   ansible.builtin.copy:
     src: '{{ grafana.cert_path }}'
     dest: '/opt/shift-mon/traefik/certs/grafana.crt'
   when: grafana.cert_path is defined
 
-- name: copy grafana key
+- name: Copy Grafana key
   ansible.builtin.copy:
     src: '{{ grafana.key_path }}'
     dest: '/opt/shift-mon/traefik/certs/grafana.key'
   when: grafana.key_path is defined
 
-- name: copy victoriametrics cert
+- name: Copy Victoriametrics cert
   ansible.builtin.copy:
     src: '{{ victoria.cert_path }}'
     dest: '/opt/shift-mon/traefik/certs/victoria.crt'
   when: victoria.cert_path is defined
 
-- name: copy victoriametrics key
+- name: Copy Victoriametrics key
   ansible.builtin.copy:
     src: '{{ victoria.key_path }}'
     dest: '/opt/shift-mon/traefik/certs/victoria.key'
   when: victoria.key_path is defined
 
-- name: copy loki cert
+- name: Copy Loki cert
   ansible.builtin.copy:
     src: '{{ loki.cert_path }}'
     dest: '/opt/shift-mon/traefik/certs/loki.crt'
   when: loki.cert_path is defined
 
-- name: copy loki key
+- name: Copy Loki key
   ansible.builtin.copy:
     src: '{{ loki.key_path }}'
     dest: '/opt/shift-mon/traefik/certs/loki.key'
   when: loki.key_path is defined
 
-- name: copy uptime-kuma cert
+- name: Copy Uptime-Kuma cert
   ansible.builtin.copy:
     src: '{{ uptimekuma.cert_path }}'
     dest: '/opt/shift-mon/traefik/certs/uptime-kuma.crt'
   when: loki.cert_path is defined
 
-- name: copy uptime-kuma key
+- name: Copy Uptime-Kuma key
   ansible.builtin.copy:
     src: '{{ uptimekuma.key_path }}'
     dest: '/opt/shift-mon/traefik/certs/uptime-kuma.key'
   when: loki.key_path is defined
 
-- name: add Traefik log config to telegraf
+- name: Add Traefik log config to telegraf
   ansible.builtin.copy:
     src: telegraf-traefik.conf
     dest: /etc/telegraf/telegraf.d/traefik.conf
   become: true
 
-- name: add logrotate config
+- name: Add logrotate config
   ansible.builtin.copy:
     src: logrotate-traefik.conf
     dest: /etc/logrotate.d/traefik.conf
   become: true
-  notify: restart telegraf
+  notify: Restart Telegraf

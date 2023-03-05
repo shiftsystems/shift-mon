@@ -10,20 +10,20 @@
     - crowdsec-db
     - crowdsec-log
 
-- name: copy crowdsec config
+- name: Copy Crowdsec config
   ansible.builtin.copy:
     src: config.yaml
     dest: config.yaml
   become: true
 
-- name: copy telegraf config
+- name: Copy Telegraf config
   ansible.builtin.copy:
     src: crowdsec-docker.conf
     dest: /etc/telegraf/telegraf.d/crowdsec-docker.conf
   become: true
-  notify: restart telegraf
+  notify: Restart Telegraf
 
-- name: copy acquis.yaml
+- name: Copy acquis.yaml
   ansible.builtin.template:
     src: acquis.yaml
     dest: /opt/shift-mon/crowdsec-config/acquis.yaml

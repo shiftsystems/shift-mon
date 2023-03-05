@@ -1,4 +1,4 @@
-- name: create loki folders
+- name: Create loki folders
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -8,7 +8,7 @@
   with_items:
     - /opt/shift-mon/
 
-- name: create loki folders
+- name: Create loki folders
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -22,15 +22,15 @@
     - /opt/shift-mon/loki-config
     - /opt/shift-mon/loki/rules-temp
 
-- name: copy loki configs
+- name: Copy loki configs
   ansible.builtin.template:
     src: loki-config.yml
     dest: /opt/shift-mon/loki-config/loki-config.yml
   become: true
 
-- name: add  loki config to telegraf
+- name: Add loki config to telegraf
   ansible.builtin.copy:
     src: loki-docker.conf
     dest: /etc/telegraf/telegraf.d/loki-docker.conf
   become: true
-  notify: restart telegraf
+  notify: Restart Telegraf

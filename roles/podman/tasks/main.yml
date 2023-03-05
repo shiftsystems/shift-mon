@@ -1,25 +1,25 @@
 - name: Install packages on RHEL based Systems
-  dnf:
+  ansible.builtin.dnf:
     name: '{{ redhat_packages }}'
     state: latest
   become: true
   when: ansible_facts['os_family'] == 'RedHat'
 
-- name: Install packages on debian based systems
+- name: Install packages on Debian based systems
   ansible.builtin.apt:
     name: '{{ debian_packages }}'
     state: latest
   become: true
   when: ansible_facts['os_family'] == 'Debian'
 
-- name: install podman compose on debian based systems
+- name: Install podman compose on Debian based systems
   ansible.builtin.pip:
     name: podman-compose
     state: latest
   become: true
   when: ansible_facts['os_family'] == 'Debian'
 
-- name: start and enable podman
+- name: Start and enable Podman
   ansible.builtin.systemd:
     name: podman
     state: started
@@ -27,7 +27,7 @@
   become: true
   when: ansible_facts['os_family'] == 'Redhat'
 
-- name: generate compose file
+- name: Generate compose file
   ansible.builtin.template:
     src: docker-compose.yml
     dest: /opt/shift-mon/docker-compose.yml
@@ -48,12 +48,12 @@
     dest: /etc/systemd/system/shift-mon.service
   become: true
 
-- name: reload systemd units
+- name: Reload Systemd units
   ansible.builtin.systemd:
     daemon-reload: true
   become: true
 
-- name: restart and enable shift-mon.service
+- name: Restart and enable shift-mon.service
   ansible.builtin.systemd:
     name: shift-mon.service
     enabled: true

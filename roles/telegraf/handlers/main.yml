@@ -1,4 +1,4 @@
-- name: restart telegraf
+- name: Restart Telegraf
   ansible.builtin.systemd:
     name: telegraf
     state: restarted
@@ -6,7 +6,7 @@
     enabled: true
   become: true
 
-- name: restart syslog
+- name: Restart Syslog
   ansible.builtin.systemd:
     name: rsyslog
     state: restarted
