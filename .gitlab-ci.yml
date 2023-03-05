@@ -17,6 +17,6 @@ kics-scan:
 
 ansible-lint:
   stage: ansible-lint
-  image: python:3-slim
+  image: registry.gitlab.com/pipeline-components/ansible-lint:latest
   script:
-    - pip install ansible ansible-lint && ansible-lint .
+    - ansible-lint .
