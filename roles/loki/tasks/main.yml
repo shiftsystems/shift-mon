@@ -1,5 +1,5 @@
 - name: create loki folders
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     mode: '770'
@@ -9,7 +9,7 @@
     - /opt/shift-mon/
 
 - name: create loki folders
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     mode: '770'
@@ -23,13 +23,13 @@
     - /opt/shift-mon/loki/rules-temp
 
 - name: copy loki configs
-  template:
+  ansible.builtin.template:
     src: loki-config.yml
     dest: /opt/shift-mon/loki-config/loki-config.yml
   become: true
 
 - name: add  loki config to telegraf
-  copy:
+  ansible.builtin.copy:
     src: loki-docker.conf
     dest: /etc/telegraf/telegraf.d/loki-docker.conf
   become: true

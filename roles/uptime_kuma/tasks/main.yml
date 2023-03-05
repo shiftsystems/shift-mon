@@ -1,5 +1,5 @@
 - name: Create uptime-kuma directory
-  file:
+  ansible.builtin.file:
     path: '{{ item }}'
     state: directory
     mode: '770'

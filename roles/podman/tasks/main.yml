@@ -6,21 +6,21 @@
   when: ansible_facts['os_family'] == 'RedHat'
 
 - name: Install packages on debian based systems
-  apt:
+  ansible.builtin.apt:
     name: '{{ debian_packages }}'
     state: latest
   become: true
   when: ansible_facts['os_family'] == 'Debian'
 
 - name: install podman compose on debian based systems
-  pip:
+  ansible.builtin.pip:
     name: podman-compose
     state: latest
   become: true
   when: ansible_facts['os_family'] == 'Debian'
 
 - name: start and enable podman
-  systemd:
+  ansible.builtin.systemd:
     name: podman
     state: started
     enabled: true
@@ -28,33 +28,33 @@
   when: ansible_facts['os_family'] == 'Redhat'
 
 - name: generate compose file
-  template:
+  ansible.builtin.template:
     src: docker-compose.yml
     dest: /opt/shift-mon/docker-compose.yml
 
 - name: Copy startup and shutdown scripts
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/opt/shift-mon/{{ item }}"
     mode: "770"
   become: true
   with_items:
-  - startup.bash
-  - shutdown.bash
+    - startup.bash
+    - shutdown.bash
 
 - name: Create Systemd unit file
-  copy:
+  ansible.builtin.copy:
     src: shift-mon.service
     dest: /etc/systemd/system/shift-mon.service
   become: true
 
 - name: reload systemd units
-  systemd:
+  ansible.builtin.systemd:
     daemon-reload: true
   become: true
 
 - name: restart and enable shift-mon.service
-  systemd:
+  ansible.builtin.systemd:
     name: shift-mon.service
     enabled: true
     state: restarted

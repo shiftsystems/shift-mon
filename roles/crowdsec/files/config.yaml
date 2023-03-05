@@ -1,7 +1,7 @@
 common:
   daemonize: false
   pid_dir: /var/run/
-  log_media: file 
+  log_media: file
   log_level: info
   log_dir: /var/log/
   working_dir: .
@@ -25,11 +25,6 @@ db_config:
   log_level: info
   type: sqlite
   db_path: /var/lib/crowdsec/data/crowdsec.db
-  #user: 
-  #password:
-  #db_name:
-  #host:
-  #port:
   flush:
     max_items: 5000
     max_age: 7d
@@ -46,10 +41,6 @@ api:
       - ::1
     online_client: # Central API credentials (to push signals and receive bad IPs)
       credentials_path: /etc/crowdsec/online_api_credentials.yaml
-    #credentials_path: /etc/crowdsec/online_api_credentials.yaml
-#    tls:
-#      cert_file: /etc/crowdsec/ssl/cert.pem
-#      key_file: /etc/crowdsec/ssl/key.pem
 prometheus:
   enabled: true
   level: full

@@ -1,5 +1,5 @@
 - name: create grafana directories
-  file:
+  ansible.builtin.file:
     state: directory
     path: '{{ item }}'
     mode: '770'
@@ -15,38 +15,38 @@
     - /opt/shift-mon/grafana
 
 - name: Copy dashboards
-  copy:
+  ansible.builtin.copy:
     src: dashboards
     dest: /opt/shift-mon/grafana
   become: true
 
 - name: Configure dashboards
-  copy:
+  ansible.builtin.copy:
     src: dashboards.yml
     dest: /opt/shift-mon/grafana-config/provisioning/dashboards/shift-dashboards.yml
   become: true
 
 - name: Configure Datasources
-  template:
+  ansible.builtin.template:
     src: datasources.yml
     dest: /opt/shift-mon/grafana-config/provisioning/datasources/shift-datasources.yml
   become: true
 
 - name: Copy Grafana config
-  template:
+  ansible.builtin.template:
     src: grafana.ini
     dest: /opt/shift-mon/grafana-config/grafana.ini
   become: true
 
 - name: Copy LDAP config
-  template:
+  ansible.builtin.template:
     src: ldap.toml
     dest: /opt/shift-mon/grafana-config/ldap.toml
   become: true
   when: ldap_host is defined
 
 - name: add  grafana config to telegraf
-  template:
+  ansible.builtin.template:
     src: grafana-docker.conf
     dest: /etc/telegraf/telegraf.d/grafana-docker.conf
   become: true

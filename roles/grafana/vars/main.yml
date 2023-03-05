@@ -1,6 +1,6 @@
 packages:
   - grafana
 
-plugins: 
+plugins:
   - grafana-worldmap-panel
   - grafana-piechart-panel

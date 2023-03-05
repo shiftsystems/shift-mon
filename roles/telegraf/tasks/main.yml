@@ -1,19 +1,19 @@
 - name: Make sure GPG is installed
-  apt:
+  ansible.builtin.apt:
     name: gpg
     state: present
   become: true
   when: ansible_facts['os_family'] == "Debian"
 
 - name: add GPG key for repo on Debian based systems
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://repos.influxdata.com/influxdata-archive_compat.key
     state: present
   become: true
-  when : ansible_facts['os_family'] == "Debian"
+  when: ansible_facts['os_family'] == "Debian"
 
 - name: add repo for Debian based systems
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable"
     state: present
     update_cache: false
@@ -21,7 +21,7 @@
   when: ansible_facts['os_family'] == "Debian"
 
 - name: add repo for Redhat based systems
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: influxdb
     description: influx db software
     baseurl: https://repos.influxdata.com/centos/{{ ansible_distribution_major_version }}/x86_64/stable/
@@ -32,7 +32,7 @@
   when: ansible_facts['os_family'] == "RedHat" and ansible_distribution != "Fedora"
 
 - name: add repo for Fedora
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: influxdb
     description: influx db software
     baseurl: https://repos.influxdata.com/centos/9/x86_64/stable/
@@ -43,7 +43,7 @@
   when: ansible_distribution == "Fedora"
 
 - name: install Telegraf on Debian based systems
-  apt:
+  ansible.builtin.apt:
     name: telegraf
     update_cache: true
     state: latest
@@ -52,7 +52,7 @@
   notify: restart telegraf
 
 - name: install Telegraf on Redhat based systems
-  dnf:
+  ansible.builtin.dnf:
     name: telegraf
     state: latest
   become: true
@@ -60,7 +60,7 @@
   notify: restart telegraf
 
 - name: add telegraf defaults file
-  template:
+  ansible.builtin.template:
     src: telegraf-defaults.j2
     dest: /etc/default/telegraf
     mode: "650"
@@ -70,17 +70,17 @@
   notify: restart telegraf
 
 - name: Download telegraf config
-  copy:
+  ansible.builtin.copy:
     src: "linux/telegraf.conf"
     dest: /etc/telegraf/telegraf.conf
   become: true
   notify: restart telegraf
 
 - name: Gather Systemd units
-  service_facts:
+  ansible.builtin.service_facts:
 
 - name: Add Meshcentral Config if Meshcentral is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/mesh-central.conf"
     dest: /etc/telegraf/telegraf.d/mesh-central.conf
   become: true
@@ -88,7 +88,7 @@
   notify: restart telegraf
 
 - name: Add Crowdsec Config if Crowdsec is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/crowdsec.conf"
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
   become: true
@@ -96,7 +96,7 @@
   notify: restart telegraf
 
 - name: Add Adguard Config if Adguard is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/adgaurd.conf"
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
   become: true
@@ -104,7 +104,7 @@
   notify: restart telegraf
 
 - name: Add telegraf to the nginx group on RedHat based systems
-  user: 
+  ansible.builtin.user:
     name: telegraf
     groups: root
     append: true
@@ -113,7 +113,7 @@
   notify: restart telegraf
 
 - name: Add Caddy Config if Caddy is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/caddy.conf"
     dest: /etc/telegraf/telegraf.d/caddy.conf
   become: true
@@ -121,7 +121,7 @@
   notify: restart telegraf
 
 - name: Add telegraf to the nginx group on Debian based systems
-  user:
+  ansible.builtin.user:
     name: telegraf
     groups: adm
     append: true
@@ -130,7 +130,7 @@
   notify: restart telegraf
 
 - name: Add Nginx config When nginx is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/nginx.conf"
     dest: /etc/telegraf/telegraf.d/nginx.conf
   become: true
@@ -138,7 +138,7 @@
   notify: restart telegraf
 
 - name: Add telegraf to docker group when docker is installed
-  user:
+  ansible.builtin.user:
     name: telegraf
     groups: docker
     append: true
@@ -147,7 +147,7 @@
   notify: restart telegraf
 
 - name: Deploy Docker config When Docker is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/docker.conf"
     dest: /etc/telegraf/telegraf.d/docker.conf
   become: true
@@ -155,7 +155,7 @@
   notify: restart telegraf
 
 - name: Deploy Podman config When Podman service is present
-  copy:
+  ansible.builtin.copy:
     src: "linux/podman.conf"
     dest: /etc/telegraf/telegraf.d/podman.conf
   become: true
@@ -163,7 +163,7 @@
   notify: restart telegraf
 
 - name: Deploy Libvirt config When Libvirt service is present
-  copy:
+  ansible.builtin.copy:
     src: "linux/libvirt.conf"
     dest: /etc/telegraf/telegraf.d/libvirt.conf
   become: true
@@ -171,7 +171,7 @@
   notify: restart telegraf
 
 - name: MySQL config when MySQL is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/mysql.conf"
     dest: /etc/telegraf/telegraf.d/mysql.conf
   become: true
@@ -179,7 +179,7 @@
   notify: restart telegraf
 
 - name: Deploy Loki config when Loki is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/loki.conf"
     dest: /etc/telegraf/telegraf.d/loki.conf
   become: true
@@ -187,7 +187,7 @@
   notify: restart telegraf
 
 - name: Deploy Victoriametrics config when Victoriametrics is installed
-  copy:
+  ansible.builtin.copy:
     src: "linux/victoriametrics.conf"
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
   become: true
@@ -195,23 +195,22 @@
   notify: restart telegraf
 
 - name: Deploy VSphere config when Vsphere Creds are Available
-  copy:
+  ansible.builtin.copy:
     src: "linux/vsphere.conf"
     dest: /etc/telegraf/telegraf.d/vsphere.conf
   become: true
-  when: "'victoriametrics.service' in ansible_facts.services"
   when: "vsphere is defined"
   notify: restart telegraf
 
 - name: Add telegraf to the MySQL group on Debian based systems
-  file:
+  ansible.builtin.file:
     path: '/tmp/stubby'
     state: absent
   when: "'mysql.service' in ansible_facts.services"
   notify: restart telegraf
 
 - name: install rsyslog
-  package:
+  ansible.builtin.package:
     name: rsyslog
     state: latest
   become: true
@@ -219,7 +218,7 @@
   notify: restart syslog
 
 - name: place rsyslog config is installed when syslog is enabled
-  copy:
+  ansible.builtin.copy:
     src: "linux/50-telegraf.conf"
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
@@ -227,7 +226,7 @@
   notify: restart syslog
 
 - name: start and enable rsyslog service
-  systemd:
+  ansible.builtin.systemd:
     name: rsyslog
     state: started
     enabled: true
@@ -235,15 +234,15 @@
   when: syslog is defined and syslog == "rsyslog"
 
 - name: add telegraf config for syslog
-  copy:
+  ansible.builtin.copy:
     src: "linux/syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
   become: true
-  when: syslog is defined 
+  when: syslog is defined
   notify: restart telegraf
 
 - name: add telegraf config for remote syslog
-  copy:
+  ansible.builtin.copy:
     src: "linux/remote-syslog.conf"
     dest: /etc/telegraf/telegraf.d/remote-syslog.conf
   become: true
@@ -266,14 +265,14 @@
   when: "remote_syslog is defined and remote_syslog and 'firewalld.service' in ansible_facts.services"
 
 - name: create telegraf override directory
-  file:
+  ansible.builtin.file:
     name: /etc/systemd/system/telegraf.service.d
     state: directory
   become: true
   when: telegraf_root is defined and telegraf_root
 
 - name: configure telegraf to run as root
-  copy:
+  ansible.builtin.copy:
     src: override.conf
     dest: /etc/systemd/system/telegraf.service.d/override.conf
   become: true
@@ -281,7 +280,7 @@
   notify: restart telegraf
 
 - name: Start and Enable Telegraf
-  systemd:
+  ansible.builtin.systemd:
     name: telegraf
     enabled: true
     state: started

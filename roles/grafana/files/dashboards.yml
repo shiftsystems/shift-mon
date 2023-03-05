@@ -5,4 +5,4 @@ providers:
     folder: shift-mon # The folder where to place the dashboards
     type: file
     options:
-      path:  /var/lib/grafana/dashboards
+      path: /var/lib/grafana/dashboards

@@ -6,20 +6,20 @@ providers:
 tls:
   certificates:
 {% if grafana.cert_path is defined and grafana.key_path is defined %}
-    - certFile: /etc/traefik/certs/grafana.crt
-      keyFile: /etc/traefik/certs/grafana.key
+    - certfile: /etc/traefik/certs/grafana.crt
+      keyfile: /etc/traefik/certs/grafana.key
 {% endif %}
 {% if victoria.cert_path is defined and victoria.key_path is defined %}
-    - certFile: /etc/traefik/certs/victoria.crt
-      keyFile: /etc/traefik/certs/victoria.key
+    - certfile: /etc/traefik/certs/victoria.crt
+      keyfile: /etc/traefik/certs/victoria.key
 {% endif %}
 {% if loki.cert_path is defined and loki.key_path is defined %}
-    - certFile: /etc/traefik/certs/loki.crt
-      keyFile: /etc/traefik/certs/loki.key
+    - certfile: /etc/traefik/certs/loki.crt
+      keyfile: /etc/traefik/certs/loki.key
 {% endif %}
 {% if uptimekuma.cert_path is defined and uptimekuma.key_path is defined %}
-    - certFile: /etc/traefik/certs/uptime-kuma.crt
-      keyFile: /etc/traefik/certs/uptime-kuma.key
+    - certfile: /etc/traefik/certs/uptime-kuma.crt
+      keyfile: /etc/traefik/certs/uptime-kuma.key
 {% endif %}
   options:
     default:
@@ -78,7 +78,7 @@ http:
   middlewares:
     basic-auth:
       basicAuth:
-        usersFile: "/etc/traefik/htpasswd"
+        usersfile: "/etc/traefik/htpasswd"
 {% if crowdsec_api_key is defined %}
     crowdsec-bouncer:
       forwardAuth:

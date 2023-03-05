@@ -1,5 +1,5 @@
 - name: Create victoriametrics directory
-  file:
+  ansible.builtin.file:
     path: '{{ item }}'
     state: directory
     mode: '770'
@@ -11,7 +11,7 @@
     - /opt/shift-mon/victoriametrics-storage
 
 - name: add  victoriametrics config to telegraf
-  copy:
+  ansible.builtin.copy:
     src: victoriametrics-docker.conf
     dest: /etc/telegraf/telegraf.d/victoriametrics-docker.conf
   become: true

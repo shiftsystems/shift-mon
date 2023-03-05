@@ -1,5 +1,5 @@
 - name: restart telegraf
-  systemd:
+  ansible.builtin.systemd:
     name: telegraf
     state: restarted
     daemon_reload: true
@@ -7,7 +7,7 @@
   become: true
 
 - name: restart syslog
-  systemd:
+  ansible.builtin.systemd:
     name: rsyslog
     state: restarted
     enabled: true

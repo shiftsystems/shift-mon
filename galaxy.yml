@@ -16,7 +16,7 @@ readme: README.md
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
 authors:
-- tiny <mathias@shiftsystems.com>
+  - tiny <mathias@shiftsystems.com>
 
 
 ### OPTIONAL but strongly recommended
@@ -26,11 +26,11 @@ description: Contains roles for deploying Telegraf, Grafana, Victoriametrics, Lo
 # Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
 # accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'
 license:
-- Apache-2.0
+  - Apache-2.0
 
 # The path to the license file for the collection. This path is relative to the root of the collection. This key is
 # mutually exclusive with 'license'
-#license_file: 'LICENSE'
+# license_ansible.builtin.file: 'LICENSE'
 
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
