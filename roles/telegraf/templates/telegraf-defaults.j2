@@ -32,15 +32,12 @@ flush_interval="{{ flush_interval }}"
 {% else %}
 flush_interval="10s"
 {% endif %}
-{% if vsphere.url is defined %}
-flush_interval="{{ vsphere.url }}"
+{% if vsphere_urls is defined and vsphere_enabled is defined and vsphere_enabled %}
+vsphere_urls="{{ vsphere_urls }}"
 {% endif %}
-{% if vsphere.urls is defined %}
-vsphere_urls="{{ vsphere.urls }}"
-{% endif %}
-{% if vsphere.username is defined %}
+{% if vsphere.username is defined and vsphere_enabled is defined and vsphere_enabled %}
 vsphere_username="{{ vsphere.username }}"
 {% endif %}
-{% if vsphere.password is defined %}
+{% if vsphere.password and vsphere_enabled is defined and vsphere_enabled %}
 vsphere_password="{{ vsphere.password }}"
 {% endif %}

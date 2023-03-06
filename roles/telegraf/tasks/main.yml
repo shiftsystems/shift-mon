@@ -199,7 +199,7 @@
     src: "linux/vsphere.conf"
     dest: /etc/telegraf/telegraf.d/vsphere.conf
   become: true
-  when: "vsphere is defined"
+  when: "vsphere_enabled is defined and vsphere_enabled"
   notify: Restart Telegraf
 
 - name: Add telegraf to the MySQL group on Debian based systems
