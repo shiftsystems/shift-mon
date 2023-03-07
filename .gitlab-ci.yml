@@ -28,4 +28,4 @@ galaxy-publish:
   script:
     - ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-${VERSION}.tar.gz --token $GALAXY_API_KEY
   variables:
-    VERSION: 'grep "version: " galaxy.yml | sed "s:.*\ ::"'
+    VERSION: '$(grep "version: " galaxy.yml | sed "s:.*\ ::")'
