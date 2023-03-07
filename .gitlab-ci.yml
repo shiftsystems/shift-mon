@@ -26,6 +26,6 @@ galaxy-publish:
   stage: galaxy-publish
   image: quay.io/pulp/galaxy-minimal:latest
   script:
-    - ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-${VERSION}.tar.gz --token ${GALAXY_API_KEY}
+    - ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-${VERSION}.tar.gz --token $GALAXY_API_KEY
   variables:
     VERSION: 'grep "version: " galaxy.yml | sed "s:.*\ ::"'
