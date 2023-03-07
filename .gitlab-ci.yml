@@ -26,4 +26,6 @@ galaxy-publish:
   stage: galaxy-publish
   image: registry.gitlab.com/pipeline-components/ansible-galaxy:latest
   script:
-    - version=`grep version: galaxy.yml | sed 's:.*\ ::'` && ansible-galaxy collection build --force --token ${GALAXY_API_KEY} && ansible-galaxy collection publish shiftsytsems-shift_mon-${version}.tar.gz --token ${GALAXY_API_KEY}
+    - ansible-galaxy collection build --force --token ${GALAXY_API_KEY} && ansible-galaxy collection publish shiftsytsems-shift_mon-${version}.tar.gz --token ${GALAXY_API_KEY}
+  environment:
+    version: "$(grep version: galaxy.yml | sed 's:.*\ ::')"
