@@ -24,7 +24,7 @@ ansible-lint:
 
 galaxy-publish:
   stage: galaxy-publish
-  image: registry.gitlab.com/pipeline-components/ansible-galaxy:latest
+  image: quay.io/pulp/galaxy-minimal:latest
   script:
     - ansible-galaxy collection build --force --token ${GALAXY_API_KEY} && ansible-galaxy collection publish shiftsystems-shift_mon-${VERSION}.tar.gz --token ${GALAXY_API_KEY}
   variables:
