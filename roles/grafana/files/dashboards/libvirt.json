@@ -399,8 +399,7 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "percent"
+          }
         },
         "overrides": []
       },
@@ -497,13 +496,13 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "(100 - mem_used_percent{host=\"zeke.local.shiftsystems.net\"}) * mem_total{host=\"zeke.local.shiftsystems.net\"} / 100",
+          "expr": "(100 - mem_used_percent{host=\"$hypervisor\"}) * mem_total{host=\"$hypervisor\"} / 100",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Free Memory",
+      "title": "Host Free Memory",
       "type": "stat"
     },
     {
