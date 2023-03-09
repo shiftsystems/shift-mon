@@ -399,7 +399,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -502,7 +503,7 @@
           "refId": "A"
         }
       ],
-      "title": "Host Free Memory",
+      "title": "Host Memory Available",
       "type": "stat"
     },
     {
