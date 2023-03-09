@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 18,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -115,7 +114,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -250,11 +249,11 @@
             "lastNotNull"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "showUnfilled": true
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -262,9 +261,9 @@
             "uid": "P53E94FA6B1E28789"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__interval])) by (country)",
+          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__range])) by (country)",
           "legendFormat": "{{asn}}",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -313,11 +312,11 @@
             "lastNotNull"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "showUnfilled": true
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -327,7 +326,7 @@
           "editorMode": "code",
           "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__interval])) by (asn) > 3",
           "legendFormat": "{{asn}}",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -347,7 +346,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -376,6 +377,7 @@
       "id": 5,
       "options": {
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -385,7 +387,7 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -441,16 +443,19 @@
       "type": "table"
     }
   ],
-  "schemaVersion": 37,
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "wordpress-ubuntu-s-1vcpu-1gb-amd-nyc1-01",
-          "value": "wordpress-ubuntu-s-1vcpu-1gb-amd-nyc1-01"
+          "text": "None",
+          "value": ""
         },
         "datasource": {
           "type": "loki",
@@ -496,6 +501,6 @@
   "timezone": "",
   "title": "Crowdsec dev",
   "uid": "j4KEK3L7k",
-  "version": 6,
+  "version": 2,
   "weekStart": ""
 }
