@@ -1189,8 +1189,8 @@
       {
         "current": {
           "selected": false,
-          "text": "vcenter-ovhdev",
-          "value": "vcenter-ovhdev"
+          "text": "vsphere",
+          "value": "vsphere"
         },
         "datasource": {
           "type": "prometheus",
