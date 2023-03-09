@@ -334,7 +334,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 5,
+        "w": 6,
         "x": 0,
         "y": 3
       },
@@ -399,14 +399,15 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 6,
         "w": 3,
-        "x": 5,
+        "x": 6,
         "y": 3
       },
       "id": 2,
@@ -452,6 +453,8 @@
             "mode": "thresholds"
           },
           "mappings": [],
+          "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -467,14 +470,14 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 3,
-        "x": 8,
+        "w": 2,
+        "x": 9,
         "y": 3
       },
       "id": 19,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -484,7 +487,6 @@
           "fields": "",
           "values": false
         },
-        "text": {},
         "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
@@ -495,13 +497,13 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "mem_total{host=\"$hypervisor\"} - mem_used{host=\"$hypervisor\"}",
+          "expr": "(100 - mem_used_percent{host=\"zeke.local.shiftsystems.net\"}) * mem_total{host=\"zeke.local.shiftsystems.net\"} / 100",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Host Available Memory",
+      "title": "Free Memory",
       "type": "stat"
     },
     {
