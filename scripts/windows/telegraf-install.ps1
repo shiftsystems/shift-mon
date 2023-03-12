@@ -52,3 +52,4 @@ if (!(Get-Service telegraf)) {
 }
 
 Set-Service -Name telegraf -Status Running -StartupType Automatic
+Restart-Service telegraf
