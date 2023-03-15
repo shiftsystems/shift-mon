@@ -171,15 +171,17 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
+          "editorMode": "code",
           "expr": "sum(count_over_time({__name=\"syslog\"}[1m]))",
           "legendFormat": "",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -233,7 +235,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -297,7 +299,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -359,7 +361,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -423,7 +425,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -487,7 +489,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -598,8 +600,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
+        "type": "loki",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -637,10 +639,10 @@
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "sum"
+            "lastNotNull"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "tooltip": {
           "mode": "single",
@@ -651,10 +653,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
+            "type": "loki",
+            "uid": "${logs}"
           },
-          "panelId": 8,
+          "editorMode": "code",
+          "expr": "sum(count_over_time({hostname=\"$host\",__name=\"syslog\"}[$__range])) by (appname) ",
+          "legendFormat": "{{ appname }}",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -708,7 +713,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -772,7 +777,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -791,8 +796,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
+        "type": "loki",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -833,7 +838,7 @@
             "sum"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "tooltip": {
           "mode": "single",
@@ -844,10 +849,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
+            "type": "loki",
+            "uid": "${logs}"
           },
-          "panelId": 6,
+          "editorMode": "code",
+          "expr": "sum(count_over_time({__name=\"syslog\"}[$__range])) by (appname) ",
+          "legendFormat": "{{ appname }}",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -891,7 +899,8 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -932,9 +941,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "host1",
-          "value": "host1"
+          "selected": false,
+          "text": "erwin",
+          "value": "erwin"
         },
         "datasource": {
           "type": "loki",
@@ -986,6 +995,6 @@
   "timezone": "",
   "title": "syslog",
   "uid": "ILt16Sb7k",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

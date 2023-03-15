@@ -20,12 +20,12 @@ ansible-lint:
   stage: ansible-lint
   image: registry.gitlab.com/pipeline-components/ansible-lint:latest
   script:
-    echo "hello" #- ansible-lint .
+    - ansible-lint .
 
 galaxy-publish:
   stage: galaxy-publish
   image: quay.io/pulp/galaxy-minimal:latest
   script:
-    - ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-${VERSION}.tar.gz --token $GALAXY_API_KEY
-  variables:
-    VERSION: 'grep "version: " galaxy.yml | sed "s:.*\ ::"'
+    - 'ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-$(grep "version: " galaxy.yml | sed "s:.*\ ::").tar.gz --token $GALAXY_API_KEY'
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
