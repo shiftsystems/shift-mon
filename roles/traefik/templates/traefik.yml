@@ -137,15 +137,33 @@ http:
       loadBalancer:
         servers:
           - url: http://grafana:3000
+        healthCheck:
+          path: /
+          interval: "10s"
+          timeout: "5s"
     loki:
       loadBalancer:
         servers:
           - url: http://loki:3100
+        healthCheck:
+          path: /ready
+          interval: "10s"
+          timeout: "5s"
+
     victoriametrics:
       loadBalancer:
         servers:
           - url: http://victoriametrics:8428
+        healthCheck:
+          path: /health
+          interval: "10s"
+          timeout: "5s"
+
     uptime-kuma:
       loadBalancer:
         servers:
           - url: http://uptime-kuma:3001
+        healthCheck:
+          path: /
+          interval: "10s"
+          timeout: "5s"
