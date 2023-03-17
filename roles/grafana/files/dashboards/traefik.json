@@ -376,8 +376,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 24,
+        "h": 10,
+        "w": 19,
         "x": 0,
         "y": 6
       },
@@ -415,6 +415,84 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 5,
+        "x": 19,
+        "y": 6
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "traefik.service.server.up_value{host=\"$host\"}",
+          "legendFormat": "{{url}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Origin Health",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 23,
+      "panels": [],
+      "title": "Client Info",
+      "type": "row"
+    },
+    {
+      "datasource": {
         "type": "loki",
         "uid": "${logs}"
       },
@@ -438,7 +516,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 15
+        "y": 17
       },
       "id": 2,
       "options": {
@@ -507,7 +585,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 15
+        "y": 17
       },
       "id": 3,
       "options": {
@@ -577,7 +655,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 15
+        "y": 17
       },
       "id": 7,
       "options": {
@@ -682,7 +760,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 25
       },
       "id": 5,
       "options": {
@@ -774,7 +852,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 23
+        "y": 25
       },
       "id": 6,
       "options": {
@@ -817,7 +895,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 35
       },
       "id": 9,
       "options": {
@@ -854,7 +932,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 35
       },
       "id": 10,
       "options": {
@@ -960,6 +1038,6 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "UZdtIsRVz",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
