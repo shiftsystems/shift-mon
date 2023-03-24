@@ -78,7 +78,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -145,7 +145,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -393,6 +393,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -407,7 +408,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -446,10 +448,12 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_blkio_io_service_bytes_recursive_total{host=\"$host\"} / 1000000",
+          "expr": "docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"} + docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"}",
           "interval": "",
           "legendFormat": "{{container_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -652,6 +656,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -696,40 +701,12 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "mailcowdockerized_php-fpm-mailcow_1"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 9,
@@ -740,9 +717,13 @@
       "id": 13,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -755,10 +736,12 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_blkio_io_service_bytes_recursive_total{host=\"$host\"}) / 1000000",
+          "expr": "rate(docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"} + docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"})",
           "interval": "",
           "legendFormat": "{{container_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1136,9 +1119,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "armin.local.shiftsystems.net",
-          "value": "armin.local.shiftsystems.net"
+          "selected": true,
+          "text": "eren.local.shiftsystems.net",
+          "value": "eren.local.shiftsystems.net"
         },
         "datasource": {
           "type": "prometheus",
@@ -1170,6 +1153,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
