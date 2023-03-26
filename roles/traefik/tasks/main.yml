@@ -94,6 +94,18 @@
     dest: '/opt/shift-mon/traefik/certs/uptime-kuma.key'
   when: loki.key_path is defined
 
+- name: Copy Oncall cert
+  ansible.builtin.copy:
+    src: '{{ oncall.cert_path }}'
+    dest: '/opt/shift-mon/traefik/certs/oncall.crt'
+  when: oncall.cert_path is defined
+
+- name: Copy Oncall key
+  ansible.builtin.copy:
+    src: '{{ oncall.key_path }}'
+    dest: '/opt/shift-mon/traefik/certs/oncall.key'
+  when: oncall.key_path is defined
+
 - name: Add Traefik log config to telegraf
   ansible.builtin.copy:
     src: telegraf-traefik.conf

@@ -43,7 +43,7 @@ name = "{{ ldap_first_name }}"
 surname = "{{ ldap_last_name }}"
 username = "{{ ldap_user }}"
 member_of = "{{ member_of }}"
-email =  "{{ ldap_user }}"
+email =  "{{ ldap_email }}"
 
 {% if admin_group is defined %}
 # Map ldap groups to grafana org roles

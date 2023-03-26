@@ -21,6 +21,10 @@ tls:
     - certfile: /etc/traefik/certs/uptime-kuma.crt
       keyfile: /etc/traefik/certs/uptime-kuma.key
 {% endif %}
+{% if oncall.cert_path is defined and oncall.key_path is defined %}
+    - certfile: /etc/traefik/certs/oncall.crt
+      keyfile: /etc/traefik/certs/oncall.key
+{% endif %}
   options:
     default:
       minVersion: VersionTLS12
@@ -86,6 +90,7 @@ http:
         trustForwardHeader: true
 {% endif %}
   routers:
+{% if uptime_kuma_enabled is not defined or uptime_kuma_enabled %}
     uptime-kuma:
       rule: Host(`{{ uptimekuma.domain }}`)
       tls:
@@ -97,6 +102,7 @@ http:
 {% endif %}
       entryPoints:
         - websecure
+{% endif %}
     grafana:
       rule: Host(`{{ grafana.domain }}`)
       tls:
@@ -132,6 +138,19 @@ http:
 {% endif %}
       entryPoints:
         - websecure
+{% if oncall_enabled is defined and oncall_enabled %}
+    oncall:
+      rule: Host(`{{ oncall.domain }}`)
+      tls:
+        certResolver: dynamicResolver
+      service: oncall
+{% if crowdsec_api_key is defined %}
+      middlewares:
+        - crowdsec-bouncer
+{% endif %}
+      entryPoints:
+        - websecure
+{% endif %}
   services:
     grafana:
       loadBalancer:
@@ -158,7 +177,7 @@ http:
           path: /health
           interval: "10s"
           timeout: "5s"
-
+{% if uptime_kuma_enabled is not defined or uptime_kuma_enabled %}
     uptime-kuma:
       loadBalancer:
         servers:
@@ -167,3 +186,14 @@ http:
           path: /
           interval: "10s"
           timeout: "5s"
+{% endif %}
+{% if oncall_enabled is defined and oncall_enabled %}
+    oncall:
+      loadBalancer:
+        servers:
+          - url: http://engine:8080
+        healthCheck:
+          path: /
+          interval: "10s"
+          timeout: "5s"
+{% endif %}

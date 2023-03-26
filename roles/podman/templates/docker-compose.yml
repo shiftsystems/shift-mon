@@ -1,4 +1,82 @@
+{% if oncall_enabled is defined and oncall_enabled %}
+x-environment: &oncall-environment
+  DATABASE_TYPE: sqlite3
+  BROKER_TYPE: redis
+  BASE_URL: "https://{{ oncall.domain }}"
+  SECRET_KEY: "{{ oncall.secret }}"
+  REDIS_URI: redis://redis:6379/0
+  DJANGO_SETTINGS_MODULE: settings.hobby
+  CELERY_WORKER_QUEUE: "default,critical,long,slack,telegram,webhook,retry,celery"
+  CELERY_WORKER_CONCURRENCY: "1"
+  CELERY_WORKER_MAX_TASKS_PER_CHILD: "100"
+  CELERY_WORKER_SHUTDOWN_INTERVAL: "65m"
+  CELERY_WORKER_BEAT_ENABLED: "True"
+  GRAFANA_API_URL: http://grafana:3000
+
 services:
+  engine:
+    image: docker.io/grafana/oncall
+    restart: always
+    ports:
+      - "8080:8080"
+    command: >
+      sh -c "uwsgi --ini uwsgi.ini"
+    environment: *oncall-environment
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/oncall
+        target: /var/lib/oncall
+    depends_on:
+      oncall_db_migration:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+
+  celery:
+    image: docker.io/grafana/oncall
+    restart: always
+    command: sh -c "./celery_with_exporter.sh"
+    environment: *oncall-environment
+    volumes:
+      - /opt/shift-mon/oncall:/var/lib/oncall
+    depends_on:
+      oncall_db_migration:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+
+  oncall_db_migration:
+    image: docker.io/grafana/oncall
+    command: python manage.py migrate --noinput
+    environment: *oncall-environment
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/oncall
+        target: /var/lib/oncall
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: docker.io/redis:latest
+    restart: always
+    expose:
+      - 6379
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/redis
+        target: /data
+    deploy:
+      resources:
+        limits:
+          memory: 500m
+          cpus: "0.5"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      timeout: 5s
+      interval: 5s
+      retries: 10
+{% endif %}
   grafana:
     image: docker.io/grafana/grafana-oss:latest
     restart: unless-stopped
@@ -9,6 +87,10 @@ services:
       - type: bind
         source: /opt/shift-mon/grafana
         target: /var/lib/grafana
+{% if oncall_enabled is defined and oncall_enabled %}
+    environment:
+      GF_INSTALL_PLUGINS: grafana-oncall-app
+{% endif %}
   loki:
     image: docker.io/grafana/loki:latest
     restart: unless-stopped
@@ -36,6 +118,7 @@ services:
     ports:
       - 8428:8428
 {% endif %}
+{% if uptime_kuma_enabled is not defined or uptime_kuma_enabled %}
   uptime-kuma:
     image: docker.io/louislam/uptime-kuma:1
     restart: always
@@ -43,6 +126,7 @@ services:
       - type: bind
         source: /opt/shift-mon/uptime-kuma
         target: /app/data
+{% endif %}
   crowdsec:
     image: docker.io/crowdsecurity/crowdsec:latest
     restart: always
