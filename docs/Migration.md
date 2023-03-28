@@ -5,11 +5,13 @@ Migrating Victoriametrics data can be done at any time using vmctl, but loki and
 ## Victoriametrics
 This needs run after the new server is deployed
 
-1. login to your old server and ```cd /opt/victoriametrics```
-2. run the following command with your particulars filled out 
+1. Download the latest version of vmutils from [their github](https://github.com/VictoriaMetrics/VictoriaMetrics/releases) and extract the archive
+2. cd into the folder created by extracting the archive
+3. run the following command with your particulars filled out
 ```
-./vmctl-prod vm-native --vm-native-src-addr=http://localhost:8428 --vm-native-dst-addr=https://<telegraf_user>:<telegraf_password>@<metrics_url> --vm-native-filter-match='{db="linux"}' --vm-native-filter-time-start='2020-01-01T20:07:00Z'
+./vmctl-prod vm-native --vm-native-src-user <old_user> --vm-native-src-password <old_password> --vm-native-src-addr=https://<old_metrics_url> --vm-native-src-user <new_user> --vm-native-src-password <new_password> --vm-native-dst-addr=https://<metrics_url> --vm-native-filter-match='{db="linux"}' --vm-native-filter-time-start='2020-01-01T20:07:00Z'
 ```
+4. replace linux in the above command with each database or replace it a valid promql label filter.
 
 ## Loki
 This needs done before Deploying the new instance of Shift-mon. This will overwrite or courrupt loki if you already have it configured
