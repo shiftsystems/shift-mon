@@ -2,12 +2,12 @@
 * Ubuntu 22.04
 * A Redhat 8 or 9 based distro (Alma, Rocky)
 * The Current version of Fedora
-* 4 subdomains to point at the at the server
+* 4 subdomains to point at the server
 * As of Debian 11 there is not a good way of install podman >4.0
 
 ## Installation
 
-### Setup Ansible on your machine 
+### Setup Ansible on your machine
 
 ### Ubuntu
 1. ```sudo add-apt-repository ppa:ansible/ansible sudo apt update && sudo apt install ansible git python3-apt software-properties-common```
@@ -92,9 +92,9 @@ I will explain what each of the values means.
 ### User dictionary this is required
 * users is a dictonary of users and passwords for http basic auth for loki and victoriametrics that also gets pushed out to telegraf
 
-### TLS this is section is for SSL/TLS and the only rquired value is TLS email all other values are for certs that don't use letsencrypt with HTTP verification
+### This section is for SSL/TLS and the only required value is an email address all other values are for certs that don't use letsencrypt with HTTP verification
 * tls.email: email address to use for sending letsencrypt certificates
-* providers is the list of DNS providers that traefik can use to obtain certs via DNS verification and it is optional by default traefik will attempt to use http verification. See the [Traefik Docs](https://doc.traefik.io/traefik/https/acme/#providers) for what to list for auth values and the provider
+* providers the list of DNS providers that traefik can use to obtain certs via DNS verification, this is optional. By default traefik will attempt to use http verification. See the [Traefik Docs](https://doc.traefik.io/traefik/https/acme/#providers) for provider specific information
 * acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
 
 ### Run the Playbook for the First Time and Updating
