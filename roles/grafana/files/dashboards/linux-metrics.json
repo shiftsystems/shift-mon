@@ -29,6 +29,198 @@
   "panels": [
     {
       "datasource": {
+        "uid": "${metrics}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"linux\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Mean CPU %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "uid": "${metrics}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 3,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "mem_used_percent{db=\"linux\",host=\"$host\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Mean Memory %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 2,
+        "x": 7,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_n_cpus{host=\"$host\",db=\"linux\"}",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
         "type": "prometheus",
         "uid": "${metrics}"
       },
@@ -52,9 +244,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 3,
-        "x": 0,
+        "h": 5,
+        "w": 2,
+        "x": 9,
         "y": 0
       },
       "id": 24,
@@ -73,7 +265,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -118,12 +310,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 3,
-        "x": 3,
+        "h": 5,
+        "w": 5,
+        "x": 11,
         "y": 0
       },
-      "id": 22,
+      "id": 20,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -139,28 +331,35 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "exemplar": true,
-          "expr": "system_n_cpus{host=\"$host\",db=\"linux\"}",
-          "instant": true,
+          "expr": "(system_uptime{host=\"$host\",db=\"linux\"}) / 86400",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "CPU Count",
+      "title": "uptime in days",
       "type": "stat"
     },
     {
       "datasource": {
-        "uid": "${metrics}"
+        "type": "loki",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -180,17 +379,469 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
+        "h": 5,
         "w": 4,
-        "x": 6,
+        "x": 16,
         "y": 0
       },
-      "id": 20,
+      "id": 35,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": false
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "{__name=\"exec_os_release\",host=\"$host\"} | logfmt | pattern `NAME=<OS>` | pattern `Version=<Version>`",
+          "queryType": "range",
+          "refId": "A",
+          "resolution": 1
+        }
+      ],
+      "title": "OS Version",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "Line (allValues)": true,
+              "OS": true,
+              "Time": true,
+              "__name": true,
+              "host": true,
+              "id": true,
+              "labels": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "Line": 4,
+              "NAME": 0,
+              "OS": 9,
+              "Time": 3,
+              "VERSION": 1,
+              "__name": 7,
+              "host": 8,
+              "id": 6,
+              "labels": 2,
+              "tsNs": 5
+            },
+            "renameByName": {}
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "mode": "seriesToRows",
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 27,
+      "options": {
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "systemd_units_active_code{db=\"linux\",host=\"$host\",active=\"failed\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Failed Services",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "mode": "reduceFields",
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        },
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "active": true,
+              "active_code": true,
+              "db": true,
+              "eren": true,
+              "erwin": true,
+              "host": true,
+              "id": true,
+              "load": true,
+              "load_code": true,
+              "sasha.local.mathiasp.me": true,
+              "sub": true,
+              "sub_code": true
+            },
+            "indexByName": {
+              "active": 1,
+              "active_code": 3,
+              "id": 8,
+              "load": 4,
+              "load_code": 5,
+              "name": 0,
+              "sasha.local.mathiasp.me": 7,
+              "sub": 6,
+              "sub_code": 2
+            },
+            "renameByName": {}
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 0,
+        "y": 5
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "min",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"linux\"}",
+          "interval": "",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Percent",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 7,
+        "y": 5
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "mem_used_percent{db=\"linux\",host=\"$host\"}",
+          "interval": "",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Memory Percent",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 13,
+        "y": 5
+      },
+      "id": 6,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -198,21 +849,27 @@
           "fields": "",
           "values": false
         },
-        "text": {},
-        "textMode": "auto"
+        "showUnfilled": true,
+        "text": {}
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "(system_uptime{host=\"$host\",db=\"linux\"}) / 86400",
+          "expr": "disk_used_percent{host=\"$host\",db=\"linux\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{path}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "uptime in days",
-      "type": "stat"
+      "title": "Disk Used %",
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -239,10 +896,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 10,
-        "x": 10,
-        "y": 0
+        "h": 5,
+        "w": 3,
+        "x": 21,
+        "y": 5
       },
       "id": 26,
       "options": {
@@ -260,7 +917,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -292,67 +949,7 @@
     },
     {
       "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 0
-      },
-      "id": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_load1{host=\"$host\",db=\"linux\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Load 1",
-      "type": "stat"
-    },
-    {
-      "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "description": "",
@@ -362,7 +959,6 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "max": 100,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -370,370 +966,52 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 2
+        "h": 5,
+        "w": 3,
+        "x": 21,
+        "y": 10
       },
-      "id": 2,
+      "id": 38,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "mean"
           ],
           "fields": "",
           "values": false
         },
-        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"linux\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Percent",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 7,
-        "x": 6,
-        "y": 2
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "mem_used_percent{db=\"linux\",host=\"$host\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Percent Memory",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 7,
-        "x": 13,
-        "y": 2
-      },
-      "id": 6,
-      "options": {
-        "displayMode": "gradient",
-        "minVizHeight": 10,
-        "minVizWidth": 0,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "text": {}
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "disk_used_percent{host=\"$host\",db=\"linux\"}",
-          "interval": "",
-          "legendFormat": "{{path}}",
-          "refId": "A"
-        }
-      ],
-      "title": "disk usage",
-      "type": "bargauge"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 4
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_load15{host=\"$host\",db=\"linux\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Load 15",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 8
-      },
-      "id": 35,
-      "options": {
-        "footer": {
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": false
-      },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
           },
           "editorMode": "code",
-          "expr": "{__name=\"exec_os_release\",host=\"$host\"} | logfmt",
-          "queryType": "range",
-          "refId": "A",
-          "resolution": 1
+          "exemplar": true,
+          "expr": "disk_free{host=\"$host\",db=\"linux\"}",
+          "interval": "",
+          "legendFormat": "{{path}}",
+          "range": true,
+          "refId": "A"
         }
       ],
-      "title": "OS Version",
-      "transformations": [
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "Line": {
-                "aggregations": [
-                  "allValues"
-                ],
-                "operation": "aggregate"
-              },
-              "Time": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "labels": {
-                "aggregations": []
-              },
-              "tsNs": {
-                "aggregations": []
-              }
-            }
-          }
-        },
-        {
-          "id": "extractFields",
-          "options": {
-            "format": "kvp",
-            "source": "Line (allValues)"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line (allValues)": true,
-              "Time": true
-            },
-            "indexByName": {},
-            "renameByName": {}
-          }
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "mode": "seriesToRows",
-            "reducers": [
-              "lastNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Field": true
-            },
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
+      "title": "Disk Available",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -795,9 +1073,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 10,
+        "w": 7,
         "x": 0,
-        "y": 9
+        "y": 15
       },
       "id": 8,
       "options": {
@@ -893,9 +1171,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 10,
-        "x": 10,
-        "y": 9
+        "w": 8,
+        "x": 7,
+        "y": 15
       },
       "id": 10,
       "options": {
@@ -933,17 +1211,44 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -952,107 +1257,95 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 12
+        "h": 7,
+        "w": 9,
+        "x": 15,
+        "y": 15
       },
-      "id": 27,
+      "id": 31,
       "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max",
+            "mean"
           ],
-          "show": false
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "showHeader": false
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "systemd_units_active_code{db=\"linux\",host=\"$host\",active=\"failed\"}",
+          "expr": "increase(diskio_read_bytes{host=\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=\"$host\",db=\"linux\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{name}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Failed Services",
-      "transformations": [
+      "title": "DiskIO",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P53E94FA6B1E28789"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 14,
+        "x": 0,
+        "y": 22
+      },
+      "id": 33,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
         {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "mode": "reduceFields",
-            "reducers": [
-              "lastNotNull"
-            ]
-          }
-        },
-        {
-          "id": "labelsToFields",
-          "options": {}
-        },
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "active": true,
-              "active_code": true,
-              "db": true,
-              "eren": true,
-              "erwin": true,
-              "host": true,
-              "id": true,
-              "load": true,
-              "load_code": true,
-              "sasha.local.mathiasp.me": true,
-              "sub": true,
-              "sub_code": true
-            },
-            "indexByName": {
-              "active": 1,
-              "active_code": 3,
-              "id": 8,
-              "load": 4,
-              "load_code": 5,
-              "name": 0,
-              "sasha.local.mathiasp.me": 7,
-              "sub": 6,
-              "sub_code": 2
-            },
-            "renameByName": {}
-          }
-        },
-        {
-          "id": "sortBy",
-          "options": {
-            "fields": {},
-            "sort": [
-              {
-                "field": "name"
-              }
-            ]
-          }
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "editorMode": "code",
+          "expr": "{severity=~\"crit|err|warning\",hostname=\"$host\"}",
+          "queryType": "range",
+          "refId": "A"
         }
       ],
-      "type": "table"
+      "title": "syslog warning and higher",
+      "transformations": [],
+      "type": "logs"
     },
     {
       "datasource": {
@@ -1065,7 +1358,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1086,14 +1381,15 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 12,
         "w": 10,
-        "x": 0,
-        "y": 16
+        "x": 14,
+        "y": 22
       },
       "id": 14,
       "options": {
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -1102,7 +1398,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "exemplar": true,
@@ -1207,215 +1503,20 @@
         }
       ],
       "type": "table"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 10,
-        "x": 10,
-        "y": 16
-      },
-      "id": 29,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.1.0",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "cs_bucket_overflowed_total{host=\"$host\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Crowdsec detections",
-      "transformations": [],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 20,
-        "y": 16
-      },
-      "id": 31,
-      "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "MBytes Read"
-          }
-        ]
-      },
-      "pluginVersion": "9.3.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "increase(diskio_read_bytes{host=\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=\"$host\",db=\"linux\"})",
-          "interval": "",
-          "legendFormat": "{{name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "DiskIO",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "lastNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Field": "Volume",
-              "Last *": "MBytes Read"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 23
-      },
-      "id": 33,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "8.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
-          },
-          "editorMode": "code",
-          "expr": "{severity=~\"crit|err|warning\",hostname=\"$host\"}",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "syslog warning and higher",
-      "transformations": [],
-      "type": "logs"
     }
   ],
   "refresh": "",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "armin.local.shiftsystems.net",
-          "value": "armin.local.shiftsystems.net"
+          "selected": true,
+          "text": "zeke.local.shiftsystems.net",
+          "value": "zeke.local.shiftsystems.net"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1482,6 +1583,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
