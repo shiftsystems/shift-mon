@@ -215,7 +215,7 @@
     state: latest
   become: true
   when: syslog is defined and syslog == "rsyslog"
-  notify: restart syslog
+  notify: Restart Syslog
 
 - name: Place Rsyslog config is installed when syslog is enabled
   ansible.builtin.copy:
@@ -223,7 +223,7 @@
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
   when: syslog is defined and syslog == "rsyslog"
-  notify: restart syslog
+  notify: Restart Syslog
 
 - name: Start and enable Rsyslog service
   ansible.builtin.systemd:
