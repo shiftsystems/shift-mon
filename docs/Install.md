@@ -3,7 +3,7 @@
 * A Redhat 8 or 9 based distro (Alma, Rocky)
 * The Current version of Fedora
 * 4 subdomains to point at the server
-* As of Debian 11 there is not a good way of install podman >4.0
+* As of Debian 11 there is not a good way of installing podman >4.0
 
 ## Installation
 
@@ -21,101 +21,146 @@
 ### Prepping Ubuntu Targets
 You will need to run the following commands on a debian machine before running ansible. Since python3, python3-apt, and gpg are not included in some minimal installs
 ```sudo apt install python3 python3-apt gpg```
-### Clone the Repo
-Clone the repo by running the following command ```git clone https://gitlab.com/shiftsystems/shift-rmm.git && cd shift-rmm```
 
-### Move your inventory somewhere else and fill it out
-Please make sure you have DNS A and/or AAAA records for the domains you want Victoriametrics, Loki, Uptime Kuma, and Grafana to respond to. 
+### Setup Inventory
+1. Make folder in your home directory for shift-mon and the inventory files `mkdir -p ~/shifton/inventories` or create a `.yml` or `.yaml` file called `shift-mon.yml` in your existing repository.
+2. Add the following to `~/shift-mon/inventories/shift-mon.yml`
+```
+all:
+  hosts:
+    server.local.example.com:
+  vars:
+    ansible_remote_tmp: /tmp
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    ansible_python_interpreter: /usr/bin/python3
+    grafana:
+      domain: grafana.local.example.com
+      #cert_path: "{{ playbook_dir }}/files/grafana.crt" # optional use if you want to use your own cert for Uptime-Kuma
+      #key_path: "{{ playbook_dir }}/files/grafana.key" # optional use if you want to use your own cert for Uptime-Kuma
+    uptimekuma:
+      domain: uptime-kuma.local.example.com
+      #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt" # optional use if you want to use your own cert for Grafana
+      #key_path: "{{ playbook_dir }}/files/uptime-kuma.key" # optional use if you want to use your own cert for Grafana
+      
+    tls:
+      email: 'you@example.com'
+  
+# These variables are optional please uncomment to use them.
 
-To prevent conflicts in the future, I recommend copying the Ansible inventory outside of the git repo. I copy mine to the parent folder of the repo by running ```cp inventory ../```
+    #syslog: rsyslog # set to rsyslog to install and configure rsyslog and the config for telegraf. set to false or comment out to not touch syslog
+    #remote_syslog: true #set to true to setup an RFC5424 syslog server on UDP port 6666
+    #crowdsec_api_key: 'GET_IT_FROM_CROWDSEC'
 
-Next, Fill out the inventory by running ```nano ../inventory```.
-**DO NOT EDIT THE INVENTORY IN THE REPO THIS WILL CAUSE PROBELEMS LATER**
-I will explain what each of the values means.
-* The hosts section requires you have one host where software will be installed. 
+# Required for LDAP
+    #ldap_host: 'ldap.example.com'
+    #ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+    #bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=local,dc=example,dc=com'
+    #base_dn: 'dc=local,dc=shiftsystems,dc=net'
+    #user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
+    #ldap_first_name: 'givenName'
+    #member_of: 'memberOf'
+    #ldap_last_name: 'sn'
+    #ldap_user: 'uid'
+    #ldap_email: 'mail'
+    #admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+```
 
-### This section is for ldap and only needs populated if you wish to use ldap
-* ldap_host: hostname of the ldap server to this is optional
-* ldap_port: port to use for ldap communication usually 389 for plaintext(please don't use plain text ldap) or starttls or 636 for ssl/tls
-* bind_dn: bind user string for ldap auth
-* base_dn: base domain ldap string
-* bind_password: password for the ldap_bind account
-* admin_group: ldap string for users who should be grafana admins
-* editor_group: ldap string for users who should be grafana admins
-* viewer_group: ldap string for users who should be grafana admins
+
+3. Create a edit shift-mon.yml with the following Template.
+If don't have a secretes manager can place the variables in quotes however this is insecure since secrets to various services are in plain text.
+
+```
+- hosts: all
+  tasks:
+    - name: Set Telegraf Secrets
+      ansible.builtin.set_fact:
+        oncall_enabled: true
+        oncall:
+          secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
+          domain: "oncall.local.example.com"
+          #key_path: "{{ playbook_dir }}/files/oncall.key"
+          #cert_path: "{{ playbook_dir }}/files/oncall.crt"
+        #bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
+        loki:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: 'https://logs.local.example.com'
+          domain: logs.local.example.com
+          retention_period: 90d
+          #cert_path: "{{ playbook_dir }}/files/loki.crt" # optional use if you want to use your own cert for Loki
+          #key_path: "{{ playbook_dir }}/files/loki.key" # optional use if you want to use your own cert for Loki
+        victoria:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: 'https://metrics.local.example.com'
+          retention_period: 90d
+          domain: metrics.local.example.com
+          #cert_path: "{{ playbook_dir }}/files/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
+          #key_path: "{{ playbook_dir }}/files/victoria.key" # optional use if you want to use your own cert for Victoriametrics
+          #insecure: true # set to true if you need insecure access to Victoriametrics for things that cannot handle SSL or self signed certs
+        email:
+          #enabled: true # uncomment and set to true to allow grafana to send email set to false or uncomment to ignore. 
+          host: 'mail.example.com'
+          alert_from_address: 'alerts@example.com'
+          user: 'alerts@example.com'
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          alert_from_name: 'Shiftmon Alerts'
+          port: '587'
+        users: # dictionary of users and their password
+          telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
+
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.telegraf
+        public: true
+    - name: Deploy Uptime-Kuma
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.uptime_kuma
+        public: true
+    - name: Deploy Victoriametrics
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.victoriametrics
+        public: true
+    - name: Deploy Loki
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.loki
+        public: true
+    - name: Deploy Grafana
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.grafana
+        public: true
+    - name: Deploy Traefik
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.traefik
+        public: true
+    - name: Deploy Crowdsec
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.crowdsec
+        public: true
+    - name: Deploy Podman
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.podman
+        public: true
+```
+
+4. Deploy or update Shift-mon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i inventories/shift-mon.yml shift-mon.yml --ask-become-pass` from `~/shift-mon`
 
 
-### syslog
-* syslog: weather or not to configure telegraf to listen for syslog RFC5424 messages on udp port 6666
-  * set to rsyslog if you want rsyslog installed configured to forward to telegraf 
-  * set it to anything besides rsyslog if you plan to configure log forwarding to udp://localhost:6666 yourself.
-  * comment out if you don't want syslog messages forwarded.
-
-* remote_syslog weather or not to listen to remote syslog RFC5424 on udp port 6666 for things like forwarding syslog from a firewall.
-
-### Crowdsec api_key
-* crowdsec_api_key crowdsec api for use with the crowdsec traefik bouncer. This can be obtained after installing shift-mon, execing into the containe and generating the apikey. 
-
-### Specific info for each of the services 
-* loki:
-  * url: url that telegraf should send logs to
-  * domain: Fully qualified domain name (fqdn) for the loki server
-  * retention_period: how long to store data before deletion use d for day and y for years
-  * cert_path:  absolute path to SSL certificate for loki should be pem encoded this is optional
-  * key_path:  absolute path to SSL key for loki should be pem encoded this is optional
-* victoria:
-  * url: url that telegraf should send metrics to
-  * domain: Fully qualified domain name (fqdn) for the victoriametrics server
-  * retention_period: how long to store data before deletion use d for day and y for years
-  * cert_path:  absolute path to SSL certificate for victoriametrics should be pem encoded this is optional
-  * key_path:  absolute path to SSL key for victoriametrics should be pem encoded this is optional
-  * insecure: weather or not to expose plain http metrics for victoriametrics outside of the container this is for things like proxmox that can be picky about basic auth and SSL please avoid using if possible
-* grafana
-  * domain: Fully qualified domain name of the grafana server
-  * cert_path:  absolute path to SSL certificate for loki should be pem encoded this is optional
-  * key_path:  absolute path to SSL key for loki should be pem encoded this is optional
-* uptimekuma
-  * domain: Fully qualified domain of the uptime kuma server
-  * cert_path:  absolute path to SSL certificate for loki should be pem encoded this is optional
-  * key_path:  absolute path to SSL key for loki should be pem encoded this is optional
-
-### Email this is optional
-* email
-  * enabled: weather or not grafana should be configured for SMTP/E-mail alerts
-  * host: hostname of the mails server
-  * alert_from_address: email address Grafana should be sent from
-  * alert_from_name: Name Grafana should display for email alerts
-  * user (optional): username for the SMTP account on your mail server
-  * password (optional):  password for the SMTP account on your mail server
-  * port: port that your mailserver is using
-
-### User dictionary this is required
-* users is a dictonary of users and passwords for http basic auth for loki and victoriametrics that also gets pushed out to telegraf
-
-### This section is for SSL/TLS and the only required value is an email address all other values are for certs that don't use letsencrypt with HTTP verification
-* tls.email: email address to use for sending letsencrypt certificates
-* providers the list of DNS providers that traefik can use to obtain certs via DNS verification, this is optional. By default traefik will attempt to use http verification. See the [Traefik Docs](https://doc.traefik.io/traefik/https/acme/#providers) for provider specific information
-* acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
-
-### Run the Playbook for the First Time and Updating
-while in the shift-rmm directory, run the following command:
-```ansible-playbook shift-rmm.yml -i ../inventory --ask-become-pass```
-to update
-
-### Setup the Admin User for Grafana
+5. Setup the Admin User for Grafana
 First, navigate to the URL you defined for Grafana and click get started.
 Then fill out your username and password. You should do this even if you have ldap enabled to avoid someone creating the admin account on your behalf.
 
 
-### Upload and Tweak Scripts 
-You should be able to find various scripts in the Scripts folder that you can upload to your MeshCentral server and push out to agents on an ad hoc or scheduled basis. To upload a script, copy the script and click on a node where the MeshAgent is installed click on plugins then click on new. Name the script and give it the correct file extension. Then paste in the script and hit save. Right now there are some issues with this plugin. You might have to edit the script and paste it in and hit save multiple times. 
+### Deploying Telegraf. 
+For Linux Devices Please use the ansible roles. There is a shell script but it does not do nearly as much as the Ansible Role. For other Operating systems, you will find various scripts in the Scripts folder that you can upload to your RMM and push out telegraf on an ad hoc or scheduled basis.
+
+
+### [Pushing Telegraf to Linux hosts via Ansible or shell script](docs/Telegraf/Linux.md)
 
 
 ### [Pushing Telegraf to Windows and Linux Endpoints via MeshCentral](docs/Telegraf/Windows.md)
 This should a be a similar workflow to most RMMs. upload the scripts, change your particulars, and yeet it on to your endpoints
-
-
-### [Pushing Telegraf to Linux hosts via Ansible or shell script](docs/Telegraf/Linux.md)
 
 
 ## Installing Telegraf on Other Devices

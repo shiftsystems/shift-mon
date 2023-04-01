@@ -1,15 +1,18 @@
 # Linux Install
-Currently on Linux We recomend using our Ansible role, but there is also a shell script availble if you are not able to use ansible.
+Currently on Linux We recommend using our Ansible role, but there is also a shell script available if you are not able to use ansible.
 Currently we support Debian 10 or newer, Ubuntu 18.04 and newer, Fedora, and Redhat based distributions.
-The ansible role will detect if the following systemd services exist and will deploy telegraf configs for the services listed below.
-* mysql
-* nginx
-* php-fpm
-* crowdsec
-* meshcentral
-* adgaurd home
-* docker
-* syslog (requires ```syslog: true``` in ansible variables)
+The Ansible role will detect if the following systemd services exist and will deploy telegraf configs for the services listed below.
+* MySQL
+* Nginx
+* PHP-FPM
+* Crowdsec
+* Meshcentral
+* Adgaurdhome
+* Docker
+* Podman
+* Syslog (requires ```syslog: true``` in ansible variables)
+* Caddy
+* Libvirt
 
 There is no support for this in the bash script but we take pull requests.
 The configs can be added manually by adding one of the configs in the [telegraf configs folder](../../telegraf-configs/linux) in ```/etc/telegraf/telegraf.d/```
@@ -45,45 +48,49 @@ you will need the following lines under vars
 
 ```
 
-You will also want to keep hosts or IP addressesone per line with a colon at the end. As shown in the example belwo
+You will also want to keep hosts or IP addresses one per line with a colon at the end. As shown in the example below.
+Some hosts will have specific variables like `metric_batch_size` for hosts collecting large numbers of metrics.
+Set `telegraf_root: true` if telegraf needs root privilege or don't want to deal with permissions issues.
+By default Telegraf runs as the Telegraf User.
+an example inventory will look like this and should be placed in `~/shift-mon/hosts.yml` or your existing Ansible Inventory
 
 ```
 hosts:
   zoe:
+    metric_batch_size: 10000
+    metric_buffer_limit: 100000
   eren:
-  erwin:
+    telegraf_root: true
   10.0.0.2:
+```
+Edit `~/shift-mon/telegraf.yml` to look like this or make a `telegraf.yml` in your existing automation repo.
+Similar to the shift-mon role you can edit the lookups to be plain text values or can be populated from your secrets manager, but this is insecure since secrets are being stored in plain text.
 
 ```
-an example inventory will look like this 
+- hosts: all
+  tasks:
+    - name: Set Telegraf Secrets
+      ansible.builtin.set_fact:
+        loki:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: 'https://logs.local.shiftsystems.net'
+        victoria:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: 'https://metrics.local.shiftsystems.net'
 
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.telegraf
+        public: true
 ```
-all:
-  hosts:
-    zoe:
-    eren:
-    erwin:
-  vars:
-    #set to true if you want telegraf to forward syslog to loki this will install rsyslog and telegraf will listen on tcp port 6667
-    syslog: false 
-    loki:
-      url: 'http://armin.local.mathiasp.me:3100'
-      #user: 'test' # optional if you have setup auth for loki
-      #password: 'test' # optional if you have setup auth for loki
-    victoria:
-      url: 'http://armin.local.mathiasp.me:8428'
-      #user: 'test' # optional if you have auth setup for victoriametrics
-      #password: 'test' # optional if you have auth setup for victoriametrics
 
-```
-### Cloning the repo and running the ansible role
-next clone the repo by running the following command ``` git clone https://gitlab.com/shiftsystems/shift-rmm.git ```.
-Before deploy the role make sure you are in the shift-rmm repo, and you have run ```git pull`` so you are running the latest version of the role. 
-To deploy the role using the default inventory run ```ansible-playbook telegraf.yml --ask-become-pass``` you will prompted for you sudo password for the those machines.
-If you are using separate sudo passwords on each machine then you can use the -l <hostname> to run it on a single host. If you are logging on to the server with a different user use the -u <username> flag. Ex ```ansible-playbook -l zoe -u tom telegraf.yml --ask-become-pass```
-If you are running into issues with SSH and ansible follow [the Ansible docs](https://docs.ansible.com/ansible/latest/user_guide/connection_details.html)
+Once your Inventory is setup deploy Telegraf by running `ansible-galaxy collection install --force shiftsystems.shift_mon && ansible-playbook -i shift-mon/hosts.yml telegraf.yml --ask-become-pass` from `~/shift-mon`.
 
-## Bash Script
+If you are using your own automation repo you will need to modify the `ansible-playbook` command.
+
+## Bash Script please don't use unless you have to.
 The Bash script assumes that wget is installed, curl is installed, you are running it as root or as sudo with root permissions, and you can access gitlab.com. You can upload the script from [here](https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/linux/telegraf-install.bash) to meshcentral and push it from meshcentral or download the script run ```wget https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/linux/telegraf-install.bash```. Next you have to edit the following variables in the first few lines of the script to match your settings
 ```
 VICTORIA_URL="https://metrics.example.com"
