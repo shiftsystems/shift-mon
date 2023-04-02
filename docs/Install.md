@@ -29,10 +29,10 @@ You will need to run the following commands on a debian machine before running a
 ```yaml
 all:
   hosts:
-    childen:
-      shiftmon_servers:
-        hosts:
-          server.local.example.com:
+  childen:
+    shiftmon_servers:
+      hosts:
+        server.local.example.com:
 ```
 
 
