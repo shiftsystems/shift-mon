@@ -25,7 +25,7 @@ You will need to run the following commands on a debian machine before running a
 ### Setup Inventory
 1. Make folder in your home directory for shift-mon and the inventory files `mkdir -p ~/shifton/inventories` or create a `.yml` or `.yaml` file called `shift-mon.yml` in your existing repository.
 2. Add the following to `~/shift-mon/inventories/shift-mon.yml`
-```
+```yaml
 all:
   hosts:
     server.local.example.com:
@@ -69,7 +69,7 @@ all:
 3. Create a edit shift-mon.yml with the following Template.
 If don't have a secretes manager can place the variables in quotes however this is insecure since secrets to various services are in plain text.
 
-```
+```yaml
 - hosts: all
   tasks:
     - name: Set Telegraf Secrets
