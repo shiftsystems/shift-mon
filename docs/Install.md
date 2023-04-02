@@ -11,66 +11,34 @@
 
 ### Ubuntu
 1. ```sudo add-apt-repository ppa:ansible/ansible sudo apt update && sudo apt install ansible git python3-apt software-properties-common```
-2. ```ansible-galaxy collection install community.general ansible.posix```
 
 
 ### RedHat and RedHat Derivitaves
 1. ```sudo dnf install epel-release```
-2. ```sudo dnf install ansible git ansible-collection-community-general ansible-collection-ansible-posix```
+2. ```sudo dnf install ansible git ansible```
+
 
 ### Prepping Ubuntu Targets
 You will need to run the following commands on a debian machine before running ansible. Since python3, python3-apt, and gpg are not included in some minimal installs
 ```sudo apt install python3 python3-apt gpg```
 
 ### Setup Inventory
-1. Make folder in your home directory for shift-mon and the inventory files `mkdir -p ~/shifton/inventories` or create a `.yml` or `.yaml` file called `shift-mon.yml` in your existing repository.
-2. Add the following to `~/shift-mon/inventories/shift-mon.yml`
-```
+1. Make folder in your home directory for shift-mon and the inventory files `mkdir -p ~/shiftmon` or create a `.yml` or `.yaml` file called `shift-inventory.yml` in your existing repository.
+2. Add the following to `~/shift-mon/shift-inventory.yml`
+
+```yaml
 all:
   hosts:
-    server.local.example.com:
-  vars:
-    ansible_remote_tmp: /tmp
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-    ansible_python_interpreter: /usr/bin/python3
-    grafana:
-      domain: grafana.local.example.com
-      #cert_path: "{{ playbook_dir }}/files/grafana.crt" # optional use if you want to use your own cert for Uptime-Kuma
-      #key_path: "{{ playbook_dir }}/files/grafana.key" # optional use if you want to use your own cert for Uptime-Kuma
-    uptimekuma:
-      domain: uptime-kuma.local.example.com
-      #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt" # optional use if you want to use your own cert for Grafana
-      #key_path: "{{ playbook_dir }}/files/uptime-kuma.key" # optional use if you want to use your own cert for Grafana
-      
-    tls:
-      email: 'you@example.com'
-  
-# These variables are optional please uncomment to use them.
-
-    #syslog: rsyslog # set to rsyslog to install and configure rsyslog and the config for telegraf. set to false or comment out to not touch syslog
-    #remote_syslog: true #set to true to setup an RFC5424 syslog server on UDP port 6666
-    #crowdsec_api_key: 'GET_IT_FROM_CROWDSEC'
-
-# Required for LDAP
-    #ldap_host: 'ldap.example.com'
-    #ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
-    #bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=local,dc=example,dc=com'
-    #base_dn: 'dc=local,dc=shiftsystems,dc=net'
-    #user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
-    #ldap_first_name: 'givenName'
-    #member_of: 'memberOf'
-    #ldap_last_name: 'sn'
-    #ldap_user: 'uid'
-    #ldap_email: 'mail'
-    #admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+    shiftmon_servers:
+      server.local.example.com:
 ```
 
 
-3. Create a edit shift-mon.yml with the following Template.
+3. Create a edit shift-mon.yml with the following Template
 If don't have a secretes manager can place the variables in quotes however this is insecure since secrets to various services are in plain text.
 
-```
-- hosts: all
+```yaml
+- hosts: shiftmon_servers
   tasks:
     - name: Set Telegraf Secrets
       ansible.builtin.set_fact:
@@ -109,6 +77,39 @@ If don't have a secretes manager can place the variables in quotes however this 
         users: # dictionary of users and their password
           telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
+        ansible_remote_tmp: /tmp
+        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+        grafana:
+          domain: grafana.local.example.com
+          #cert_path: "{{ playbook_dir }}/files/grafana.crt" # optional use if you want to use your own cert for Uptime-Kuma
+          #key_path: "{{ playbook_dir }}/files/grafana.key" # optional use if you want to use your own cert for Uptime-Kuma
+        uptime_kuma_enabled: true
+        uptimekuma:
+          domain: uptime-kuma.local.example.com
+          #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt" # optional use if you want to use your own cert for Grafana
+          #key_path: "{{ playbook_dir }}/files/uptime-kuma.key" # optional use if you want to use your own cert for Grafana
+          
+        tls:
+          email: 'you@example.com'
+      
+    # These variables are optional please uncomment to use them.
+
+        #syslog: rsyslog # set to rsyslog to install and configure rsyslog and the config for telegraf. set to false or comment out to not touch syslog
+        #remote_syslog: true #set to true to setup an RFC5424 syslog server on UDP port 6666
+        #crowdsec_api_key: 'GET_IT_FROM_CROWDSEC'
+
+    # Required for LDAP
+        #ldap_host: 'ldap.example.com'
+        #ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+        #bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=local,dc=example,dc=com'
+        #base_dn: 'dc=local,dc=shiftsystems,dc=net'
+        #user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
+        #ldap_first_name: 'givenName'
+        #member_of: 'memberOf'
+        #ldap_last_name: 'sn'
+        #ldap_user: 'uid'
+        #ldap_email: 'mail'
+        #admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
 
     - name: Deploy Telegraf
       ansible.builtin.include_role:
@@ -144,7 +145,7 @@ If don't have a secretes manager can place the variables in quotes however this 
         public: true
 ```
 
-4. Deploy or update Shift-mon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i inventories/shift-mon.yml shift-mon.yml --ask-become-pass` from `~/shift-mon`
+4. Deploy or update Shift-mon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i shift-inventory.yml shift-mon.yml --ask-become-pass` from `~/shift-mon`
 
 
 5. Setup the Admin User for Grafana
