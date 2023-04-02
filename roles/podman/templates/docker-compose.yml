@@ -12,8 +12,9 @@ x-environment: &oncall-environment
   CELERY_WORKER_SHUTDOWN_INTERVAL: "65m"
   CELERY_WORKER_BEAT_ENABLED: "True"
   GRAFANA_API_URL: http://grafana:3000
-
+{% endif %}
 services:
+{% if oncall_enabled is defined and oncall_enabled %}
   engine:
     image: docker.io/grafana/oncall
     restart: always
