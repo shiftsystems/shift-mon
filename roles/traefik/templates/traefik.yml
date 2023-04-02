@@ -62,10 +62,6 @@ certificatesResolvers:
         provider: '{{ dns.provider }}'
         delayBeforeCheck: 0
 {% endif %}
-api:
-  dashboard: true
-  insecure: true
-  debug: true
 accessLog:
   filePath: '/etc/traefik/access.json'
   format: json
