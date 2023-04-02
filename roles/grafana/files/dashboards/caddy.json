@@ -844,7 +844,7 @@
       "type": "stat"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -852,146 +852,147 @@
         "y": 23
       },
       "id": 17,
-      "panels": [
+      "panels": [],
+      "title": "Geoip",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Loki}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 10,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "blur": 17,
+              "radius": 21,
+              "weight": {
+                "field": "ts (count)",
+                "fixed": 1,
+                "max": 1,
+                "min": 0
+              }
+            },
+            "location": {
+              "lookup": "request_headers_Cf-Ipcountry_0",
+              "mode": "lookup"
+            },
+            "name": "Layer 1",
+            "opacity": 1,
+            "tooltip": true,
+            "type": "heatmap"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "zero",
+          "lat": 0,
+          "lon": 0,
+          "zoom": 1
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${Loki}"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 14,
-            "w": 24,
-            "x": 0,
-            "y": 28
-          },
-          "id": 10,
-          "options": {
-            "basemap": {
-              "config": {},
-              "name": "Layer 0",
-              "type": "default"
-            },
-            "controls": {
-              "mouseWheelZoom": true,
-              "showAttribution": true,
-              "showDebug": false,
-              "showMeasure": false,
-              "showScale": false,
-              "showZoom": true
-            },
-            "layers": [
-              {
-                "config": {
-                  "blur": 15,
-                  "radius": 5,
-                  "weight": {
-                    "fixed": 1,
-                    "max": 1,
-                    "min": 0
-                  }
-                },
-                "location": {
-                  "lookup": "request_headers_Cf-Ipcountry_0",
-                  "mode": "lookup"
-                },
-                "name": "Layer 1",
-                "tooltip": true,
-                "type": "heatmap"
-              }
-            ],
-            "tooltip": {
-              "mode": "details"
-            },
-            "view": {
-              "allLayers": true,
-              "id": "zero",
-              "lat": 0,
-              "lon": 0,
-              "zoom": 1
-            }
-          },
-          "pluginVersion": "9.4.7",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "${Loki}"
-              },
-              "editorMode": "code",
-              "expr": "{path=~\"$path\"}",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "GeoIP",
-          "transformations": [
-            {
-              "id": "extractFields",
-              "options": {
-                "source": "Line"
-              }
-            },
-            {
-              "id": "groupBy",
-              "options": {
-                "fields": {
-                  "request_headers_Cf-Ipcountry_0": {
-                    "aggregations": [],
-                    "operation": "groupby"
-                  },
-                  "request_remote_ip": {
-                    "aggregations": []
-                  },
-                  "request_uri": {
-                    "aggregations": []
-                  },
-                  "status": {
-                    "aggregations": []
-                  },
-                  "ts": {
-                    "aggregations": [
-                      "count"
-                    ],
-                    "operation": "aggregate"
-                  }
-                }
-              }
-            }
-          ],
-          "type": "geomap"
+          "editorMode": "code",
+          "expr": "{path=~\"$path\"}",
+          "queryType": "range",
+          "refId": "A"
         }
       ],
-      "title": "Geoip",
-      "type": "row"
+      "title": "GeoIP",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "Line"
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "request_headers_Cf-Ipcountry_0": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "request_remote_ip": {
+                "aggregations": []
+              },
+              "request_uri": {
+                "aggregations": []
+              },
+              "status": {
+                "aggregations": []
+              },
+              "ts": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "geomap"
     }
   ],
   "refresh": "",
@@ -1037,7 +1038,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "/var/log/caddy/matrix.log",
           "value": "/var/log/caddy/matrix.log"
         },
@@ -1065,7 +1066,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "rose.local.shiftsystems.net",
           "value": "rose.local.shiftsystems.net"
         },
@@ -1099,6 +1100,6 @@
   "timezone": "",
   "title": "Caddy",
   "uid": "kmrQlud4k",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }
