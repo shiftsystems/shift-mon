@@ -51,7 +51,7 @@
         name: shiftsystems.shift_mon.telegraf
         public: true
 
-- hosts: shiftmon_server
+- hosts: shiftmon_servers
   tasks:
     - name: Deploy Telegraf
       ansible.builtin.include_role:
