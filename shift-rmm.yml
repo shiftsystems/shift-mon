@@ -8,7 +8,13 @@
           domain: "{{ lookup('env', 'ONCALL_DOMAIN') }}"
           #key_path: "{{ playbook_dir }}/files/oncall.key"
           #cert_path: "{{ playbook_dir }}/files/oncall.crt"
-        #bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
+        bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
+        grafana:
+          domain: "{{ lookup('env', 'GRAFANA_DOMAIN') }}"
+        uptimekuma:
+          domain: "{{ lookup('env', 'UPTIMEKUMA_DOMAIN') }}"
+        tls:
+          email: "{{ lookup('env', 'TLS_EMAIL') }}"
         loki:
           user: telegraf
           password: "{{ lookup('env', 'LOKI_PASSWORD') }}"
@@ -38,6 +44,15 @@
           telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           #fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
 
+- hosts: telegraf
+  tasks:
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.telegraf
+        public: true
+
+- hosts: shiftmon_server
+  tasks:
     - name: Deploy Telegraf
       ansible.builtin.include_role:
         name: shiftsystems.shift_mon.telegraf
@@ -70,3 +85,9 @@
       ansible.builtin.include_role:
         name: shiftsystems.shift_mon.podman
         public: true
+      when: container_engine == 'podman'
+    - name: Deploy Docker
+      ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.docker
+        public: true
+      when: container_engine == 'docker'
