@@ -53,10 +53,6 @@
 
 - hosts: shiftmon_servers
   tasks:
-    - name: Deploy Telegraf
-      ansible.builtin.include_role:
-        name: telegraf
-        public: true
     - name: Deploy Uptime-Kuma
       ansible.builtin.include_role:
         name: uptime_kuma
@@ -91,3 +87,7 @@
         name: docker
         public: true
       when: container_engine == 'docker'
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: telegraf
+        public: true
