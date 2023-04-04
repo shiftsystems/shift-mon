@@ -28,41 +28,8 @@ Ansible can be installed by following [the Ansible documentation](https://docs.a
 * Edits config files in /etc/telegraf/
 * Can install syslog if ```syslog: true``` is an ansible variable
 
-### Setting up your inventory
-You will need the following in your Ansible inventory. The default inventory is in ```/etc/ansible/hosts```. 
-We use a YAML inventory so if you are using an ini inventory then you should keep a separate inventory for Shift-RMM. 
-you will need the following lines under vars
-```
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-    #metric_batch_size: 1000 # uncomment and increase if telegraf is not sending all data
-    #metric_buffer_size: 10000 # uncomment and increase if telegraf is not sending all data
-    loki:
-      url: 'http://armin.local.mathiasp.me:3100'
-      #user: 'test' # optional if you have setup auth for loki
-      #password: 'test' # optional if you have setup auth for loki
-    victoria:
-      url: 'http://armin.local.mathiasp.me:8428'
-      #user: 'test' # optional if you have auth setup for victoriametrics
-      #password: 'test' # optional if you have auth setup for victoriametrics
+### Setup 
 
-```
-
-You will also want to keep hosts or IP addresses one per line with a colon at the end. As shown in the example below.
-Some hosts will have specific variables like `metric_batch_size` for hosts collecting large numbers of metrics.
-Set `telegraf_root: true` if telegraf needs root privilege or don't want to deal with permissions issues.
-By default Telegraf runs as the Telegraf User.
-an example inventory will look like this and should be placed in `~/shift-mon/hosts.yml` or your existing Ansible Inventory
-
-```
-hosts:
-  zoe:
-    metric_batch_size: 10000
-    metric_buffer_limit: 100000
-  eren:
-    telegraf_root: true
-  10.0.0.2:
-```
 Edit `~/shift-mon/telegraf.yml` to look like this or make a `telegraf.yml` in your existing automation repo.
 Similar to the shift-mon role you can edit the lookups to be plain text values or can be populated from your secrets manager, but this is insecure since secrets are being stored in plain text.
 
@@ -86,7 +53,24 @@ Similar to the shift-mon role you can edit the lookups to be plain text values o
         public: true
 ```
 
-Once your Inventory is setup deploy Telegraf by running `ansible-galaxy collection install --force shiftsystems.shift_mon && ansible-playbook -i shift-mon/hosts.yml telegraf.yml --ask-become-pass` from `~/shift-mon`.
+Add Additional hosts to one line at a time ending with a colon in `~/shift-mon/inventory.yml` or existing inventory as seen the example below. Make Sure they are not under the shiftmon_servers block other wise the entire monitoring system will deployed to that endpoint.
+
+```yaml
+all:
+  hosts:
+    erwin:
+    eren:
+      metric_buffer_size: 10000
+      metric_buffer_limit: 100000
+    10.0.0.2:
+      remote_syslog: true
+    shiftmon_servers:
+      server.local.example.com:
+
+```
+
+Once your Inventory is setup deploy Telegraf by running `ansible-galaxy collection install --force shiftsystems.shift_mon && ansible-playbook -i inventory.yml telegraf.yml --ask-become-pass` from `~/shift-mon`.
+This Command will be different if you are adding this to an existing automation repo.
 
 If you are using your own automation repo you will need to modify the `ansible-playbook` command.
 

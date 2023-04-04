@@ -80,7 +80,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -94,7 +94,7 @@
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Uptime",
       "type": "stat"
     },
     {
@@ -135,7 +135,7 @@
         "colorMode": "value",
         "graphMode": "none",
         "justifyMode": "auto",
-        "orientation": "vertical",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -145,7 +145,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -261,8 +261,9 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 37,
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -295,6 +296,6 @@
   "timezone": "",
   "title": "Uptime Kuma",
   "uid": "pF-zl-Z4k",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
