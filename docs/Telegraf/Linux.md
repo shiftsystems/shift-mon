@@ -18,7 +18,7 @@ There is no support for this in the bash script but we take pull requests.
 The configs can be added manually by adding one of the configs in the [telegraf configs folder](../../telegraf-configs/linux) in ```/etc/telegraf/telegraf.d/```
 
 ## Ansible
-The only thing that is required is that SSH needs to accessible on all endpoints and you have a Linux machine withansible and git installed. 
+The only thing that is required is that SSH needs to accessible on all endpoints and you have a Linux machine with ansible and git installed. 
 Ansible can be installed by following [the Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems) and git can be installed from your Linux distribution's repository.
 
 ### What does the script/role do? 
@@ -28,7 +28,7 @@ Ansible can be installed by following [the Ansible documentation](https://docs.a
 * Edits config files in /etc/telegraf/
 * Can install syslog if ```syslog: true``` is an ansible variable
 
-### setting up your inventory 
+### Setting up your inventory
 You will need the following in your Ansible inventory. The default inventory is in ```/etc/ansible/hosts```. 
 We use a YAML inventory so if you are using an ini inventory then you should keep a separate inventory for Shift-RMM. 
 you will need the following lines under vars
