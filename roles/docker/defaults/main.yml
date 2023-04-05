@@ -1,5 +1,3 @@
-pip_install_packages:
-  - name: docker
 docker_users:
   - root
   - telegraf
