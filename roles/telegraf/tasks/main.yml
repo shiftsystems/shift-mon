@@ -202,11 +202,29 @@
   when: "vsphere_enabled is defined and vsphere_enabled"
   notify: Restart Telegraf
 
+- name: Install SMART Monitoring packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: latest
+  become: true
+  when: ansible_facts['virtualization_role'] != 'guest' and (deploy_smart is not defined or deploy_smart)
+  with_items:
+    - smartmontools
+    - nvme-cli
+
+- name: Deploy SMART Monitoring Config
+  ansible.builtin.copy:
+    src: "linux/smart.conf"
+    dest: /etc/telegraf/telegraf.d/smart.conf
+  become: true
+  when: ansible_facts['virtualization_role'] != 'guest' and (deploy_smart is not defined or deploy_smart)
+  notify: Restart Telegraf
+
 - name: Add telegraf to the MySQL group on Debian based systems
   ansible.builtin.file:
     path: '/tmp/stubby'
     state: absent
-  when: "'mysql.service' in ansible_facts.services"
+  when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
   notify: Restart Telegraf
 
 - name: Install Rsyslog

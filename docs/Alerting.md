@@ -26,8 +26,8 @@ Query: ```count(cpu_usage_idle{} offset 5m) by (host) unless count(cpu_usage_idl
 Operation: Reduce\
 Function: Mean\
 Input: A\
-Summary: {{ $labels.host }} is down\
-Description: I say you {{ $labels.host }} dead\
+Summary: `{{ $labels.host }} is down`\
+Description: `I say you {{ $labels.host }} dead`\
 Conditions: Evaluate every 1m for 5m\
 
 
@@ -36,8 +36,8 @@ Query: ```avg_over_time(mem_used_percent[10m]) > 92```\
 Operation: Reduce\
 Function: Mean input A\
 Input: A\
-Summary: {{ $labels.host }} is using almost all its RAM\
-Description: {{ $labels.host }} is at {{ $value }}%\
+Summary: `{{ $labels.host }} is using almost all its RAM`\
+Description: `{{ $labels.host }} is at {{ $values.B }}%`\
 Conditions: Evaluate every 1m for 5m\
 
 
@@ -46,8 +46,8 @@ Query: ```100 - avg_over_time(cpu_usage_idle{}[10m]) > 95```\
 Operation: Classic \
 Function: Mean input A\
 Input: A\
-Summary: {{ $labels.host }} has been using alot of cpu for the past 10 minutes\
-Description: {{ $labels.host }} is at {{ $value }}%\
+Summary: `{{ $labels.host }} has been using alot of cpu for the past 10 minutes`\
+Description: `{{ $labels.host }} is at {{ $values.B }}%`\
 Conditions: Evaluate every 2m for 10m\
 
 
@@ -56,8 +56,8 @@ Query: ```disk_used_percent{device !="devfs"} > 92```\
 Operation: Reduce\
 Function: Mean\
 Input: A \
-Summary: {{ $labels.host }} is running out of disk space\
-Description: {{ $labels.host }} is at {{ $value }}% on disk {{ $labels.device }} Disk usage\
+Summary: `{{ $labels.host }} is running out of disk space`\
+Description: `{{ $labels.host }} is at {{ $values.B }}% on disk {{ $labels.device }} Disk usage`\
 Conditions: Evaluate every 2m for 10m\
 
 ### Automation Failure
@@ -65,9 +65,25 @@ Query: ```{name=~`dnf-automatic-install.service|unattended-upgrades.service|cert
 Operation: Reduce\
 Function: Mean\
 Input: A\
-Summary: {{ $labels.host }} automatic services are not working correctly\
-Description: {{ $labels.host }} is having an issue with automation\
+Summary: `{{ $labels.host }} automatic services are not working correctly`\
+Description: `{{ $labels.host }} is having an issue with automation`\
 Conditions: Evaluate every 10m for 30m\
+
+### Unhealthy Smart data
+Query:
+Operation: Reduce\
+Function: Last\
+Input: A\
+Summary: `{{ $labels.host }} has a not OK SMART status on {{ $labels.device }}`\
+Description:
+
+
+```
+{{ $labels.device }} on {{ $labels.host }} is unhealthly
+model: {{ $labels.model }}
+serial number: {{ $labels.serial_no }}
+```
+Conditions: Evaluate every 1m for 5m\
 
 ## Related docs
 * [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
