@@ -452,7 +452,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"} + docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"}",
+          "expr": "docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\", device=\"total\"} + docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\", device=\"total\"}",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "range": true,
@@ -740,7 +740,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"} + docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"})",
+          "expr": "rate(docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\", device=\"total\"} + docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\", device=\"total\"})",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "range": true,
@@ -808,7 +808,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_rx_bytes{host=\"$host\"})",
+          "expr": "deriv(docker_container_net_rx_bytes{host=\"$host\", network=\"total\"})",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "range": true,
@@ -903,7 +903,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_tx_bytes{host=\"$host\"})",
+          "expr": "deriv(docker_container_net_tx_bytes{host=\"$host\", network=\"total\"})",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "range": true,
@@ -971,7 +971,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_tx_bytes{host=\"$host\"})",
+          "expr": "deriv(docker_container_net_tx_bytes{host=\"$host\", network=\"total\"})",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "range": true,
@@ -1067,7 +1067,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_rx_bytes{host=\"$host\"})",
+          "expr": "deriv(docker_container_net_rx_bytes{host=\"$host\", network=\"total\"})",
           "interval": "",
           "legendFormat": "{{container_name}}",
           "range": true,
@@ -1121,9 +1121,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "eren.local.shiftsystems.net",
-          "value": "eren.local.shiftsystems.net"
+          "selected": false,
+          "text": "None",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
@@ -1155,6 +1155,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
