@@ -48,46 +48,46 @@
   tasks:
     - name: Deploy Telegraf
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.telegraf
+        name: telegraf
         public: true
 
 - hosts: shiftmon_servers
   tasks:
     - name: Deploy Uptime-Kuma
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.uptime_kuma
+        name: uptime_kuma
         public: true
     - name: Deploy Victoriametrics
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.victoriametrics
+        name: victoriametrics
         public: true
     - name: Deploy Loki
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.loki
+        name: loki
         public: true
     - name: Deploy Grafana
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.grafana
+        name: grafana
         public: true
     - name: Deploy Traefik
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.traefik
+        name: traefik
         public: true
     - name: Deploy Crowdsec
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.crowdsec
+        name: crowdsec
         public: true
     - name: Deploy Podman
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.podman
+        name: podman
         public: true
       when: container_engine == 'podman'
     - name: Deploy Docker
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.docker
+        name: docker
         public: true
       when: container_engine == 'docker'
     - name: Deploy Telegraf
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.telegraf
+        name: telegraf
         public: true

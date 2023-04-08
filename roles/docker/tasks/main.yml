@@ -1,0 +1,37 @@
+- name: Install docker
+  ansible.builtin.include_role:
+    name: geerlingguy.docker
+    public: true
+
+- name: Generate compose file
+  ansible.builtin.template:
+    src: '{{ playbook_dir }}/roles/podman/templates/docker-compose.yml'
+    dest: /opt/shift-mon/docker-compose.yml
+
+- name: Copy startup and shutdown scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/opt/shift-mon/{{ item }}"
+    mode: "770"
+  become: true
+  with_items:
+    - startup.bash
+    - shutdown.bash
+
+- name: Create Systemd unit file
+  ansible.builtin.copy:
+    src: shift-mon.service
+    dest: /etc/systemd/system/shift-mon.service
+  become: true
+
+- name: Reload Systemd units
+  ansible.builtin.systemd:
+    daemon-reload: true
+  become: true
+
+- name: Restart and enable shift-mon.service
+  ansible.builtin.systemd:
+    name: shift-mon.service
+    enabled: true
+    state: restarted
+  become: true
