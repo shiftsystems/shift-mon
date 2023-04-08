@@ -141,7 +141,7 @@
   ansible.builtin.group:
     name: docker
     state: present
-  when: container_engine == 'docker' or 'docker.service' in ansible_facts.services
+  when: "'docker.service' in ansible_facts.services"
 
 - name: Add telegraf to docker group when docker is installed
   ansible.builtin.user:
@@ -149,7 +149,7 @@
     groups: docker
     append: true
   become: true
-  when: container_engine == 'docker' or 'docker.service' in ansible_facts.services
+  when: "'docker.service' in ansible_facts.services"
   notify: Restart Telegraf
 
 - name: Deploy Docker config When Docker is installed
@@ -157,7 +157,7 @@
     src: "linux/docker.conf"
     dest: /etc/telegraf/telegraf.d/docker.conf
   become: true
-  when: container_engine == 'docker' or 'docker.service' in ansible_facts.services
+  when: "'docker.service' in ansible_facts.services"
   notify: Restart Telegraf
 
 - name: Deploy Podman config When Podman service is present
