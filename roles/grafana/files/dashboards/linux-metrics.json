@@ -622,7 +622,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "mappings": [],
@@ -728,7 +728,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "mappings": [],
@@ -742,8 +742,12 @@
                 "value": null
               },
               {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 90
               }
             ]
           }
@@ -1671,9 +1675,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "zeke.local.shiftsystems.net",
-          "value": "zeke.local.shiftsystems.net"
+          "selected": true,
+          "text": "zoe.local.shiftsystems.net",
+          "value": "zoe.local.shiftsystems.net"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1704,6 +1708,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }
