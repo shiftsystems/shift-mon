@@ -27,6 +27,5 @@ galaxy-publish:
   image: quay.io/pulp/galaxy-minimal:latest
   script:
     - 'ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-$(grep "version: " galaxy.yml | sed "s:.*\ ::").tar.gz --token $GALAXY_API_KEY'
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-    - if: '$CI_PROJECT_ID == 19222496'
+  only:
+    - main@shiftsystems/shift-rmm
