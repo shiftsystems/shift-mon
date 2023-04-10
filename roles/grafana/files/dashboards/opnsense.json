@@ -799,7 +799,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "disk_used_percent{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*`}",
+          "expr": "disk_used_percent{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
           "interval": "",
           "legendFormat": "{{path}}",
           "range": true,
@@ -844,7 +844,7 @@
         "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto",
+        "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -864,7 +864,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_free{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*`}",
+          "expr": "disk_free{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -1217,7 +1217,7 @@
         "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto",
+        "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1237,7 +1237,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_total{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*`}",
+          "expr": "disk_total{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -1521,8 +1521,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1790,8 +1789,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1987,6 +1985,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
