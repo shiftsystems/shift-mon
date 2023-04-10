@@ -200,7 +200,7 @@
   when: telegraf_traefik_config is defined and telegraf_traefik_config == True
 
 - name: Add logrotate config
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: logrotate-traefik.conf
     dest: /etc/logrotate.d/traefik.conf
   become: true
