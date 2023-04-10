@@ -811,7 +811,7 @@
           "max": 100,
           "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -826,7 +826,8 @@
                 "value": 90
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -838,8 +839,8 @@
       },
       "id": 6,
       "options": {
-        "displayMode": "lcd",
-        "minVizHeight": 10,
+        "displayMode": "gradient",
+        "minVizHeight": 12,
         "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
@@ -861,7 +862,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "disk_used_percent{host=\"$host\",db=\"linux\"}",
+          "expr": "sort_desc(disk_used_percent{host=\"$host\",db=\"linux\"})",
           "interval": "",
           "legendFormat": "{{path}}",
           "range": true,
@@ -888,7 +889,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 100,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1190,11 +1191,12 @@
             "mode": "thresholds"
           },
           "mappings": [],
+          "min": 1,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1211,9 +1213,9 @@
       },
       "id": 26,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -1222,8 +1224,7 @@
           "fields": "",
           "values": false
         },
-        "text": {},
-        "textMode": "auto"
+        "showUnfilled": true
       },
       "pluginVersion": "9.4.7",
       "targets": [
@@ -1232,8 +1233,9 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_total{host=\"$host\",db=\"linux\"}",
+          "expr": "sort(disk_total{host=\"$host\",db=\"linux\"})",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -1253,7 +1255,7 @@
           }
         }
       ],
-      "type": "stat"
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -1267,13 +1269,21 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "min": 0,
+          "min": 1,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 5
+              },
+              {
+                "color": "green",
+                "value": 10
               }
             ]
           },
@@ -1289,18 +1299,18 @@
       },
       "id": 38,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showUnfilled": true
       },
       "pluginVersion": "9.4.7",
       "targets": [
@@ -1311,7 +1321,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "disk_free{host=\"$host\",db=\"linux\"}",
+          "expr": "sort(disk_free{host=\"$host\",db=\"linux\"})",
           "interval": "",
           "legendFormat": "{{path}}",
           "range": true,
@@ -1319,7 +1329,7 @@
         }
       ],
       "title": "Disk Available",
-      "type": "stat"
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -1630,7 +1640,7 @@
       "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
@@ -1676,8 +1686,8 @@
       {
         "current": {
           "selected": true,
-          "text": "zoe.local.shiftsystems.net",
-          "value": "zoe.local.shiftsystems.net"
+          "text": "worpserver",
+          "value": "worpserver"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1701,13 +1711,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "2023-04-10T18:06:54.000Z",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 8,
+  "version": 4,
   "weekStart": ""
 }
