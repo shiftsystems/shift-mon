@@ -44,22 +44,11 @@
           telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           #fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
 
-- hosts: telegraf
-  tasks:
-    - name: Deploy Telegraf
-      ansible.builtin.include_role:
-        name: telegraf
-        public: true
-
 - hosts: shiftmon_servers
   tasks:
     - name: Deploy Uptime-Kuma
       ansible.builtin.include_role:
         name: uptime_kuma
-        public: true
-    - name: Deploy Telegraf
-      ansible.builtin.include_role:
-        name: telegraf
         public: true
     - name: Deploy Victoriametrics
       ansible.builtin.include_role:
@@ -91,3 +80,14 @@
         name: docker
         public: true
       when: container_engine == 'docker'
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: telegraf
+        public: true
+
+- hosts: telegraf
+  tasks:
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: telegraf
+        public: true
