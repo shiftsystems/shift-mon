@@ -137,6 +137,14 @@
   when: "'nginx.service' in ansible_facts.services"
   notify: Restart Telegraf
 
+- name: Add Apache Httpd config When Apache Httpd is installed
+  ansible.builtin.copy:
+    src: "linux/httpd.conf"
+    dest: /etc/telegraf/telegraf.d/httpd.conf
+  become: true
+  when: "'httpd.service' in ansible_facts.services or 'apache2' in ansible_facts.services"
+  notify: Restart Telegraf
+
 - name: Create docker group when docker is selected
   ansible.builtin.group:
     name: docker
