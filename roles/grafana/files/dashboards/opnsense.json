@@ -1074,7 +1074,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "deriv(net_bytes_sent{host=\"$host\",db=\"opnsense\"}) / 1000000",
+          "expr": "deriv(net_bytes_sent{host=\"$host\",db=\"opnsense\"})",
           "instant": false,
           "interval": "",
           "legendFormat": "{{interface}}",
@@ -1985,6 +1985,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }

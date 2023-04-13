@@ -171,7 +171,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -227,7 +227,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "sum"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -235,7 +235,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -243,9 +243,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(bytes_over_time({__name=\"syslog\"}[$__interval]))",
+          "expr": "sum(bytes_over_time({__name=\"syslog\"}[$__range]))",
           "legendFormat": "",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -299,7 +299,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -353,7 +353,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "sum"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -361,7 +361,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -369,9 +369,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\"}[$__interval]))",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\"}[$__range]))",
           "legendFormat": "",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -417,7 +417,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "sum"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -425,7 +425,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -433,9 +433,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(bytes_over_time({__name=\"syslog\",appname=\"$appname\"}[$__interval]))",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",appname=\"$appname\"}[$__range]))",
           "legendFormat": "",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -489,7 +489,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -705,7 +705,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "sum"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -713,7 +713,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -721,9 +721,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"$appname\"}[$__interval]))",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"$appname\"}[$__range]))",
           "legendFormat": "",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -777,7 +777,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -995,6 +995,6 @@
   "timezone": "",
   "title": "syslog",
   "uid": "ILt16Sb7k",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
