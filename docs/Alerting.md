@@ -22,52 +22,96 @@ Feel free to customize any of the numbers or use these as the basis for your own
 
 
 ### Host Down
-Query: ```count(cpu_usage_idle{} offset 5m) by (host) unless count(cpu_usage_idle{} ) by (host)```\
-Operation: Reduce\
-Function: Mean\
-Input: A\
+Query: ```count(cpu_usage_idle{} offset 1h) by (host) unless count(cpu_usage_idle{} ) by (host)```
+
+B: Reduce
+  * Function: Count
+  * Input: A
+  * Mode: Strict
+
+
+C: Threshold
+  * Input: B
+  * Condition: IS Above 
+  * Value 300 (the integer is the time seconds the host should be down before the alert fires 300 seconds is 5 minutes)
+
+
 Summary: `{{ $labels.host }} is down`\
 Description: `I say you {{ $labels.host }} dead`\
-Conditions: Evaluate every 1m for 5m\
+for: 2m
 
 
 ### High memory usage
-Query: ```avg_over_time(mem_used_percent[10m]) > 92```\
-Operation: Reduce\
-Function: Mean input A\
-Input: A\
+Query: ```mem_used_percent{}```
+
+B: Reduce
+* Function: Mean
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS ABOVE
+* 90
+
+for: 20m
 Summary: `{{ $labels.host }} is using almost all its RAM`\
 Description: `{{ $labels.host }} is at {{ $values.B }}%`\
-Conditions: Evaluate every 1m for 5m\
 
 
 ### High CPU usage
-Query: ```100 - avg_over_time(cpu_usage_idle{}[10m]) > 95```\
-Operation: Classic \
-Function: Mean input A\
-Input: A\
+Query: ```100 - cpu_usage_idle{}```\
+B: Reduce
+* Function: Mean
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS ABOVE
+* 90
+
+for: 1h
 Summary: `{{ $labels.host }} has been using alot of cpu for the past 10 minutes`\
 Description: `{{ $labels.host }} is at {{ $values.B }}%`\
-Conditions: Evaluate every 2m for 10m\
 
 
 ### Low Disk Space
-Query: ```disk_used_percent{device !="devfs"} > 92```\
-Operation: Reduce\
-Function: Mean\
-Input: A \
+Query: ```disk_used_percent{device !="devfs"}```\
+B: Reduce
+  * Function: Mean
+  * Input: A
+  * Mode: Strict
+
+
+C: Threshold
+  * Input: B
+  * Condition: IS ABOVE
+  * Value: 92
+
+for: 1h
 Summary: `{{ $labels.host }} is running out of disk space`\
 Description: `{{ $labels.host }} is at {{ $values.B }}% on disk {{ $labels.device }} Disk usage`\
-Conditions: Evaluate every 2m for 10m\
+
 
 ### Automation Failure
-Query: ```{name=~`dnf-automatic-install.service|unattended-upgrades.service|certbot.service|apt-daily-upgrade.service`} == 3```\
-Operation: Reduce\
-Function: Mean\
-Input: A\
-Summary: `{{ $labels.host }} automatic services are not working correctly`\
-Description: `{{ $labels.host }} is having an issue with automation`\
-Conditions: Evaluate every 10m for 30m\
+Query: ```systemd_units_active_code{name=~`dnf-automatic-install.service|unattended-upgrades.service|certbot.service|apt-daily-upgrade.service|ansible.*`}  == 3```\
+B: Reduce
+  * Function: Mean
+  * Input: A
+  * Mode: Strict
+
+
+C: Threshold
+  * Input: B
+  * Condition: IS ABOVE
+  * Value: 2
+
+
+for: 1h
+Summary: `{{ $labels.host }} has automatic service that failing`\
+Description: `{{ $labels.name }} on {{ $labels.host }} is failing`\
+
 
 ### Unhealthy Smart data
 Query:
@@ -83,7 +127,7 @@ Description:
 model: {{ $labels.model }}
 serial number: {{ $labels.serial_no }}
 ```
-Conditions: Evaluate every 1m for 5m\
+for: 5m
 
 ## Related docs
 * [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
