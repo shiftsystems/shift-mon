@@ -5,7 +5,7 @@
 
 - name: Generate compose file
   ansible.builtin.template:
-    src: '{{ playbook_dir }}/roles/podman/templates/docker-compose.yml'
+    src: 'docker-compose.yml'
     dest: /opt/shift-mon/docker-compose.yml
 
 - name: Copy startup and shutdown scripts
