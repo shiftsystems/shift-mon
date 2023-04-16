@@ -99,8 +99,22 @@ http:
       entryPoints:
         - websecure
 {% endif %}
+    grafana_metrics:
+      rule: Host(`{{ grafana.domain }}`) && Path(`/metrics`)
+      priority: 2
+      tls:
+        certResolver: dynamicResolver
+      service: grafana
+      middlewares:
+        - basic-auth
+{% if crowdsec_api_key is defined %}
+        - crowdsec-bouncer
+{% endif %}
+      entryPoints:
+        - websecure
     grafana:
       rule: Host(`{{ grafana.domain }}`)
+      priority: 1
       tls:
         certResolver: dynamicResolver
       service: grafana
