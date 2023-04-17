@@ -1686,8 +1686,8 @@
       {
         "current": {
           "selected": true,
-          "text": "zoe.local.shiftsystems.net",
-          "value": "zoe.local.shiftsystems.net"
+          "text": "worpserver",
+          "value": "worpserver"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1711,13 +1711,13 @@
     ]
   },
   "time": {
-    "from": "2023-04-10T18:06:54.000Z",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
