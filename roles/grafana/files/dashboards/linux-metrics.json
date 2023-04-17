@@ -1686,8 +1686,8 @@
       {
         "current": {
           "selected": true,
-          "text": "worpserver",
-          "value": "worpserver"
+          "text": "zoe.local.shiftsystems.net",
+          "value": "zoe.local.shiftsystems.net"
         },
         "datasource": {
           "uid": "${metrics}"
