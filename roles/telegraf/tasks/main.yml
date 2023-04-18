@@ -109,7 +109,9 @@
     groups: root
     append: true
   become: true
-  when: "ansible_facts['os_family'] == 'RedHat' and 'nginx.service' in ansible_facts.services"
+  when: 
+    - "ansible_facts['os_family'] == 'RedHat'"
+    - "'nginx.service' in ansible_facts.services or 'httpd.service' in ansible_facts.services"
   notify: Restart Telegraf
 
 - name: Add Caddy Config if Caddy is installed
@@ -120,7 +122,7 @@
   when: "'caddy.service' in ansible_facts.services"
   notify: Restart Telegraf
 
-- name: Add telegraf to the nginx group on Debian based systems
+- name: Add telegraf to the adm group on Debian based systems
   ansible.builtin.user:
     name: telegraf
     groups: adm
@@ -129,21 +131,24 @@
   when: ansible_facts['os_family'] == "Debian"
   notify: Restart Telegraf
 
-- name: Add Nginx config When nginx is installed
+- name: Add http config When nginx or Apache Httpd is installed
   ansible.builtin.copy:
-    src: "linux/nginx.conf"
-    dest: /etc/telegraf/telegraf.d/nginx.conf
+    src: "linux/http.conf"
+    dest: /etc/telegraf/telegraf.d/http.conf
   become: true
-  when: "'nginx.service' in ansible_facts.services"
+  when: "'nginx.service' in ansible_facts.services or 'apache2.service' in ansible_facts.services or 'httpd.service' in ansible_facts.services"
   notify: Restart Telegraf
 
-- name: Add Apache Httpd config When Apache Httpd is installed
-  ansible.builtin.copy:
-    src: "linux/httpd.conf"
-    dest: /etc/telegraf/telegraf.d/httpd.conf
+- name: Remove old nginx and httpd configs
+  ansible.builtin.file:
+    path: "/etc/telegraf/telegraf.d/{{ item }}"
+    state: absent
   become: true
-  when: "'httpd.service' in ansible_facts.services or 'apache2' in ansible_facts.services"
   notify: Restart Telegraf
+  with_items:
+  - "nginx.conf"
+  - "httpd.conf"
+
 
 - name: Create docker group when docker is selected
   ansible.builtin.group:
