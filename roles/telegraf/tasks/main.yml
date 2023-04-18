@@ -200,12 +200,44 @@
   when: telegraf_traefik_config is defined and telegraf_traefik_config == True
 
 - name: Add logrotate config
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: logrotate-traefik.conf
     dest: /etc/logrotate.d/traefik.conf
   become: true
   when: telegraf_traefik_config is defined and telegraf_traefik_config == True
   notify: Restart Telegraf
+
+- name: Add Victoriametrics config to telegraf
+  ansible.builtin.copy:
+    src: victoriametrics-docker.conf
+    dest: /etc/telegraf/telegraf.d/victoriametrics-docker.conf
+  become: true
+  notify: Restart Telegraf
+  when: telegraf_victoriametrics_config is defined and telegraf_victoriametrics_config == True
+
+- name: Copy Crowdsec Telegraf config
+  ansible.builtin.copy:
+    src: crowdsec-docker.conf
+    dest: /etc/telegraf/telegraf.d/crowdsec-docker.conf
+  become: true
+  notify: Restart Telegraf
+  when: telegraf_crowdsec_config is defined and telegraf_crowdsec_config == True
+
+- name: Add Grafana config to telegraf
+  ansible.builtin.template:
+    src: grafana-docker.conf
+    dest: /etc/telegraf/telegraf.d/grafana-docker.conf
+  become: true
+  notify: Restart Telegraf
+  when: telegraf_grafana_config is defined and telegraf_grafana_config == True
+
+- name: Add loki config to telegraf
+  ansible.builtin.copy:
+    src: loki-docker.conf
+    dest: /etc/telegraf/telegraf.d/loki-docker.conf
+  become: true
+  notify: Restart Telegraf
+  when: telegraf_loki_config is defined and telegraf_loki_config == True
 
 - name: Deploy Victoriametrics config when Victoriametrics is installed
   ansible.builtin.copy:

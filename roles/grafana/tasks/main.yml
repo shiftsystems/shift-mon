@@ -56,10 +56,3 @@
     dest: /opt/shift-mon/grafana-config/ldap.toml
   become: true
   when: ldap_host is defined
-
-- name: Add Grafana config to telegraf
-  ansible.builtin.template:
-    src: grafana-docker.conf
-    dest: /etc/telegraf/telegraf.d/grafana-docker.conf
-  become: true
-  notify: Restart Telegraf

@@ -105,16 +105,3 @@
     src: '{{ oncall.key_path }}'
     dest: '/opt/shift-mon/traefik/certs/oncall.key'
   when: oncall.key_path is defined
-
-- name: Add Traefik log config to telegraf
-  ansible.builtin.copy:
-    src: telegraf-traefik.conf
-    dest: /etc/telegraf/telegraf.d/traefik.conf
-  become: true
-
-- name: Add logrotate config
-  ansible.builtin.copy:
-    src: logrotate-traefik.conf
-    dest: /etc/logrotate.d/traefik.conf
-  become: true
-  notify: Restart Telegraf

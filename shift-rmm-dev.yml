@@ -1,6 +1,6 @@
 - hosts: all
   tasks:
-    - name: Set Telegraf Secrets
+    - name: Set Secrets
       ansible.builtin.set_fact:
         oncall_enabled: false
         oncall:
@@ -44,13 +44,6 @@
           telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           #fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
 
-- hosts: telegraf
-  tasks:
-    - name: Deploy Telegraf
-      ansible.builtin.include_role:
-        name: telegraf
-        public: true
-
 - hosts: shiftmon_servers
   tasks:
     - name: Deploy Uptime-Kuma
@@ -87,6 +80,13 @@
         name: docker
         public: true
       when: container_engine == 'docker'
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: telegraf
+        public: true
+
+- hosts: telegraf
+  tasks:
     - name: Deploy Telegraf
       ansible.builtin.include_role:
         name: telegraf

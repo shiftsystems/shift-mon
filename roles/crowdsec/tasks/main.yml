@@ -16,13 +16,6 @@
     dest: config.yaml
   become: true
 
-- name: Copy Telegraf config
-  ansible.builtin.copy:
-    src: crowdsec-docker.conf
-    dest: /etc/telegraf/telegraf.d/crowdsec-docker.conf
-  become: true
-  notify: Restart Telegraf
-
 - name: Copy acquis.yaml
   ansible.builtin.template:
     src: acquis.yaml

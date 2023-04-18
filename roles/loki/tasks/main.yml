@@ -27,10 +27,3 @@
     src: loki-config.yml
     dest: /opt/shift-mon/loki-config/loki-config.yml
   become: true
-
-- name: Add loki config to telegraf
-  ansible.builtin.copy:
-    src: loki-docker.conf
-    dest: /etc/telegraf/telegraf.d/loki-docker.conf
-  become: true
-  notify: Restart Telegraf
