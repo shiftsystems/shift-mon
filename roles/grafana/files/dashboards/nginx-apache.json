@@ -1,0 +1,1435 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 31,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 19,
+        "x": 0,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "min",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({host=\"$host\",__name=\"tail_http_log\"} | logfmt[1m])) by (resp_code)",
+          "legendFormat": "{{ resp_code }}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Request by Status Codes",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 19,
+        "y": 0
+      },
+      "id": 12,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "{host=\"$host\",__name=\"tail_http_log\"} | logfmt",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Top IPs",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "client_ip": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "tsNs": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 19,
+        "x": 0,
+        "y": 7
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "min",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({host=\"$host\",__name=\"tail_http_error_log\"} | logfmt[1m])) by (errorcode)",
+          "legendFormat": "{{ resp_code }}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Errors over time",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 19,
+        "y": 8
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "{host=\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 100",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Status Codes",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "keepTime": false,
+            "replace": false,
+            "source": "labels"
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "resp_code": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "tsNs": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "verb"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 79
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_sent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "remote_addr"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 159
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_user_agent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 343
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time_local"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 219
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_path"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 213
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_referer"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 312
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "client_ip"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 132
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "resp_code"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "resp_bytes"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 105
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 19,
+        "x": 0,
+        "y": 14
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "{path=~\"/var/log/nginx/access.*|/var/log/httpd/access.*\",host=\"$host\"} | logfmt",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Request Log",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "__name": true,
+              "bytes_sent": true,
+              "host": true,
+              "http_version": true,
+              "id": true,
+              "labels": true,
+              "line": true,
+              "path": true,
+              "remote_user": true,
+              "ts": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "Line": 15,
+              "Time": 0,
+              "__name": 16,
+              "agent": 6,
+              "auth": 7,
+              "client_ip": 3,
+              "host": 17,
+              "http_version": 11,
+              "id": 12,
+              "ident": 10,
+              "labels": 14,
+              "path": 18,
+              "referrer": 9,
+              "request": 4,
+              "resp_bytes": 8,
+              "resp_code": 5,
+              "reverse_lookup": 2,
+              "tsNs": 13,
+              "verb": 1
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "noValue": "unknown"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 19,
+        "y": 16
+      },
+      "id": 13,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Top User Agents",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "agent": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "client_ip": {
+                "aggregations": []
+              },
+              "http_user_agent": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "tsNs": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 5,
+        "x": 19,
+        "y": 24
+      },
+      "id": 10,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "limit": 10,
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "top 10 endpoints",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "request": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "tsNs": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "verb"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 79
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_sent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "remote_addr"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 159
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_user_agent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 343
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time_local"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 219
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_path"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 213
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_referer"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 312
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 277
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "pid"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 81
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tid"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 105
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "module"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 101
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "errorcode"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 303
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "loglevel"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 94
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 19,
+        "x": 0,
+        "y": 26
+      },
+      "id": 14,
+      "options": {
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "{path=~\"/var/log/nginx/error.*|/var/log/httpd/error.*\",host=\"$host\"} | logfmt",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Error Logs",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "Time": true,
+              "__name": true,
+              "host": true,
+              "id": true,
+              "labels": true,
+              "loglevel": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "Line": 8,
+              "Time": 7,
+              "errorcode": 4,
+              "id": 10,
+              "labels": 6,
+              "message": 5,
+              "module": 3,
+              "pid": 1,
+              "tid": 2,
+              "timestamp": 0,
+              "tsNs": 9
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${Logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "verb"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 79
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_sent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "remote_addr"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 159
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_user_agent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 343
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time_local"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 219
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_path"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 213
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_referer"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 312
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 6,
+      "options": {
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${Logs}"
+          },
+          "editorMode": "code",
+          "expr": "{host=\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 400",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "4XX and 5XX Requests",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "Line"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "bytes_sent": true,
+              "host": true,
+              "http_version": true,
+              "id": true,
+              "ident": false,
+              "labels": true,
+              "line": true,
+              "path": true,
+              "remote_user": true,
+              "ts": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "bytes_sent": 7,
+              "host": 10,
+              "http_path": 2,
+              "http_referer": 5,
+              "http_user_agent": 4,
+              "http_version": 11,
+              "id": 14,
+              "line": 13,
+              "path": 9,
+              "remote_addr": 6,
+              "remote_user": 12,
+              "status": 3,
+              "time_local": 0,
+              "ts": 8,
+              "tsNs": 15,
+              "verb": 1
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "shift-metrics"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Metrics",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "shift-logs"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Logs",
+        "options": [],
+        "query": "loki",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "bertolt.local.shiftsystems.net",
+          "value": "bertolt.local.shiftsystems.net"
+        },
+        "datasource": {
+          "uid": "${Logs}"
+        },
+        "definition": "label_values({path=~\"/var/log/nginx/.*\"},host)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "host",
+        "options": [],
+        "query": {
+          "label": "host",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{__name=\"tail_http_log\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Nginx/Apache/HTTPD",
+  "uid": "cWrlIMS7q",
+  "version": 6,
+  "weekStart": ""
+}
