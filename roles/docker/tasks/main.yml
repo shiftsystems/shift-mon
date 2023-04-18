@@ -3,6 +3,12 @@
     name: geerlingguy.docker
     public: true
 
+- name: Ensure docker nets are present
+  community.docker.docker_network:
+    name: '{{ item }}'
+  when: shift_mon_docker_nets is defined
+  loop: '{{ shift_mon_docker_nets }}'
+
 - name: Generate compose file
   ansible.builtin.template:
     src: 'docker-compose.yml'

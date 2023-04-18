@@ -1,1 +1,2 @@
 telegraf_traefik_config: true
+traefik_scrape_docker_sock: false
