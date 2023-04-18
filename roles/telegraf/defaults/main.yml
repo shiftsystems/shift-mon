@@ -1,1 +1,1 @@
-telegraf_traefik_log_file_path: /opt/shift-mon/traefik/access.json*
+telegraf_traefik_log_file_path: /opt/shift-mon/traefik/access.json
