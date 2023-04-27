@@ -1648,11 +1648,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "shift-metrics"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1666,11 +1661,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "shift-logs"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1684,11 +1674,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "zoe.local.shiftsystems.net",
-          "value": "zoe.local.shiftsystems.net"
-        },
         "datasource": {
           "uid": "${metrics}"
         },
