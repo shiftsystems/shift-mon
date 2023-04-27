@@ -3,10 +3,6 @@ serversTransport:
 providers:
   file:
     filename: /etc/traefik/traefik.yml
-{% if traefik_scrape_docker_sock is defined and traefik_scrape_docker_sock is true %}
-  docker:
-    exposedByDefault: false
-{% endif %}
 tls:
   certificates:
 {% if grafana.cert_path is defined and grafana.key_path is defined %}
