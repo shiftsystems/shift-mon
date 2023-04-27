@@ -269,11 +269,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "shift-metrics"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,

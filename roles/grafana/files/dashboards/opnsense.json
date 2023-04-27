@@ -1890,11 +1890,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "rose.local.shiftsystems.net",
-          "value": "rose.local.shiftsystems.net"
-        },
         "datasource": {
           "uid": "${metrics}"
         },
@@ -1915,11 +1910,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "shift-metrics"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1932,11 +1922,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "shift-logs"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1950,11 +1935,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "igb0",
-          "value": "igb0"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"

@@ -1150,11 +1150,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "shift-metrics"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1167,11 +1162,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "shift-logs"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1184,11 +1174,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "annie",
-          "value": "annie"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
@@ -1210,11 +1195,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "connie",
-          "value": "connie"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
