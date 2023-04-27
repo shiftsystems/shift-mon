@@ -20,12 +20,6 @@ services:
     restart: always
     ports:
       - "8080:8080"
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     command: >
       sh -c "uwsgi --ini uwsgi.ini"
     environment: *oncall-environment
@@ -44,12 +38,6 @@ services:
     restart: always
     command: sh -c "./celery_with_exporter.sh"
     environment: *oncall-environment
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     volumes:
       - /opt/shift-mon/oncall:/var/lib/oncall
     depends_on:
@@ -75,12 +63,6 @@ services:
     restart: always
     expose:
       - 6379
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     volumes:
       - type: bind
         source: /opt/shift-mon/redis
@@ -99,12 +81,6 @@ services:
   grafana:
     image: docker.io/grafana/grafana-oss:latest
     restart: unless-stopped
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     volumes:
       - type: bind
         source: /opt/shift-mon/grafana-config
@@ -119,12 +95,6 @@ services:
   loki:
     image: docker.io/grafana/loki:latest
     restart: unless-stopped
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     volumes:
       - type: bind
         source: /opt/shift-mon/loki
@@ -137,12 +107,6 @@ services:
   victoriametrics:
     restart: unless-stopped
     image: docker.io/victoriametrics/victoria-metrics:stable
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     volumes:
       - type: bind
         source: /opt/shift-mon/victoriametrics-storage
@@ -158,12 +122,6 @@ services:
 {% if uptime_kuma_enabled is not defined or uptime_kuma_enabled %}
   uptime-kuma:
     image: docker.io/louislam/uptime-kuma:1
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     restart: always
     volumes:
       - type: bind
@@ -178,12 +136,6 @@ services:
       #GID: "${GID-1000}"
     depends_on:
      - 'traefik'
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     volumes:
       - type: bind
         source: /opt/shift-mon/crowdsec-db
@@ -211,22 +163,10 @@ services:
   traefik:
     restart: unless-stopped
     image: docker.io/traefik:latest
-{% if shift_mon_docker_nets is defined %}
-    networks:
-{% for docker_net in shift_mon_docker_nets %}
-      - {{ docker_net }}
-{% endfor %}
-{% endif %}
     volumes:
       - type: bind
         source: /opt/shift-mon/traefik
         target: /etc/traefik
-{% if traefik_scrape_docker_sock is defined and traefik_scrape_docker_sock is true %}
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-        read_only: true
-{% endif %}
     ports:
      - 80:80
      - 443:443
@@ -238,11 +178,3 @@ services:
 {% endif %}
     command:
       - "--auth.config=/config/auth-config.yml"
-
-{% if shift_mon_docker_nets is defined %}
-networks:
-{% for docker_net in shift_mon_docker_nets %}
-  {{ docker_net }}:
-    external: true
-{% endfor %}
-{% endif %}
