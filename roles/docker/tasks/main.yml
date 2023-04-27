@@ -3,6 +3,14 @@
     name: geerlingguy.docker
     public: true
 
+- name: Install pip
+  ansible.builtin.package:
+    name: pip
+
+- name: Install docker pip package
+  ansible.builtin.pip:
+    name: docker
+
 - name: Ensure docker nets are present
   community.docker.docker_network:
     name: '{{ item }}'
