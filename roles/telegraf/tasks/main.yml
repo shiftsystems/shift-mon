@@ -260,6 +260,19 @@
   when: "'victoriametrics.service' in ansible_facts.services"
   notify: Restart Telegraf
 
+- name: Is ZFS installed
+  stat:
+    path: /etc/zfs/
+  register: zfs_path
+
+- name: Add ZFS config to telegraf
+  ansible.builtin.copy:
+    src: "linux/zfs.conf"
+    dest: /etc/telegraf/telegraf.d/zfs.conf
+  become: true
+  notify: Restart Telegraf
+  when: zfs_path.stat.exists
+
 - name: Deploy VSphere config when Vsphere Creds are Available
   ansible.builtin.copy:
     src: "linux/vsphere.conf"
