@@ -9,7 +9,7 @@ kics-scan:
       name: checkmarx/kics:latest
       entrypoint: [""]
     script:
-        - kics scan --no-progress -p ${PWD} -o ${PWD} --report-formats json --output-name kics-results
+        - kics scan -p ${PWD} -o ${PWD} --report-formats json --output-name kics-results
     artifacts:
         name: kics-results.json
         paths:
