@@ -13,7 +13,7 @@
 - name: Copy Crowdsec config
   ansible.builtin.copy:
     src: config.yaml
-    dest: config.yaml
+    dest: /opt/shift-mon/crowdsec-config/config.yaml
   become: true
 
 - name: Copy acquis.yaml
