@@ -2,6 +2,7 @@
   tasks:
     - name: Set Secrets
       ansible.builtin.set_fact:
+        container_engine: "podman"
         oncall_enabled: false
         oncall:
           secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
@@ -13,6 +14,8 @@
           domain: "{{ lookup('env', 'GRAFANA_DOMAIN') }}"
         uptimekuma:
           domain: "{{ lookup('env', 'UPTIMEKUMA_DOMAIN') }}"
+          #key_path: "{{ playbook_dir }}/files/uptime-kuma.key"
+          #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt"
         tls:
           email: "{{ lookup('env', 'TLS_EMAIL') }}"
         loki:
@@ -21,23 +24,24 @@
           url: "{{ lookup('env', 'LOKI_URL') }}"
           domain: "{{ lookup('env', 'LOKI_DOMAIN') }}"
           retention_period: 90d
-          #cert_path: "{{ playbook_dir }}/files/loki.crt" # optional use if you want to use your own cert for Loki
-          #key_path: "{{ playbook_dir }}/files/loki.key" # optional use if you want to use your own cert for Loki
+          tsdb_date: "2023-04-30"
+          #cert_path: "{{ playbook_dir }}/loki.crt" # optional use if you want to use your own cert for Loki
+          #key_path: "{{ playbook_dir }}/loki.key" # optional use if you want to use your own cert for Loki
         victoria:
           user: telegraf
           password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           url: "{{ lookup('env', 'VICTORIA_URL') }}"
           retention_period: 90d
           domain: "{{ lookup('env', 'VICTORIA_DOMAIN') }}"
-          #cert_path: "{{ playbook_dir }}/files/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
-          #key_path: "{{ playbook_dir }}/files/victoria.key" # optional use if you want to use your own cert for Victoriametrics
+          #cert_path: "{{ playbook_dir }/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
+          #key_path: "{{ playbook_dir }}/victoria.key" # optional use if you want to use your own cert for Victoriametrics
           #insecure: true # set to true if you need insecure access to Victoriametrics for things that cannot handle SSL or self signed certs
         email:
           enabled: false # uncomment and set to true to allow grafana to send email set to false or uncomment to ignore. 
-          host: "{{ lookup('env', 'GRAFANA_EMAIL_DOMAIN') }}"
-          alert_from_address: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          user: "{{ lookup('env', 'GRAFANA_EMAIL') }}"
-          password: "{{ lookup('env', 'GRAFANA_EMAIL') }}"
+          host: "{{ lookup('env', 'GRAFANA_EMAIL_HOST') }}"
+          alert_from_address: "{{ lookup('env', 'GRAFANA_EMAIL_ADDRESS') }}"
+          user: "{{ lookup('env', 'GRAFANA_EMAIL_USER') }}"
+          password: "{{ lookup('env', 'GRAFANA_EMAIL_PASSWORD') }}"
           alert_from_name: 'Shiftmon Alerts'
           port: '587'
         users: # dictionary of users and their password

@@ -57,6 +57,7 @@ If don't have a secretes manager can place the variables in quotes however this 
           url: 'https://logs.local.example.com'
           domain: logs.local.example.com
           retention_period: 90d
+          tsdb_date: "2024-04-30"
           #cert_path: "{{ playbook_dir }}/files/loki.crt" # optional use if you want to use your own cert for Loki
           #key_path: "{{ playbook_dir }}/files/loki.key" # optional use if you want to use your own cert for Loki
         victoria:
