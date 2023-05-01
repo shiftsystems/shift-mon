@@ -1,8 +1,12 @@
 - hosts: all
   tasks:
     - name: Set Secrets
+      set_fact:
+        loki:
+          tsdb_date: "{{ lookup('env', 'TSDB_DATE') }}"
+      when: "{{ lookup('env', 'TSDB_DATE', default=False) }}"
+    - name: Set Secrets
       ansible.builtin.set_fact:
-        container_engine: "podman"
         oncall_enabled: false
         oncall:
           secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
@@ -24,7 +28,6 @@
           url: "{{ lookup('env', 'LOKI_URL') }}"
           domain: "{{ lookup('env', 'LOKI_DOMAIN') }}"
           retention_period: 90d
-          tsdb_date: "2023-04-30"
           #cert_path: "{{ playbook_dir }}/loki.crt" # optional use if you want to use your own cert for Loki
           #key_path: "{{ playbook_dir }}/loki.key" # optional use if you want to use your own cert for Loki
         victoria:
