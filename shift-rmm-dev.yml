@@ -1,10 +1,5 @@
 - hosts: all
   tasks:
-    - name: Set tsdb_date
-      set_fact:
-        loki:
-          tsdb_date: "{{ lookup('env', 'TSDB_DATE') }}"
-        when: "{{ lookup('env', 'TSDB_DATE', default=False) }}"
     - name: Set Secrets
       ansible.builtin.set_fact:
         oncall_enabled: false
@@ -50,6 +45,12 @@
         users: # dictionary of users and their password
           telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           #fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
+    - name: Set tsdb_date
+      set_fact:
+        loki: "{{ loki|combine({'tsdb_date': lookup('env', 'TSDB_DATE')}, recursive=True) }}"
+        # loki:
+        #   tsdb_date: "{{ lookup('env', 'TSDB_DATE') }}"
+        when: "{{ lookup('env', 'TSDB_DATE', default=False) }}"
 
 - hosts: shiftmon_servers
   tasks:
