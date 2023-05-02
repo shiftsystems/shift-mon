@@ -6,15 +6,15 @@
         oncall:
           secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
           domain: "{{ lookup('env', 'ONCALL_DOMAIN') }}"
-          #key_path: "{{ playbook_dir }}/files/oncall.key"
-          #cert_path: "{{ playbook_dir }}/files/oncall.crt"
+          # key_path: "{{ playbook_dir }}/files/oncall.key"
+          # cert_path: "{{ playbook_dir }}/files/oncall.crt"
         bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
         grafana:
           domain: "{{ lookup('env', 'GRAFANA_DOMAIN') }}"
         uptimekuma:
           domain: "{{ lookup('env', 'UPTIMEKUMA_DOMAIN') }}"
-          #key_path: "{{ playbook_dir }}/files/uptime-kuma.key"
-          #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt"
+          # key_path: "{{ playbook_dir }}/files/uptime-kuma.key"
+          # cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt"
         tls:
           email: "{{ lookup('env', 'TLS_EMAIL') }}"
         loki:
@@ -23,19 +23,19 @@
           url: "{{ lookup('env', 'LOKI_URL') }}"
           domain: "{{ lookup('env', 'LOKI_DOMAIN') }}"
           retention_period: 90d
-          #cert_path: "{{ playbook_dir }}/loki.crt" # optional use if you want to use your own cert for Loki
-          #key_path: "{{ playbook_dir }}/loki.key" # optional use if you want to use your own cert for Loki
+          # cert_path: "{{ playbook_dir }}/loki.crt" # optional use if you want to use your own cert for Loki
+          # key_path: "{{ playbook_dir }}/loki.key" # optional use if you want to use your own cert for Loki
         victoria:
           user: telegraf
           password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           url: "{{ lookup('env', 'VICTORIA_URL') }}"
           retention_period: 90d
           domain: "{{ lookup('env', 'VICTORIA_DOMAIN') }}"
-          #cert_path: "{{ playbook_dir }/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
-          #key_path: "{{ playbook_dir }}/victoria.key" # optional use if you want to use your own cert for Victoriametrics
-          #insecure: true # set to true if you need insecure access to Victoriametrics for things that cannot handle SSL or self signed certs
+          # cert_path: "{{ playbook_dir }/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
+          # key_path: "{{ playbook_dir }}/victoria.key" # optional use if you want to use your own cert for Victoriametrics
+          # insecure: true # set to true if you need insecure access to Victoriametrics for things that cannot handle SSL or self signed certs
         email:
-          enabled: false # uncomment and set to true to allow grafana to send email set to false or uncomment to ignore. 
+          enabled: false # uncomment and set to true to allow grafana to send email set to false or uncomment to ignore.
           host: "{{ lookup('env', 'GRAFANA_EMAIL_HOST') }}"
           alert_from_address: "{{ lookup('env', 'GRAFANA_EMAIL_ADDRESS') }}"
           user: "{{ lookup('env', 'GRAFANA_EMAIL_USER') }}"
@@ -44,18 +44,16 @@
           port: '587'
         users: # dictionary of users and their password
           telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          #fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
+          # fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
     - name: Set tsdb_date
-      set_fact:
-        loki: "{{ loki|combine({'tsdb_date': lookup('env', 'TSDB_DATE')}, recursive=True) }}"
-        # loki:
-        #   tsdb_date: "{{ lookup('env', 'TSDB_DATE') }}"
-        when: "{{ lookup('env', 'TSDB_DATE', default=False) }}"
+      ansible.builtin.set_fact:
+        loki: "{{loki| ansible.builtin.combine({'tsdb_date': lookup('env', 'TSDB_DATE')}, recursive=True)}}"
+        when: "lookup('env', 'TSDB_DATE', default=False)"
 
 - hosts: shiftmon_servers
   tasks:
     - name: Set container_engine
-      set_fact:
+      ansible.builtin.set_fact:
         container_engine: "{{ lookup('env', 'SERVER_CONTAINER_ENGINE', default='podman') }}"
     - name: Deploy Uptime-Kuma
       ansible.builtin.include_role:

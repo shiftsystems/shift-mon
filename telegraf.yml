@@ -1,4 +1,4 @@
 - hosts: all
   tasks:
-    - include_role:
+    - ansible.builtin.include_role:
         name: telegraf

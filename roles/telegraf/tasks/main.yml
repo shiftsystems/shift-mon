@@ -146,8 +146,8 @@
   become: true
   notify: Restart Telegraf
   with_items:
-  - "nginx.conf"
-  - "httpd.conf"
+    - "nginx.conf"
+    - "httpd.conf"
 
 
 - name: Create docker group when docker is selected
@@ -210,14 +210,14 @@
     src: telegraf-traefik.conf
     dest: /etc/telegraf/telegraf.d/traefik.conf
   become: true
-  when: telegraf_traefik_config is defined and telegraf_traefik_config == True
+  when: telegraf_traefik_config is defined and telegraf_traefik_config
 
 - name: Add logrotate config
   ansible.builtin.template:
     src: logrotate-traefik.conf
     dest: /etc/logrotate.d/traefik.conf
   become: true
-  when: telegraf_traefik_config is defined and telegraf_traefik_config == True
+  when: telegraf_traefik_config is defined and telegraf_traefik_config
   notify: Restart Telegraf
 
 - name: Add Victoriametrics config to telegraf
@@ -261,7 +261,7 @@
   notify: Restart Telegraf
 
 - name: Is ZFS installed
-  stat:
+  ansible.builtin.stat:
     path: /etc/zfs/
   register: zfs_path
 
