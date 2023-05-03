@@ -27,6 +27,7 @@
   * retention_period: how long to store data before deletion use d for day and y for years
   * cert_path:  absolute path to SSL certificate for loki should be pem encoded this is optional
   * key_path:  absolute path to SSL key for loki should be pem encoded this is optional
+  * tsdb_date: Date formated YYYY-MM-DD that states when to store logs in TSDB format instead of boltdb format this optional but should be set
 * victoria:
   * url: url that telegraf should send metrics to
   * domain: Fully qualified domain name (fqdn) for the victoriametrics server

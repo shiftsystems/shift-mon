@@ -39,7 +39,21 @@ schema_config:
       index:
         prefix: index_
         period: 24h
+{% if loki.tsdb_date is defined %}
+    - from: {{ loki.tsdb_date }}
+      store: tsdb
+      object_store: filesystem
+      schema: v12
+      index:
+        prefix: index_
+        period: 24h
+{% endif %}
 storage_config:
+  tsdb_shipper:
+    active_index_directory: /loki/tsdb-index
+    cache_location: /loki/tsdb-cache
+    cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
+    shared_store: filesystem
   boltdb_shipper:
     active_index_directory: /loki/boltdb-shipper-active
     cache_location: /loki/boltdb-shipper-cache
