@@ -197,6 +197,14 @@
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
   notify: Restart Telegraf
 
+- name: Fleet config when Fleet is installed
+  ansible.builtin.copy:
+    src: "linux/fleet.conf"
+    dest: /etc/telegraf/telegraf.d/fleet.conf
+  become: true
+  when: "'fleetdm.service' in ansible_facts.services"
+  notify: Restart Telegraf
+
 - name: Deploy Loki config when Loki is installed
   ansible.builtin.copy:
     src: "linux/loki.conf"
