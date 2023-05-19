@@ -149,6 +149,13 @@
     - "nginx.conf"
     - "httpd.conf"
 
+- name: Add IPVS config if Keepalived is installed
+  ansible.builtin.copy:
+    src: "linux/ipvs.conf"
+    dest: /etc/telegraf/telegraf.d/ipvs.conf
+  become: true
+  when: "'keepalived.service' in ansible_facts.services"
+  notify: Restart Telegraf
 
 - name: Create docker group when docker is selected
   ansible.builtin.group:
