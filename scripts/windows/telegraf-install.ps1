@@ -29,7 +29,7 @@ Invoke-WebRequest -Uri $url -OutFile $output
 [int]$build = (Get-Item "HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('CurrentBuild')
 if ($build -gt 10000) {
     $url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/defender.conf"
-    $output = "C:\Program Files\telegraf\telegraf.d\defender.conf"
+    $output = "C:\Program Files\telegraf\conf\defender.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
 }
 
@@ -40,7 +40,7 @@ if($service) {
     $output = "C:\Program Files\telegraf\telegraf.d\iis.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
     $url = "https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/telegraf-configs/windows/iis-logs.conf"
-    $output = "C:\Program Files\telegraf\telegraf.d\iis-logs.conf"
+    $output = "C:\Program Files\telegraf\conf\iis-logs.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
 }
 # Create registry entries for telegraf
