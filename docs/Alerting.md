@@ -54,7 +54,7 @@ C: Threshold
 * Condition: IS ABOVE
 * 90
 
-for: 20m
+for: 20m\
 Summary: `{{ $labels.host }} is using almost all its RAM`\
 Description: `{{ $labels.host }} is at {{ $values.B }}%`\
 
@@ -71,7 +71,7 @@ C: Threshold
 * Condition: IS ABOVE
 * 90
 
-for: 1h
+for: 1h\
 Summary: `{{ $labels.host }} has been using alot of cpu for the past 10 minutes`\
 Description: `{{ $labels.host }} is at {{ $values.B }}%`\
 
@@ -89,7 +89,7 @@ C: Threshold
   * Condition: IS ABOVE
   * Value: 92
 
-for: 1h
+for: 1h\
 Summary: `{{ $labels.host }} is running out of disk space`\
 Description: `{{ $labels.host }} is at {{ $values.B }}% on disk {{ $labels.device }} Disk usage`\
 
@@ -108,7 +108,7 @@ C: Threshold
   * Value: 2
 
 
-for: 1h
+for: 1h\
 Summary: `{{ $labels.host }} has automatic service that failing`\
 Description: `{{ $labels.name }} on {{ $labels.host }} is failing`\
 
@@ -128,6 +128,22 @@ model: {{ $labels.model }}
 serial number: {{ $labels.serial_no }}
 ```
 for: 5m
+
+### High CPU IOWait
+Query: ```cpu_usage_iowait{}```\
+B: Reduce
+* Function: Mean
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS ABOVE
+* 6
+
+for: 10m\
+Summary: `{{ $labels.host }} has high iowait`\
+Description: `{{ $labels.host }} is at {{ $values.B }}% of iowait this could be causing issues with application responsiveness`\
 
 ## Related docs
 * [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)

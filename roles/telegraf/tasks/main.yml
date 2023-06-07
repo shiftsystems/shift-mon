@@ -146,9 +146,16 @@
   become: true
   notify: Restart Telegraf
   with_items:
-  - "nginx.conf"
-  - "httpd.conf"
+    - "nginx.conf"
+    - "httpd.conf"
 
+- name: Add IPVS config if Keepalived is installed
+  ansible.builtin.copy:
+    src: "linux/ipvs.conf"
+    dest: /etc/telegraf/telegraf.d/ipvs.conf
+  become: true
+  when: "'keepalived.service' in ansible_facts.services"
+  notify: Restart Telegraf
 
 - name: Create docker group when docker is selected
   ansible.builtin.group:
@@ -197,6 +204,14 @@
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
   notify: Restart Telegraf
 
+- name: Fleet config when Fleet is installed
+  ansible.builtin.copy:
+    src: "linux/fleet.conf"
+    dest: /etc/telegraf/telegraf.d/fleet.conf
+  become: true
+  when: "'fleetdm.service' in ansible_facts.services"
+  notify: Restart Telegraf
+
 - name: Deploy Loki config when Loki is installed
   ansible.builtin.copy:
     src: "linux/loki.conf"
@@ -210,14 +225,14 @@
     src: telegraf-traefik.conf
     dest: /etc/telegraf/telegraf.d/traefik.conf
   become: true
-  when: telegraf_traefik_config is defined and telegraf_traefik_config == True
+  when: telegraf_traefik_config is defined and telegraf_traefik_config
 
 - name: Add logrotate config
   ansible.builtin.template:
     src: logrotate-traefik.conf
     dest: /etc/logrotate.d/traefik.conf
   become: true
-  when: telegraf_traefik_config is defined and telegraf_traefik_config == True
+  when: telegraf_traefik_config is defined and telegraf_traefik_config
   notify: Restart Telegraf
 
 - name: Add Victoriametrics config to telegraf
@@ -259,6 +274,19 @@
   become: true
   when: "'victoriametrics.service' in ansible_facts.services"
   notify: Restart Telegraf
+
+- name: Is ZFS installed
+  ansible.builtin.stat:
+    path: /etc/zfs/
+  register: zfs_path
+
+- name: Add ZFS config to telegraf
+  ansible.builtin.copy:
+    src: "linux/zfs.conf"
+    dest: /etc/telegraf/telegraf.d/zfs.conf
+  become: true
+  notify: Restart Telegraf
+  when: zfs_path.stat.exists
 
 - name: Deploy VSphere config when Vsphere Creds are Available
   ansible.builtin.copy:

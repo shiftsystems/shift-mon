@@ -44,6 +44,7 @@ If don't have a secretes manager can place the variables in quotes however this 
   tasks:
     - name: Set Telegraf Secrets
       ansible.builtin.set_fact:
+        container_engine: "{{ lookup('ansible.builtin.env', 'CONTAINER_ENGINE', default='podman') }}"
         oncall_enabled: true
         oncall:
           secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
@@ -57,6 +58,7 @@ If don't have a secretes manager can place the variables in quotes however this 
           url: 'https://logs.local.example.com'
           domain: logs.local.example.com
           retention_period: 90d
+          tsdb_date: "2023-04-30" # optional comment out if you have an existing install without this variable set or your log db will get corrupted
           #cert_path: "{{ playbook_dir }}/files/loki.crt" # optional use if you want to use your own cert for Loki
           #key_path: "{{ playbook_dir }}/files/loki.key" # optional use if you want to use your own cert for Loki
         victoria:

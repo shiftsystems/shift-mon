@@ -133,7 +133,6 @@ services:
     restart: always
     environment:
       COLLECTIONS: "crowdsecurity/traefik"
-      #GID: "${GID-1000}"
     depends_on:
      - 'traefik'
     volumes:
