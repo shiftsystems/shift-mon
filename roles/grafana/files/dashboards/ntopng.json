@@ -1,0 +1,1541 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 38,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 69,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 17,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "sortBy": "Max",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (protocol) (rate(iface:ndpi_bytes{db=\"$db\"}))",
+            "instant": false,
+            "legendFormat": "{{protocol}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Categories by Bandwith",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": [],
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "AJP",
+                    "AccuWeather",
+                    "Alibaba",
+                    "Amazon",
+                    "AmazonAWS",
+                    "AmazonAlexa",
+                    "AmazonVideo",
+                    "AnyDesk",
+                    "Apple",
+                    "ApplePush",
+                    "AppleSiri",
+                    "AppleStore",
+                    "AppleTVPlus",
+                    "AppleiCloud",
+                    "AppleiTunes",
+                    "Azure",
+                    "BGP",
+                    "Badoo",
+                    "CNN",
+                    "COAP",
+                    "Cachefly",
+                    "CiscoVPN",
+                    "Cloudflare",
+                    "Corba",
+                    "Crashlytics",
+                    "Cybersec",
+                    "DHCP",
+                    "DHCPV6",
+                    "DNP3",
+                    "DNS",
+                    "DTLS",
+                    "DataSaver",
+                    "Discord",
+                    "DisneyPlus",
+                    "DoH_DoT",
+                    "Dropbox",
+                    "FTP_CONTROL",
+                    "Facebook",
+                    "FacebookVoip",
+                    "FortiClient",
+                    "GMail",
+                    "GTP_C",
+                    "GTP_U",
+                    "GitLab",
+                    "Github",
+                    "GoTo",
+                    "Google",
+                    "GoogleDocs",
+                    "GoogleDrive",
+                    "GoogleHangoutDuo",
+                    "GoogleMaps",
+                    "GoogleServices",
+                    "H323",
+                    "HTTP",
+                    "HTTP_Proxy",
+                    "Hulu",
+                    "ICMP",
+                    "ICMPV6",
+                    "IGMP",
+                    "IHeartRadio",
+                    "IMAP",
+                    "IMAPS",
+                    "IPSec",
+                    "Instagram",
+                    "Kerberos",
+                    "LDAP",
+                    "LLMNR",
+                    "LinkedIn",
+                    "MDNS",
+                    "MQTT",
+                    "MS_OneDrive",
+                    "Messenger",
+                    "Microsoft",
+                    "Mining",
+                    "MpegDash",
+                    "MsSQL-TDS",
+                    "NAT-PMP",
+                    "NFS",
+                    "NTP",
+                    "NetBIOS",
+                    "NetFlix",
+                    "NetFlow",
+                    "Nintendo",
+                    "OCSP",
+                    "Ookla",
+                    "OpenDNS",
+                    "OpenVPN",
+                    "Outlook",
+                    "Pinterest",
+                    "PlayStore",
+                    "PostgreSQL",
+                    "QUIC",
+                    "RDP",
+                    "RTMP",
+                    "RTP",
+                    "RTSP",
+                    "Radius",
+                    "Reddit",
+                    "Redis",
+                    "RiotGames",
+                    "SCTP",
+                    "SIP",
+                    "SMBv1",
+                    "SMBv23",
+                    "SMTP",
+                    "SMTPS",
+                    "SNMP",
+                    "SSDP",
+                    "STUN",
+                    "Salesforce",
+                    "Signal",
+                    "Skype_Teams",
+                    "Skype_TeamsCall",
+                    "Slack",
+                    "Snapchat",
+                    "SoundCloud",
+                    "Spotify",
+                    "Steam",
+                    "Syslog",
+                    "TFTP",
+                    "TLS",
+                    "TPLINK_SHP",
+                    "Tailscale",
+                    "Teams",
+                    "Telegram",
+                    "Telnet",
+                    "Teredo",
+                    "TikTok",
+                    "Tor",
+                    "Tumblr",
+                    "TuneIn",
+                    "Twitch",
+                    "Twitter",
+                    "UbuntuONE",
+                    "Unknown",
+                    "Vimeo",
+                    "Vudu",
+                    "WSD",
+                    "WebSocket",
+                    "WhatsApp",
+                    "WhatsAppCall",
+                    "Wikipedia",
+                    "WindowsUpdate",
+                    "WireGuard",
+                    "WorldOfWarcraft",
+                    "XDMCP",
+                    "Xbox",
+                    "Yahoo",
+                    "Z3950",
+                    "Zoom",
+                    "eBay",
+                    "iCloudPrivateRelay",
+                    "ntop",
+                    "s7comm",
+                    "SSH",
+                    "Microsoft365",
+                    "YouTube"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 7,
+          "x": 17,
+          "y": 0
+        },
+        "id": 4,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [],
+            "fields": "",
+            "limit": 100,
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (protocol) (increase(iface:ndpi_bytes{db=\"$db\"}[$__range]))",
+            "instant": true,
+            "legendFormat": "{{protocol}}",
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "title": "Categories by Bandwith",
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 69,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 17,
+          "x": 0,
+          "y": 8
+        },
+        "id": 5,
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "sortBy": "Max",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (host) (rate(host:ndpi_bytes_rcvd{db=\"$db\"}) + rate(host:ndpi_bytes_sent{db=\"$db\"}))",
+            "instant": false,
+            "legendFormat": "{{protocol}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Host Bandwidth Usage",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": [],
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "AJP",
+                    "AccuWeather",
+                    "Alibaba",
+                    "Amazon",
+                    "AmazonAWS",
+                    "AmazonAlexa",
+                    "AmazonVideo",
+                    "AnyDesk",
+                    "Apple",
+                    "ApplePush",
+                    "AppleSiri",
+                    "AppleStore",
+                    "AppleTVPlus",
+                    "AppleiCloud",
+                    "AppleiTunes",
+                    "Azure",
+                    "BGP",
+                    "Badoo",
+                    "CNN",
+                    "COAP",
+                    "Cachefly",
+                    "CiscoVPN",
+                    "Cloudflare",
+                    "Corba",
+                    "Crashlytics",
+                    "Cybersec",
+                    "DHCP",
+                    "DHCPV6",
+                    "DNP3",
+                    "DNS",
+                    "DTLS",
+                    "DataSaver",
+                    "Discord",
+                    "DisneyPlus",
+                    "DoH_DoT",
+                    "Dropbox",
+                    "FTP_CONTROL",
+                    "Facebook",
+                    "FacebookVoip",
+                    "FortiClient",
+                    "GMail",
+                    "GTP_C",
+                    "GTP_U",
+                    "GitLab",
+                    "Github",
+                    "GoTo",
+                    "Google",
+                    "GoogleDocs",
+                    "GoogleDrive",
+                    "GoogleHangoutDuo",
+                    "GoogleMaps",
+                    "GoogleServices",
+                    "H323",
+                    "HTTP",
+                    "HTTP_Proxy",
+                    "Hulu",
+                    "ICMP",
+                    "ICMPV6",
+                    "IGMP",
+                    "IHeartRadio",
+                    "IMAP",
+                    "IMAPS",
+                    "IPSec",
+                    "Instagram",
+                    "Kerberos",
+                    "LDAP",
+                    "LLMNR",
+                    "LinkedIn",
+                    "MDNS",
+                    "MQTT",
+                    "MS_OneDrive",
+                    "Messenger",
+                    "Microsoft",
+                    "Mining",
+                    "MpegDash",
+                    "MsSQL-TDS",
+                    "NAT-PMP",
+                    "NFS",
+                    "NTP",
+                    "NetBIOS",
+                    "NetFlix",
+                    "NetFlow",
+                    "Nintendo",
+                    "OCSP",
+                    "Ookla",
+                    "OpenDNS",
+                    "OpenVPN",
+                    "Outlook",
+                    "Pinterest",
+                    "PlayStore",
+                    "PostgreSQL",
+                    "QUIC",
+                    "RDP",
+                    "RTMP",
+                    "RTP",
+                    "RTSP",
+                    "Radius",
+                    "Reddit",
+                    "Redis",
+                    "RiotGames",
+                    "SCTP",
+                    "SIP",
+                    "SMBv1",
+                    "SMBv23",
+                    "SMTP",
+                    "SMTPS",
+                    "SNMP",
+                    "SSDP",
+                    "STUN",
+                    "Salesforce",
+                    "Signal",
+                    "Skype_Teams",
+                    "Skype_TeamsCall",
+                    "Slack",
+                    "Snapchat",
+                    "SoundCloud",
+                    "Spotify",
+                    "Steam",
+                    "Syslog",
+                    "TFTP",
+                    "TLS",
+                    "TPLINK_SHP",
+                    "Tailscale",
+                    "Teams",
+                    "Telegram",
+                    "Telnet",
+                    "Teredo",
+                    "TikTok",
+                    "Tor",
+                    "Tumblr",
+                    "TuneIn",
+                    "Twitch",
+                    "Twitter",
+                    "UbuntuONE",
+                    "Unknown",
+                    "Vimeo",
+                    "Vudu",
+                    "WSD",
+                    "WebSocket",
+                    "WhatsApp",
+                    "WhatsAppCall",
+                    "Wikipedia",
+                    "WindowsUpdate",
+                    "WireGuard",
+                    "WorldOfWarcraft",
+                    "XDMCP",
+                    "Xbox",
+                    "Yahoo",
+                    "Z3950",
+                    "Zoom",
+                    "eBay",
+                    "iCloudPrivateRelay",
+                    "ntop",
+                    "s7comm",
+                    "SSH",
+                    "Microsoft365",
+                    "YouTube",
+                    "SOAP",
+                    "24.149.3.156",
+                    "10.0.0.204",
+                    "10.99.0.104@99",
+                    "10.99.0.104",
+                    "10.0.0.8",
+                    "10.99.0.110@99",
+                    "10.99.0.110",
+                    "10.0.0.1",
+                    "127.0.0.1",
+                    "10.42.0.7@42",
+                    "10.42.0.7",
+                    "10.99.0.50"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 7,
+          "x": 17,
+          "y": 8
+        },
+        "id": 3,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "sortBy": "Value",
+            "sortDesc": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "limit": 100,
+            "values": false
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (host) (increase(host:ndpi_bytes_rcvd{db=\"$db\"}) + increase(host:ndpi_bytes_sent{db=\"$db\"}))",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Host Bandwidth Usage",
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 69,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 17,
+          "x": 0,
+          "y": 16
+        },
+        "id": 7,
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "sortBy": "Max",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (protocol) (rate(host:ndpi_bytes_rcvd{host=\"$host\",db=\"$db\"}) + rate(host:ndpi_bytes_sent{host=\"$host\",db=\"$db\"}))",
+            "instant": false,
+            "legendFormat": "{{protocol}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Host App Usage",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": [],
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "AJP",
+                    "AccuWeather",
+                    "Alibaba",
+                    "Amazon",
+                    "AmazonAWS",
+                    "AmazonAlexa",
+                    "AmazonVideo",
+                    "AnyDesk",
+                    "Apple",
+                    "ApplePush",
+                    "AppleSiri",
+                    "AppleStore",
+                    "AppleTVPlus",
+                    "AppleiCloud",
+                    "AppleiTunes",
+                    "Azure",
+                    "BGP",
+                    "Badoo",
+                    "CNN",
+                    "COAP",
+                    "Cachefly",
+                    "CiscoVPN",
+                    "Cloudflare",
+                    "Corba",
+                    "Crashlytics",
+                    "Cybersec",
+                    "DHCP",
+                    "DHCPV6",
+                    "DNP3",
+                    "DNS",
+                    "DTLS",
+                    "DataSaver",
+                    "Discord",
+                    "DisneyPlus",
+                    "DoH_DoT",
+                    "Dropbox",
+                    "FTP_CONTROL",
+                    "Facebook",
+                    "FacebookVoip",
+                    "FortiClient",
+                    "GMail",
+                    "GTP_C",
+                    "GTP_U",
+                    "GitLab",
+                    "Github",
+                    "GoTo",
+                    "Google",
+                    "GoogleDocs",
+                    "GoogleDrive",
+                    "GoogleHangoutDuo",
+                    "GoogleMaps",
+                    "GoogleServices",
+                    "H323",
+                    "HTTP",
+                    "HTTP_Proxy",
+                    "Hulu",
+                    "ICMP",
+                    "ICMPV6",
+                    "IGMP",
+                    "IHeartRadio",
+                    "IMAP",
+                    "IMAPS",
+                    "IPSec",
+                    "Instagram",
+                    "Kerberos",
+                    "LDAP",
+                    "LLMNR",
+                    "LinkedIn",
+                    "MDNS",
+                    "MQTT",
+                    "MS_OneDrive",
+                    "Messenger",
+                    "Microsoft",
+                    "Mining",
+                    "MpegDash",
+                    "MsSQL-TDS",
+                    "NAT-PMP",
+                    "NFS",
+                    "NTP",
+                    "NetBIOS",
+                    "NetFlix",
+                    "NetFlow",
+                    "Nintendo",
+                    "OCSP",
+                    "Ookla",
+                    "OpenDNS",
+                    "OpenVPN",
+                    "Outlook",
+                    "Pinterest",
+                    "PlayStore",
+                    "PostgreSQL",
+                    "QUIC",
+                    "RDP",
+                    "RTMP",
+                    "RTP",
+                    "RTSP",
+                    "Radius",
+                    "Reddit",
+                    "Redis",
+                    "RiotGames",
+                    "SCTP",
+                    "SIP",
+                    "SMBv1",
+                    "SMBv23",
+                    "SMTP",
+                    "SMTPS",
+                    "SNMP",
+                    "SSDP",
+                    "STUN",
+                    "Salesforce",
+                    "Signal",
+                    "Skype_Teams",
+                    "Skype_TeamsCall",
+                    "Slack",
+                    "Snapchat",
+                    "SoundCloud",
+                    "Spotify",
+                    "Steam",
+                    "Syslog",
+                    "TFTP",
+                    "TLS",
+                    "TPLINK_SHP",
+                    "Tailscale",
+                    "Teams",
+                    "Telegram",
+                    "Telnet",
+                    "Teredo",
+                    "TikTok",
+                    "Tor",
+                    "Tumblr",
+                    "TuneIn",
+                    "Twitch",
+                    "Twitter",
+                    "UbuntuONE",
+                    "Unknown",
+                    "Vimeo",
+                    "Vudu",
+                    "WSD",
+                    "WebSocket",
+                    "WhatsApp",
+                    "WhatsAppCall",
+                    "Wikipedia",
+                    "WindowsUpdate",
+                    "WireGuard",
+                    "WorldOfWarcraft",
+                    "XDMCP",
+                    "Xbox",
+                    "Yahoo",
+                    "Z3950",
+                    "Zoom",
+                    "eBay",
+                    "iCloudPrivateRelay",
+                    "ntop",
+                    "s7comm",
+                    "SSH",
+                    "Microsoft365",
+                    "YouTube",
+                    "SOAP"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 7,
+          "x": 17,
+          "y": 16
+        },
+        "id": 8,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "limit": 100,
+            "values": false
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (protocol) (increase(host:ndpi_bytes_rcvd{host=\"$host\",db=\"$db\"}) + increase(host:ndpi_bytes_sent{host=\"$host\",db=\"$db\"}))",
+            "instant": false,
+            "legendFormat": "{{protocol}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Host App Usage",
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 69,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 17,
+          "x": 0,
+          "y": 24
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "sortBy": "Mean",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (l4proto) (increase(iface:l4protos_bytes{db=\"$db\"}))",
+            "instant": false,
+            "legendFormat": "{{protocol}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "L4 Bandwidth",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": [],
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "AJP",
+                    "AccuWeather",
+                    "Alibaba",
+                    "Amazon",
+                    "AmazonAWS",
+                    "AmazonAlexa",
+                    "AmazonVideo",
+                    "AnyDesk",
+                    "Apple",
+                    "ApplePush",
+                    "AppleSiri",
+                    "AppleStore",
+                    "AppleTVPlus",
+                    "AppleiCloud",
+                    "AppleiTunes",
+                    "Azure",
+                    "BGP",
+                    "Badoo",
+                    "CNN",
+                    "COAP",
+                    "Cachefly",
+                    "CiscoVPN",
+                    "Cloudflare",
+                    "Corba",
+                    "Crashlytics",
+                    "Cybersec",
+                    "DHCP",
+                    "DHCPV6",
+                    "DNP3",
+                    "DNS",
+                    "DTLS",
+                    "DataSaver",
+                    "Discord",
+                    "DisneyPlus",
+                    "DoH_DoT",
+                    "Dropbox",
+                    "FTP_CONTROL",
+                    "Facebook",
+                    "FacebookVoip",
+                    "FortiClient",
+                    "GMail",
+                    "GTP_C",
+                    "GTP_U",
+                    "GitLab",
+                    "Github",
+                    "GoTo",
+                    "Google",
+                    "GoogleDocs",
+                    "GoogleDrive",
+                    "GoogleHangoutDuo",
+                    "GoogleMaps",
+                    "GoogleServices",
+                    "H323",
+                    "HTTP",
+                    "HTTP_Proxy",
+                    "Hulu",
+                    "ICMP",
+                    "ICMPV6",
+                    "IGMP",
+                    "IHeartRadio",
+                    "IMAP",
+                    "IMAPS",
+                    "IPSec",
+                    "Instagram",
+                    "Kerberos",
+                    "LDAP",
+                    "LLMNR",
+                    "LinkedIn",
+                    "MDNS",
+                    "MQTT",
+                    "MS_OneDrive",
+                    "Messenger",
+                    "Microsoft",
+                    "Microsoft365",
+                    "Mining",
+                    "MpegDash",
+                    "MsSQL-TDS",
+                    "NAT-PMP",
+                    "NFS",
+                    "NTP",
+                    "NetBIOS",
+                    "NetFlix",
+                    "NetFlow",
+                    "Nintendo",
+                    "OCSP",
+                    "Ookla",
+                    "OpenDNS",
+                    "OpenVPN",
+                    "Outlook",
+                    "Pinterest",
+                    "PlayStore",
+                    "PostgreSQL",
+                    "QUIC",
+                    "RDP",
+                    "RTMP",
+                    "RTP",
+                    "RTSP",
+                    "Radius",
+                    "Reddit",
+                    "Redis",
+                    "RiotGames",
+                    "SCTP",
+                    "SIP",
+                    "SMBv1",
+                    "SMBv23",
+                    "SMTP",
+                    "SMTPS",
+                    "SNMP",
+                    "SSDP",
+                    "STUN",
+                    "Salesforce",
+                    "Signal",
+                    "Skype_Teams",
+                    "Skype_TeamsCall",
+                    "Slack",
+                    "Snapchat",
+                    "SoundCloud",
+                    "Spotify",
+                    "Steam",
+                    "Syslog",
+                    "TFTP",
+                    "TLS",
+                    "TPLINK_SHP",
+                    "Tailscale",
+                    "Teams",
+                    "Telegram",
+                    "Telnet",
+                    "Teredo",
+                    "TikTok",
+                    "Tor",
+                    "Tumblr",
+                    "TuneIn",
+                    "Twitch",
+                    "Twitter",
+                    "UbuntuONE",
+                    "Unknown",
+                    "Vimeo",
+                    "Vudu",
+                    "WSD",
+                    "WebSocket",
+                    "WhatsApp",
+                    "WhatsAppCall",
+                    "Wikipedia",
+                    "WindowsUpdate",
+                    "WireGuard",
+                    "WorldOfWarcraft",
+                    "XDMCP",
+                    "Xbox",
+                    "Yahoo",
+                    "YouTube",
+                    "Z3950",
+                    "Zoom",
+                    "eBay",
+                    "iCloudPrivateRelay",
+                    "ntop",
+                    "s7comm",
+                    "SSH",
+                    "4",
+                    "other_ip",
+                    "icmp",
+                    "udp",
+                    "tcp"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 7,
+          "x": 17,
+          "y": 24
+        },
+        "id": 2,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "limit": 100,
+            "values": false
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${metrics}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum by (l4proto) (increase(iface:l4protos_bytes{db=\"$db\"}))",
+            "instant": false,
+            "legendFormat": "{{iface}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "L4 bandwidth usage",
+        "type": "piechart"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "metrics",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "logs",
+          "options": [],
+          "query": "loki",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(host:ndpi_bytes_rcvd{db=\"$db\"},host)",
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "host",
+          "options": [],
+          "query": {
+            "query": "label_values(host:ndpi_bytes_rcvd{db=\"$db\"},host)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(iface:ndpi_bytes,db)",
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "db",
+          "options": [],
+          "query": {
+            "query": "label_values(iface:ndpi_bytes,db)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "NtopNG",
+    "uid": "bd7773bf-cd40-4434-ae69-8b81cc5bd3c7",
+    "version": 14,
+    "weekStart": ""
+  }

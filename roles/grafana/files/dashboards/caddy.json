@@ -44,8 +44,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
+            "fillOpacity": 85,
+            "gradientMode": "hue",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -61,7 +61,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -116,7 +116,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "count_over_time({host=\"$host\"}[1m])",
+          "expr": "count_over_time({host=\"$host\",path=~\"/var/log/caddy/.*\"}[1m])",
           "legendFormat": "All {{ path }}",
           "queryType": "range",
           "refId": "A"
@@ -127,7 +127,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "count_over_time({host=\"$host\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [1m])",
+          "expr": "count_over_time({host=\"$host\",path=~\"/var/log/caddy/.*\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [1m])",
           "hide": false,
           "legendFormat": "Error {{ path }}",
           "queryType": "range",
@@ -182,7 +182,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.3",
       "targets": [
         {
           "datasource": {
@@ -826,7 +826,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.3",
       "targets": [
         {
           "datasource": {
@@ -944,7 +944,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.3",
       "targets": [
         {
           "datasource": {
@@ -1080,6 +1080,6 @@
   "timezone": "",
   "title": "Caddy",
   "uid": "kmrQlud4k",
-  "version": 9,
+  "version": 12,
   "weekStart": ""
 }
