@@ -79,7 +79,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -148,7 +148,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -212,7 +212,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -275,7 +275,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -341,7 +341,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -399,6 +399,7 @@
       },
       "id": 16,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -410,7 +411,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -509,7 +510,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -789,9 +790,10 @@
           "values": false
         },
         "showUnfilled": true,
-        "text": {}
+        "text": {},
+        "valueMode": "color"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -855,7 +857,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -1173,7 +1175,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "pf_entries{}",
+          "expr": "pf_entries{host=\"$host\",db=\"opnsense\"}",
           "legendFormat": "states",
           "range": true,
           "refId": "A"
@@ -1228,7 +1230,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -1521,7 +1523,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1549,7 +1552,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -1789,7 +1792,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1808,6 +1812,7 @@
       },
       "id": 31,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -1818,7 +1823,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -1892,8 +1897,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rose.local.shiftsystems.net",
-          "value": "rose.local.shiftsystems.net"
+          "text": "opnsense",
+          "value": "opnsense"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1985,6 +1990,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 8,
+  "version": 10,
   "weekStart": ""
 }
