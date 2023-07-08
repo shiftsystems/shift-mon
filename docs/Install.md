@@ -114,6 +114,17 @@ If don't have a secretes manager can place the variables in quotes however this 
         #ldap_user: 'uid'
         #ldap_email: 'mail'
         #admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+    
+    # Required for OIDC
+        #oauth:
+          #auth: true
+          #name: "gitea"
+          #client_id: "{{ lookup('env', 'OIDC_CLIENT_ID')}}"
+          #client_secret: "{{ lookup('env', 'OIDC_CLIENT_SECRET')}}"
+          #auth_url: 'https://oidc.example.com/login/oauth/authorize'
+          #token_url: 'https://oidc.example.com/login/oauth/access_token'
+          #api_url: 'https://oidc.example.com/login/oauth/userinfo'
+          #allowed_domains: 'example.com example.net' # domains should be separated by spaces
 
     - name: Deploy Telegraf
       ansible.builtin.include_role:
