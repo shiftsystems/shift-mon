@@ -59,4 +59,4 @@ We try to publish content twice a month on either on [the Shiftsystems website](
 * LDAP for Grafana
 * User defined OIDC sign on for Grafana
 * Google SSO (OIDC)
-* Updates Every time the service is restarted
+* Updates every time the service is restarted
