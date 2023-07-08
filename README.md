@@ -29,10 +29,9 @@ Please fill out the contact form on shiftsystems.net or email sales@shiftsystems
 
 
 ## Social Media
-There is an RSS feed for our blog on [the shiftsystems website](https://shiftsystems.net)
 
-Thursday nights at 8 PM CT we stream a development session on [Youtube](https://www.youtube.com/channel/UCO2EZwVPok3Plop3ekonf7A).
-
+We try to publish content twice a month on either on [the Shiftsystems website](https://shiftsystems.net) or our [Youtube channel](https://www.youtube.com/channel/UCO2EZwVPok3Plop3ekonf7A).
+ 
 ## Supported Platforms and Applications
 * Windows
 * Linux
