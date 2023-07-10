@@ -124,6 +124,7 @@ If don't have a secretes manager can place the variables in quotes however this 
           #auth_url: 'https://oidc.example.com/login/oauth/authorize'
           #token_url: 'https://oidc.example.com/login/oauth/access_token'
           #api_url: 'https://oidc.example.com/login/oauth/userinfo'
+          #scope: 'openid profile email'
           #allowed_domains: 'example.com example.net' # domains should be separated by spaces
 
     - name: Deploy Telegraf
