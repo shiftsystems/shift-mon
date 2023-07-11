@@ -39,93 +39,94 @@ all:
 3. Create a edit shift-mon.yml with the following Template
 If don't have a secretes manager can place the variables in quotes however this is insecure since secrets to various services are in plain text.
 
+
+#### Configuring Your playbook.yml File
+
+##### Required playbook.yml
+
+Below is an example playbook.yml. It has only what is required to get a basic shift-mon system running.
+There are additional features that you can enable by adding to this playbook.yml file. They are listed below.
+
+The example playbook.yml below expects many variables to be defined in the environment it runs in. This can be accomplished in many ways, sourcing a `.env` file before running shift-mon or by using CI or other automation tools that handle secrets automatically.
+
+I'll put this here as a reference to anyone who doesn't know how the ansible.builtin.env works.
+Below you will see many lines that look like this. There are two main things to look at in these lines. In our example `CONTAINER_ENGINE` is the expected variable name that you need to add to your environment and `default='podman'` is the default value if you did not supply one. Note that do to the nature of most of these values they won't have a default and the playbook will error if they are not supplied.
+```yml
+"{{ lookup('ansible.builtin.env', 'CONTAINER_ENGINE', default='podman') }}"
+```
+
 ```yaml
 - hosts: shiftmon_servers
   tasks:
-    - name: Set Telegraf Secrets
+    - name: Set Secrets
       ansible.builtin.set_fact:
+        # Sets what container engine you want to use. 
+        # Note if the selected container engine is not present it will be installed.
         container_engine: "{{ lookup('ansible.builtin.env', 'CONTAINER_ENGINE', default='podman') }}"
-        oncall_enabled: true
-        oncall:
-          secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
-          domain: "oncall.local.example.com"
-          #key_path: "{{ playbook_dir }}/files/oncall.key"
-          #cert_path: "{{ playbook_dir }}/files/oncall.crt"
-        #bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
+        
+        # The email given to LetsEncrypt to issue your SSL certificate.
+        tls:
+          email: 'you@example.com' # This should be an env Tiny Look at this!
+        
+        # Users 
+        users: # dictionary of users and their password
+          telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          
+          ## OPTIONAL
+          # Enable this if you are using fleet yeet
+          # fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
+
+        # Loki Is What Collects Logs And Makes Them Searchable Via Grafana
         loki:
           user: telegraf
           password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           url: 'https://logs.local.example.com'
           domain: logs.local.example.com
           retention_period: 90d
-          tsdb_date: "2023-04-30" # optional comment out if you have an existing install without this variable set or your log db will get corrupted
-          #cert_path: "{{ playbook_dir }}/files/loki.crt" # optional use if you want to use your own cert for Loki
-          #key_path: "{{ playbook_dir }}/files/loki.key" # optional use if you want to use your own cert for Loki
+
+          ## OPTIONAL
+          # Bring your own SSL cert
+          #cert_path: "{{ playbook_dir }}/files/loki.crt"
+          #key_path: "{{ playbook_dir }}/files/loki.key"
+
+          # Used for bring you own SSL and if you have devices that do not support SSL
+          #insecure: true
+        
+        # Victoria Metrics is the metrics collector, it indexes and stores all metrics for shift-mon
         victoria:
           user: telegraf
           password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           url: 'https://metrics.local.example.com'
-          retention_period: 90d
           domain: metrics.local.example.com
-          #cert_path: "{{ playbook_dir }}/files/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
-          #key_path: "{{ playbook_dir }}/files/victoria.key" # optional use if you want to use your own cert for Victoriametrics
-          #insecure: true # set to true if you need insecure access to Victoriametrics for things that cannot handle SSL or self signed certs
-        email:
-          #enabled: true # uncomment and set to true to allow grafana to send email set to false or uncomment to ignore. 
-          host: 'mail.example.com'
-          alert_from_address: 'alerts@example.com'
-          user: 'alerts@example.com'
-          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          alert_from_name: 'Shiftmon Alerts'
-          port: '587'
-        users: # dictionary of users and their password
-          telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
-        ansible_remote_tmp: /tmp
-        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+          retention_period: 90d
+
+          ## OPTIONAL
+          # Bring your own SSL cert
+          #cert_path: "{{ playbook_dir }}/files/victoria.crt"
+          #key_path: "{{ playbook_dir }}/files/victoria.key"
+          
+          # Used for bring you own SSL and if you have devices that do not support SSL
+          #insecure: true
+        
+        # Grafana is a GUI for viewing your logs and metrics using graphs
         grafana:
           domain: grafana.local.example.com
-          #cert_path: "{{ playbook_dir }}/files/grafana.crt" # optional use if you want to use your own cert for Uptime-Kuma
-          #key_path: "{{ playbook_dir }}/files/grafana.key" # optional use if you want to use your own cert for Uptime-Kuma
-        uptime_kuma_enabled: true
-        uptimekuma:
-          domain: uptime-kuma.local.example.com
-          #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt" # optional use if you want to use your own cert for Grafana
-          #key_path: "{{ playbook_dir }}/files/uptime-kuma.key" # optional use if you want to use your own cert for Grafana
-          
-        tls:
-          email: 'you@example.com'
-      
-    # These variables are optional please uncomment to use them.
 
-        #syslog: rsyslog # set to rsyslog to install and configure rsyslog and the config for telegraf. set to false or comment out to not touch syslog
-        #remote_syslog: true #set to true to setup an RFC5424 syslog server on UDP port 6666
-        #crowdsec_api_key: 'GET_IT_FROM_CROWDSEC'
+          ## OPTIONAL
+          # Bring your own SSL cert
+          #cert_path: "{{ playbook_dir }}/files/grafana.crt"
+          #key_path: "{{ playbook_dir }}/files/grafana.key"
+        
+        # Ansible variables
+        ansible_remote_tmp: /tmp
+        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
-    # Required for LDAP
-        #ldap_host: 'ldap.example.com'
-        #ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
-        #bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=local,dc=example,dc=com'
-        #base_dn: 'dc=local,dc=shiftsystems,dc=net'
-        #user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
-        #ldap_first_name: 'givenName'
-        #member_of: 'memberOf'
-        #ldap_last_name: 'sn'
-        #ldap_user: 'uid'
-        #ldap_email: 'mail'
-        #admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
-    
-    # Required for OIDC
-        #oauth:
-          #auth: true
-          #name: "gitea"
-          #client_id: "{{ lookup('env', 'OIDC_CLIENT_ID')}}"
-          #client_secret: "{{ lookup('env', 'OIDC_CLIENT_SECRET')}}"
-          #auth_url: 'https://oidc.example.com/login/oauth/authorize'
-          #token_url: 'https://oidc.example.com/login/oauth/access_token'
-          #api_url: 'https://oidc.example.com/login/oauth/userinfo'
-          #scope: 'openid profile email'
-          #allowed_domains: 'example.com example.net' # domains should be separated by spaces
+        ###########################
+        #
+        # Paste optional feature variables here
+        #
+        ###########################
+
 
     - name: Deploy Telegraf
       ansible.builtin.include_role:
@@ -159,6 +160,107 @@ If don't have a secretes manager can place the variables in quotes however this 
       ansible.builtin.include_role:
         name: shiftsystems.shift_mon.podman
         public: true
+```
+
+##### Additional Optional Features
+
+You can copy and paste these groups of variables to enable additional features of shift-mon.
+
+###### Email
+```yaml
+        # SMTP information to allow Grafana to send emails
+        email:
+          #enabled: true # Set this to true to enable email 
+          host: 'mail.example.com'
+          alert_from_address: 'alerts@example.com'
+          user: 'alerts@example.com'
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          alert_from_name: 'Shiftmon Alerts'
+          port: '587'
+```
+
+###### Grafana Oncall
+```yaml
+        oncall_enabled: true
+        oncall:
+          secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
+          domain: "oncall.local.example.com"
+
+          ## OPTIONAL
+          # Bring your own SSL cert
+          #key_path: "{{ playbook_dir }}/files/oncall.key"
+          #cert_path: "{{ playbook_dir }}/files/oncall.crt"
+```
+
+###### Uptime Kuma
+```yaml
+        uptime_kuma_enabled: true
+        uptimekuma:
+          domain: uptime-kuma.local.example.com
+
+          ## OPTIONAL
+          # Bring your own SSL cert
+          #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt"
+          #key_path: "{{ playbook_dir }}/files/uptime-kuma.key"
+```
+
+###### Only Use This If You Know What Your Doing!
+
+For existing install without this variable set or your log db will get corrupted.
+
+```yaml
+          tsdb_date: "2023-04-30"
+```
+
+###### NOT SURE (Tiny look at this!)
+```yaml
+        # set to rsyslog to install and configure rsyslog and the config for telegraf. set to false or comment out to not touch syslog
+        syslog: rsyslog
+        remote_syslog: true 
+
+```
+
+###### Croudsec
+```yaml
+        # set to true to setup an RFC5424 syslog server on UDP port 6666
+        crowdsec_api_key: 'GET_IT_FROM_CROWDSEC'
+
+```
+
+###### LDAP Authentication
+```yaml
+        ldap_host: 'ldap.example.com'
+        ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+        bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=local,dc=example,dc=com'
+        base_dn: 'dc=local,dc=shiftsystems,dc=net'
+        user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
+        ldap_first_name: 'givenName'
+        member_of: 'memberOf'
+        ldap_last_name: 'sn'
+        ldap_user: 'uid'
+        ldap_email: 'mail'
+        admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+        # bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
+```
+
+###### OIDC Authentication
+```yaml
+        oauth:
+          auth: true
+          name: "The name you want to show up on Grafana login page"
+          client_id: "{{ lookup('env', 'OIDC_CLIENT_ID')}}"
+          client_secret: "{{ lookup('env', 'OIDC_CLIENT_SECRET')}}"
+
+          # You will find auth_url, token_url and api_url in the docs of your OIDC provider. 
+          auth_url: 'https://oidc.example.com/login/oauth/authorize'
+          token_url: 'https://oidc.example.com/login/oauth/access_token'
+          api_url: 'https://oidc.example.com/login/oauth/userinfo'
+
+          # These should be fine but also check your OIDC provider's documentation.
+          scope: 'openid profile email'
+
+          # NOT SURE (Tiny look at this!)
+          allowed_domains: 'example.com example.net'
 ```
 
 4. Deploy or update Shift-mon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i shift-inventory.yml shift-mon.yml --ask-become-pass` from `~/shift-mon`
