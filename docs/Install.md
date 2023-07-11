@@ -13,7 +13,7 @@
 1. ```sudo add-apt-repository ppa:ansible/ansible sudo apt update && sudo apt install ansible git python3-apt software-properties-common```
 
 
-### RedHat and RedHat Derivitaves
+### RedHat and RedHat Derivatives
 1. ```sudo dnf install epel-release```
 2. ```sudo dnf install ansible git ansible```
 
@@ -29,7 +29,7 @@ You will need to run the following commands on a debian machine before running a
 ```yaml
 all:
   hosts:
-  childen:
+  children:
     shiftmon_servers:
       hosts:
         server.local.example.com:
@@ -220,7 +220,7 @@ For existing install without this variable set or your log db will get corrupted
 
 ```
 
-###### Croudsec
+###### Crowdsec
 ```yaml
         # set to true to setup an RFC5424 syslog server on UDP port 6666
         crowdsec_api_key: 'GET_IT_FROM_CROWDSEC'
@@ -293,7 +293,7 @@ Next, click on system > package manager then click on available packages.
 Type Telegraf in the search box, then click on the install button next to were it says Telegraf.
 Click on the confirm and wait for the package to install.
 After Telegraf is installed, click on services > Telegraf
-Tick the box were it says enable Telegraf and paste in the contents of telegraf_ips.conf. If you are using Snort and have blocking turned use the telegraf_ips.conf. If you are using it for just intrustion detection or not using Snort at all, use telegraf_ids.conf.
+Tick the box were it says enable Telegraf and paste in the contents of telegraf_ips.conf. If you are using Snort and have blocking turned use the telegraf_ips.conf. If you are using it for just intrusion detection or not using Snort at all, use telegraf_ids.conf.
 Change influxdb.example.com to your InfluxDB domain, replace GET_A_TOKEN_FROM_YOUR_INFLUXDB_INSTANCE with write access to the Pfsense bucket, and click save.
 If you are not sure how to get a token, please refer to the Generate Additional Tokens for Each Bucket section of this document
 
