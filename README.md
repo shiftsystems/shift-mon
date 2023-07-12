@@ -29,14 +29,34 @@ Please fill out the contact form on shiftsystems.net or email sales@shiftsystems
 
 
 ## Social Media
-There is an RSS feed for our blog on [the shiftsystems website](https://shiftsystems.net)
 
-Thursday nights at 8 PM CT we stream a development session on [Youtube](https://www.youtube.com/channel/UCO2EZwVPok3Plop3ekonf7A).
+We try to publish content twice a month on either on [the Shiftsystems website](https://shiftsystems.net) or our [Youtube channel](https://www.youtube.com/channel/UCO2EZwVPok3Plop3ekonf7A).
+ 
+## Supported Platforms and Applications
+* Windows
+* Linux
+* PFSense
+* OPNSense
+* Docker
+* Podman
+* Crowdsec
+* Uptime Kuma
+* Apache
+* Nginx
+* Caddy
+* Traefik
+* Vsphere
+* Proxmox
+* Libvirt
+* ipvs (no dashboard yet)
+* mysql (no dashboard yet)
+* ZFS
+* NTOPNG
+* Syslog Data
+* Internal Metrics
 
-## New Platforms
-We are currently looking at instrumenting the following platforms with telegraf
-* VMWare vSphere
-* php-fpm
-* php error logging
-* mysql
-* Microsoft SQL Server
+## Security Features
+* LDAP for Grafana
+* User defined OIDC sign on for Grafana
+* Google SSO (OIDC)
+* Updates every time the service is restarted

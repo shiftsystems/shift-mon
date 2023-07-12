@@ -1,0 +1,122 @@
+- hosts: all
+  tasks:
+    - name: Set Secrets
+      ansible.builtin.set_fact:
+        container_engine: "{{ lookup('ansible.builtin.env', 'CONTAINER_ENGINE', default='podman') }}"
+        oncall_enabled: true
+        oncall:
+          secret: "{{ lookup('env', 'ONCALL_KEY') }}"
+          domain: "{{ lookup('env', 'ONCALL_DOMAIN') }}"
+          key_path: "{{ playbook_dir }}/../certs/oncall.key"
+          cert_path: "{{ playbook_dir }}/../certs/oncall.crt"
+        bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
+        ldap_host: 'historia.local.shiftsystems.net'
+        ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+        bind_dn: 'uid=grafana,cn=users,cn=accounts,dc=local,dc=shiftsystems,dc=net'
+        base_dn: 'dc=local,dc=shiftsystems,dc=net'
+        user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=shiftsystems,dc=net))'
+        ldap_first_name: 'givenName'
+        member_of: 'memberOf'
+        ldap_last_name: 'sn'
+        ldap_user: 'uid'
+        ldap_email: 'mail'
+        admin_group: 'cn=server-admins,cn=groups,cn=accounts,dc=local,dc=shiftsystems,dc=net'
+        grafana:
+          domain: "{{ lookup('env', 'GRAFANA_DOMAIN') }}"
+          cert_path: "{{ playbook_dir }}/../certs/grafana.crt" # optional use if you want to use your own cert for Loki
+          key_path: "{{ playbook_dir }}/../certs/grafana.key" # optional use if you want to use your own cert for Loki
+        uptimekuma:
+          domain: "{{ lookup('env', 'UPTIMEKUMA_DOMAIN') }}"
+          key_path: "{{ playbook_dir }}/../certs/uptime-kuma.key"
+          cert_path: "{{ playbook_dir }}/../certs/uptime-kuma.crt"
+        tls:
+          email: "{{ lookup('env', 'TLS_EMAIL') }}"
+        loki:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: "{{ lookup('env', 'LOKI_URL') }}"
+          domain: "{{ lookup('env', 'LOKI_DOMAIN') }}"
+          retention_period: 90d
+          cert_path: "{{ playbook_dir }}/../certs/loki.crt" # optional use if you want to use your own cert for Loki
+          key_path: "{{ playbook_dir }}/../certs/loki.key" # optional use if you want to use your own cert for Loki
+        victoria:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: "{{ lookup('env', 'VICTORIA_URL') }}"
+          retention_period: 90d
+          domain: "{{ lookup('env', 'VICTORIA_DOMAIN') }}"
+          cert_path: "{{ playbook_dir }}/../certs/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
+          key_path: "{{ playbook_dir }}/../certs/victoria.key" # optional use if you want to use your own cert for Victoriametrics
+          insecure: true # set to true if you need insecure access to Victoriametrics for things that cannot handle SSL or self signed certs
+        email:
+          enabled: true # uncomment and set to true to allow grafana to send email set to false or uncomment to ignore.
+          host: "{{ lookup('env', 'GRAFANA_EMAIL_HOST') }}"
+          alert_from_address: "{{ lookup('env', 'GRAFANA_EMAIL_ADDRESS') }}"
+          user: "{{ lookup('env', 'GRAFANA_EMAIL_USER') }}"
+          password: "{{ lookup('env', 'GRAFANA_EMAIL_PASSWORD') }}"
+          alert_from_name: 'Shiftmon Alerts'
+          port: '587'
+        users: # dictionary of users and their password
+          telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
+        oauth:
+          enabled: true
+          name: "gitea"
+          client_id: "{{ lookup('env', 'OIDC_CLIENT_ID')}}"
+          client_secret: "{{ lookup('env', 'OIDC_CLIENT_SECRET')}}"
+          auth_url: 'https://erwin.local.shiftsystems.net/login/oauth/authorize'
+          token_url: 'https://erwin.local.shiftsystems.net/login/oauth/access_token'
+          api_url: 'https://erwin.local.shiftsystems.net/login/oauth/userinfo'
+          allowed_domains: 'shiftsystems.net mathiasp.me'
+    - name: Set tsdb_date
+      ansible.builtin.set_fact:
+        loki: "{{loki| ansible.builtin.combine({'tsdb_date': lookup('env', 'TSDB_DATE')}, recursive=True)}}"
+        when: "lookup('env', 'TSDB_DATE', default=False)"
+
+- hosts: shiftmon_servers
+  tasks:
+    - name: Deploy Uptime-Kuma
+      ansible.builtin.include_role:
+        name: uptime_kuma
+        public: true
+    - name: Deploy Victoriametrics
+      ansible.builtin.include_role:
+        name: victoriametrics
+        public: true
+    - name: Deploy Loki
+      ansible.builtin.include_role:
+        name: loki
+        public: true
+    - name: Deploy Grafana
+      ansible.builtin.include_role:
+        name: grafana
+        public: true
+    - name: Deploy Traefik
+      ansible.builtin.include_role:
+        name: traefik
+        public: true
+    - name: Deploy Crowdsec
+      ansible.builtin.include_role:
+        name: crowdsec
+        public: true
+    - name: Deploy Podman
+      ansible.builtin.include_role:
+        name: podman
+        public: true
+      when: container_engine == 'podman'
+    - name: Deploy Docker
+      ansible.builtin.include_role:
+        name: docker
+        public: true
+      when: container_engine == 'docker'
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: telegraf
+        public: true
+
+- hosts: telegraf
+  tasks:
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: telegraf
+        public: true
