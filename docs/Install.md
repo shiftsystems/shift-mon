@@ -66,7 +66,7 @@ Below you will see many lines that look like this. There are two main things to 
         
         # The email given to LetsEncrypt to issue your SSL certificate.
         tls:
-          email: 'you@example.com' # This should be an env Tiny Look at this!
+          email: '{{ lookup('env', 'LETSENCRYPT_EMAIL') }}'
         
         # Users 
         users: # dictionary of users and their password
@@ -212,7 +212,7 @@ For existing install without this variable set or your log db will get corrupted
           tsdb_date: "2023-04-30"
 ```
 
-###### NOT SURE (Tiny look at this!)
+###### Define syslog to get telegraf to listen for syslog messages on udp port 6667 on localhost, `syslog: rsyslog` to have the telegraf role install an configure log forwarding using rsyslog and set `remote_syslog: true` to listen for syslog on all interfaces on udp port 6666 on all interfaces
 ```yaml
         # set to rsyslog to install and configure rsyslog and the config for telegraf. set to false or comment out to not touch syslog
         syslog: rsyslog
@@ -259,7 +259,7 @@ For existing install without this variable set or your log db will get corrupted
           # These should be fine but also check your OIDC provider's documentation.
           scope: 'openid profile email'
 
-          # NOT SURE (Tiny look at this!)
+          # Optional List of space separated domains for deploying 
           allowed_domains: 'example.com example.net'
 ```
 
