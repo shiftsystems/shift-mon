@@ -68,6 +68,9 @@ services:
       - type: bind
         source: /opt/shift-mon/grafana
         target: /var/lib/grafana
+    depends_on:
+      redis:
+        condition: service_healthy
 {% if oncall_enabled is defined and oncall_enabled %}
     environment:
       GF_INSTALL_PLUGINS: grafana-oncall-app
