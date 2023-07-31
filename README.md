@@ -12,6 +12,21 @@ An open source monitoring and logging tool based on Telegraf, Victoriametrics, L
 ## Configuring Alerts
 [Instructions for configuring alerts can be found here](docs/Alerting.md)
 
+## How it works
+* Telegraf role deploys monitoring agent to devices
+  * tries to Instrument services shift-mon supports automatically
+  * Uses variables inventory for scraping remote data
+* shift-mon roles will do the following by default
+  * Deploy Victoriametrics for metric storage
+  * Deploy Loki for log and alert state storage
+  * Deploy Grafana for viewing this data and send alerts
+  * Configure Redis cache for Grafana
+* Optionally Shift-mon can deploy the following
+  * Grafana Oncall for advanced alerting features and send healthchecks to grafana cloud
+  * Deploy Uptimekuma for blackbox checks
+
+![Network Diagram](/docs/images/shift-mon-diagram.png)
+
 ## Contribution
 
 ### Time 
