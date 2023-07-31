@@ -22,7 +22,7 @@ An open source monitoring and logging tool based on Telegraf, Victoriametrics, L
   * Deploy Grafana for viewing this data and send alerts
   * Configure Redis cache for Grafana
 * Optionally Shift-mon can deploy the following
-  * Grafana Oncall for advanced alerting features and send healthchecks to grafana cloud
+  * Grafana Oncall for advanced alerting features and send health checks to Grafana cloud
   * Deploy Uptimekuma for blackbox checks
 
 ![Network Diagram](/docs/images/shift-mon-diagram.png)
