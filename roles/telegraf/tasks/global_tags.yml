@@ -1,0 +1,19 @@
+- name: Get environment tags
+  set_fact:
+    all_telegraf_tags: "{{ (all_telegraf_tags | default([]) ) + [ { (item | split(':'))[0]: (item | split(':'))[1] } ] }}"
+  loop: "{{ env_telegraf_tags }}"
+  when: (item | split(':') | length ) == 2
+
+- name: Get host properties tags
+  set_fact:
+    all_telegraf_tags: "{{ (all_telegraf_tags | default([]) ) + (telegraf.tags | default([])) }}"
+
+- name: Add global tags
+  ansible.builtin.template:
+    src: global_tags.conf.j2
+    dest: /etc/telegraf/telegraf.d/global_tags.conf
+    mode: "0640"
+    owner: "telegraf"
+    group: "telegraf"
+  when: all_telegraf_tags | length > 0
+  notify: Restart Telegraf
