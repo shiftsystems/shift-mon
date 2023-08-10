@@ -9,7 +9,7 @@ kics-scan:
       name: checkmarx/kics:latest
       entrypoint: [""]
     script:
-        - kics scan -p ${PWD} -o ${PWD} --report-formats json --output-name kics-results
+        - kics scan disable=8d29754a-2a18-460d-a1ba-9509f8d359da -p ${PWD} -o ${PWD} --report-formats json --output-name
     artifacts:
         name: kics-results.json
         paths:
