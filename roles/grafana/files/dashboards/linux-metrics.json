@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 44,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -79,7 +80,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "exemplar": true,
@@ -144,7 +145,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "exemplar": true,
@@ -205,7 +206,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "exemplar": true,
@@ -265,7 +266,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "datasource": {
@@ -327,7 +328,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "exemplar": true,
@@ -393,7 +394,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "datasource": {
@@ -467,7 +468,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "datasource": {
@@ -583,7 +584,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "exemplar": true,
@@ -928,7 +929,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.0.0",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "datasource": {
@@ -1266,8 +1267,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1319,7 +1319,7 @@
             "h": 13,
             "w": 12,
             "x": 0,
-            "y": 23
+            "y": 39
           },
           "id": 63,
           "options": {
@@ -1435,8 +1435,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1488,7 +1487,7 @@
             "h": 13,
             "w": 12,
             "x": 12,
-            "y": 23
+            "y": 39
           },
           "id": 64,
           "options": {
@@ -1636,8 +1635,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1649,7 +1647,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 36
+            "y": 52
           },
           "id": 65,
           "options": {
@@ -1734,8 +1732,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1747,7 +1744,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 36
+            "y": 52
           },
           "id": 66,
           "options": {
@@ -1813,8 +1810,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "blue",
-                    "value": null
+                    "color": "blue"
                   }
                 ]
               },
@@ -1826,7 +1822,7 @@
             "h": 10,
             "w": 7,
             "x": 0,
-            "y": 45
+            "y": 61
           },
           "id": 26,
           "options": {
@@ -1892,8 +1888,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "red",
-                    "value": null
+                    "color": "red"
                   },
                   {
                     "color": "#EAB839",
@@ -1913,7 +1908,7 @@
             "h": 10,
             "w": 7,
             "x": 7,
-            "y": 45
+            "y": 61
           },
           "id": 38,
           "options": {
@@ -1997,8 +1992,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2010,7 +2004,7 @@
             "h": 10,
             "w": 10,
             "x": 14,
-            "y": 45
+            "y": 61
           },
           "id": 39,
           "options": {
@@ -2123,7 +2117,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 50
+            "y": 66
           },
           "id": 51,
           "options": {
@@ -2218,7 +2212,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 50
+            "y": 66
           },
           "id": 52,
           "options": {
@@ -2314,7 +2308,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 58
+            "y": 74
           },
           "id": 53,
           "options": {
@@ -2410,7 +2404,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 58
+            "y": 74
           },
           "id": 54,
           "options": {
@@ -2525,7 +2519,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 51
+            "y": 67
           },
           "id": 46,
           "options": {
@@ -2619,7 +2613,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 51
+            "y": 67
           },
           "id": 48,
           "options": {
@@ -2712,7 +2706,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 59
+            "y": 75
           },
           "id": 47,
           "options": {
@@ -2805,7 +2799,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 59
+            "y": 75
           },
           "id": 49,
           "options": {
@@ -2898,7 +2892,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 67
+            "y": 83
           },
           "id": 60,
           "options": {
@@ -2991,7 +2985,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 67
+            "y": 83
           },
           "id": 61,
           "options": {
@@ -3097,7 +3091,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 52
+            "y": 68
           },
           "id": 56,
           "options": {
@@ -3192,7 +3186,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 52
+            "y": 68
           },
           "id": 59,
           "options": {
@@ -3287,7 +3281,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 62
+            "y": 78
           },
           "id": 57,
           "options": {
@@ -3382,7 +3376,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 62
+            "y": 78
           },
           "id": 58,
           "options": {
@@ -3425,7 +3419,7 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3433,207 +3427,489 @@
         "y": 27
       },
       "id": 43,
-      "panels": [
+      "panels": [],
+      "title": "Syslog and Service",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P53E94FA6B1E28789"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 14,
+        "x": 0,
+        "y": 28
+      },
+      "id": 67,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time"
+          }
+        ]
+      },
+      "pluginVersion": "10.0.3",
+      "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "gridPos": {
-            "h": 12,
-            "w": 14,
-            "x": 0,
-            "y": 53
-          },
-          "id": 33,
-          "options": {
-            "dedupStrategy": "none",
-            "enableLogDetails": true,
-            "prettifyLogMessage": false,
-            "showCommonLabels": false,
-            "showLabels": false,
-            "showTime": false,
-            "sortOrder": "Descending",
-            "wrapLogMessage": false
-          },
-          "pluginVersion": "8.3.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "P53E94FA6B1E28789"
-              },
-              "editorMode": "code",
-              "expr": "{severity=~\"crit|err|warning\",host=\"$host\"}",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "syslog warning and higher",
-          "transformations": [],
-          "type": "logs"
-        },
-        {
-          "datasource": {
-            "uid": "${metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 10,
-            "x": 14,
-            "y": 53
-          },
-          "id": 14,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "10.0.0",
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "systemd_units_active_code{db=\"linux\",host=\"$host\"}",
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "title": "Services",
-          "transformations": [
-            {
-              "id": "reduce",
-              "options": {
-                "includeTimeField": false,
-                "mode": "reduceFields",
-                "reducers": [
-                  "lastNotNull"
-                ]
-              }
-            },
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "host"
-              }
-            },
-            {
-              "id": "merge",
-              "options": {}
-            },
-            {
-              "id": "groupBy",
-              "options": {
-                "fields": {
-                  "active": {
-                    "aggregations": [
-                      "lastNotNull"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "name": {
-                    "aggregations": [],
-                    "operation": "groupby"
-                  },
-                  "sub": {
-                    "aggregations": [
-                      "lastNotNull"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "ts": {
-                    "aggregations": [
-                      "lastNotNull"
-                    ],
-                    "operation": "aggregate"
-                  }
-                }
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "active_code": true,
-                  "historia.local.mathiasp.me": true,
-                  "id": true,
-                  "load": true,
-                  "load_code": true,
-                  "sasha.local.mathiasp.me": true,
-                  "sub_code": true
-                },
-                "indexByName": {
-                  "active": 1,
-                  "active_code": 3,
-                  "id": 8,
-                  "load": 4,
-                  "load_code": 5,
-                  "name": 0,
-                  "sasha.local.mathiasp.me": 7,
-                  "sub": 6,
-                  "sub_code": 2
-                },
-                "renameByName": {
-                  "active (lastNotNull)": "Status",
-                  "name": "Name",
-                  "sub (lastNotNull)": "Sub Status",
-                  "ts (lastNotNull)": "Time"
-                }
-              }
-            },
-            {
-              "id": "sortBy",
-              "options": {
-                "fields": {},
-                "sort": [
-                  {
-                    "field": "name"
-                  }
-                ]
-              }
-            }
-          ],
-          "type": "table"
+          "editorMode": "code",
+          "expr": "{appname=\"systemd\",host=\"$host\"} | pattern `<_>message=\"<service_name>: <event> <status>.\" <_>` | service_name=~\".*service|.*timer|.*mount|.*socket\"",
+          "queryType": "range",
+          "refId": "A"
         }
       ],
-      "title": "Syslog and Service",
-      "type": "row"
+      "title": "Service Events",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "Time": false,
+              "__name": true,
+              "appname": true,
+              "facility": true,
+              "facility_code": true,
+              "host": true,
+              "hostname": true,
+              "id": true,
+              "labels": true,
+              "message": true,
+              "procid": true,
+              "severity": true,
+              "severity_code": true,
+              "source": true,
+              "status": true,
+              "tsNs": true,
+              "version": true
+            },
+            "indexByName": {
+              "Line": 5,
+              "Time": 0,
+              "__name": 8,
+              "appname": 9,
+              "event": 2,
+              "facility": 10,
+              "host": 4,
+              "hostname": 11,
+              "id": 7,
+              "labels": 3,
+              "service_name": 1,
+              "severity": 12,
+              "source": 13,
+              "status": 14,
+              "tsNs": 6
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 10,
+        "x": 14,
+        "y": 28
+      },
+      "id": 14,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.0.3",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "systemd_units_active_code{db=\"linux\",host=\"$host\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Services",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "mode": "reduceFields",
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        },
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "host"
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "active": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "sub": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "ts": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "active_code": true,
+              "historia.local.mathiasp.me": true,
+              "id": true,
+              "load": true,
+              "load_code": true,
+              "sasha.local.mathiasp.me": true,
+              "sub_code": true
+            },
+            "indexByName": {
+              "active": 1,
+              "active_code": 3,
+              "id": 8,
+              "load": 4,
+              "load_code": 5,
+              "name": 0,
+              "sasha.local.mathiasp.me": 7,
+              "sub": 6,
+              "sub_code": 2
+            },
+            "renameByName": {
+              "active (lastNotNull)": "Status",
+              "name": "Name",
+              "sub (lastNotNull)": "Sub Status",
+              "ts (lastNotNull)": "Time"
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P53E94FA6B1E28789"
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 17,
+        "x": 0,
+        "y": 40
+      },
+      "id": 69,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "editorMode": "code",
+          "expr": "{appname=\"systemd\",host=\"$host\"} |~ \"$systemd_unit\" | logfmt",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Systemd Unit Logs",
+      "transformations": [],
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 17,
+        "y": 40
+      },
+      "id": 68,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "builder",
+          "expr": "systemd_units_active_code{host=\"$host\", name=\"$systemd_unit\"}",
+          "instant": false,
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Unit Status Over Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 17,
+        "y": 47
+      },
+      "id": 70,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "0 - Active\n\n1 - Reloading\n\n2 - Inactive\n\n3 - Failed\n\n4 - Activating\n\n5 - Deactivating\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "Status code mapping",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P53E94FA6B1E28789"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "id": 33,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "editorMode": "code",
+          "expr": "{severity=~\"crit|err|warning\",host=\"$host\"}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "syslog warning and higher",
+      "transformations": [],
+      "type": "logs"
     }
   ],
   "refresh": "5s",
@@ -3644,11 +3920,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "shift-metrics"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -3662,11 +3933,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "shift-logs"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -3680,11 +3946,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "zeke.local.shiftsystems.net",
-          "value": "zeke.local.shiftsystems.net"
-        },
         "datasource": {
           "uid": "${metrics}"
         },
@@ -3705,11 +3966,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "sdc",
-          "value": "sdc"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
@@ -3730,6 +3986,28 @@
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "definition": "label_values(systemd_units_active_code{host=\"$host\"},name)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Systemd Unit",
+        "multi": false,
+        "name": "systemd_unit",
+        "options": [],
+        "query": {
+          "query": "label_values(systemd_units_active_code{host=\"$host\"},name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
@@ -3741,6 +4019,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 13,
+  "version": 14,
   "weekStart": ""
 }
