@@ -22,7 +22,7 @@ Feel free to customize any of the numbers or use these as the basis for your own
 
 
 ### Host Down
-Query: ```count(cpu_usage_idle{} offset 1h) by (host) unless count(cpu_usage_idle{} ) by (host)```
+Query: ```lag(cpu_usage_idle{}[1h])```
 
 B: Reduce
   * Function: Count

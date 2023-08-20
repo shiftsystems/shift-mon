@@ -13,6 +13,7 @@
     - /opt/shift-mon/grafana-config/provisioning/alerting
     - /opt/shift-mon/grafana-config/provisioning/notifiers
     - /opt/shift-mon/grafana
+    - /opt/shift-mon/redis
 
 - name: Create Grafana Oncall directories
   ansible.builtin.file:
@@ -23,7 +24,6 @@
   become: true
   when: oncall is defined and oncall
   with_items:
-    - /opt/shift-mon/redis
     - /opt/shift-mon/oncall
 
 - name: Copy dashboards
