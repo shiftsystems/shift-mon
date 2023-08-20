@@ -3,7 +3,7 @@
     name: geerlingguy.docker
     public: true
     apply:
-      become: yes
+      become: true
 
 - name: Generate compose file
   ansible.builtin.template:
