@@ -109,7 +109,7 @@
     groups: root
     append: true
   become: true
-  when: 
+  when:
     - "ansible_facts['os_family'] == 'RedHat'"
     - "'nginx.service' in ansible_facts.services or 'httpd.service' in ansible_facts.services"
   notify: Restart Telegraf
@@ -316,7 +316,7 @@
 
 - name: Add telegraf to the MySQL group on Debian based systems
   ansible.builtin.file:
-    path: '/tmp/stubby'
+    path: "/tmp/stubby"
     state: absent
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
   notify: Restart Telegraf
@@ -390,6 +390,9 @@
   become: true
   when: telegraf_root is defined and telegraf_root
   notify: Restart Telegraf
+
+- name: Add Global Tags
+  ansible.builtin.import_tasks: global_tags.yml
 
 - name: Start and Enable Telegraf
   ansible.builtin.systemd:
