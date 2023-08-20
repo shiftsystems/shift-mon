@@ -2,6 +2,8 @@
   ansible.builtin.include_role:
     name: geerlingguy.docker
     public: true
+    apply:
+      become: yes
 
 - name: Generate compose file
   ansible.builtin.template:
