@@ -1003,11 +1003,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "shift-metrics"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1020,11 +1015,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "shift-logs"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1037,11 +1027,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "/var/log/caddy/nextcloud-lb-access.log",
-          "value": "/var/log/caddy/nextcloud-lb-access.log"
-        },
         "datasource": {
           "type": "loki",
           "uid": "${Loki}"
@@ -1065,11 +1050,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "rose.local.shiftsystems.net",
-          "value": "rose.local.shiftsystems.net"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "${Metrics}"

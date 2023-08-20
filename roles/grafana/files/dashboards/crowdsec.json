@@ -451,12 +451,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
-        },
         "datasource": {
           "type": "loki",
           "uid": "P53E94FA6B1E28789"
@@ -475,11 +469,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "shift-logs"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
