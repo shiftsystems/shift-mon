@@ -212,14 +212,6 @@ For existing install without this variable set or your log db will get corrupted
           tsdb_date: "2023-04-30"
 ```
 
-###### Define syslog to get telegraf to listen for syslog messages on udp port 6667 on localhost, `syslog: rsyslog` to have the telegraf role install an configure log forwarding using rsyslog and set `remote_syslog: true` to listen for syslog on all interfaces on udp port 6666 on all interfaces
-```yaml
-        # set to rsyslog to install and configure rsyslog and the config for telegraf. set to false or comment out to not touch syslog
-        syslog: rsyslog
-        remote_syslog: true 
-
-```
-
 ###### Crowdsec
 ```yaml
         # set to true to setup an RFC5424 syslog server on UDP port 6666
@@ -274,12 +266,63 @@ Then fill out your username and password. You should do this even if you have ld
 ### Deploying Telegraf. 
 For Linux Devices Please use the ansible roles. There is a shell script but it does not do nearly as much as the Ansible Role. For other Operating systems, you will find various scripts in the Scripts folder that you can upload to your RMM and push out telegraf on an ad hoc or scheduled basis.
 
+By default the Telegraf Ansible role will try to instrument the following services automatically if found on a system.
+
+* adguardhome
+* crowdsec
+* caddy
+* docker
+* httpd (apache web server)
+* keepalived
+* libvirt
+* loki
+* meshagent (meshcentral client)
+* mysql
+* nginx
+* podman
+* victoriametrics
+* zfs
+
+Services are discovered by looking at the list of systemd services present on a system or looking for a binary.
+If you add one of the supported services to your system just rerun the Telegraf role and the appropriate Telegraf config will be added.
+To prevent automatic instrumentation for a service from occurring add a variable called `do_not_instrument: []` to your inventory with the services you do not want shift-mon to instrument from the list above in the form of a list ex `do_not_instrument: ["mysql","docker"]` will not instrument mysql and docker but instrument everything else.
+`do_not_instrument: ["docker"]` will not instrument docker automatically, and even though it is 1 item it still needs to be a list.
+This variable can be defined as a host variable, group variable or globally.
+Defining this variable WILL NOT cause a previously deployed configurations to be removed and the user will have to remove the configuration file from `/etc/telegraf/telegraf.d` and restart telegraf to stop further collection of data from the now ignored service.
+
+By default Telegraf runs as an unprivileged user if you are running into issues with telegraf not having the right permissions to collect certain data please change group membership, permissions on a resource, or add the required capabilities to the telegraf user.
+Telegraf can be run as root on your system by setting `telegraf_root: true` in your inventory for that host or group if needed, but this is a security risk since telegraf can run arbitrary scripts using the exec and execd plugins
 
 ### [Pushing Telegraf to Linux hosts via Ansible or shell script](docs/Telegraf/Linux.md)
 
 
 ### [Pushing Telegraf to Windows and Linux Endpoints via MeshCentral](docs/Telegraf/Windows.md)
 This should a be a similar workflow to most RMMs. upload the scripts, change your particulars, and yeet it on to your endpoints
+
+
+### Syslog
+Shift-mon can configure syslog forwarding to loki, and configure telegraf act a syslog server by following the instructions below
+
+* If `syslog` is defined at all for a host, group, or telegraf will listen for syslog messages on udp port 6667 on localhost.
+* Define `syslog: rsyslog` to have the telegraf role install and configure rsyslog and setup log forwarding to udp 6667 on localhost.
+* Define `remote_syslog: true` to have telegraf listen for syslog on all interfaces on udp port 6666 not this will only work for syslog formatted in RFC3164.
+
+To ship syslog messages formatted using RFC3164 please configure rsyslog or syslog-ng to forward the logs to telegraf on localhost.
+ESXI hosts prior to 8.0 use this format as well as PFSense by default, but PFSense can be configured to use RFC5424 formatting for syslog messages.
+
+
+
+### Vsphere
+Telegraf can be configured to gather metrics from VCenter by scraping the metrics API to enable this feature add the following variables to a host in your inventory.
+```yaml
+vsphere_enabled: true
+vsphere_urls = ["https://muh-vcenter.local.example.com"]
+vsphere_user = "test@example.local.com"
+vsphere_password = "SECRET"
+```
+The vsphere connection information above is saved in /etc/default/telegraf to avoid it being world readable.
+The configuration deployed by shift-mon or this WILL NOT collect metrics about each VM in VCenter to avoid running into limitations with the VCenter API.
+If you need to increase the amount results the VSphere API will return review [this document](https://kb.vmware.com/s/article/2107096)
 
 
 ## Installing Telegraf on Other Devices

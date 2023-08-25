@@ -84,7 +84,7 @@
     src: "linux/mesh-central.conf"
     dest: /etc/telegraf/telegraf.d/mesh-central.conf
   become: true
-  when: "'meshagent.service' in ansible_facts.services"
+  when: "'meshagent.service' in ansible_facts.services and 'meshagent' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Add Crowdsec Config if Crowdsec is installed
@@ -92,7 +92,7 @@
     src: "linux/crowdsec.conf"
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
   become: true
-  when: "'crowdsec.service' in ansible_facts.services"
+  when: "'crowdsec.service' in ansible_facts.services and 'crowdsec' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Add Adguard Config if Adguard is installed
@@ -100,7 +100,7 @@
     src: "linux/adgaurd.conf"
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
   become: true
-  when: "'AdGuardHome.service' in ansible_facts.services"
+  when: "'AdGuardHome.service' in ansible_facts.services and 'AdGuardHome' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Add telegraf to the nginx group on RedHat based systems
@@ -112,6 +112,8 @@
   when:
     - "ansible_facts['os_family'] == 'RedHat'"
     - "'nginx.service' in ansible_facts.services or 'httpd.service' in ansible_facts.services"
+    - "'nginx' not in do_not_instrument"
+    - "'httpd' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Add Caddy Config if Caddy is installed
@@ -119,7 +121,7 @@
     src: "linux/caddy.conf"
     dest: /etc/telegraf/telegraf.d/caddy.conf
   become: true
-  when: "'caddy.service' in ansible_facts.services"
+  when: "'caddy.service' in ansible_facts.services and 'caddy' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Add telegraf to the adm group on Debian based systems
@@ -136,7 +138,10 @@
     src: "linux/http.conf"
     dest: /etc/telegraf/telegraf.d/http.conf
   become: true
-  when: "'nginx.service' in ansible_facts.services or 'apache2.service' in ansible_facts.services or 'httpd.service' in ansible_facts.services"
+  when: 
+   - "'nginx.service' in ansible_facts.services or 'apache2.service' in ansible_facts.services or 'httpd.service' in ansible_facts.services"
+   - "'nginx' not in do_not_instrument"
+   - "'httpd' no in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Remove old nginx and httpd configs
@@ -154,14 +159,14 @@
     src: "linux/ipvs.conf"
     dest: /etc/telegraf/telegraf.d/ipvs.conf
   become: true
-  when: "'keepalived.service' in ansible_facts.services"
+  when: "'keepalived.service' in ansible_facts.services and 'keepalived' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Create docker group when docker is selected
   ansible.builtin.group:
     name: docker
     state: present
-  when: "'docker.service' in ansible_facts.services"
+  when: "'docker.service' in ansible_facts.services and 'docker' not in do_not_instrument"
 
 - name: Add telegraf to docker group when docker is installed
   ansible.builtin.user:
@@ -169,7 +174,7 @@
     groups: docker
     append: true
   become: true
-  when: "'docker.service' in ansible_facts.services"
+  when: "'docker.service' in ansible_facts.services and 'docker' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Deploy Docker config When Docker is installed
@@ -177,7 +182,7 @@
     src: "linux/docker.conf"
     dest: /etc/telegraf/telegraf.d/docker.conf
   become: true
-  when: "'docker.service' in ansible_facts.services"
+  when: "'docker.service' in ansible_facts.services and 'docker' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Deploy Podman config When Podman service is present
@@ -185,7 +190,7 @@
     src: "linux/podman.conf"
     dest: /etc/telegraf/telegraf.d/podman.conf
   become: true
-  when: "'podman.service' in ansible_facts.services"
+  when: "'podman.service' in ansible_facts.services and 'podman' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Deploy Libvirt config When Libvirt service is present
@@ -193,7 +198,7 @@
     src: "linux/libvirt.conf"
     dest: /etc/telegraf/telegraf.d/libvirt.conf
   become: true
-  when: "'libvirtd.service' in ansible_facts.services"
+  when: "'libvirtd.service' in ansible_facts.services and 'libvirtd' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: MySQL config when MySQL is installed
@@ -201,7 +206,7 @@
     src: "linux/mysql.conf"
     dest: /etc/telegraf/telegraf.d/mysql.conf
   become: true
-  when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
+  when: "'mysqld.service' or 'mysql.service' in ansible_facts.services and 'mysql' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Fleet config when Fleet is installed
@@ -217,7 +222,7 @@
     src: "linux/loki.conf"
     dest: /etc/telegraf/telegraf.d/loki.conf
   become: true
-  when: "'loki.service' in ansible_facts.services"
+  when: "'loki.service' in ansible_facts.services and 'loki' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Add Traefik log config to telegraf
@@ -272,7 +277,7 @@
     src: "linux/victoriametrics.conf"
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
   become: true
-  when: "'victoriametrics.service' in ansible_facts.services"
+  when: "'victoriametrics.service' in ansible_facts.services and 'victoriametrics' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Is ZFS installed
@@ -286,7 +291,7 @@
     dest: /etc/telegraf/telegraf.d/zfs.conf
   become: true
   notify: Restart Telegraf
-  when: zfs_path.stat.exists
+  when: "zfs_path.stat.exists and 'zfs' not in do_not_instrument"
 
 - name: Deploy VSphere config when Vsphere Creds are Available
   ansible.builtin.copy:
@@ -318,7 +323,7 @@
   ansible.builtin.file:
     path: "/tmp/stubby"
     state: absent
-  when: "'mysqld.service' or 'mysql.service' in ansible_facts.services"
+  when: "'mysqld.service' or 'mysql.service' in ansible_facts.services and 'mysql' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Install Rsyslog
