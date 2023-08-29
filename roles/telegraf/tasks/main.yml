@@ -15,7 +15,7 @@
 - name: Remove old repo for Debian based systems
   ansible.builtin.apt_repository:
     repo: "deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable"
-    state: present
+    state: absent
     update_cache: false
   become: true
   ignore_errors: true
