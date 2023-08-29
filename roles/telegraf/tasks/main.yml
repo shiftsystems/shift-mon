@@ -73,6 +73,9 @@
   ansible.builtin.copy:
     src: "linux/telegraf.conf"
     dest: /etc/telegraf/telegraf.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   notify: Restart Telegraf
 
@@ -83,6 +86,9 @@
   ansible.builtin.copy:
     src: "linux/mesh-central.conf"
     dest: /etc/telegraf/telegraf.d/mesh-central.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'meshagent.service' in ansible_facts.services and 'meshagent' not in do_not_instrument"
   notify: Restart Telegraf
@@ -91,6 +97,9 @@
   ansible.builtin.copy:
     src: "linux/crowdsec.conf"
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'crowdsec.service' in ansible_facts.services and 'crowdsec' not in do_not_instrument"
   notify: Restart Telegraf
@@ -99,6 +108,9 @@
   ansible.builtin.copy:
     src: "linux/adgaurd.conf"
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'AdGuardHome.service' in ansible_facts.services and 'AdGuardHome' not in do_not_instrument"
   notify: Restart Telegraf
@@ -120,6 +132,9 @@
   ansible.builtin.copy:
     src: "linux/caddy.conf"
     dest: /etc/telegraf/telegraf.d/caddy.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'caddy.service' in ansible_facts.services and 'caddy' not in do_not_instrument"
   notify: Restart Telegraf
@@ -158,6 +173,9 @@
   ansible.builtin.copy:
     src: "linux/ipvs.conf"
     dest: /etc/telegraf/telegraf.d/ipvs.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'keepalived.service' in ansible_facts.services and 'keepalived' not in do_not_instrument"
   notify: Restart Telegraf
@@ -181,6 +199,9 @@
   ansible.builtin.copy:
     src: "linux/docker.conf"
     dest: /etc/telegraf/telegraf.d/docker.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'docker.service' in ansible_facts.services and 'docker' not in do_not_instrument"
   notify: Restart Telegraf
@@ -189,6 +210,9 @@
   ansible.builtin.copy:
     src: "linux/podman.conf"
     dest: /etc/telegraf/telegraf.d/podman.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'podman.service' in ansible_facts.services and 'podman' not in do_not_instrument"
   notify: Restart Telegraf
@@ -197,6 +221,9 @@
   ansible.builtin.copy:
     src: "linux/libvirt.conf"
     dest: /etc/telegraf/telegraf.d/libvirt.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'libvirtd.service' in ansible_facts.services and 'libvirtd' not in do_not_instrument"
   notify: Restart Telegraf
@@ -205,6 +232,9 @@
   ansible.builtin.copy:
     src: "linux/mysql.conf"
     dest: /etc/telegraf/telegraf.d/mysql.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services and 'mysql' not in do_not_instrument"
   notify: Restart Telegraf
@@ -213,6 +243,9 @@
   ansible.builtin.copy:
     src: "linux/fleet.conf"
     dest: /etc/telegraf/telegraf.d/fleet.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'fleetdm.service' in ansible_facts.services"
   notify: Restart Telegraf
@@ -221,6 +254,9 @@
   ansible.builtin.copy:
     src: "linux/loki.conf"
     dest: /etc/telegraf/telegraf.d/loki.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'loki.service' in ansible_facts.services and 'loki' not in do_not_instrument"
   notify: Restart Telegraf
@@ -229,6 +265,9 @@
   ansible.builtin.template:
     src: telegraf-traefik.conf
     dest: /etc/telegraf/telegraf.d/traefik.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: telegraf_traefik_config is defined and telegraf_traefik_config
 
@@ -236,6 +275,9 @@
   ansible.builtin.template:
     src: logrotate-traefik.conf
     dest: /etc/logrotate.d/traefik.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: telegraf_traefik_config is defined and telegraf_traefik_config
   notify: Restart Telegraf
@@ -244,6 +286,9 @@
   ansible.builtin.copy:
     src: victoriametrics-docker.conf
     dest: /etc/telegraf/telegraf.d/victoriametrics-docker.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   notify: Restart Telegraf
   when: telegraf_victoriametrics_config is defined and telegraf_victoriametrics_config == True
@@ -252,6 +297,9 @@
   ansible.builtin.copy:
     src: crowdsec-docker.conf
     dest: /etc/telegraf/telegraf.d/crowdsec-docker.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   notify: Restart Telegraf
   when: telegraf_crowdsec_config is defined and telegraf_crowdsec_config == True
@@ -260,6 +308,9 @@
   ansible.builtin.template:
     src: grafana-docker.conf
     dest: /etc/telegraf/telegraf.d/grafana-docker.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   notify: Restart Telegraf
   when: telegraf_grafana_config is defined and telegraf_grafana_config == True
@@ -268,6 +319,9 @@
   ansible.builtin.copy:
     src: loki-docker.conf
     dest: /etc/telegraf/telegraf.d/loki-docker.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   notify: Restart Telegraf
   when: telegraf_loki_config is defined and telegraf_loki_config == True
@@ -276,6 +330,9 @@
   ansible.builtin.copy:
     src: "linux/victoriametrics.conf"
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "'victoriametrics.service' in ansible_facts.services and 'victoriametrics' not in do_not_instrument"
   notify: Restart Telegraf
@@ -289,6 +346,9 @@
   ansible.builtin.copy:
     src: "linux/zfs.conf"
     dest: /etc/telegraf/telegraf.d/zfs.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   notify: Restart Telegraf
   when: "zfs_path.stat.exists and 'zfs' not in do_not_instrument"
@@ -297,6 +357,9 @@
   ansible.builtin.copy:
     src: "linux/vsphere.conf"
     dest: /etc/telegraf/telegraf.d/vsphere.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: "vsphere_enabled is defined and vsphere_enabled"
   notify: Restart Telegraf
@@ -315,6 +378,9 @@
   ansible.builtin.copy:
     src: "linux/smart.conf"
     dest: /etc/telegraf/telegraf.d/smart.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: ansible_facts['virtualization_role'] != 'guest' and (deploy_smart is not defined or deploy_smart)
   notify: Restart Telegraf
@@ -354,6 +420,9 @@
   ansible.builtin.copy:
     src: "linux/syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: syslog is defined
   notify: Restart Telegraf
@@ -362,6 +431,9 @@
   ansible.builtin.copy:
     src: "linux/remote-syslog.conf"
     dest: /etc/telegraf/telegraf.d/remote-syslog.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
   become: true
   when: remote_syslog is defined and remote_syslog
   notify: Restart Telegraf
