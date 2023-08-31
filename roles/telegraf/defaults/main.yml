@@ -2,4 +2,5 @@ telegraf_traefik_log_file_path: /opt/shift-mon/traefik/access.json
 traefik_container_name: shift-mon_traefik_1
 
 env_telegraf_tags: "{{ lookup('ansible.builtin.env', 'TAGS') | split(',') | default([]) }}"
+extra_vars_tags: "{{ tags | split(',') | default([]) }}"
 do_not_instrument: []
