@@ -167,7 +167,7 @@
   when: 
    - "'nginx.service' in ansible_facts.services or 'apache2.service' in ansible_facts.services or 'httpd.service' in ansible_facts.services"
    - "'nginx' not in do_not_instrument"
-   - "'httpd' no in do_not_instrument"
+   - "'httpd' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Remove old nginx and httpd configs
