@@ -35,12 +35,12 @@ We appreciate your contribution by helping with documentation, contributing code
 ### Active hardware
 If there is a platform you wish we supported and are willing to send us monitoring data please reach out to mathias@shiftsystems.net
 
-### Money 
-You can purchase shift-mon as a managed or solution. 
-We also do consulting for ansible, meshcentral, telegraf, and influxdb. 
-Please fill out the contact form on shiftsystems.net or email sales@shiftsystems.net
+### Financial 
+If you require assistance deploying Shift-mon or wish to have an issue prioritized, we offer hourly consulting.
 
-[Paypal](https://www.paypal.com/donate?hosted_button_id=384786R5ULJRC)
+Please Contact sales@shiftsystems.net or message @tiny:shiftsystems.net in Matrix for details.
+
+We also take donations via Paypal [Paypal](https://www.paypal.com/donate?hosted_button_id=384786R5ULJRC)
 
 
 ## Social Media
