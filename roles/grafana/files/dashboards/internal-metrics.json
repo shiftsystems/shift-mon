@@ -46,7 +46,9 @@
             "defaults": {
               "custom": {
                 "align": "auto",
-                "displayMode": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
                 "inspect": false
               },
               "mappings": [],
@@ -54,7 +56,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -86,7 +89,9 @@
           },
           "id": 52,
           "options": {
+            "cellHeight": "sm",
             "footer": {
+              "countRows": false,
               "fields": "",
               "reducer": [
                 "sum"
@@ -102,7 +107,7 @@
               }
             ]
           },
-          "pluginVersion": "9.3.4",
+          "pluginVersion": "10.1.1",
           "targets": [
             {
               "datasource": {
@@ -148,7 +153,9 @@
             "defaults": {
               "custom": {
                 "align": "auto",
-                "displayMode": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
                 "inspect": false
               },
               "mappings": [],
@@ -156,7 +163,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -188,7 +196,9 @@
           },
           "id": 55,
           "options": {
+            "cellHeight": "sm",
             "footer": {
+              "countRows": false,
               "fields": "",
               "reducer": [
                 "sum"
@@ -199,7 +209,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "9.3.4",
+          "pluginVersion": "10.1.1",
           "targets": [
             {
               "datasource": {
@@ -315,7 +325,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -326,10 +336,10 @@
           "exemplar": false,
           "expr": "vm_app_version_value{host=\"$host\"}",
           "format": "table",
-          "instant": false,
+          "instant": true,
           "interval": "",
           "legendFormat": "",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -380,7 +390,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -442,7 +452,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -501,7 +511,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -563,7 +573,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -628,7 +638,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -693,7 +703,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -754,7 +764,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -795,6 +805,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -888,6 +899,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -981,6 +993,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1061,7 +1074,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1126,7 +1141,9 @@
       },
       "id": 50,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -1136,7 +1153,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -1241,7 +1258,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1273,18 +1291,21 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.4",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
-          "exemplar": true,
+          "editorMode": "code",
+          "exemplar": false,
           "expr": "loki_build_info_gauge{host=\"$host\"}",
           "format": "table",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
+          "range": false,
           "refId": "A"
         }
       ],
@@ -1307,7 +1328,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1335,7 +1357,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.4",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -1364,7 +1386,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1392,7 +1415,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.4",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -1421,7 +1444,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1450,7 +1474,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.4",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -1484,7 +1508,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1513,7 +1538,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.4",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -1545,7 +1570,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1574,7 +1600,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.4",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -1618,6 +1644,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1639,7 +1666,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1722,6 +1750,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1743,7 +1772,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1811,6 +1841,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1832,7 +1863,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1887,7 +1919,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1895,7 +1929,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1910,7 +1945,9 @@
       },
       "id": 18,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -1919,7 +1956,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.4",
+      "pluginVersion": "10.1.1",
       "targets": [
         {
           "datasource": {
@@ -2047,13 +2084,18 @@
       "type": "logs"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 37,
+  "refresh": "",
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -2066,6 +2108,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -2109,6 +2156,6 @@
   "timezone": "",
   "title": "Internal Metrics",
   "uid": "ALYMBhank",
-  "version": 3,
+  "version": 5,
   "weekStart": ""
 }
