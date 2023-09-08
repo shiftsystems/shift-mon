@@ -56,8 +56,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -163,8 +162,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1160,7 +1158,9 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{appname=\"victoria-metrics-prod\",host=\"$host\"} | logfmt",
+          "editorMode": "builder",
+          "expr": "{appname=\"shift-mon_victoriametrics_1\", host=\"$host\"} | logfmt",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -1373,8 +1373,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
+        "type": "prometheus",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1390,7 +1390,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -1408,7 +1409,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -1419,14 +1420,18 @@
       "targets": [
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
-          "panelId": 17,
+          "editorMode": "code",
+          "expr": "loki_chunk_store_stored_chunk_bytes_total_counter{host=\"$host\"} / loki_chunk_store_stored_chunks_total_counter{host=\"$host\"}",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Mean active Log streams",
+      "title": "Chunk Size",
       "type": "stat"
     },
     {
@@ -1545,10 +1550,12 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "loki_distributor_bytes_received_total_counter{host=\"$host\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1880,8 +1887,12 @@
       "id": 17,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
         },
@@ -1897,14 +1908,16 @@
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "loki_store_series_total_counter{host=\"$host\",status=\"matched\"}",
+          "expr": "loki_chunk_store_stored_chunks_total_counter{host=\"$host\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Active Log streams",
+      "title": "Chunks Stored",
       "type": "timeseries"
     },
     {
@@ -2021,8 +2034,10 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{appname=\"loki-linux-amd64\",host=\"$host\"}",
+          "editorMode": "builder",
+          "expr": "{appname=\"shift-mon_loki_1\", host=\"$host\"}",
           "maxLines": 200,
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -2156,6 +2171,6 @@
   "timezone": "",
   "title": "Internal Metrics",
   "uid": "ALYMBhank",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
