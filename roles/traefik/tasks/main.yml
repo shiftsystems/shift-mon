@@ -86,13 +86,13 @@
   ansible.builtin.copy:
     src: '{{ uptimekuma.cert_path }}'
     dest: '/opt/shift-mon/traefik/certs/uptime-kuma.crt'
-  when: loki.cert_path is defined
+  when: uptimekuma.cert_path is defined
 
 - name: Copy Uptime-Kuma key
   ansible.builtin.copy:
     src: '{{ uptimekuma.key_path }}'
     dest: '/opt/shift-mon/traefik/certs/uptime-kuma.key'
-  when: loki.key_path is defined
+  when: uptimekuma.key_path is defined
 
 - name: Copy Oncall cert
   ansible.builtin.copy:
