@@ -25,6 +25,9 @@ If you need help installing NtopNG please review the relavant docs for your rout
 ## Self Signed Certs
 If you are using a self signed cert and receiving errors from NtopNG you might need add your CA and/or certificate to your system. Use the guides below 
 
+
+## Installing NtopNG
+
 ### OPNSense
 1. login
 2. Go to System > Trust > Authorities if you are importing a CA or System > Trust Certificates if you are importing a single cert
