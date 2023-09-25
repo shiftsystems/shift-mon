@@ -116,8 +116,8 @@
   notify: Restart Telegraf
 
 - name: Add Adguard Config if Adguard is installed
-  ansible.builtin.copy:
-    src: "linux/adgaurd.conf"
+  ansible.builtin.template:
+    src: "adgaurd.conf"
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
     mode: "660"
     owner: "telegraf"
@@ -140,8 +140,8 @@
   notify: Restart Telegraf
 
 - name: Add Caddy Config if Caddy is installed
-  ansible.builtin.copy:
-    src: "linux/caddy.conf"
+  ansible.builtin.template:
+    src: "caddy.conf"
     dest: /etc/telegraf/telegraf.d/caddy.conf
     mode: "660"
     owner: "telegraf"
@@ -160,8 +160,8 @@
   notify: Restart Telegraf
 
 - name: Add http config When nginx or Apache Httpd is installed
-  ansible.builtin.copy:
-    src: "linux/http.conf"
+  ansible.builtin.template:
+    src: "http.conf"
     dest: /etc/telegraf/telegraf.d/http.conf
   become: true
   when: 
@@ -428,8 +428,8 @@
   when: syslog is defined and syslog == "rsyslog"
 
 - name: Add Telegraf config for syslog
-  ansible.builtin.copy:
-    src: "linux/syslog.conf"
+  ansible.builtin.template:
+    src: "syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
     mode: "660"
     owner: "telegraf"
@@ -439,8 +439,8 @@
   notify: Restart Telegraf
 
 - name: Add Telegraf config for remote syslog
-  ansible.builtin.copy:
-    src: "linux/remote-syslog.conf"
+  ansible.builtin.template:
+    src: "remote-syslog.conf"
     dest: /etc/telegraf/telegraf.d/remote-syslog.conf
     mode: "660"
     owner: "telegraf"

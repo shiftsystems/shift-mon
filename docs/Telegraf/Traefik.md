@@ -32,12 +32,13 @@ If you are having permissions issues reading the file you can set `telegraf_root
 Note doing this is running will set telegraf to run as root on your system which lets it see everything and do everything which is a security risk.
 You can also set permissions for your container which is more secure but more time consuming.
 
-```
+```toml
 [[inputs.tail]]
   name_suffix = "_traefik"
-  files = ['''/mnt/margarine/traefik/access.*''']
+  files = ['''/var/log/traefik/access.*''']
   data_format = "json"
   json_string_fields = ["*"]
+# optional adds reverse DNS lookup for ip addresses
 [[processors.reverse_dns]]
   namepass = ["tail_traefik"]
   [[processors.reverse_dns.lookup]]

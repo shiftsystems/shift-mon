@@ -74,18 +74,6 @@ This Command will be different if you are adding this to an existing automation 
 
 If you are using your own automation repo you will need to modify the `ansible-playbook` command.
 
-## Bash Script please don't use unless you have to.
-The Bash script assumes that wget is installed, curl is installed, you are running it as root or as sudo with root permissions, and you can access gitlab.com. You can upload the script from [here](https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/linux/telegraf-install.bash) to meshcentral and push it from meshcentral or download the script run ```wget https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/linux/telegraf-install.bash```. Next you have to edit the following variables in the first few lines of the script to match your settings
-```
-VICTORIA_URL="https://metrics.example.com"
-LOKI_URL="https://logs.example.com"
-VICTORIA_USER="test"
-VICTOIRA_PASS="test"
-LOKI_USER="test"
-LOKI_PASS="test"
-```
-To run the script run ```sudo bash telegraf-install.bash``` or ```bash telegraf-install.bash``` if you are logged in as root.
-
 ## Remote Syslog
 For devices that generate syslog data but can't have telegraf installed you can configure an instance of telegraf to receive syslog data by setting ```remote_syslog: true``` for one or more hosts in your inventory.
 After remote syslog has been setup on one of your installations of telegraf you can forward RFC5424 formatted syslog to the ip or host of the telegraf instance on udp port 6666

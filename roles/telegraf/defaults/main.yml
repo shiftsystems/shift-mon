@@ -4,3 +4,9 @@ traefik_container_name: shift-mon_traefik_1
 env_telegraf_tags: []
 extra_vars_tags: []
 do_not_instrument: []
+reverse_lookup_adguardhome: true
+reverse_lookup_caddy: true
+reverse_lookup_http: true
+reverse_lookup_remote_syslog: true
+reverse_lookup_syslog: true
+reverse_lookup_traefik: true
