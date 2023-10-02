@@ -464,6 +464,15 @@
   become: true
   when: "remote_syslog is defined and remote_syslog and 'firewalld.service' in ansible_facts.services"
 
+- name: Enable forwarding systemd journal to syslog
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: '^ForwardToSyslog='
+    line: 'ForwardToSyslog=yes'
+  become: true
+  when: journald_forwarding and syslog is defined
+  notify: Restart Journald
+
 - name: Create Telegraf override directory
   ansible.builtin.file:
     name: /etc/systemd/system/telegraf.service.d
