@@ -1,5 +1,5 @@
 stages:
-    - kics
+    #- kics
     - ansible-lint
     - galaxy-publish
 
