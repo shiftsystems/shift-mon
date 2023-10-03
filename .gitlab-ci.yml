@@ -1,20 +1,20 @@
 stages:
-    #- kics
+    - kics
     - ansible-lint
     - galaxy-publish
 
 kics-scan:
-    stage: kics
-    image:
-      name: checkmarx/kics:latest
-      entrypoint: [""]
-    script:
-        - kics scan -p ${PWD} -o ${PWD} --report-formats json --output-name kics-results --exclude-queries 8d29754a-2a18-460d-a1ba-9509f8d359da,c05e2c20-0a2c-4686-b1f8-5f0a5612d4e8
-    artifacts:
-        name: kics-results.json
-        paths:
-            - kics-results.json
-        when: always
+  stage: kics
+  image:
+    name: checkmarx/kics:latest
+    entrypoint: [""]
+  script:
+    - kics scan -p ${PWD} -o ${PWD} --report-formats json --output-name kics-results --exclude-queries 8d29754a-2a18-460d-a1ba-9509f8d359da,c05e2c20-0a2c-4686-b1f8-5f0a5612d4e8
+  artifacts:
+    name: kics-results.json
+    paths:
+      - kics-results.json
+    when: always
 
 ansible-lint:
   stage: ansible-lint
