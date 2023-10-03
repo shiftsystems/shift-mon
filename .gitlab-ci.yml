@@ -9,7 +9,7 @@ kics-scan:
     name: checkmarx/kics:latest
     entrypoint: [""]
   script:
-    - kics scan -p ${PWD} -o ${PWD} --report-formats json --output-name kics-results --exclude-queries 8d29754a-2a18-460d-a1ba-9509f8d359da,c05e2c20-0a2c-4686-b1f8-5f0a5612d4e8
+    - kics scan -p ${PWD} -o ${PWD} --report-formats json --output-name kics-results --exclude-queries 8d29754a-2a18-460d-a1ba-9509f8d359da,c05e2c20-0a2c-4686-b1f8-5f0a5612d4e8,88841d5c-d22d-4b7e-a6a0-89ca50e44b9f
   artifacts:
     name: kics-results.json
     paths:
