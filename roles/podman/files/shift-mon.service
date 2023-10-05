@@ -9,6 +9,6 @@ RemainAfterExit = true
 WorkingDirectory=/opt/shift-mon
 ExecStart=/opt/shift-mon/startup.bash
 ExecStop=/opt/shift-mon/shutdown.bash
-
+TimeoutSec=900
 [Install]
 WantedBy=multi-user.target
