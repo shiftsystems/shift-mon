@@ -375,6 +375,17 @@
   when: "vsphere_enabled is defined and vsphere_enabled"
   notify: Restart Telegraf
 
+- name: Deploy Open LDAP config when Open LDAP Creds are Available
+  ansible.builtin.template:
+    src: "openldap.conf"
+    dest: /etc/telegraf/telegraf.d/openldap.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: "openldap_enabled is defined and openldap_enabled"
+  notify: Restart Telegraf
+
 - name: Install SMART Monitoring packages
   ansible.builtin.package:
     name: "{{ item }}"

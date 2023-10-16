@@ -34,10 +34,11 @@ flush_interval="10s"
 {% endif %}
 {% if vsphere_enabled is defined and vsphere_enabled %}
 vsphere_urls="{{ vsphere_urls }}"
-{% endif %}
-{% if vsphere_enabled is defined and vsphere_enabled %}
 vsphere_username="{{ vsphere.username }}"
-{% endif %}
-{% if vsphere_enabled is defined and vsphere_enabled %}
 vsphere_password="{{ vsphere.password }}"
+{% endif %}
+{% if openldap_enabled is defined and openldap_enabled %}
+openldap_host="{{ openldap.host }}"
+openldap_bind_dn="{{ openldap.bind_dn }}"
+openldap_bind_password="{{ openldap.bind_password }}"
 {% endif %}
