@@ -92,11 +92,18 @@ ruler:
     local:
       directory: /loki/rules
   rule_path: /loki/rules-temp
-  alertmanager_url: http://localhost:9093
+  alertmanager_url: http://vmalert:9093
+  wal:
+    dir: /loki/ruler-wal
   ring:
     kvstore:
       store: inmemory
   enable_api: true
+  external_url: https://{{ grafana.domain }}
+  remote_write:
+    enabled: true
+    client:
+      url: http://victoriametrics:8428/api/v1/write
 querier:
   max_concurrent: 2048
 query_scheduler:

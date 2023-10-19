@@ -9,3 +9,4 @@
     - /opt/shift-mon/
     - /opt/shift-mon/victoriametrics
     - /opt/shift-mon/victoriametrics-storage
+    - /opt/shift-mon/vmalert/rules

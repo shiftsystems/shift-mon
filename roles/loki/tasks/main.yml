@@ -20,10 +20,13 @@
   with_items:
     - /opt/shift-mon/loki
     - /opt/shift-mon/loki-config
-    - /opt/shift-mon/loki/rules-temp
+    - /opt/shift-mon/loki/rules-temp/fake
+    - /opt/shift-mon/loki/rules/fake
+    - /opt/shfit-mon/loki/ruler-wal/fake
 
 - name: Copy loki configs
   ansible.builtin.template:
     src: loki-config.yml
     dest: /opt/shift-mon/loki-config/loki-config.yml
   become: true
+  
