@@ -2,10 +2,13 @@ apiVersion: 1
 datasources:
   - name: shift-metrics
     type: prometheus
-    #url: '{{ victoria.url }}'
     url: 'http://victoriametrics:8428'
-
+    jsonData:
+      httpmethod: POST
+      manageAlerts: true
+      prometheusType: prometheus
+      prometheusVersion: 2.47.0
+      disableRecordingRules: false
   - name: shift-logs
     type: loki
-    #url: '{{ loki.url }}'
     url: 'http://loki:3100'

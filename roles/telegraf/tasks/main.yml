@@ -414,6 +414,17 @@
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services and 'mysql' not in do_not_instrument"
   notify: Restart Telegraf
 
+- name: Add HTTPS Blackbox config
+  ansible.builtin.template:
+    src: blackbox-https.conf
+    dest: /etc/telegraf/telegraf.d/blackbox-https.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: blackbox_https_domains is defined and blackbox_https_domains
+  notify: Restart Telegraf
+
 - name: Install Rsyslog
   ansible.builtin.package:
     name: rsyslog
