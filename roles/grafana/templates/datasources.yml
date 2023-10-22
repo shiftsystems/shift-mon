@@ -6,7 +6,7 @@ datasources:
     jsonData:
       httpmethod: POST
       manageAlerts: true
-      prometheusType: prometheus
+      prometheusType: Prometheus
       prometheusVersion: 2.47.0
       disableRecordingRules: false
   - name: shift-logs
