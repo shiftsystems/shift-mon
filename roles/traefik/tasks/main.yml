@@ -22,7 +22,9 @@
   ansible.builtin.file:
     path: '{{ item }}'
     state: directory
-    mode: '777'
+    user: root
+    group: telegraf
+    mode: '770'
     setype: container_file_t
   become: true
   with_items:

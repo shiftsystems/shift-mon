@@ -1,3 +1,15 @@
+- name: Create Shift-mon folder
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: telegraf
+    mode: '770'
+    setype: container_file_t
+  become: true
+  with_items:
+    - /opt/shift-mon
+
 - name: Create uptime-kuma directory
   ansible.builtin.file:
     path: '{{ item }}'
@@ -6,5 +18,4 @@
     setype: container_file_t
   become: true
   with_items:
-    - /opt/shift-mon/
     - /opt/shift-mon/uptime-kuma
