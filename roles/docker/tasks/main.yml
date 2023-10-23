@@ -9,6 +9,7 @@
   ansible.builtin.template:
     src: 'docker-compose.yml'
     dest: /opt/shift-mon/docker-compose.yml
+  become: true
 
 - name: Copy startup and shutdown scripts
   ansible.builtin.copy:
