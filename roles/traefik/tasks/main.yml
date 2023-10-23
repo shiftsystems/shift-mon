@@ -22,7 +22,7 @@
   ansible.builtin.file:
     path: '{{ item }}'
     state: directory
-    user: root
+    owner: root
     group: telegraf
     mode: '770'
     setype: container_file_t
