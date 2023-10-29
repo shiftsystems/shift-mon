@@ -425,6 +425,17 @@
   when: blackbox_https_domains is defined and blackbox_https_domains
   notify: Restart Telegraf
 
+- name: Add DNS Blackbox config
+  ansible.builtin.template:
+    src: blackbox-dns.conf
+    dest: /etc/telegraf/telegraf.d/blackbox-dns.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: blackbox_dns_queries is defined and blackbox_dns_queries
+  notify: Restart Telegraf
+
 - name: Install Rsyslog
   ansible.builtin.package:
     name: rsyslog
