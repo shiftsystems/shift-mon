@@ -4,7 +4,7 @@
 VICTORIA_URL="https://metrics.example.com"
 LOKI_URL="https://logs.example.com"
 VICTORIA_USER="test"
-VICTOIRA_PASS="test"
+VICTORIA_PASS="test"
 LOKI_USER="test"
 LOKI_PASS="test"
 source /etc/os-release
