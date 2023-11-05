@@ -422,7 +422,7 @@
     owner: "telegraf"
     group: "telegraf"
   become: true
-  when: blackbox_https_domains is defined and blackbox_https_domains
+  when: blackbox_https_urls is defined and blackbox_https_urls
   notify: Restart Telegraf
 
 - name: Add DNS Blackbox config
