@@ -375,6 +375,17 @@
   when: "vsphere_enabled is defined and vsphere_enabled"
   notify: Restart Telegraf
 
+- name: Deploy Haproxy config
+  ansible.builtin.template:
+    src: "haproxy.conf"
+    dest: /etc/telegraf/telegraf.d/haproxy.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: "haproxy_stats_path is defined"
+  notify: Restart Telegraf
+
 - name: Deploy Open LDAP config when Open LDAP Creds are Available
   ansible.builtin.template:
     src: "openldap.conf"
