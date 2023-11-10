@@ -51,9 +51,9 @@ all:
     erwin:
   vars:
     blackbox_dns_queries:
-      - server: 10.0.0.30
-        check_name: 'Histora DNS'
-        domain: 'rose.local.shiftsystems.net'
+      - server: 10.0.0.254
+        check_name: 'local DNS'
+        domain: 'example.local.com'
 ```
 
 ## Net Response (TCP or UDP)
@@ -77,9 +77,9 @@ all:
     erwin:
   vars:
     blackbox_net_hosts:
-      - host: historia.local.shiftsystems.net
+      - host: dc1.local.example.com
         port: 389
-      - host: bertolt.local.shiftsystems.net
+      - host: dc2.local.example.com
         port: 389
         interval: '5m'
 
@@ -113,6 +113,14 @@ all:
   hosts:
     erwin:
   vars:
+    loki:
+      user: telegraf
+      password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+      url: "{{ lookup('env', 'LOKI_URL') }}"
+    victoria:
+      user: telegraf
+      password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+      url: "{{ lookup('env', 'VICTORIA_URL') }}"
     blackbox_https_urls:
       - url: 'https://grafana.local.example.com/login'
         check_name: 'Grafana'
@@ -128,40 +136,21 @@ all:
         basic_user: '$victoria_user'
         basic_password: '$victoria_password'
     blackbox_dns_queries:
-      - server: 10.0.0.30
-        check_name: 'Histora DNS'
-        domain: 'rose.local.shiftsystems.net'
-      - server: 10.0.0.9
-        check_name: 'Histora DNS'
-        domain: 'rose.local.shiftsystems.net'
+      - server: 10.0.0.254
+        check_name: 'local DNS'
+        domain: 'example.local.com'
       - server: 10.99.0.2
         domain: 'malware.com'
         check_name: 'Unsafe Domain'
-        domain: 'em1072690.shiftsystems.net'
+        domain: 'www.example.com'
         record_type: 'CNAME'
         timeout: '10s'
     blackbox_ping_hosts:
-      - host: zeke.local.shiftsystems.net
       - host: 1.1.1.1
+        check_name: 'Cloudflare'
     blackbox_net_hosts:
       - host: dc1.local.example.com
         port: 389
       - host: dc2.local.example.com
-        port: 389
-    loki:
-     user: telegraf
-     password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-     url: "{{ lookup('env', 'LOKI_URL') }}"
-    victoria:
-     user: telegraf
-     password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-     url: "{{ lookup('env', 'VICTORIA_URL') }}"
-    blackbox_ping_hosts:
-      - host: zeke.local.shiftsystems.net
-      - host: 1.1.1.1
-    blackbox_net_hosts:
-      - host: historia.local.shiftsystems.net
-        port: 389
-      - host: bertolt.local.shiftsystems.net
         port: 389
 ```
