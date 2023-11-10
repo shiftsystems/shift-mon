@@ -433,7 +433,40 @@
     owner: "telegraf"
     group: "telegraf"
   become: true
-  when: blackbox_https_domains is defined and blackbox_https_domains
+  when: blackbox_https_urls is defined and blackbox_https_urls
+  notify: Restart Telegraf
+
+- name: Add DNS Blackbox config
+  ansible.builtin.template:
+    src: blackbox-dns.conf
+    dest: /etc/telegraf/telegraf.d/blackbox-dns.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: blackbox_dns_queries is defined and blackbox_dns_queries
+  notify: Restart Telegraf
+
+- name: Add Ping Blackbox config
+  ansible.builtin.template:
+    src: blackbox-ping.conf
+    dest: /etc/telegraf/telegraf.d/blackbox-ping.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: blackbox_ping_hosts is defined and blackbox_ping_hosts
+  notify: Restart Telegraf
+
+- name: Add Net Response Blackbox config
+  ansible.builtin.template:
+    src: blackbox-net.conf
+    dest: /etc/telegraf/telegraf.d/blackbox-net.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: blackbox_ping_hosts is defined and blackbox_net_hosts
   notify: Restart Telegraf
 
 - name: Install Rsyslog

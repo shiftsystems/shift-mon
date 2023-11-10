@@ -52,6 +52,11 @@ We try to publish content twice a month on either on [the Shiftsystems website](
 * Linux
 * PFSense
 * OPNSense
+* Blackbox Monitoring
+  * HTTPS Healthchecks
+  * DNS Healthchecks
+  * TCP Healthchecks
+  * Ping Healthchecks
 * Docker
 * Podman
 * Crowdsec
@@ -64,7 +69,9 @@ We try to publish content twice a month on either on [the Shiftsystems website](
 * Proxmox
 * Libvirt
 * ipvs (no dashboard yet)
-* mysql (no dashboard yet)
+* MySQL (no dashboard yet)
+* OpenLDAP (no dashboard yet)
+* HAProxy (no dashboard yet)
 * ZFS
 * NTOPNG
 * Syslog Data
