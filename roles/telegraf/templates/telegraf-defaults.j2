@@ -42,3 +42,6 @@ openldap_host="{{ openldap.host }}"
 openldap_bind_dn="{{ openldap.bind_dn }}"
 openldap_bind_password="{{ openldap.bind_password }}"
 {% endif %}
+{% for name,secret in user_secrets.items() %}
+{{ name }}="{{ secret }}"
+{% endfor %}
