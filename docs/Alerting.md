@@ -145,6 +145,85 @@ for: 10m\
 Summary: `{{ $labels.host }} has high iowait`\
 Description: `{{ $labels.host }} is at {{ $values.B }}% of iowait this could be causing issues with application responsiveness`\
 
+### HTTPS Failure
+Query: ```avg(http_response_result_code)```\
+B: Reduce
+* Function: LAST
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS ABOVE
+* 0
+
+for: 5m\
+Summary: `{{ $labels.server }} is not healthy`\
+Description: `{{ $labels.server }} is not healthy with issue {{ $labels.result }}`\
+
+### DNS Filtering Not working
+Query: ```dns_query_result_code{domain="malware.com"}```\
+B: Reduce
+* Function: LAST
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS Below
+* 2
+
+for: 5m\
+Summary: `{{ $labels.domain }} is resolvable on {{ $labels.server }}`\
+Description: `{{ $labels.domain }} is resolvable on {{ $labels.server }}`\
+
+### DNS Check Failing
+Query: ```lag(avg by (server,domain,record_type) (dns_query_query_time_ms{result="success"})[1h])```\
+B: Reduce
+* Function: LAST
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS ABOVE
+* 500
+
+for: 5m\
+Summary: `DNS lookups are not working on {{ $labels.server }}`\
+Description: `Users can  not lookup {{ $labels.domain }} on  {{ $labels.server }} with record {{ $labels.record_type }}`\
+
+### SSL cert is about to expire
+Query: ```lag(avg by (server,domain,record_type) (dns_query_query_time_ms{result="success"})[1h])```\
+B: Reduce
+* Function: LAST
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS Below
+* 7
+
+for: 5m\
+Summary: `{{ $labels.common_name }} will expire soon`\
+Description: `{{ $labels.common_name }} will expire soon please renew`\
+
+### Net Response (TCP/UDP) Failure
+Query: ```lag(avg by (server) (net_response_response_time{result="success"})[1h])```\
+B: Reduce
+* Function: LAST
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS ABOVE
+* 0
+
+for: 5m\
+Summary: `{{ $labels.server }} is not healthy`\
+Description: `{{ $labels.server }} is not healthy`\
 ## Related docs
 * [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
 * [Promethues missing timeseries]()
