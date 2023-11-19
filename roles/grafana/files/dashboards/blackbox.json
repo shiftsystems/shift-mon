@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 53,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -441,8 +442,8 @@
         "showHeader": true,
         "sortBy": [
           {
-            "desc": false,
-            "displayName": "UpTime"
+            "desc": true,
+            "displayName": "Last"
           }
         ]
       },
@@ -736,7 +737,12 @@
         },
         "frameIndex": 0,
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Last"
+          }
+        ]
       },
       "pluginVersion": "10.2.1",
       "targets": [
@@ -1028,7 +1034,12 @@
         },
         "frameIndex": 0,
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Last"
+          }
+        ]
       },
       "pluginVersion": "10.2.1",
       "targets": [
@@ -1716,7 +1727,7 @@
         "current": {
           "selected": false,
           "text": "probe1.example.com",
-          "value": "probe1"
+          "value": "probe1.example.com"
         },
         "datasource": {
           "type": "prometheus",
