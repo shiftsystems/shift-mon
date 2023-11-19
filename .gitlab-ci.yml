@@ -28,4 +28,4 @@ galaxy-publish:
   script:
     - 'ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-$(grep "version: " galaxy.yml | sed "s:.*\ ::").tar.gz --token $GALAXY_API_KEY'
   only:
-    - main@shiftsystems/shift-rmm
+    - main@shiftsystems/shiftmon
