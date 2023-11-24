@@ -207,6 +207,7 @@
   when: 
    - "'ipa.service' in ansible_facts.services"
    - "'ipa_server' not in do_not_instrument"
+   - "telegraf_root is defined and telegraf_root"
   notify: Restart Telegraf
 
 - name: Add IPVS config if Keepalived is installed
