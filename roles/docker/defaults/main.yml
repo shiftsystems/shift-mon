@@ -1,3 +1,5 @@
 docker_users:
   - root
   - telegraf
+uptime_kuma_enabled: false
+oncall_enabled: false

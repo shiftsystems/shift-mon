@@ -302,7 +302,7 @@
     group: "telegraf"
   become: true
   notify: Restart Telegraf
-  when: telegraf_victoriametrics_config is defined and telegraf_victoriametrics_config == True
+  when: telegraf_victoriametrics_config
 
 - name: Copy Crowdsec Telegraf config
   ansible.builtin.copy:
@@ -313,7 +313,7 @@
     group: "telegraf"
   become: true
   notify: Restart Telegraf
-  when: telegraf_crowdsec_config is defined and telegraf_crowdsec_config == True
+  when: telegraf_crowdsec_config
 
 - name: Add Grafana config to telegraf
   ansible.builtin.template:
@@ -324,7 +324,7 @@
     group: "telegraf"
   become: true
   notify: Restart Telegraf
-  when: telegraf_grafana_config is defined and telegraf_grafana_config == True
+  when: telegraf_grafana_config
 
 - name: Add loki config to telegraf
   ansible.builtin.copy:
@@ -335,7 +335,7 @@
     group: "telegraf"
   become: true
   notify: Restart Telegraf
-  when: telegraf_loki_config is defined and telegraf_loki_config == True
+  when: telegraf_loki_config
 
 - name: Deploy Victoriametrics config when Victoriametrics is installed
   ansible.builtin.copy:
