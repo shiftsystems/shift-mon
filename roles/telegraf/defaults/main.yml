@@ -11,3 +11,7 @@ reverse_lookup_remote_syslog: true
 reverse_lookup_syslog: true
 reverse_lookup_traefik: true
 journald_forwarding: true
+telegraf_victoriametrics_config: false
+telegraf_crowdsec_config: false
+telegraf_grafana_config: false
+telegraf_loki_config: false
