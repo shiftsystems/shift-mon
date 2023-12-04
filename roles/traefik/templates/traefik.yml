@@ -89,7 +89,7 @@ http:
         trustForwardHeader: true
 {% endif %}
   routers:
-{% if uptime_kuma_enabled is not defined or uptime_kuma_enabled %}
+{% if uptime_kuma_enabled %}
     uptime-kuma:
       rule: Host(`{{ uptimekuma.domain }}`)
       tls:
@@ -151,7 +151,7 @@ http:
 {% endif %}
       entryPoints:
         - websecure
-{% if oncall_enabled is defined and oncall_enabled %}
+{% if oncall_enabled %}
     oncall:
       rule: Host(`{{ oncall.domain }}`)
       tls:
@@ -190,7 +190,7 @@ http:
           path: /health
           interval: "10s"
           timeout: "5s"
-{% if uptime_kuma_enabled is not defined or uptime_kuma_enabled %}
+{% if uptime_kuma_enabled %}
     uptime-kuma:
       loadBalancer:
         servers:
@@ -200,7 +200,7 @@ http:
           interval: "10s"
           timeout: "5s"
 {% endif %}
-{% if oncall_enabled is defined and oncall_enabled %}
+{% if oncall_enabled %}
     oncall:
       loadBalancer:
         servers:

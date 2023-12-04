@@ -1,4 +1,4 @@
-{% if oncall_enabled is defined and oncall_enabled %}
+{% if oncall_enabled %}
 x-environment: &oncall-environment
   DATABASE_TYPE: sqlite3
   BROKER_TYPE: redis
@@ -14,7 +14,7 @@ x-environment: &oncall-environment
   GRAFANA_API_URL: http://grafana:3000
 {% endif %}
 services:
-{% if oncall_enabled is defined and oncall_enabled %}
+{% if oncall_enabled %}
   engine:
     image: docker.io/grafana/oncall
     restart: always
@@ -71,7 +71,7 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-{% if oncall_enabled is defined and oncall_enabled %}
+{% if oncall_enabled %}
     environment:
       GF_INSTALL_PLUGINS: grafana-oncall-app
 {% endif %}
@@ -117,7 +117,7 @@ services:
       - "-httpListenAddr=0.0.0.0:9093"
       - "-rule=/rules/*.yaml"
       - "-rule=/rules/*.yml"
-{% if uptime_kuma_enabled is not defined or uptime_kuma_enabled %}
+{% if uptime_kuma_enabled %}
   uptime-kuma:
     image: docker.io/louislam/uptime-kuma:1
     restart: always
