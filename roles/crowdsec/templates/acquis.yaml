@@ -1,4 +1,4 @@
 filenames:
-  - /etc/traefik/access.json
+  - /traefik-logs/access.json
 labels:
   type: traefik
