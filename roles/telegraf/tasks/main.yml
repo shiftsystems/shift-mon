@@ -180,6 +180,36 @@
     - "nginx.conf"
     - "httpd.conf"
 
+- name: Install FreeIPA healthcheck package
+  ansible.builtin.package:
+    name: freeipa-healthcheck
+    state: present
+  become: true
+  when: 
+   - "'ipa.service' in ansible_facts.services"
+   - "'ipa_server' not in do_not_instrument"
+
+- name: Enable FreeIPA healthcheck timer
+  ansible.builtin.systemd:
+    name: ipa-healthcheck.timer
+    state: started
+    enabled: true
+  become: true
+  when:
+   - "'ipa.service' in ansible_facts.services"
+   - "'ipa_server' not in do_not_instrument"
+
+- name: Add FreeIPA Server config When FreeIPA is installed
+  ansible.builtin.template:
+    src: "ipa-server.conf"
+    dest: /etc/telegraf/telegraf.d/ipa-server.conf
+  become: true
+  when: 
+   - "'ipa.service' in ansible_facts.services"
+   - "'ipa_server' not in do_not_instrument"
+   - "telegraf_root is defined and telegraf_root"
+  notify: Restart Telegraf
+
 - name: Add IPVS config if Keepalived is installed
   ansible.builtin.copy:
     src: "linux/ipvs.conf"
