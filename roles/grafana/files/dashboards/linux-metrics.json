@@ -4020,11 +4020,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "NetworkManager-dispatcher.service",
-          "value": "NetworkManager-dispatcher.service"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
