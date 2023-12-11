@@ -170,7 +170,7 @@ http:
         servers:
           - url: http://grafana:3000
         healthCheck:
-          path: /
+          path: /api/health
           interval: "10s"
           timeout: "5s"
     loki:
