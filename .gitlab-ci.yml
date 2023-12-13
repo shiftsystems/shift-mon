@@ -33,7 +33,10 @@ galaxy-publish:
 
 container-build:
   stage: container-build
-  image: docker:latest
+  image: $CI_REGISTRY/group/project/docker:20.10.16
+  services:
+    - name: $CI_REGISTRY/group/project/docker:20.10.16-dind
+      alias: docker
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_REGISTRY/group/project/image:latest .
