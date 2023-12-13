@@ -2,6 +2,7 @@ stages:
     - kics
     - ansible-lint
     - galaxy-publish
+    - container-build
 
 kics-scan:
   stage: kics
