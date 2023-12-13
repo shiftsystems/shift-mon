@@ -29,3 +29,11 @@ galaxy-publish:
     - 'ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-$(grep "version: " galaxy.yml | sed "s:.*\ ::").tar.gz --token $GALAXY_API_KEY'
   only:
     - main@shiftsystems/shiftmon
+
+container-build:
+  stage: container-build
+  image: docker:latest
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/group/project/image:latest .
+    - docker push $CI_REGISTRY/group/project/image:latest
