@@ -42,6 +42,12 @@ openldap_host="{{ openldap.host }}"
 openldap_bind_dn="{{ openldap.bind_dn }}"
 openldap_bind_password="{{ openldap.bind_password }}"
 {% endif %}
+{% if nut_enabled %}
+nut_server="{{ nut.server }}"
+nut_port={{ nut.port|default(3493) }}
+nut_username="{{ nut.username }}"
+nut_password="{{ nut.password }}"
+{% endif %}
 {% for name,secret in user_secrets.items() %}
 {{ name }}="{{ secret }}"
 {% endfor %}
