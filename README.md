@@ -2,9 +2,11 @@
 
 An open source monitoring and logging tool based on Telegraf, Victoriametrics, Loki, Grafana, and Uptime Kuma.
 
-![matrix room](https://img.shields.io/matrix/shiftsystems:matrix.org)
+![Matrix Room](https://img.shields.io/matrix/shiftsystems:matrix.org)
+![Discord](https://img.shields.io/discord/142054840305057792)
 ![Gitlab CI](https://img.shields.io/gitlab/pipeline-status/shiftsystems/shift-rmm?branch=main)
 
+### [Join Us Discord](https://discord.gg/4kWvsMCwVQ)
 
 ## Installation
 [Follow the intructions in the docs](docs/Install.md)
