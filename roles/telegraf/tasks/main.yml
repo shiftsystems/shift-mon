@@ -405,6 +405,17 @@
   when: "vsphere_enabled is defined and vsphere_enabled"
   notify: Restart Telegraf
 
+- name: Deploy Nut config
+  ansible.builtin.copy:
+    src: "linux/nut.conf"
+    dest: /etc/telegraf/telegraf.d/nut.conf
+    mode: "660"
+    owner: "telegraf"
+    group: "telegraf"
+  become: true
+  when: "nut_enabled"
+  notify: Restart Telegraf
+
 - name: Deploy Haproxy config
   ansible.builtin.template:
     src: "haproxy.conf"
