@@ -1,6 +1,4 @@
 [global_tags]
-{% for tag in all_telegraf_tags  %}
-{% for key in tag.keys() %}
-  {{ key }} = "{{ tag[key] }}"
+{% for key,value in global_telegraf_tags.items() %}
+  {{ key }} = "{{ value }}"
 {% endfor %}
-{% endfor %} 
