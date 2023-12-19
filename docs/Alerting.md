@@ -224,7 +224,24 @@ C: Threshold
 for: 5m\
 Summary: `{{ $labels.server }} is not healthy`\
 Description: `{{ $labels.server }} is not healthy`\
+
+### Shiftmon Container Down
+Query: ```lag(docker_container_cpu_usage_percent{container_name=~`shift-mon.*-1`}[1h])```\
+B: Reduce
+* Function: LAST
+* Input A
+* Mode: Strict
+
+C: Threshold
+* Input: B
+* Condition: IS ABOVE
+* 200
+
+for: 5m\
+Summary: `{{ $labels.container_name }} is down`\
+Description: `{{ $labels.container_name }} is down on {{ $labels.host }}`\
+
 ## Related docs
 * [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
-* [Promethues missing timeseries]()
+* [Victoriametrics query Function](https://docs.victoriametrics.com/MetricsQL.html)
 * [Prometheus Query functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
