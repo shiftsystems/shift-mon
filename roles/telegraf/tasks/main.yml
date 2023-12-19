@@ -595,8 +595,16 @@
   when: telegraf_root is defined and telegraf_root
   notify: Restart Telegraf
 
-- name: Add Global Tags
-  ansible.builtin.import_tasks: global_tags.yml
+- name: Add global tags
+  ansible.builtin.template:
+    src: global_tags.conf.j2
+    dest: /etc/telegraf/telegraf.d/global_tags.conf
+    mode: "0640"
+    owner: "telegraf"
+    group: "telegraf"
+  when: global_telegraf_tags | length > 0
+  become: true
+  notify: Restart Telegraf
 
 - name: Start and Enable Telegraf
   ansible.builtin.systemd:
