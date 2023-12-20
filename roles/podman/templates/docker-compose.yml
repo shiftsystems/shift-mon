@@ -169,7 +169,7 @@ services:
       - type: bind
         source: /opt/shift-mon/traefik
         target: /traefik-logs
-        readonly: true
+        read_only: true
 {% if crowdsec_api_key is defined %}
   crowdsec-bouncer:
     image: docker.io/fbonalair/traefik-crowdsec-bouncer:latest
