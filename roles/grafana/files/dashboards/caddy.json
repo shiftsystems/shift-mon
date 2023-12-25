@@ -38,6 +38,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -51,6 +52,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -180,9 +182,10 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -190,7 +193,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "count_over_time({path=\"$path\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [$__range]) / count_over_time({path=~\"$path\"}[$__range])",
+          "expr": "count_over_time({path=\"$path\",host=\"$host\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [$__range]) / count_over_time({path=~\"$path\",host=\"$host\"}[$__range])",
           "queryType": "range",
           "refId": "A"
         }
@@ -258,7 +261,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\"}",
+          "expr": "{path=~\"$path\",host=\"$host\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -353,7 +356,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\"}",
+          "expr": "{path=~\"$path\",host=\"$host\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -448,7 +451,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\"}",
+          "expr": "{path=~\"$path\",host=\"$host\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -550,7 +553,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\"}",
+          "expr": "{path=~\"$path\",host=\"$host\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -652,7 +655,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\"}",
+          "expr": "{path=~\"$path\",host=\"$host\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -719,6 +722,11 @@
           },
           "custom": {
             "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "lineWidth": 0.7
           },
           "mappings": [],
@@ -824,9 +832,10 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -944,7 +953,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -952,7 +961,7 @@
             "uid": "${Loki}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\"}",
+          "expr": "{path=~\"$path\",host=\"$host\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -997,12 +1006,16 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1015,6 +1028,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1027,6 +1045,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": true,
+          "text": "/var/log/caddy/eren-access.log",
+          "value": "/var/log/caddy/eren-access.log"
+        },
         "datasource": {
           "type": "loki",
           "uid": "${Loki}"
@@ -1040,7 +1063,7 @@
         "query": {
           "label": "path",
           "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{path=~\"/var/log/caddy/.*\"}",
+          "stream": "{path=~`/var/log/caddy/.*`,host=`$host`}",
           "type": 1
         },
         "refresh": 1,
@@ -1050,19 +1073,26 @@
         "type": "query"
       },
       {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${Metrics}"
+        "current": {
+          "selected": true,
+          "text": "rose.local.shiftsystems.net",
+          "value": "rose.local.shiftsystems.net"
         },
-        "definition": "label_values(prometheus_caddy_reverse_proxy_upstreams_healthy,host)",
+        "datasource": {
+          "type": "loki",
+          "uid": "${Loki}"
+        },
+        "definition": "",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "host",
         "options": [],
         "query": {
-          "query": "label_values(prometheus_caddy_reverse_proxy_upstreams_healthy,host)",
-          "refId": "StandardVariableQuery"
+          "label": "host",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{path=~`/var/log/caddy/.*`}",
+          "type": 1
         },
         "refresh": 1,
         "regex": "",
@@ -1073,13 +1103,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Caddy",
   "uid": "kmrQlud4k",
-  "version": 12,
+  "version": 14,
   "weekStart": ""
 }

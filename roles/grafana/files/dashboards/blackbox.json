@@ -24,8 +24,22 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 53,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "Linux"
+      ],
+      "targetBlank": true,
+      "title": "Dashboards",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -73,7 +87,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -137,7 +151,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -213,7 +227,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -281,7 +295,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -447,7 +461,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -744,7 +758,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -1041,7 +1055,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -1216,8 +1230,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "semi-dark-red",
-                "value": null
+                "color": "semi-dark-red"
               },
               {
                 "color": "semi-dark-yellow",
@@ -1298,8 +1311,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-green",
-                      "value": null
+                      "color": "semi-dark-green"
                     },
                     {
                       "color": "semi-dark-red",
@@ -1455,8 +1467,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1545,8 +1556,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -1684,16 +1694,11 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1707,11 +1712,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1724,11 +1724,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "probe1.example.com",
-          "value": "probe1.example.com"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
@@ -1759,6 +1754,6 @@
   "timezone": "",
   "title": "Blackbox",
   "uid": "AF-zl-Y4j",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }

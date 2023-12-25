@@ -24,7 +24,22 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "Linux"
+      ],
+      "targetBlank": true,
+      "title": "Dashboards",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -69,6 +84,7 @@
       },
       "id": 2,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -85,7 +101,7 @@
           }
         ]
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -223,6 +239,7 @@
       },
       "id": 3,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -239,7 +256,7 @@
           }
         ]
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -659,8 +676,7 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
@@ -721,6 +737,6 @@
   "timezone": "",
   "title": "Adguard",
   "uid": "RXBFLS0nz",
-  "version": 2,
+  "version": 6,
   "weekStart": ""
 }
