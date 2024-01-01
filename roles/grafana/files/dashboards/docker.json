@@ -471,7 +471,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(docker_container_blkio_io_service_bytes_recursive_read{host=\"erwin.local.shiftsystems.net\"}[$__range]) + increase(docker_container_blkio_io_service_bytes_recursive_write{host=\"erwin.local.shiftsystems.net\"}[$__range])",
+          "expr": "increase(docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"}[$__range]) + increase(docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"}[$__range])",
           "instant": true,
           "interval": "",
           "legendFormat": "{{container_name}} - {{ device }}",
@@ -1170,6 +1170,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }
