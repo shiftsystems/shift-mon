@@ -1,0 +1,1520 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 58,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 7,
+        "panels": [],
+        "title": "HTTP Performance",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 1
+        },
+        "id": 2,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.5,http_response_response_time{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.90,http_response_response_time{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.99,http_response_response_time{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "C"
+          }
+        ],
+        "title": "HTTP Peformance",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "__name__": true,
+                "db": true,
+                "method": true,
+                "result": true,
+                "status_code": true
+              },
+              "includeByName": {},
+              "indexByName": {
+                "Time": 7,
+                "Value #A": 4,
+                "Value #B": 5,
+                "Value #C": 6,
+                "__name__": 8,
+                "check_name": 0,
+                "customer_name": 3,
+                "db": 9,
+                "host": 2,
+                "method": 10,
+                "result": 12,
+                "server": 1,
+                "status_code": 11
+              },
+              "renameByName": {
+                "Value #A": "P50",
+                "Value #B": "P90",
+                "Value #C": "P99",
+                "method": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 13
+        },
+        "id": 13,
+        "options": {
+          "candleStyle": "candles",
+          "colorStrategy": "close-close",
+          "colors": {
+            "down": "green",
+            "up": "green"
+          },
+          "fields": {
+            "close": "p50",
+            "high": "max",
+            "low": "min",
+            "open": "p90",
+            "volume": "http_response_response_time"
+          },
+          "includeAllFields": true,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "mode": "candles"
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.5,http_response_response_time{host=\"$http_host\",server=\"$http_server\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p50",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "min_over_time(http_response_response_time{host=\"$http_host\",server=\"$http_server\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "min",
+            "range": true,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "max_over_time(http_response_response_time{host=\"$http_host\",server=\"$http_server\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "max",
+            "range": true,
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.90,http_response_response_time{host=\"$http_host\",server=\"$http_server\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p90",
+            "range": true,
+            "refId": "D"
+          }
+        ],
+        "title": "HTTP perfomance Over Time",
+        "transformations": [],
+        "type": "candlestick"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 25
+        },
+        "id": 8,
+        "panels": [],
+        "title": "DNS Query Performance",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 26
+        },
+        "id": 3,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.5,dns_query_query_time_ms{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.90,dns_query_query_time_ms{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.99,dns_query_query_time_ms{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "C"
+          }
+        ],
+        "title": "DNS Query Performance",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "__name__": true,
+                "check_name": false,
+                "db": true,
+                "ip_0": true,
+                "rcode": true,
+                "result": true
+              },
+              "includeByName": {},
+              "indexByName": {
+                "Time": 8,
+                "Value #A": 5,
+                "Value #B": 6,
+                "Value #C": 7,
+                "__name__": 10,
+                "check_name": 0,
+                "db": 11,
+                "domain": 1,
+                "host": 2,
+                "ip_0": 9,
+                "rcode": 12,
+                "record_type": 3,
+                "result": 13,
+                "server": 4
+              },
+              "renameByName": {
+                "Value #A": "P50",
+                "Value #B": "P90",
+                "Value #C": "P99"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 38
+        },
+        "id": 4,
+        "options": {
+          "candleStyle": "candles",
+          "colorStrategy": "close-close",
+          "colors": {
+            "down": "green",
+            "up": "green"
+          },
+          "fields": {
+            "close": "p50",
+            "high": "max",
+            "low": "min",
+            "open": "p90",
+            "volume": "http_response_response_time"
+          },
+          "includeAllFields": true,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "mode": "candles"
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.5,dns_query_query_time_ms{host=\"$dns_host\",domain=\"$dns_server\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p50",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "min_over_time(dns_query_query_time_ms{host=\"$dns_host\",domain=\"$dns_server\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "min",
+            "range": true,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "max_over_time(dns_query_query_time_ms{host=\"$dns_host\",domain=\"$dns_server\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "max",
+            "range": true,
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.90,dns_query_query_time_ms{host=\"$dns_host\",domain=\"$dns_server\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p90",
+            "range": true,
+            "refId": "D"
+          }
+        ],
+        "title": "DNS Query Performance Over Time",
+        "transformations": [],
+        "type": "candlestick"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 50
+        },
+        "id": 10,
+        "panels": [],
+        "title": "Net Response Performance",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 51
+        },
+        "id": 6,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.5,net_response_response_time{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.90,net_response_response_time{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.99,net_response_response_time{result=\"success\"}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "C"
+          }
+        ],
+        "title": "Net Response Time Performance",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "__name__": true,
+                "check_name": false,
+                "db": true,
+                "ip_0": true,
+                "result": true
+              },
+              "includeByName": {},
+              "indexByName": {
+                "Time": 5,
+                "Value #A": 9,
+                "Value #B": 10,
+                "Value #C": 11,
+                "__name__": 4,
+                "check_name": 0,
+                "db": 8,
+                "host": 6,
+                "port": 2,
+                "protocol": 3,
+                "result": 7,
+                "server": 1
+              },
+              "renameByName": {
+                "Value #A": "P50",
+                "Value #B": "P90",
+                "Value #C": "P99"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 63
+        },
+        "id": 12,
+        "options": {
+          "candleStyle": "candles",
+          "colorStrategy": "close-close",
+          "colors": {
+            "down": "green",
+            "up": "green"
+          },
+          "fields": {
+            "close": "p50",
+            "high": "max",
+            "low": "min",
+            "open": "p90",
+            "volume": "http_response_response_time"
+          },
+          "includeAllFields": true,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "mode": "candles"
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.5,net_response_response_time{host=\"$net_response_host\",server=\"$net_response_server\",port=\"$net_response_port\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p50",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "min_over_time(net_response_response_time{host=\"$net_response_host\",server=\"$net_response_server\",port=\"$net_response_port\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "min",
+            "range": true,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "max_over_time(net_response_response_time{host=\"$net_response_host\",server=\"$net_response_server\",port=\"$net_response_port\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "max",
+            "range": true,
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.90,net_response_response_time{host=\"$net_response_host\",server=\"$net_response_server\",port=\"$net_response_port\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p90",
+            "range": true,
+            "refId": "D"
+          }
+        ],
+        "title": "Net Response Perfomance Over Time",
+        "transformations": [],
+        "type": "candlestick"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 75
+        },
+        "id": 11,
+        "panels": [],
+        "title": "Ping Performance",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 76
+        },
+        "id": 5,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.5,ping_average_response_ms{}[1h])[$__range])",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.90,ping_average_response_ms{}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "max_over_time(quantile_over_time(.99,ping_average_response_ms{}[1h])[$__range])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "C"
+          }
+        ],
+        "title": "Ping Performance",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "__name__": true,
+                "check_name": false,
+                "db": true,
+                "ip_0": true,
+                "result": true
+              },
+              "includeByName": {},
+              "indexByName": {
+                "Time": 3,
+                "Value #A": 11,
+                "Value #B": 12,
+                "Value #C": 13,
+                "__name__": 1,
+                "check_name": 4,
+                "db": 2,
+                "domain": 5,
+                "host": 6,
+                "ip_0": 0,
+                "rcode": 7,
+                "record_type": 8,
+                "result": 9,
+                "server": 10
+              },
+              "renameByName": {
+                "Value #A": "P50",
+                "Value #B": "P90",
+                "Value #C": "P99"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P84D368831E8B3638"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 88
+        },
+        "id": 9,
+        "options": {
+          "candleStyle": "candles",
+          "colorStrategy": "close-close",
+          "colors": {
+            "down": "green",
+            "up": "green"
+          },
+          "fields": {
+            "close": "p50",
+            "high": "max",
+            "low": "min",
+            "open": "p90",
+            "volume": "http_response_response_time"
+          },
+          "includeAllFields": true,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "mode": "candles"
+        },
+        "pluginVersion": "10.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.5,ping_average_response_ms{host=\"$ping_host\",url=\"$ping_server\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p50",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "min_over_time(ping_average_response_ms{host=\"$ping_host\",url=\"$ping_server\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "min",
+            "range": true,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "expr": "max_over_time(ping_average_response_ms{host=\"$ping_host\",url=\"$ping_server\"}[5m])",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "max",
+            "range": true,
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "P84D368831E8B3638"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "quantile_over_time(.90,ping_average_response_ms{host=\"$ping_host\",url=\"$ping_server\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "p90",
+            "range": true,
+            "refId": "D"
+          }
+        ],
+        "title": "Ping Performance Over Time",
+        "transformations": [],
+        "type": "candlestick"
+      }
+    ],
+    "refresh": "10s",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "metrics",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(http_response_response_time,host)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "HTTP Host",
+          "multi": false,
+          "name": "http_host",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(http_response_response_time,host)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(http_response_response_time{host=\"$http_host\"},server)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "HTTP Server",
+          "multi": false,
+          "name": "http_server",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(http_response_response_time{host=\"$http_host\"},server)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(dns_query_query_time_ms,host)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "DNS Host",
+          "multi": false,
+          "name": "dns_host",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(dns_query_query_time_ms,host)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(dns_query_query_time_ms{host=\"$dns_host\"},domain)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "HTTP Server",
+          "multi": false,
+          "name": "dns_server",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(dns_query_query_time_ms{host=\"$dns_host\"},domain)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(net_response_response_time,host)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Net Response Host",
+          "multi": false,
+          "name": "net_response_host",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(net_response_response_time,host)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(net_response_response_time{host=\"$net_response_host\"},server)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Net Response Server",
+          "multi": false,
+          "name": "net_response_server",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(net_response_response_time{host=\"$net_response_host\"},server)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(net_response_response_time{host=\"$net_response_host\", server=\"$net_response_server\"},port)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Net Response Port",
+          "multi": false,
+          "name": "net_response_port",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(net_response_response_time{host=\"$net_response_host\", server=\"$net_response_server\"},port)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(ping_average_response_ms,host)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Ping Host",
+          "multi": false,
+          "name": "ping_host",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(ping_average_response_ms,host)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "definition": "label_values(ping_average_response_ms{host=\"$ping_host\"},url)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Ping Server",
+          "multi": false,
+          "name": "ping_server",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(ping_average_response_ms{host=\"$ping_host\"},url)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Blackbox Performance",
+    "uid": "f48fbded-98d4-4ed5-9b13-06bac32718bc",
+    "version": 10,
+    "weekStart": ""
+  }
