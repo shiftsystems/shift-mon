@@ -152,10 +152,6 @@ Below you will see many lines that look like this. There are two main things to 
       ansible.builtin.include_role:
         name: shiftsystems.shift_mon.traefik
         public: true
-    - name: Deploy Crowdsec
-      ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.crowdsec
-        public: true
     - name: Deploy Podman
       ansible.builtin.include_role:
         name: shiftsystems.shift_mon.podman
@@ -210,13 +206,6 @@ For existing install without this variable set or your log db will get corrupted
 
 ```yaml
           tsdb_date: "2023-04-30"
-```
-
-###### Crowdsec
-```yaml
-        # set to true to setup an RFC5424 syslog server on UDP port 6666
-        crowdsec_api_key: 'GET_IT_FROM_CROWDSEC'
-
 ```
 
 ###### LDAP Authentication

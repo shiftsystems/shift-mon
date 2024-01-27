@@ -17,9 +17,6 @@
 
 * remote_syslog weather or not to listen to remote syslog RFC5424 on udp port 6666 for things like forwarding syslog from a firewall.
 
-### Crowdsec api_key
-* crowdsec_api_key crowdsec api for use with the crowdsec traefik bouncer. This can be obtained after installing shift-mon, execing into the containe and generating the apikey. 
-
 ### Specific info for each of the services 
 * loki:
   * url: url that telegraf should send logs to

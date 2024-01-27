@@ -75,10 +75,6 @@
       ansible.builtin.include_role:
         name: traefik
         public: true
-    - name: Deploy Crowdsec
-      ansible.builtin.include_role:
-        name: crowdsec
-        public: true
     - name: Deploy Podman
       ansible.builtin.include_role:
         name: podman
