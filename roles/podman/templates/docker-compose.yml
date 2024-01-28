@@ -146,41 +146,6 @@ services:
         source: /opt/shift-mon/uptime-kuma
         target: /app/data
 {% endif %}
-  crowdsec:
-    image: docker.io/crowdsecurity/crowdsec:latest
-    restart: always
-    environment:
-      COLLECTIONS: "crowdsecurity/traefik"
-    depends_on:
-     - 'traefik'
-    volumes:
-      - type: bind
-        source: /opt/shift-mon/crowdsec-db
-        target: /var/lib/crowdsec/data/
-      - type: bind
-        source: /opt/shift-mon/crowdsec-config
-        target: /etc/crowdsec/
-      - type: bind
-        source: /opt/shift-mon/traefik
-        target: /etc/traefik
-      - type: bind
-        source: /opt/shift-mon/crowdsec-log
-        target: /var/log
-      - type: bind
-        source: /opt/shift-mon/traefik
-        target: /traefik-logs
-        read_only: true
-{% if crowdsec_api_key is defined %}
-  crowdsec-bouncer:
-    image: docker.io/fbonalair/traefik-crowdsec-bouncer:latest
-    restart: unless-stopped
-    depends_on: 
-      - crowdsec
-    environment:
-      CROWDSEC_BOUNCER_API_KEY: "{{ crowdsec_api_key }}"
-      CROWDSEC_AGENT_HOST: "crowdsec:8080"
-      GIN_MODE: "release"
-{% endif %}
   redis:
     image: docker.io/redis:latest
     restart: always

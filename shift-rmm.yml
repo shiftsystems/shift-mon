@@ -78,10 +78,6 @@
       ansible.builtin.include_role:
         name: shiftsystems.shift_mon.traefik
         public: true
-    - name: Deploy Crowdsec
-      ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.crowdsec
-        public: true
     - name: Deploy Podman
       ansible.builtin.include_role:
         name: shiftsystems.shift_mon.podman
