@@ -23,8 +23,8 @@ You will need to run the following commands on a debian machine before running a
 ```sudo apt install python3 python3-apt gpg```
 
 ### Setup Inventory
-1. Make folder in your home directory for shift-mon and the inventory files `mkdir -p ~/shiftmon` or create a `.yml` or `.yaml` file called `shift-inventory.yml` in your existing repository.
-2. Add the following to `~/shift-mon/shift-inventory.yml`
+1. Make folder in your home directory for shiftmon and the inventory files `mkdir -p ~/shiftmon` or create a `.yml` or `.yaml` file called `shift-inventory.yml` in your existing repository.
+2. Add the following to `~/shiftmon/shift-inventory.yml`
 
 ```yaml
 all:
@@ -36,7 +36,7 @@ all:
 ```
 
 
-3. Create a edit shift-mon.yml with the following Template
+3. Create a edit shiftmon.yml with the following Template
 If don't have a secretes manager can place the variables in quotes however this is insecure since secrets to various services are in plain text.
 
 
@@ -44,10 +44,10 @@ If don't have a secretes manager can place the variables in quotes however this 
 
 ##### Required playbook.yml
 
-Below is an example playbook.yml. It has only what is required to get a basic shift-mon system running.
+Below is an example playbook.yml. It has only what is required to get a basic shiftmon system running.
 There are additional features that you can enable by adding to this playbook.yml file. They are listed below.
 
-The example playbook.yml below expects many variables to be defined in the environment it runs in. This can be accomplished in many ways, sourcing a `.env` file before running shift-mon or by using CI or other automation tools that handle secrets automatically.
+The example playbook.yml below expects many variables to be defined in the environment it runs in. This can be accomplished in many ways, sourcing a `.env` file before running shiftmon or by using CI or other automation tools that handle secrets automatically.
 
 I'll put this here as a reference to anyone who doesn't know how the ansible.builtin.env works.
 Below you will see many lines that look like this. There are two main things to look at in these lines. In our example `CONTAINER_ENGINE` is the expected variable name that you need to add to your environment and `default='podman'` is the default value if you did not supply one. Note that do to the nature of most of these values they won't have a default and the playbook will error if they are not supplied.
@@ -88,11 +88,8 @@ Below you will see many lines that look like this. There are two main things to 
           # Bring your own SSL cert
           #cert_path: "{{ playbook_dir }}/files/loki.crt"
           #key_path: "{{ playbook_dir }}/files/loki.key"
-
-          # Used for bring you own SSL and if you have devices that do not support SSL
-          #insecure: true
-        
-        # Victoria Metrics is the metrics collector, it indexes and stores all metrics for shift-mon
+       
+        # Victoria Metrics is the metrics collector, it indexes and stores all metrics for shiftmon
         victoria:
           user: telegraf
           password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
@@ -164,7 +161,7 @@ Below you will see many lines that look like this. There are two main things to 
 
 ##### Additional Optional Features
 
-You can copy and paste these groups of variables to enable additional features of shift-mon.
+You can copy and paste these groups of variables to enable additional features of shiftmon.
 
 ###### Email
 ```yaml
@@ -255,7 +252,7 @@ For existing install without this variable set or your log db will get corrupted
           allowed_domains: 'example.com example.net'
 ```
 
-4. Deploy or update Shift-mon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i shift-inventory.yml shift-mon.yml --ask-become-pass` from `~/shift-mon`
+4. Deploy or update shiftmon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i shift-inventory.yml shiftmon.yml --ask-become-pass` from `~/shiftmon`
 
 
 5. Setup the Admin User for Grafana
@@ -285,7 +282,7 @@ By default the Telegraf Ansible role will try to instrument the following servic
 
 Services are discovered by looking at the list of systemd services present on a system or looking for a binary.
 If you add one of the supported services to your system just rerun the Telegraf role and the appropriate Telegraf config will be added.
-To prevent automatic instrumentation for a service from occurring add a variable called `do_not_instrument: []` to your inventory with the services you do not want shift-mon to instrument from the list above in the form of a list ex `do_not_instrument: ["mysql","docker"]` will not instrument mysql and docker but instrument everything else.
+To prevent automatic instrumentation for a service from occurring add a variable called `do_not_instrument: []` to your inventory with the services you do not want shiftmon to instrument from the list above in the form of a list ex `do_not_instrument: ["mysql","docker"]` will not instrument mysql and docker but instrument everything else.
 `do_not_instrument: ["docker"]` will not instrument docker automatically, and even though it is 1 item it still needs to be a list.
 This variable can be defined as a host variable, group variable or globally.
 Defining this variable WILL NOT cause a previously deployed configurations to be removed and the user will have to remove the configuration file from `/etc/telegraf/telegraf.d` and restart telegraf to stop further collection of data from the now ignored service.
@@ -301,7 +298,7 @@ This should a be a similar workflow to most RMMs. upload the scripts, change you
 
 
 ### Syslog
-Shift-mon can configure syslog forwarding to loki, and configure telegraf act a syslog server by following the instructions below
+shiftmon can configure syslog forwarding to loki, and configure telegraf act a syslog server by following the instructions below
 
 * If `syslog` is defined at all for a host, group, or telegraf will listen for syslog messages on udp port 6667 on localhost.
 * Define `syslog: rsyslog` to have the telegraf role install and configure rsyslog and setup log forwarding to udp 6667 on localhost.
@@ -321,7 +318,7 @@ vsphere_user = "test@example.local.com"
 vsphere_password = "SECRET"
 ```
 The vsphere connection information above is saved in /etc/default/telegraf to avoid it being world readable.
-The configuration deployed by shift-mon or this WILL NOT collect metrics about each VM in VCenter to avoid running into limitations with the VCenter API.
+The configuration deployed by shiftmon or this WILL NOT collect metrics about each VM in VCenter to avoid running into limitations with the VCenter API.
 If you need to increase the amount results the VSphere API will return review [this document](https://kb.vmware.com/s/article/2107096)
 
 
