@@ -313,8 +313,7 @@ If you need to increase the amount results the VSphere API will return review [t
 
 ## Installing Telegraf on Other Devices
 
-### Proxmox
-Use the instructions located on the [Shift Systems blog](https://shiftsystems.net/blog/proxmox-metrics-to-influx/)
+### [Proxmox](docs/Telegraf/proxmox.md)
 
 ### [Pfsense](docs/Telegraf/PFSense.md)
 First, login to your Pfsense firewall as an administrative user.

@@ -23,9 +23,19 @@ If there is a firewall on the on the syslog server please make sure that port 66
 Note these steps will need to be performed on each proxmox host, and we do not have a method for forwarding syslog over TLS at this time.
 1. SSH into the proxmox node. By default you can ssh in as root to a proxmox node using the root password you use to sign into the web interface
 1. Install Rsyslog `apt -y install rsyslog`
-2. Add the following contents to `/etc/rsyslog/50-shiftmon.conf`
+2. Add the following contents to `/etc/rsyslog/50-shiftmon.conf` with the ip address swapped out for the telegraf instance with `remote_syslog: true`
 ```
+# Enable imfile module
+module(load="imfile")
+
+# Forward syslog to Telegraf
 *.* action(type="omfwd" Target="10.0.0.8" Port="6666" Protocol="udp" Template="RSYSLOG_SyslogProtocol23Format")
+
+# Scrape Proxmox Access Log
+input(type="imfile" File="/var/log/pveproxy/access.log" Tag="pve-access" Severity="info" Facility="local7")
+input(type="imfile" File="/var/log/pveam.log" Tag="pveam" Severity="info" Facility="local7")
+input(type="imfile" File="/var/log/pve-firewall.log" Tag="pve-firewall" Severity="info" Facility="local7")
+
 ```
 3. Restart rsyslog `systemctl restart rsyslog`
 4. Confirm that logs are flowing by checking out the Proxmox Dashboard in your shiftmon instance.
