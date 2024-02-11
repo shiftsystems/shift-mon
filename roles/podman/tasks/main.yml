@@ -12,13 +12,6 @@
   become: true
   when: ansible_facts['os_family'] == 'Debian'
 
-- name: Install podman compose on Debian based systems
-  ansible.builtin.pip:
-    name: podman-compose
-    state: latest
-  become: true
-  when: ansible_facts['os_family'] == 'Debian'
-
 - name: Start and enable Podman
   ansible.builtin.systemd:
     name: podman

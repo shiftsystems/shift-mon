@@ -1,4 +1,0 @@
-filenames:
-  - /traefik-logs/access.json
-labels:
-  type: traefik

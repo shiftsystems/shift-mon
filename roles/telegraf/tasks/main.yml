@@ -334,17 +334,6 @@
   notify: Restart Telegraf
   when: telegraf_victoriametrics_config
 
-- name: Copy Crowdsec Telegraf config
-  ansible.builtin.copy:
-    src: crowdsec-docker.conf
-    dest: /etc/telegraf/telegraf.d/crowdsec-docker.conf
-    mode: "660"
-    owner: "telegraf"
-    group: "telegraf"
-  become: true
-  notify: Restart Telegraf
-  when: telegraf_crowdsec_config
-
 - name: Add Grafana config to telegraf
   ansible.builtin.template:
     src: grafana-docker.conf
