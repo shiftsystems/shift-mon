@@ -13,11 +13,11 @@ The powershell script does the following.
 3. change the following lines to match your influxdb server info. If you need help getting a token follow the [Influxdb documentation](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token/)
   * telegraf_url = your influxdb servers url
   * telegraf_token = the token you obtained in step3 in quotes
-4. save the script, click on it again and run it. You can use the advanced run feature to push it to multiple nodes at the same time. 
+4. save the script, click on it again and run it. You can use the advanced run feature to push it to multiple nodes at the same time.
  
 ## Using Powershell and Chocolately 
 This assumes you have configured execution policy to allow mutli line scripts to execute and you must have local administrator priviledges. This can be pushed via the setup script via meshcentral or by running ```Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser``` in an admin powershell session.
-Next run ```Invoke-WebRequest https://gitlab.com/shiftsystems/shift-rmm/-/raw/master/scripts/windows/telegraf-install.ps1```
+Next run ```Invoke-WebRequest https://gitlab.com/shiftsystems/shiftmon/-/raw/main/scripts/windows/telegraf-install.ps1```
 Execute the script you just download by running ```.\telegraf-install.ps1```
 
 ## Manual Install
