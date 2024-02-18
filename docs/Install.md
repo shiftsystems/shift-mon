@@ -113,6 +113,9 @@ Below you will see many lines that look like this. There are two main things to 
           # Bring your own SSL cert
           #cert_path: "{{ playbook_dir }}/files/grafana.crt"
           #key_path: "{{ playbook_dir }}/files/grafana.key"
+
+          ## OPTIONAL
+          # Provision Alerts from a yaml file see Grafana's docs for details https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/file-provisioning/
         
         # Ansible variables
         ansible_remote_tmp: /tmp
@@ -239,6 +242,18 @@ For existing install without this variable set or your log db will get corrupted
 
           # Optional List of space separated domains for deploying 
           allowed_domains: 'example.com example.net'
+```
+
+###### User Provisioned Resources
+Users can you define a yaml that will copied to the shiftmon server that will provision alerts see [Grafana's Provisioning docs](https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/file-provisioning/) for details
+```yaml
+        grafana:
+          domain: grafana.local.example.com
+          alert_path: "{{ playbook_dir }}/user-alerts.yml"
+          ## OPTIONAL
+          # Bring your own SSL cert
+          #cert_path: "{{ playbook_dir }}/files/grafana.crt"
+          #key_path: "{{ playbook_dir }}/files/grafana.key"
 ```
 
 4. Deploy or update shiftmon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i shift-inventory.yml shiftmon.yml --ask-become-pass` from `~/shiftmon`
