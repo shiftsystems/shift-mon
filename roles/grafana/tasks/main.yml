@@ -75,3 +75,4 @@
     src: "{{ grafana.alert_path }}"
     dest: /opt/shift-mon/grafana-config/provisioning/alerting/user-alerts.yml
   become: true
+  when: grafana.alert_path is defined

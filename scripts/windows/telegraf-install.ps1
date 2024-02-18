@@ -30,7 +30,6 @@ Else {
     Write-Host "Install Telegraf the old fashioned way"
     Write-Host "Getting Latest Release of Telegraf from github"
     $release = Invoke-RestMethod -Uri "https://api.github.com/repos/influxdata/telegraf/releases/latest"
-    Write-Host "$release"
     Write-Host "$release.tag_name"
     $release = $release.tag_name
     $release = $release.TrimStart("v")
