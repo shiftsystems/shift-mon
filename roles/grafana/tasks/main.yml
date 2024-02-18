@@ -69,3 +69,9 @@
     dest: /opt/shift-mon/grafana-config/ldap.toml
   become: true
   when: ldap_host is defined
+
+- name: Add user provisioned Alerts
+  ansible.builtin.copy:
+    src: "{{ grafana.alert_path }}"
+    dest: /opt/shift-mon/grafana-config/provisioning/alerting/user-alerts.yml
+  become: true
