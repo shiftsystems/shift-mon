@@ -1,0 +1,4 @@
+- hosts: all
+  tasks:
+    - ansible.builtin.include_role:
+        name: pve_instrumentation

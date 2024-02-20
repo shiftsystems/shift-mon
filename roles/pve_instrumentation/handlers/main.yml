@@ -1,0 +1,13 @@
+- name: Restart Rsyslog
+  ansible.builtin.systemd:
+    name: rsyslog
+    state: restarted
+    enabled: true
+  become: true
+
+- name: Restart pvestatd
+  ansible.builtin.systemd:
+    name: pvestatd
+    state: restarted
+    enabled: true
+  become: true

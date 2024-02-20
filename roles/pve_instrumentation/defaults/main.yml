@@ -1,0 +1,5 @@
+syslog_port: "6666"
+metrics_name: "shift-mon"
+metrics_port: 8428
+metrics_protocol: "http"
+metrics_bucket: "proxmox"

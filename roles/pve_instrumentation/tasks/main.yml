@@ -1,0 +1,25 @@
+- name: Install Rsyslog
+  ansible.builtin.apt:
+    name: rsyslog
+    state: latest
+  become: true
+  notify: Restart Syslog
+
+- name: Add Syslog forwarding to Shiftmon
+  ansible.builtin.template:
+    src: 50-shiftmon.conf
+    dest: /etc/rsyslog.d/50-shiftmon.conf
+    mode: "644"
+  become: true
+  notify: Restart Rsyslog
+
+- name: Add metrics server
+  ansible.builtin.blockinfile:
+    path: /etc/pve/status.cfg 
+    block: |
+      influxdb: {{ metrics_name }}
+          port {{ metrics_port }}
+          server {{ metrics_host }}
+          bucket {{ metrics_bucket }}
+          influxdbproto  {{ metrics_protocol }}
+  notify: Restart pvestatd

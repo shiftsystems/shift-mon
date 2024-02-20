@@ -1,4 +1,39 @@
 # Adding a Metric Server in Proxmox
+
+## Using Ansible
+This is assuming you have ssh access as root with an SSH key to the PVE servers in the inventory
+
+### Inventory
+Create an inventory named `pve-inventory.yml` with the following content with the hosts and variables adjusted to suit your environment
+```yaml
+all:
+  hosts:
+    10.0.0.2:
+    10.0.0.3:
+    10.0.0.4:
+  vars:
+    syslog_host: "logs.example.com"
+    metrics_host: "metrics.example.com"
+    ansible_user: "root"
+```
+
+### Playbook
+Create a playbook named `instrument-pve.yml` with following content
+```yaml
+- hosts: all
+  tasks:
+    - ansible.builtin.include_role:
+        name: shiftsystems.shift_mon.pve_instrumentation
+```
+
+### Running the play
+run the following command. note you might need to adjust the path if you used a different name or folder than what was listed above
+
+```bash
+ansible-playbook -i ../pve-inventory.yml instrument-pve.yml
+```
+
+## Add Metrics Manually
 Due to how Proxmox sends metrics, and how shiftmon handles authentication currently we do not support pushing metrics to shiftmon from proxmox over TLS at this time
 1. login to Proxmox with an account administrative privileges 
 2. click on Datacenter
@@ -13,7 +48,7 @@ Due to how Proxmox sends metrics, and how shiftmon handles authentication curren
   * token: Leave blank for Unauthenticated metrics. For Authenticated metrics set the Token field to `username:password` where the username and password are any of the users you listed in your shift-mon inventory. 
 5. hit create or ok.
 
-## Adding Syslog to Proxmox
+## Adding Syslog to Proxmox Manually
 Proxmox VE does not have syslog forwarding built in by default.
 Luckily Proxmox is built on Debian so we can install rsyslog from the debian repo and configure it to forward logs to shiftmon.
 This assumes telegraf has been configured with shiftmon ansible role with `remote_syslog: true` on a box that the proxmox host(s) can access on udp port 6666.
@@ -23,7 +58,7 @@ If there is a firewall on the on the syslog server please make sure that port 66
 Note these steps will need to be performed on each proxmox host, and we do not have a method for forwarding syslog over TLS at this time.
 1. SSH into the proxmox node. By default you can ssh in as root to a proxmox node using the root password you use to sign into the web interface
 1. Install Rsyslog `apt -y install rsyslog`
-2. Add the following contents to `/etc/rsyslog/50-shiftmon.conf` with the ip address swapped out for the telegraf instance with `remote_syslog: true`
+2. Add the following contents to `/etc/rsyslog.d/50-shiftmon.conf` with the ip address swapped out for the telegraf instance with `remote_syslog: true`
 ```
 # Enable imfile module
 module(load="imfile")
