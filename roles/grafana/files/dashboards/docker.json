@@ -44,6 +44,7 @@
   "panels": [
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "description": "",
@@ -68,7 +69,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -91,20 +93,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"linux\"}",
+          "expr": "100 - cpu_usage_idle{host=~\"$host\",db=\"linux\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -113,6 +118,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "description": "",
@@ -137,7 +143,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -160,20 +167,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "mem_used_percent{db=\"linux\",host=\"$host\"}",
+          "expr": "mem_used_percent{db=\"linux\",host=~\"$host\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -233,7 +243,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -257,7 +268,7 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
+          "mode": "multi",
           "sort": "none"
         }
       },
@@ -269,9 +280,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(diskio_read_bytes{host=\"$host\",db=\"linux\"} + diskio_read_bytes{host=\"$host\",db=\"linux\"})",
+          "expr": "deriv(diskio_read_bytes{host=~\"$host\",db=\"linux\"} + diskio_read_bytes{host=~\"$host\",db=\"linux\"})",
           "interval": "",
-          "legendFormat": "{{name}}",
+          "legendFormat": "{{host}} - {{name}}",
           "range": true,
           "refId": "A"
         }
@@ -297,7 +308,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -310,7 +322,7 @@
       "id": 6,
       "options": {
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
@@ -338,9 +350,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_cpu_usage_percent{host=\"$host\"}",
+          "expr": "docker_container_cpu_usage_percent{host=~\"$host\"}",
           "interval": "",
-          "legendFormat": "{{container_name}}",
+          "legendFormat": "{{host}} - {{container_name}}",
           "range": true,
           "refId": "A"
         }
@@ -350,6 +362,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -364,7 +377,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -377,7 +391,7 @@
       "id": 5,
       "options": {
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
@@ -402,10 +416,12 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_mem_usage_percent{host=\"$host\"}",
+          "expr": "docker_container_mem_usage_percent{host=~\"$host\"}",
           "interval": "",
-          "legendFormat": "{{container_name}}",
+          "legendFormat": "{{host}} - {{container_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -430,7 +446,8 @@
             }
           },
           "mappings": [],
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -444,7 +461,7 @@
       "options": {
         "displayLabels": [],
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
@@ -471,7 +488,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"}[$__range]) + increase(docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"}[$__range])",
+          "expr": "increase(docker_container_blkio_io_service_bytes_recursive_read{host=~\"$host\"}[$__range]) + increase(docker_container_blkio_io_service_bytes_recursive_write{host=~\"$host\"}[$__range])",
           "instant": true,
           "interval": "",
           "legendFormat": "{{container_name}} - {{ device }}",
@@ -484,6 +501,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -536,7 +554,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -570,10 +589,12 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_cpu_usage_percent{host=\"$host\"}",
+          "expr": "docker_container_cpu_usage_percent{host=~\"$host\"}",
           "interval": "",
-          "legendFormat": "{{container_name}}",
+          "legendFormat": "{{host}} - {{container_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -582,6 +603,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -637,7 +659,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -670,10 +693,12 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_mem_usage_percent{host=\"$host\"}",
+          "expr": "docker_container_mem_usage_percent{host=~\"$host\"}",
           "interval": "",
-          "legendFormat": "{{container_name}}",
+          "legendFormat": "{{host}} - {{container_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -732,7 +757,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -766,9 +792,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(docker_container_blkio_io_service_bytes_recursive_read{host=\"$host\"} + docker_container_blkio_io_service_bytes_recursive_write{host=\"$host\"})",
+          "expr": "rate(docker_container_blkio_io_service_bytes_recursive_read{host=~\"$host\"} + docker_container_blkio_io_service_bytes_recursive_write{host=~\"$host\"})",
           "interval": "",
-          "legendFormat": "{{container_name}}",
+          "legendFormat": "{{host}} - {{container_name}}",
           "range": true,
           "refId": "A"
         }
@@ -828,7 +854,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -863,9 +890,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_tx_bytes{host=\"$host\"})",
+          "expr": "deriv(docker_container_net_tx_bytes{host=~\"$host\"})",
           "interval": "",
-          "legendFormat": "{{container_name}} - {{ network }}",
+          "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
           "refId": "A"
         }
@@ -891,7 +918,8 @@
             }
           },
           "mappings": [],
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -904,7 +932,7 @@
       "id": 20,
       "options": {
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
@@ -931,10 +959,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(docker_container_net_tx_bytes{host=\"$host\"}[$__range])",
+          "expr": "increase(docker_container_net_tx_bytes{host=~\"$host\"}[$__range])",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{container_name}} - {{ network }}",
+          "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": false,
           "refId": "A"
         }
@@ -995,7 +1023,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1030,9 +1059,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_rx_bytes{host=\"$host\"})",
+          "expr": "deriv(docker_container_net_rx_bytes{host=~\"$host\"})",
           "interval": "",
-          "legendFormat": "{{container_name}} - {{ network }}",
+          "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
           "refId": "A"
         }
@@ -1058,7 +1087,8 @@
             }
           },
           "mappings": [],
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1071,7 +1101,7 @@
       "id": 9,
       "options": {
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
@@ -1098,9 +1128,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(docker_container_net_rx_bytes{host=\"$host\"})",
+          "expr": "rate(docker_container_net_rx_bytes{host=~\"$host\"})",
           "interval": "",
-          "legendFormat": "{{container_name}} - {{ network }}",
+          "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
           "refId": "A"
         }
@@ -1116,6 +1146,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1128,6 +1163,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1146,8 +1186,8 @@
         },
         "definition": "label_values(docker_n_containers{},host)",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
@@ -1170,6 +1210,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }

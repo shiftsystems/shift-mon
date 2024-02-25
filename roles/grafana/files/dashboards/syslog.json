@@ -38,6 +38,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -51,6 +52,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 3,
             "pointSize": 5,
@@ -81,7 +83,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -145,7 +148,8 @@
               }
             ]
           },
-          "unit": "logs/min"
+          "unit": "logs/min",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -168,10 +172,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -209,7 +215,8 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "decbytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -232,10 +239,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -273,7 +282,8 @@
               }
             ]
           },
-          "unit": "logs/min"
+          "unit": "logs/min",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -296,18 +306,22 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "sum(count_over_time({__name=\"syslog\",hostname=\"$host\"}[1m]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({__name=\"syslog\",hostname=~\"$host\"}[1m]))",
           "legendFormat": "",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -335,7 +349,8 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "decbytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -358,10 +373,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -369,7 +386,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\"}[$__range]))",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=~\"$host\"}[$__range]))",
           "legendFormat": "",
           "queryType": "instant",
           "refId": "A"
@@ -399,7 +416,8 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "decbytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -422,10 +440,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -433,7 +453,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(bytes_over_time({__name=\"syslog\",appname=\"$appname\"}[$__range]))",
+          "expr": "sum(bytes_over_time({__name=~\"syslog\",appname=~\"$appname\"}[$__range]))",
           "legendFormat": "",
           "queryType": "instant",
           "refId": "A"
@@ -463,7 +483,8 @@
               }
             ]
           },
-          "unit": "logs/min"
+          "unit": "logs/min",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -486,10 +507,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -497,7 +520,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({__name=\"syslog\",appname=\"$appname\"}[1m]))",
+          "expr": "sum(count_over_time({__name=~\"syslog\",appname=~\"$appname\"}[1m]))",
           "legendFormat": "",
           "queryType": "range",
           "refId": "A"
@@ -517,6 +540,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -530,6 +554,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 0,
             "pointSize": 5,
@@ -560,7 +585,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -590,8 +616,10 @@
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "expr": "sum(count_over_time({hostname=\"$host\",__name=\"syslog\"}[1m])) by (appname)",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({hostname=~\"$host\",__name=\"syslog\"}[1m])) by (appname)",
           "legendFormat": "{{appname}}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -616,7 +644,8 @@
             }
           },
           "mappings": [],
-          "unit": "short"
+          "unit": "short",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -657,7 +686,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({hostname=\"$host\",__name=\"syslog\"}[$__range])) by (appname) ",
+          "expr": "sum(count_over_time({hostname=~\"$host\",__name=\"syslog\"}[$__range])) by (appname) ",
           "legendFormat": "{{ appname }}",
           "queryType": "instant",
           "refId": "A"
@@ -687,7 +716,8 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "decbytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -710,10 +740,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -721,7 +753,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"$appname\"}[$__range]))",
+          "expr": "sum(bytes_over_time({__name=\"syslog\",hostname=~\"$host\",appname=~\"$appname\"}[$__range]))",
           "legendFormat": "",
           "queryType": "instant",
           "refId": "A"
@@ -751,7 +783,8 @@
               }
             ]
           },
-          "unit": "logs/min"
+          "unit": "logs/min",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -774,10 +807,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -785,7 +820,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"$appname\"}[1m]))",
+          "expr": "sum(count_over_time({__name=\"syslog\",hostname=~\"$host\",appname=~\"$appname\"}[1m]))",
           "legendFormat": "",
           "queryType": "range",
           "refId": "A"
@@ -812,7 +847,8 @@
             }
           },
           "mappings": [],
-          "unit": "short"
+          "unit": "short",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -890,7 +926,9 @@
             "type": "loki",
             "uid": "${logs}"
           },
-          "expr": "{__name=\"syslog\",hostname=\"$host\",appname=\"$appname\"}",
+          "editorMode": "code",
+          "expr": "{__name=\"syslog\",hostname=~\"$host\",appname=~\"$appname\"}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -900,30 +938,41 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": true,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "logs",
         "options": [],
         "query": "loki",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": true,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "metrics",
         "options": [],
         "query": "prometheus",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -936,8 +985,8 @@
         },
         "definition": "label_values({__name=\"syslog\"},hostname)",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": "label_values({__name=\"syslog\"},hostname)",
@@ -952,13 +1001,18 @@
           "type": "loki",
           "uid": "${logs}"
         },
-        "definition": "label_values({__name=\"syslog\",hostname=\"$host\"},appname)",
+        "definition": "",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "appname",
         "options": [],
-        "query": "label_values({__name=\"syslog\",hostname=\"$host\"},appname)",
+        "query": {
+          "label": "appname",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{__name=\"syslog\",hostname=~\"$host\"}",
+          "type": 1
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -975,6 +1029,6 @@
   "timezone": "",
   "title": "syslog",
   "uid": "ILt16Sb7k",
-  "version": 3,
+  "version": 6,
   "weekStart": ""
 }

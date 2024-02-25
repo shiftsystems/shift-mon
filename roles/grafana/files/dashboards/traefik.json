@@ -47,7 +47,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -70,9 +71,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -80,7 +83,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum(traefik.router.requests.total_count{host=\"$host\"})",
+          "expr": "sum by (host) (traefik.router.requests.total_count{host=~\"$host\"})",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -107,7 +111,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -130,9 +135,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -140,7 +147,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum(traefik.router.requests.total_count{host=\"$host\",code=~\"4.*|5.*\"})",
+          "expr": "sum by (host) (traefik.router.requests.total_count{host=~\"$host\",code=~\"4.*|5.*\"})",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -168,7 +176,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -191,9 +200,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -201,7 +212,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum(traefik.router.requests.total_count{host=\"$host\", code=~\"4.*|5.*\"}) / sum(traefik.router.requests.total_count{host=\"$host\"})",
+          "expr": "(sum by (host) (traefik.router.requests.total_count{host=~\"$host\", code=~\"4.*|5.*\"})) / (sum by (host) (traefik.router.requests.total_count{host=~\"$host\"}))",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -229,7 +241,8 @@
               }
             ]
           },
-          "unit": "requests/min"
+          "unit": "requests/min",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -252,9 +265,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -262,7 +277,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum(sum_over_time(traefik.router.requests.total_count{host=\"$host\"}[1m]))",
+          "expr": "sum by (host) (sum_over_time(traefik.router.requests.total_count{host=~\"$host\"}[1m]))",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -290,7 +306,8 @@
               }
             ]
           },
-          "unit": "requests/min"
+          "unit": "requests/min",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -313,9 +330,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -323,7 +342,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum(sum_over_time(traefik.router.requests.total_count{host=\"$host\",code=~\"4.*|5.*\"}[1m]))",
+          "expr": "sum by (host) (sum_over_time(traefik.router.requests.total_count{host=~\"$host\",code=~\"4.*|5.*\"}[1m]))",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -356,6 +376,11 @@
           },
           "custom": {
             "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "lineWidth": 0.7
           },
           "mappings": [],
@@ -371,7 +396,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -404,8 +430,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "traefik.service.server.up_value{host=\"$host\"}",
-          "legendFormat": "{{url}}",
+          "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+          "legendFormat": "{{host}} - {{url}}",
           "range": true,
           "refId": "A"
         }
@@ -436,7 +462,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -459,9 +486,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -469,8 +498,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "traefik.service.server.up_value{host=\"$host\"}",
-          "legendFormat": "{{url}}",
+          "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+          "legendFormat": "{{host}} - {{url}}",
           "range": true,
           "refId": "A"
         }
@@ -508,7 +537,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -577,7 +607,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -647,7 +678,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -710,6 +742,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -723,6 +756,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -752,7 +786,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -802,6 +837,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -815,6 +851,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -844,7 +881,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -963,12 +1001,16 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -981,6 +1023,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -999,8 +1046,8 @@
         },
         "definition": "label_values(traefik.router.requests.total_count,host)",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
@@ -1023,6 +1070,6 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "UZdtIsRVz",
-  "version": 4,
+  "version": 8,
   "weekStart": ""
 }

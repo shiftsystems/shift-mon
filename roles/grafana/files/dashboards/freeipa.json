@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 54,
   "links": [
     {
       "asDropdown": false,
@@ -83,7 +82,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -106,10 +106,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -152,7 +153,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -175,10 +177,11 @@
           "fields": "",
           "values": true
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -241,7 +244,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -303,7 +307,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -452,7 +456,7 @@
             "uid": "${logs}"
           },
           "editorMode": "builder",
-          "expr": "{host=\"$host\", __name=\"freeipa_healthcheck\"} | logfmt",
+          "expr": "{host=~\"$host\", __name=\"freeipa_healthcheck\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -491,7 +495,7 @@
             "uid": "${logs}"
           },
           "editorMode": "builder",
-          "expr": "{host=\"$host\", __name=\"freeipa_healthcheck\"} | logfmt | result != `SUCCESS`",
+          "expr": "{host=~\"$host\", __name=\"freeipa_healthcheck\"} | logfmt | result != `SUCCESS`",
           "queryType": "range",
           "refId": "A"
         }
@@ -542,7 +546,7 @@
             "uid": "P53E94FA6B1E28789"
           },
           "editorMode": "builder",
-          "expr": "{path=\"/var/log/krb5kdc.log\", host=\"$host\"} | logfmt",
+          "expr": "{path=\"/var/log/krb5kdc.log\", host=~\"$host\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -593,7 +597,7 @@
             "uid": "${logs}"
           },
           "editorMode": "builder",
-          "expr": "{path=~\"/var/log/dirsrv/slapd-.*/access\", host=\"$host\"} | logfmt",
+          "expr": "{path=~\"/var/log/dirsrv/slapd-.*/access\", host=~\"$host\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -631,7 +635,7 @@
             "uid": "${logs}"
           },
           "editorMode": "builder",
-          "expr": "{path=~\"/var/log/dirsrv/slapd-.*/errors\", host=\"$host\"} | logfmt",
+          "expr": "{path=~\"/var/log/dirsrv/slapd-.*/errors\", host=~\"$host\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -641,7 +645,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
@@ -686,8 +690,8 @@
         },
         "definition": "",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
@@ -712,6 +716,6 @@
   "timezone": "",
   "title": "FreeIPA",
   "uid": "c139adf6-f70a-4ebe-af92-ee893076be50",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }

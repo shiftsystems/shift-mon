@@ -65,7 +65,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -88,11 +89,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -101,10 +103,10 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "system_n_cpus{host=\"$hypervisor\"}",
+          "expr": "system_n_cpus{host=~\"$hypervisor\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{host}}",
           "refId": "A"
         }
       ],
@@ -131,7 +133,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -154,11 +157,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -166,8 +170,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "mem_total{host=\"$hypervisor\"}",
-          "legendFormat": "__auto",
+          "expr": "mem_total{host=~\"$hypervisor\"}",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -197,7 +201,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -220,10 +225,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -231,7 +237,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "(100 - mem_used_percent{host=\"$hypervisor\"}) * mem_total{host=\"$hypervisor\"} / 100",
+          "expr": "(100 - mem_used_percent{host=~\"$hypervisor\"}) * mem_total{host=~\"$hypervisor\"} / 100",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -263,7 +269,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -286,10 +293,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -297,8 +305,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "count(libvirt_vcpu_total_current{host=\"$hypervisor\"})",
-          "legendFormat": "__auto",
+          "expr": "count by (host) (libvirt_vcpu_total_current{host=~\"$hypervisor\"})",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -325,7 +333,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -348,11 +357,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -361,7 +371,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "(system_uptime{host=\"$hypervisor\"}) / 86400",
+          "expr": "(system_uptime{host=~\"$hypervisor\"}) / 86400",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -401,7 +411,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -424,10 +435,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -435,8 +447,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "mem_used_percent{host=\"$hypervisor\"}",
-          "legendFormat": "__auto",
+          "expr": "mem_used_percent{host=~\"$hypervisor\"}",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -473,7 +485,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -496,10 +509,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -507,8 +521,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "100 - cpu_usage_idle{host=\"$hypervisor\"}",
-          "legendFormat": "__auto",
+          "expr": "100 - cpu_usage_idle{host=~\"$hypervisor\"}",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -536,7 +550,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -559,11 +574,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -572,10 +588,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_total{host=\"$hypervisor\"}",
+          "expr": "disk_total{host=~\"$hypervisor\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{path}}",
+          "legendFormat": "{{host}} - {{path}}",
           "refId": "A"
         }
       ],
@@ -614,7 +630,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -637,11 +654,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -650,10 +668,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_free{host=\"$hypervisor\"}",
+          "expr": "disk_free{host=~\"$hypervisor\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{path}}",
+          "legendFormat": "{{host}} - {{path}}",
           "refId": "A"
         }
       ],
@@ -733,7 +751,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -769,8 +788,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "increase(diskio_read_bytes{host=\"$hypervisor\"} + diskio_write_bytes{host=\"$hypervisor\"})",
-          "legendFormat": "{{name}}",
+          "expr": "increase(diskio_read_bytes{host=~\"$hypervisor\"} + diskio_write_bytes{host=~\"$hypervisor\"})",
+          "legendFormat": "{{host}} - {{name}}",
           "range": true,
           "refId": "A"
         }
@@ -839,7 +858,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -875,8 +895,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "deriv(net_bytes_sent{host=\"$hypervisor\"} + net_bytes_recv{host=\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"})",
-          "legendFormat": "{{interface}}",
+          "expr": "deriv(net_bytes_sent{host=~\"$hypervisor\"} + net_bytes_recv{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"})",
+          "legendFormat": "{{host}} - {{interface}}",
           "range": true,
           "refId": "A"
         }
@@ -953,7 +973,8 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binBps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -989,9 +1010,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(libvirt_net_tx_bytes{host=\"$hypervisor\"} + libvirt_net_rx_bytes{host=\"$hypervisor\"})",
+          "expr": "deriv(libvirt_net_tx_bytes{host=~\"$hypervisor\"} + libvirt_net_rx_bytes{host=~\"$hypervisor\"})",
           "interval": "",
-          "legendFormat": "{{domain_name}}",
+          "legendFormat": "{{host}} - {{domain_name}}",
           "range": true,
           "refId": "A"
         }
@@ -1055,7 +1076,8 @@
               }
             ]
           },
-          "unit": "ns"
+          "unit": "ns",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1091,9 +1113,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(libvirt_vcpu_time{host=\"$hypervisor\"})",
+          "expr": "deriv(libvirt_vcpu_time{host=~\"$hypervisor\"})",
           "interval": "",
-          "legendFormat": "{{domain_name}}",
+          "legendFormat": "{{host}} - {{domain_name}}",
           "range": true,
           "refId": "A"
         }
@@ -1129,7 +1151,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": [
           {
@@ -1179,7 +1202,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -1188,7 +1211,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_balloon_current{host=\"$hypervisor\"} * 1024",
+          "expr": "libvirt_balloon_current{host=~\"$hypervisor\"} * 1024",
           "instant": true,
           "interval": "",
           "legendFormat": "__auto",
@@ -1202,7 +1225,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_block_capacity{host=\"$hypervisor\"}",
+          "expr": "libvirt_block_capacity{host=~\"$hypervisor\"}",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
@@ -1216,7 +1239,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_state_state{host=\"$hypervisor\"}",
+          "expr": "libvirt_state_state{host=~\"$hypervisor\"}",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
@@ -1230,7 +1253,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_vcpu_total_current{host=\"$hypervisor\"}",
+          "expr": "libvirt_vcpu_total_current{host=~\"$hypervisor\"}",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
@@ -1276,6 +1299,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1289,6 +1317,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1308,9 +1341,9 @@
         },
         "definition": "label_values(libvirt_cpu_system{},host)",
         "hide": 1,
-        "includeAll": false,
+        "includeAll": true,
         "label": "hypervisor",
-        "multi": false,
+        "multi": true,
         "name": "hypervisor",
         "options": [],
         "query": {
@@ -1333,6 +1366,6 @@
   "timezone": "",
   "title": "Libvirt",
   "uid": "SPHYuL5Vk",
-  "version": 14,
+  "version": 15,
   "weekStart": ""
 }

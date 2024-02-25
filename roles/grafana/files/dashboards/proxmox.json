@@ -29,6 +29,7 @@
   "panels": [
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -85,16 +86,18 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "cpustat_cpu{object=\"nodes\",host=\"$node\"}",
+          "expr": "cpustat_cpu{object=\"nodes\",host=~\"$node\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -103,6 +106,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -159,16 +163,18 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "memory_memused{object=\"nodes\",host=\"$node\"} / memory_memtotal{object=\"nodes\",host=\"$node\"}",
+          "expr": "memory_memused{object=\"nodes\",host=~\"$node\"} / memory_memtotal{object=\"nodes\",host=~\"$node\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -177,6 +183,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -231,14 +238,15 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "system_used{object=\"storages\",nodename=\"$node\"} / system_total{object=\"storages\",nodename=\"$node\"}",
+          "expr": "system_used{object=\"storages\",nodename=~\"$node\"} / system_total{object=\"storages\",nodename=~\"$node\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -253,6 +261,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -305,16 +314,18 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "system_uptime{object=\"nodes\"}",
+          "expr": "system_uptime{object=~\"nodes\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -344,6 +355,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -384,10 +396,12 @@
       },
       "id": 13,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -395,29 +409,31 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "system_cpu{object=~\"lxc|qemu\",nodename=\"$node\",host=\"$guest\"}",
+          "expr": "system_cpu{object=~\"lxc|qemu\",nodename=~\"$node\",host=~\"$guest\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
       "title": "Guest CPU",
-      "type": "stat"
+      "type": "bargauge"
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -437,11 +453,11 @@
               },
               {
                 "color": "#EAB839",
-                "value": 70
+                "value": 0.7
               },
               {
                 "color": "red",
-                "value": 95
+                "value": 0.9
               }
             ]
           },
@@ -458,10 +474,12 @@
       },
       "id": 14,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -469,26 +487,27 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "system_mem{object=~\"qemu|lxc\",nodename=\"$node\",host=\"$guest\"} / system_maxmem{object=~\"qemu|lxc\",nodename=\"$node\",host=\"$guest\"}",
+          "expr": "system_mem{object=~\"qemu|lxc\",nodename=~\"$node\",host=~\"$guest\"} / system_maxmem{object=~\"qemu|lxc\",nodename=~\"$node\",host=~\"$guest\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
       "title": "Guest Mem",
-      "type": "stat"
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -553,15 +572,16 @@
           }
         ]
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "system_used{object=\"storages\",nodename=\"$node\"} ",
+          "expr": "system_used{object=\"storages\",nodename=~\"$node\"} ",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -715,7 +735,7 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -976,6 +996,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -1060,10 +1081,12 @@
           "datasource": {
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "cpustat_wait{}",
+          "expr": "cpustat_wait{host=~\"$node\"}",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1160,10 +1183,12 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "irate(system_diskread{nodename=\"$node\"})",
+          "expr": "irate(system_diskread{nodename=~\"$node\"})",
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1171,11 +1196,13 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "irate(system_diskwrite{nodename=\"$node\"})",
+          "expr": "irate(system_diskwrite{nodename=~\"$node\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{host}}",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -1303,7 +1330,7 @@
           }
         ]
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -1311,7 +1338,7 @@
             "uid": "${logs}"
           },
           "editorMode": "builder",
-          "expr": "{appname=\"pvedaemon\"} | logfmt",
+          "expr": "{appname=\"pvedaemon\", hostname=~\"$node\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -1475,7 +1502,7 @@
           }
         ]
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -1483,7 +1510,7 @@
             "uid": "${logs}"
           },
           "editorMode": "builder",
-          "expr": "{appname=\"pveupdate\"} | logfmt",
+          "expr": "{appname=\"pveupdate\", hostname=~\"$node\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -1533,6 +1560,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1545,6 +1577,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1563,8 +1600,8 @@
         },
         "definition": "label_values(cpustat_idle{object=\"nodes\"},host)",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "node",
         "options": [],
         "query": {
@@ -1584,8 +1621,8 @@
         },
         "definition": "label_values(system_cpu{object=~\"lxc|qemu\",nodename=\"$node\"},host)",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "guest",
         "options": [],
         "query": {
@@ -1608,6 +1645,6 @@
   "timezone": "",
   "title": "Proxmox metrics",
   "uid": "CcDBg5Knk",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }

@@ -83,7 +83,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -118,7 +119,7 @@
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({host=\"$host\",__name=\"tail_http_log\"} | logfmt[1m])) by (resp_code)",
+          "expr": "sum(count_over_time({host=~\"$host\",__name=\"tail_http_log\"} | logfmt[1m])) by (resp_code)",
           "legendFormat": "{{ resp_code }}",
           "queryType": "range",
           "refId": "A"
@@ -145,7 +146,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -187,7 +189,7 @@
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=\"$host\",__name=\"tail_http_log\"} | logfmt",
+          "expr": "{host=~\"$host\",__name=\"tail_http_log\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -275,7 +277,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -310,7 +313,7 @@
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({host=\"$host\",__name=\"tail_http_error_log\"} | logfmt[1m])) by (errorcode)",
+          "expr": "sum(count_over_time({host=~\"$host\",__name=\"tail_http_error_log\"} | logfmt[1m])) by (errorcode)",
           "legendFormat": "{{ resp_code }}",
           "queryType": "range",
           "refId": "A"
@@ -337,7 +340,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -378,7 +382,7 @@
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 100",
+          "expr": "{host=~\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 100",
           "queryType": "range",
           "refId": "A"
         }
@@ -443,7 +447,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -600,14 +605,14 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"/var/log/nginx/access.*|/var/log/httpd/access.*\",host=\"$host\"} | logfmt",
+          "expr": "{path=~\"/var/log/nginx/access.*|/var/log/httpd/access.*\",host=~\"$host\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -681,7 +686,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -724,7 +730,7 @@
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
+          "expr": "{host=~\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -775,7 +781,8 @@
             }
           },
           "mappings": [],
-          "noValue": "unknown"
+          "noValue": "unknown",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -817,7 +824,7 @@
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
+          "expr": "{host=~\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -887,7 +894,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -1080,14 +1088,14 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"/var/log/nginx/error.*|/var/log/httpd/error.*\",host=\"$host\"} | logfmt",
+          "expr": "{path=~\"/var/log/nginx/error.*|/var/log/httpd/error.*\",host=~\"$host\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -1162,7 +1170,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -1283,14 +1292,14 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 400",
+          "expr": "{host=~\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 400",
           "queryType": "range",
           "refId": "A"
         }
@@ -1345,9 +1354,9 @@
       "type": "table"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [
     "HTTPD"
   ],
@@ -1394,8 +1403,8 @@
         },
         "definition": "label_values({path=~\"/var/log/nginx/.*\"},host)",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
@@ -1433,6 +1442,6 @@
   "timezone": "",
   "title": "Nginx/Apache/HTTPD",
   "uid": "cWrlIMS7q",
-  "version": 4,
+  "version": 6,
   "weekStart": ""
 }
