@@ -18,8 +18,6 @@ services:
   engine:
     image: docker.io/grafana/oncall
     restart: always
-    ports:
-      - "8080:8080"
     command: >
       sh -c "uwsgi --ini uwsgi.ini"
     environment: *oncall-environment
@@ -173,8 +171,9 @@ services:
         source: /opt/shift-mon/traefik
         target: /etc/traefik
     ports:
-     - 80:80
-     - 443:443
+     - "80:80"
+     - "443:443"
+     - "127.0.0.1:8082:8082"
 {% if dns.provider is defined and dns.auth_values is defined %}
     environment:
 {% for key, value in dns.auth_values.items() %}

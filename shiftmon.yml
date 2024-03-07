@@ -1,0 +1,120 @@
+- hosts: shiftmon_servers
+  name: Deploy Shift mon
+  tasks:
+    - name: Set Telegraf Secrets
+      ansible.builtin.set_fact:
+        user_secrets:
+          shiftwatch_metrics_url: "https://metrics.shiftwatch.net"
+          shiftwatch_logs_url: "https://logs.shiftwatch.net"
+          grafana_url: "https://grafana.local.shiftsystems.net"
+          shiftwatch_user: shiftwatch
+          shiftwatch_password: "{{ lookup('env', 'SHIFTWATCH_PASSWORD') }}"
+          customer_id: "casa_de_miku"
+        env_telegraf_tags: []
+        extra_vars_tag: []
+        oncall_enabled: true
+        oncall:
+          secret: "{{ lookup('env', 'ONCALL_KEY') }}"
+          domain: "oncall.local.shiftsystems.net"
+          #key_path: "{{ playbook_dir }}/files/oncall.key"
+          #cert_path: "{{ playbook_dir }}/files/oncall.crt"
+        bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}"
+        loki:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: 'https://logs.local.shiftsystems.net'
+          domain: logs.local.shiftsystems.net
+          retention_period: 30d
+          tsdb_date: "2023-04-30"
+        victoria:
+          user: telegraf
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          url: 'https://metrics.local.shiftsystems.net'
+          retention_period: 90d
+          domain: metrics.local.shiftsystems.net
+          #cert_path: "{{ playbook_dir }}/files/victoria.crt"
+          #key_path: "{{ playbook_dir }}/files/victoria.key"
+          insecure: true
+        email:
+          enabled: true
+          host: 'mail.smtp2go.com'
+          alert_from_address: 'alerts@shiftsystems.net'
+          user: 'alerts@shiftsystems.net'
+          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          alert_from_name: 'Shiftmon Alerts'
+          port: '587'
+        users:
+          telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          opnsense: "{{ lookup('env', 'OPNSENSE_PASSWORD') }}"
+        oauth:
+          enabled: true
+          name: "Authentik"
+          client_id: "{{ lookup('env', 'SHIFTMON_OAUTH_ID') }}"
+          client_secret: "{{ lookup('env', 'SHIFTMON_OAUTH_SECRET') }}"
+          auth_url: 'https://idm.local.shiftsystems.net/application/o/authorize/'
+          token_url: 'https://idm.local.shiftsystems.net/application/o/token/'
+          api_url: 'https://idm.local.shiftsystems.net/application/o/userinfo/'
+          allowed_domains: 'shiftsystems.net mathiasp.me'
+          scope: 'openid email profile'
+        ldap_host: 'historia.local.shiftsystems.net'
+        ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+        bind_dn: 'uid=grafana,cn=users,cn=accounts,dc=local,dc=shiftsystems,dc=net'
+        base_dn: 'dc=local,dc=shiftsystems,dc=net'
+        user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=shiftsystems,dc=net))'
+        ldap_first_name: 'givenName'
+        member_of: 'memberOf'
+        ldap_last_name: 'sn'
+        ldap_user: 'uid'
+        ldap_email: 'mail'
+        admin_group: 'cn=server-admins,cn=groups,cn=accounts,dc=local,dc=shiftsystems,dc=net'
+        syslog: rsyslog
+        reverse_lookup_remote_syslog: false
+        reverse_lookup_syslog: false
+        remote_syslog: true
+        dns:
+          provider: cloudflare
+          auth_values:
+            CF_DNS_API_TOKEN: "{{ lookup('env', 'CLOUDFLARE_TOKEN') }}"
+        grafana:
+          domain: grafana.local.shiftsystems.net
+          alert_path: "{{ playbook_dir }}/user-alerts.yml"
+          dashboard_paths:
+            stonks: "{{ playbook_dir }}/stonks"
+            business: "{{ playbook_dir }}/business"
+          #cert_path: "{{ playbook_dir }}/files/grafana.crt"
+          #key_path: "{{ playbook_dir }}/files/grafana.key"
+        uptime_kuma_enabled: true
+        uptimekuma:
+          domain: uptime-kuma.local.shiftsystems.net
+          #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt"
+          #key_path: "{{ playbook_dir }}/files/uptime-kuma.key"
+        tls:
+          email: 'mathias@shiftsystems.net'
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
+        name: telegraf
+        public: true
+    - name: Deploy uptime kuma
+      ansible.builtin.include_role:
+        name: uptime_kuma
+        public: true
+    - name: Deploy victoriametrics
+      ansible.builtin.include_role:
+        name: victoriametrics
+        public: true
+    - name: Deploy loki
+      ansible.builtin.include_role:
+        name: loki
+        public: true
+    - name: Deploy grafana
+      ansible.builtin.include_role:
+        name: grafana
+        public: true
+    - name: Deploy traefik
+      ansible.builtin.include_role:
+        name: traefik
+        public: true
+    - name: Deploy Docker
+      ansible.builtin.include_role:
+        name: docker
+        public: true

@@ -311,6 +311,7 @@
     group: "telegraf"
   become: true
   when: telegraf_traefik_config is defined and telegraf_traefik_config
+  notify: Restart Telegraf
 
 - name: Add logrotate config
   ansible.builtin.template:
