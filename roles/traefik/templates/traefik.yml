@@ -1,8 +1,9 @@
-serversTransport:
-  insecureSkipVerify: true
 providers:
   file:
-    filename: /etc/traefik/traefik.yml
+    #filename: /etc/traefik/traefik.yml
+    directory: /etc/traefik/traefik.d
+serversTransport:
+  insecureSkipVerify: true
 tls:
   certificates:
 {% if grafana.cert_path is defined and grafana.key_path is defined %}
@@ -45,7 +46,8 @@ entryPoints:
   websecure:
     address: ":443"
     http2:
-
+  metrics:
+    address: ":8082"
 certificatesResolvers:
   dynamicResolver:
     acme:
@@ -69,117 +71,12 @@ accessLog:
   filePath: '/etc/traefik/access.json'
   format: json
 metrics:
-  influxDB:
-    address: http://victoriametrics:8428
-    protocol: http
-    database: linux
+  prometheus:
+    entrypoint: metrics
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
     addRoutersLabels: true
     addServicesLabels: true
-    additionalLabels:
-      host: {{ ansible_hostname }}
-http:
-  middlewares:
-    basic-auth:
-      basicAuth:
-        usersfile: "/etc/traefik/htpasswd"
-  routers:
-{% if uptime_kuma_enabled %}
-    uptime-kuma:
-      rule: Host(`{{ uptimekuma.domain }}`)
-      tls:
-        certResolver: dynamicResolver
-      service: uptime-kuma
-      entryPoints:
-        - websecure
-{% endif %}
-    grafana_metrics:
-      rule: Host(`{{ grafana.domain }}`) && Path(`/metrics`)
-      priority: 2
-      tls:
-        certResolver: dynamicResolver
-      service: grafana
-      middlewares:
-        - basic-auth
-      entryPoints:
-        - websecure
-    grafana:
-      rule: Host(`{{ grafana.domain }}`)
-      priority: 1
-      tls:
-        certResolver: dynamicResolver
-      service: grafana
-      entryPoints:
-        - websecure
-    loki:
-      rule: Host(`{{ loki.domain }}`)
-      tls:
-        certResolver: dynamicResolver
-      service: loki
-      middlewares:
-        - basic-auth
-      entryPoints:
-        - websecure
-    victoriametrics:
-      rule: Host(`{{ victoria.domain }}`)
-      tls:
-        certResolver: dynamicResolver
-      service: victoriametrics
-      middlewares:
-        - basic-auth
-      entryPoints:
-        - websecure
-{% if oncall_enabled %}
-    oncall:
-      rule: Host(`{{ oncall.domain }}`)
-      tls:
-        certResolver: dynamicResolver
-      service: oncall
-      entryPoints:
-        - websecure
-{% endif %}
-  services:
-    grafana:
-      loadBalancer:
-        servers:
-          - url: http://grafana:3000
-        healthCheck:
-          path: /api/health
-          interval: "10s"
-          timeout: "5s"
-    loki:
-      loadBalancer:
-        servers:
-          - url: http://loki:3100
-        healthCheck:
-          path: /ready
-          interval: "10s"
-          timeout: "5s"
-
-    victoriametrics:
-      loadBalancer:
-        servers:
-          - url: http://victoriametrics:8428
-        healthCheck:
-          path: /health
-          interval: "10s"
-          timeout: "5s"
-{% if uptime_kuma_enabled %}
-    uptime-kuma:
-      loadBalancer:
-        servers:
-          - url: http://uptime-kuma:3001
-        healthCheck:
-          path: /
-          interval: "10s"
-          timeout: "5s"
-{% endif %}
-{% if oncall_enabled %}
-    oncall:
-      loadBalancer:
-        servers:
-          - url: http://engine:8080
-        healthCheck:
-          path: /
-          interval: "10s"
-          timeout: "5s"
-{% endif %}

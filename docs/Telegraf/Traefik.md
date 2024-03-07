@@ -4,8 +4,39 @@ The examples I am using are using the a yaml config file.
 For other methods for collecting metrics read the [Traefik docs](https://doc.traefik.io/traefik/observability/metrics/influxdb/_)
 
 
+### Prometheus
+Add the following to your traefik config 
+```
+metrics:
+  prometheus:
+    entrypoint: metrics
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+    addRoutersLabels: true
+    addServicesLabels: true
+```
+You will also need to create a separate metrics entrypoint
+```
+entryPoints:
+  metrics:
+    address: ":8082"
+```
+You will also need to map port 8082 to localhost on your container in docker/podman if you are using compose your ports section will look like this
+```
+ports:
+  - "80:80"
+  - 443:443"
+  - "127.0.0.1:8082:8082"
+
+```
+finally define `telegraf_traefik_metric_url: 'http://127.0.0.1:8082'` in the inventory for the host you want to collect traefik metrics from
+
+### Via Influx DB (only works with Traefik v2 using this config will prevent traefik from starting)
 Add the following to your traefik config to collect metrics changing to the host and address to lines to match your metrics server and docker hostname.
-set the protocol to `http` and add `:8428` to your address if you need to ship metrics over plain text http.
+set the protocol to `http` and add `:8428` to your address if you need to ship metrics over plain text http without auth.
 ```
 metrics:
   influxDB:
@@ -14,8 +45,6 @@ metrics:
     database: linux
     addRoutersLabels: true
     addServicesLabels: true
-    additionalLabels:
-      host: changeme
 ```
 
 Setup the Access log For Traefik if you want to collect access logs.

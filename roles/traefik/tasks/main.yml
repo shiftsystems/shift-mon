@@ -29,6 +29,7 @@
   become: true
   with_items:
     - '/opt/shift-mon/traefik'
+    - '/opt/shift-mon/traefik/traefik.d'
     - '/opt/shift-mon/traefik/certs'
     - '/opt/shift-mon'
 
@@ -41,10 +42,17 @@
   no_log: true
   with_dict: '{{ users }}'
 
-- name: Copy Traefik config
+- name: Copy Base Traefik config
   ansible.builtin.template:
     src: traefik.yml
     dest: /opt/shift-mon/traefik/traefik.yml
+    mode: '770'
+  become: true
+
+- name: Copy Shiftmon Traefik config
+  ansible.builtin.template:
+    src: shiftmon.yml
+    dest: /opt/shift-mon/traefik/traefik.d/shiftmon.yml
     mode: '770'
   become: true
 
