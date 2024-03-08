@@ -25,7 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 70,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -37,393 +37,80 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 0,
-        "y": 0
-      },
-      "id": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "sum by (host) (traefik.router.requests.total_count{host=~\"$host\"})",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Request Count",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 5,
-        "y": 0
-      },
-      "id": 14,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "sum by (host) (traefik.router.requests.total_count{host=~\"$host\",code=~\"4.*|5.*\"})",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Errored Requests",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "percentunit",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 9,
-        "y": 0
-      },
-      "id": 17,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "(sum by (host) (traefik.router.requests.total_count{host=~\"$host\", code=~\"4.*|5.*\"})) / (sum by (host) (traefik.router.requests.total_count{host=~\"$host\"}))",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Error Rate",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "requests/min",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 13,
-        "y": 0
-      },
-      "id": 15,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "sum by (host) (sum_over_time(traefik.router.requests.total_count{host=~\"$host\"}[1m]))",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Request Rate",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "requests/min",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 19,
-        "y": 0
-      },
-      "id": 16,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "sum by (host) (sum_over_time(traefik.router.requests.total_count{host=~\"$host\",code=~\"4.*|5.*\"}[1m]))",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Errored Request Rate",
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 5
-      },
-      "id": 21,
-      "panels": [],
-      "title": "Origin Health",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
-            "fillOpacity": 70,
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "lineWidth": 0.7
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
-              },
-              {
                 "color": "green",
-                "value": 1
+                "value": null
               }
             ]
           },
-          "unitScale": true
+          "unit": "reqps"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 10,
-        "w": 19,
+        "w": 8,
         "x": 0,
-        "y": 6
+        "y": 0
       },
-      "id": 19,
+      "id": 15,
       "options": {
-        "colWidth": 1,
         "legend": {
-          "displayMode": "list",
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
-        "rowHeight": 0.9,
-        "showValue": "auto",
         "tooltip": {
-          "mode": "single",
+          "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -431,14 +118,14 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "traefik.service.server.up_value{host=~\"$host\"}",
-          "legendFormat": "{{host}} - {{url}}",
+          "expr": "sum by (service,host) (rate(traefik.router.requests.total_count{host=~\"$host\"}[1m]))",
+          "legendFormat": "{{service}} - {{host}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Origin Health",
-      "type": "status-history"
+      "title": "Request Rate",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -448,50 +135,80 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
-              },
-              {
                 "color": "green",
-                "value": 1
+                "value": null
               }
             ]
           },
-          "unitScale": true
+          "unit": "reqps"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 10,
-        "w": 5,
-        "x": 19,
-        "y": 6
+        "w": 8,
+        "x": 8,
+        "y": 0
       },
-      "id": 24,
+      "id": 16,
       "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
+            "min",
+            "max",
             "mean"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -499,14 +216,267 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "traefik.service.server.up_value{host=~\"$host\"}",
-          "legendFormat": "{{host}} - {{url}}",
+          "expr": "sum by (service,host) (rate(traefik.router.requests.total_count{host=~\"$host\",code=~\"4.*|5.*\"}[1m]))",
+          "legendFormat": "{{service}} - {{host}}",
           "range": true,
           "refId": "A"
         }
       ],
+      "title": "Errored Request Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "(sum by (service,host) (increase(traefik.router.requests.total_count{host=~\"$host\", code=~\"4.*|5.*\"}))) / (sum by (service,host) (increase(traefik.router.requests.total_count{host=~\"$host\"})))",
+          "legendFormat": "{{service}} - {{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Error Rate",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 21,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "fillOpacity": 70,
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 0.7
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red"
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 19,
+            "x": 0,
+            "y": 8
+          },
+          "id": 19,
+          "options": {
+            "colWidth": 1,
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "rowHeight": 0.9,
+            "showValue": "auto",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.4.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+              "legendFormat": "{{service}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Origin Health",
+          "type": "status-history"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red"
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 5,
+            "x": 19,
+            "y": 8
+          },
+          "id": 24,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.4.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+              "legendFormat": "{{service}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Origin Health",
+          "type": "stat"
+        }
+      ],
       "title": "Origin Health",
-      "type": "stat"
+      "type": "row"
     },
     {
       "collapsed": false,
@@ -514,7 +484,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 11
       },
       "id": 23,
       "panels": [],
@@ -538,8 +508,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -547,7 +516,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 17
+        "y": 12
       },
       "id": 2,
       "options": {
@@ -588,7 +557,6 @@
         }
       ],
       "title": "Top 20 Endpoints",
-      "transformations": [],
       "type": "piechart"
     },
     {
@@ -608,8 +576,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -617,7 +584,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 17
+        "y": 12
       },
       "id": 3,
       "options": {
@@ -659,7 +626,6 @@
         }
       ],
       "title": "Top 20 Clients",
-      "transformations": [],
       "type": "piechart"
     },
     {
@@ -679,8 +645,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -688,7 +653,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 17
+        "y": 12
       },
       "id": 7,
       "options": {
@@ -722,14 +687,13 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum by (code) (traefik.router.requests.total_count{host=\"$host\"})",
+          "expr": "sum by (code) (traefik.router.requests.total_count{host=~\"$host\"})",
           "legendFormat": "{{code}}",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "Status Codes",
-      "transformations": [],
       "type": "piechart"
     },
     {
@@ -788,7 +752,7 @@
               }
             ]
           },
-          "unitScale": true
+          "unit": "reqps"
         },
         "overrides": []
       },
@@ -796,13 +760,17 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 20
       },
       "id": 5,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
         },
@@ -818,7 +786,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~`.*access.json.*`,host=~\"$host.*\"} | logfmt [1m])) by (RequestHost)",
+          "expr": "sum(rate({path=~`.*access.json.*`,host=~\"$host.*\"} | logfmt [1m])) by (RequestHost)",
           "legendFormat": "{{RequestHost}}",
           "queryType": "range",
           "refId": "A"
@@ -883,7 +851,7 @@
               }
             ]
           },
-          "unitScale": true
+          "unit": "reqps"
         },
         "overrides": []
       },
@@ -891,14 +859,15 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 25
+        "y": 20
       },
       "id": 6,
       "options": {
         "legend": {
           "calcs": [
-            "sum",
-            "max"
+            "min",
+            "max",
+            "mean"
           ],
           "displayMode": "table",
           "placement": "right",
@@ -916,8 +885,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum by (code) (traefik.router.requests.total_count{host=\"$host\"})",
-          "legendFormat": "{{code}}",
+          "expr": "sum(rate(traefik.router.requests.total_count{host=~\"$host\"})) by (service,code)",
+          "legendFormat": "{{service}} - {{code}}",
           "range": true,
           "refId": "A"
         }
@@ -934,7 +903,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 30
       },
       "id": 9,
       "options": {
@@ -954,7 +923,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~`.*access.json.*`,host=~\"$host.*\"} | logfmt",
+          "expr": "{path=~`.*access.json.*`,host=~\"$host\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -971,7 +940,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 30
       },
       "id": 10,
       "options": {
@@ -991,7 +960,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~`.*access.json.*`,host=~\"$host.*\"} | logfmt | DownstreamStatus >= 400",
+          "expr": "{path=~`.*access.json.*`,host=~\"$host\"} | logfmt | DownstreamStatus =~ `4.*|5.*`",
           "queryType": "range",
           "refId": "A"
         }
@@ -1043,22 +1012,27 @@
       {
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(traefik.router.requests.total_count,host)",
+        "definition": "label_values(traefik.router.requests.bytes.total_count,host)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "host",
         "options": [],
         "query": {
-          "query": "label_values(traefik.router.requests.total_count,host)",
-          "refId": "StandardVariableQuery"
+          "qryType": 1,
+          "query": "label_values(traefik.router.requests.bytes.total_count,host)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -1076,6 +1050,6 @@
   "timezone": "",
   "title": "Traefik - InfluxDB",
   "uid": "UZdtIsRVz",
-  "version": 9,
+  "version": 3,
   "weekStart": ""
 }
