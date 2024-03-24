@@ -31,7 +31,7 @@
     - /opt/shift-mon/grafana-config/provisioning/alerting
     - /opt/shift-mon/grafana-config/provisioning/notifiers
     - /opt/shift-mon/grafana
-    - /opt/shift-mon/redis
+    - /opt/shift-mon/keydb
 
 - name: Create Grafana Oncall directories
   ansible.builtin.file:

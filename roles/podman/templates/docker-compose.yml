@@ -135,6 +135,8 @@ services:
       interval: "30s"
       timeout: "10s"
       retries: 5
+    ports:
+     - "127.0.0.1:9093:9093"
 {% if uptime_kuma_enabled %}
   uptime-kuma:
     image: docker.io/louislam/uptime-kuma:1
@@ -145,13 +147,13 @@ services:
         target: /app/data
 {% endif %}
   redis:
-    image: docker.io/redis:latest
+    image: docker.io/eqalpha/keydb:latest
     restart: always
     expose:
       - 6379
     volumes:
       - type: bind
-        source: /opt/shift-mon/redis
+        source: /opt/shift-mon/keydb
         target: /data
     deploy:
       resources:
