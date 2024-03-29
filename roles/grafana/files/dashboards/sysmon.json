@@ -1,0 +1,4023 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 73,
+    "links": [],
+    "panels": [
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 11,
+        "panels": [],
+        "title": "All Sysmon Events",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "P53E94FA6B1E28789"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "Value #A",
+                    "Network connection detected (rule: NetworkConnect)"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 10,
+          "x": 0,
+          "y": 1
+        },
+        "id": 3,
+        "options": {
+          "displayLabels": [],
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "values": [
+              "percent",
+              "value"
+            ]
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "10.4.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "editorMode": "builder",
+            "expr": "sum by(TaskText) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt [$__range]))",
+            "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+            "queryType": "instant",
+            "refId": "A"
+          }
+        ],
+        "title": "Sysmon Events by Type",
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "P53E94FA6B1E28789"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "bars",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "stepAfter",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 14,
+          "x": 10,
+          "y": 1
+        },
+        "id": 5,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true,
+            "sortBy": "Max",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "multi",
+            "sort": "desc"
+          }
+        },
+        "pluginVersion": "10.4.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "editorMode": "builder",
+            "expr": "sum by(TaskText) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt [1m]))",
+            "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+            "legendFormat": "{{TaskText}}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Sysmon Events",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${logs}"
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 9,
+        "options": {
+          "dedupStrategy": "none",
+          "enableLogDetails": true,
+          "prettifyLogMessage": false,
+          "showCommonLabels": false,
+          "showLabels": false,
+          "showTime": false,
+          "sortOrder": "Descending",
+          "wrapLogMessage": false
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${logs}"
+            },
+            "editorMode": "builder",
+            "expr": "{Channel=\"Microsoft-Windows-Sysmon/Operational\", host=\"$host\"} | logfmt",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "All Sysmon Logs",
+        "type": "logs"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 18
+        },
+        "id": 15,
+        "panels": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "cellOptions": {
+                    "type": "auto"
+                  },
+                  "filterable": true,
+                  "inspect": false
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Time"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 167
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_ProcessId"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 121
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_EventType"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 126
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 19
+            },
+            "id": 18,
+            "options": {
+              "cellHeight": "sm",
+              "footer": {
+                "countRows": false,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "Time"
+                }
+              ]
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "{Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `13`",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Registry Events",
+            "transformations": [
+              {
+                "id": "extractFields",
+                "options": {
+                  "keepTime": false,
+                  "replace": false,
+                  "source": "labels"
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {
+                    "Channel": true,
+                    "Data_UtcTime": true,
+                    "EventID": true,
+                    "EventRecordID": true,
+                    "Keywords": true,
+                    "Level": true,
+                    "LevelText": true,
+                    "Line": true,
+                    "Message": true,
+                    "OpcodeText": true,
+                    "ProcessName": true,
+                    "Source": true,
+                    "Task": true,
+                    "TaskText": true,
+                    "TimeCreated": true,
+                    "UserID": true,
+                    "UserName": true,
+                    "Version": true,
+                    "__name": true,
+                    "host": true,
+                    "id": true,
+                    "labels": true,
+                    "tsNs": true
+                  },
+                  "includeByName": {},
+                  "indexByName": {
+                    "Channel": 14,
+                    "Computer": 1,
+                    "Data_Details": 3,
+                    "Data_EventType": 4,
+                    "Data_Image": 5,
+                    "Data_ProcessGuid": 8,
+                    "Data_ProcessId": 2,
+                    "Data_RuleName": 6,
+                    "Data_TargetObject": 7,
+                    "Data_User": 9,
+                    "Data_UtcTime": 15,
+                    "EventID": 16,
+                    "EventRecordID": 17,
+                    "Keywords": 18,
+                    "Level": 19,
+                    "LevelText": 20,
+                    "Line": 11,
+                    "Message": 21,
+                    "OpcodeText": 22,
+                    "ProcessName": 23,
+                    "Source": 24,
+                    "Task": 25,
+                    "TaskText": 26,
+                    "Time": 0,
+                    "TimeCreated": 27,
+                    "UserID": 28,
+                    "UserName": 29,
+                    "Version": 30,
+                    "__name": 31,
+                    "host": 32,
+                    "id": 13,
+                    "labels": 10,
+                    "tsNs": 12
+                  },
+                  "renameByName": {}
+                }
+              }
+            ],
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 24,
+              "x": 0,
+              "y": 27
+            },
+            "id": 35,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Message) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `13` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Regitry Changes Per Process",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 34
+            },
+            "id": 8,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `13` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "Registry Changes per Image",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 34
+            },
+            "id": 17,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `13` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "Registry Changes per Image",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 43
+            },
+            "id": 1,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `13` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Regitry Changes Per Process",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 43
+            },
+            "id": 20,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `13` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Regitry Changes Per Process",
+            "type": "timeseries"
+          }
+        ],
+        "title": "Registry Events",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 19
+        },
+        "id": 14,
+        "panels": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "cellOptions": {
+                    "type": "auto"
+                  },
+                  "filterable": true,
+                  "inspect": false
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Time"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 172
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_ProcessId"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 140
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Computer"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 137
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_QueryStatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 160
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_Image"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 335
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_RuleName"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 206
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_User"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 222
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_ProcessGuid"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 479
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_TargetFilename"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 270
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 20
+            },
+            "id": 6,
+            "options": {
+              "cellHeight": "sm",
+              "footer": {
+                "countRows": false,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "Time"
+                }
+              ]
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "{Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `11|2|15|23|26`",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "File Events",
+            "transformations": [
+              {
+                "id": "extractFields",
+                "options": {
+                  "source": "labels"
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {
+                    "Channel": true,
+                    "Data_CreationUtcTime": true,
+                    "Data_UtcTime": true,
+                    "EventID": true,
+                    "EventRecordID": true,
+                    "Keywords": true,
+                    "Level": true,
+                    "LevelText": true,
+                    "Line": true,
+                    "Message": true,
+                    "OpcodeText": true,
+                    "ProcessName": true,
+                    "Source": true,
+                    "Task": true,
+                    "TaskText": true,
+                    "TimeCreated": true,
+                    "UserID": true,
+                    "UserName": true,
+                    "Version": true,
+                    "__name": true,
+                    "host": true,
+                    "id": true,
+                    "labels": true,
+                    "tsNs": true
+                  },
+                  "includeByName": {},
+                  "indexByName": {
+                    "Channel": 12,
+                    "Computer": 1,
+                    "Data_CreationUtcTime": 13,
+                    "Data_Image": 4,
+                    "Data_ProcessGuid": 7,
+                    "Data_ProcessId": 2,
+                    "Data_RuleName": 6,
+                    "Data_TargetFilename": 5,
+                    "Data_User": 3,
+                    "Data_UtcTime": 14,
+                    "EventID": 15,
+                    "EventRecordID": 16,
+                    "Keywords": 17,
+                    "Level": 18,
+                    "LevelText": 19,
+                    "Line": 9,
+                    "Message": 20,
+                    "OpcodeText": 21,
+                    "ProcessName": 22,
+                    "Source": 23,
+                    "Task": 24,
+                    "TaskText": 25,
+                    "Time": 0,
+                    "TimeCreated": 26,
+                    "UserID": 27,
+                    "UserName": 28,
+                    "Version": 29,
+                    "__name": 30,
+                    "host": 31,
+                    "id": 11,
+                    "labels": 8,
+                    "tsNs": 10
+                  },
+                  "renameByName": {}
+                }
+              }
+            ],
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 24,
+              "x": 0,
+              "y": 29
+            },
+            "id": 34,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "desc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Message) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `11|2|15|23|26` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "File events over time",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 35
+            },
+            "id": 16,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "code",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `11|2|15|23|26` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "File Events by Process",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 6,
+              "x": 12,
+              "y": 35
+            },
+            "id": 23,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "code",
+                "expr": "sum by(Data_RuleName) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `11|2|15|23|26` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "File Events by Rule",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 6,
+              "x": 18,
+              "y": 35
+            },
+            "id": 24,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "code",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `11|2|15|23|26` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "File Events by User",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 44
+            },
+            "id": 25,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "desc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `11|2|15|23|26` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "File event By Image",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 44
+            },
+            "id": 27,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `11|2|15|23|26` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "File Events by User",
+            "type": "timeseries"
+          }
+        ],
+        "title": "File Events",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 20
+        },
+        "id": 7,
+        "panels": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "cellOptions": {
+                    "type": "auto"
+                  },
+                  "filterable": true,
+                  "inspect": false
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Time"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 172
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_ProcessId"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 140
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Computer"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 137
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_QueryStatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 160
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_Image"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 335
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_RuleName"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 206
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_User"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 222
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_ProcessGuid"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 479
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_TargetFilename"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 270
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 21
+            },
+            "id": 28,
+            "options": {
+              "cellHeight": "sm",
+              "footer": {
+                "countRows": false,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "Time"
+                }
+              ]
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "{Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `1|5`",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Process Events",
+            "transformations": [
+              {
+                "id": "extractFields",
+                "options": {
+                  "source": "labels"
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {
+                    "Channel": true,
+                    "Data_RuleName": true,
+                    "Data_UtcTime": true,
+                    "EventID": true,
+                    "EventRecordID": true,
+                    "Keywords": true,
+                    "Level": true,
+                    "LevelText": true,
+                    "Line": true,
+                    "Message": true,
+                    "OpcodeText": true,
+                    "ProcessName": true,
+                    "Source": true,
+                    "Task": true,
+                    "TimeCreated": true,
+                    "UserID": true,
+                    "UserName": true,
+                    "Version": true,
+                    "__name": true,
+                    "host": true,
+                    "id": true,
+                    "labels": true,
+                    "tsNs": true
+                  },
+                  "includeByName": {},
+                  "indexByName": {
+                    "Channel": 12,
+                    "Computer": 1,
+                    "Data_CommandLine": 30,
+                    "Data_Company": 31,
+                    "Data_CurrentDirectory": 32,
+                    "Data_Description": 33,
+                    "Data_FileVersion": 34,
+                    "Data_Hashes": 35,
+                    "Data_Image": 3,
+                    "Data_IntegrityLevel": 36,
+                    "Data_LogonGuid": 37,
+                    "Data_LogonId": 38,
+                    "Data_OriginalFileName": 39,
+                    "Data_ParentCommandLine": 40,
+                    "Data_ParentImage": 41,
+                    "Data_ParentProcessGuid": 42,
+                    "Data_ParentProcessId": 43,
+                    "Data_ParentUser": 44,
+                    "Data_ProcessGuid": 6,
+                    "Data_ProcessId": 2,
+                    "Data_Product": 45,
+                    "Data_RuleName": 13,
+                    "Data_TerminalSessionId": 46,
+                    "Data_User": 4,
+                    "Data_UtcTime": 14,
+                    "EventID": 15,
+                    "EventRecordID": 16,
+                    "Keywords": 17,
+                    "Level": 18,
+                    "LevelText": 19,
+                    "Line": 9,
+                    "Message": 7,
+                    "OpcodeText": 20,
+                    "ProcessName": 23,
+                    "Source": 21,
+                    "Task": 22,
+                    "TaskText": 5,
+                    "Time": 0,
+                    "TimeCreated": 24,
+                    "UserID": 25,
+                    "UserName": 26,
+                    "Version": 27,
+                    "__name": 28,
+                    "host": 29,
+                    "id": 11,
+                    "labels": 8,
+                    "tsNs": 10
+                  },
+                  "renameByName": {}
+                }
+              }
+            ],
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 24,
+              "x": 0,
+              "y": 30
+            },
+            "id": 33,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "desc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Message) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `1|5` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Process Events by User",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 36
+            },
+            "id": 29,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "code",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `1|5` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "Process Events by User",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 36
+            },
+            "id": 30,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "code",
+                "expr": "sum by(Data_CurrentDirectory) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `1|5` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "Process Events by Starting Directory",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 45
+            },
+            "id": 31,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "desc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `1|5` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Process Events by User",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 45
+            },
+            "id": 32,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "desc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_CurrentDirectory) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task =~ `1|5` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Process Events by Starting Directory",
+            "type": "timeseries"
+          }
+        ],
+        "title": "Process Events",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 21
+        },
+        "id": 13,
+        "panels": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "cellOptions": {
+                    "type": "auto"
+                  },
+                  "filterable": true,
+                  "inspect": false
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Time"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 187
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_ProcessId"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 140
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Computer"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 137
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_QueryStatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 160
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_Image"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 335
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_DestinationIsIpv6"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 198
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_DestinationPort"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 177
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 22
+            },
+            "id": 21,
+            "options": {
+              "cellHeight": "sm",
+              "footer": {
+                "countRows": false,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "Time"
+                }
+              ]
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "{Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3`",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Connection Logs",
+            "transformations": [
+              {
+                "id": "extractFields",
+                "options": {
+                  "source": "labels"
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {
+                    "Channel": true,
+                    "Data_SourceHostname": true,
+                    "Data_SourcePortName": true,
+                    "Data_UtcTime": true,
+                    "EventID": true,
+                    "EventRecordID": true,
+                    "Keywords": true,
+                    "Level": true,
+                    "LevelText": true,
+                    "Line": true,
+                    "Message": true,
+                    "OpcodeText": true,
+                    "ProcessName": true,
+                    "Source": true,
+                    "Task": true,
+                    "TaskText": true,
+                    "TimeCreated": true,
+                    "UserID": true,
+                    "UserName": true,
+                    "Version": true,
+                    "__name": true,
+                    "host": true,
+                    "id": true,
+                    "labels": true,
+                    "tsNs": true
+                  },
+                  "includeByName": {},
+                  "indexByName": {
+                    "Channel": 21,
+                    "Computer": 1,
+                    "Data_DestinationHostname": 4,
+                    "Data_DestinationIp": 5,
+                    "Data_DestinationIsIpv6": 15,
+                    "Data_DestinationPort": 6,
+                    "Data_DestinationPortName": 7,
+                    "Data_Image": 9,
+                    "Data_Initiated": 10,
+                    "Data_ProcessGuid": 16,
+                    "Data_ProcessId": 3,
+                    "Data_Protocol": 8,
+                    "Data_RuleName": 11,
+                    "Data_SourceHostname": 23,
+                    "Data_SourceIp": 13,
+                    "Data_SourceIsIpv6": 14,
+                    "Data_SourcePort": 12,
+                    "Data_SourcePortName": 22,
+                    "Data_User": 2,
+                    "Data_UtcTime": 24,
+                    "EventID": 25,
+                    "EventRecordID": 26,
+                    "Keywords": 27,
+                    "Level": 28,
+                    "LevelText": 29,
+                    "Line": 18,
+                    "Message": 30,
+                    "OpcodeText": 31,
+                    "ProcessName": 32,
+                    "Source": 33,
+                    "Task": 34,
+                    "TaskText": 35,
+                    "Time": 0,
+                    "TimeCreated": 36,
+                    "UserID": 37,
+                    "UserName": 38,
+                    "Version": 39,
+                    "__name": 40,
+                    "host": 41,
+                    "id": 20,
+                    "labels": 17,
+                    "tsNs": 19
+                  },
+                  "renameByName": {}
+                }
+              }
+            ],
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 24,
+              "x": 0,
+              "y": 31
+            },
+            "id": 26,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Message) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Connections Over Time",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 6,
+              "x": 0,
+              "y": 37
+            },
+            "id": 22,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Connections by User",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 6,
+              "x": 6,
+              "y": 37
+            },
+            "id": 41,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_DestinationPort) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Connections by Port",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 37
+            },
+            "id": 40,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Events By Image",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 0,
+              "y": 46
+            },
+            "id": 42,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_User) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Connections Over Time",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 8,
+              "y": 46
+            },
+            "id": 44,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_DestinationPort) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Connections By Port",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 16,
+              "y": 46
+            },
+            "id": 43,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `3` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "Network Connections By Image",
+            "type": "timeseries"
+          }
+        ],
+        "title": "Network Events",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 22
+        },
+        "id": 12,
+        "panels": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "cellOptions": {
+                    "type": "auto"
+                  },
+                  "filterable": true,
+                  "inspect": false
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Time"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 187
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_ProcessId"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 140
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Computer"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 137
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_QueryStatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 160
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Data_Image"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 335
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 23
+            },
+            "id": 37,
+            "options": {
+              "cellHeight": "sm",
+              "footer": {
+                "countRows": false,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "Time"
+                }
+              ]
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "{Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `22`",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "DNS Lookups by Domain",
+            "transformations": [
+              {
+                "id": "extractFields",
+                "options": {
+                  "source": "labels"
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {
+                    "Channel": true,
+                    "Data_RuleName": true,
+                    "Data_User": false,
+                    "Data_UtcTime": true,
+                    "EventID": true,
+                    "EventRecordID": true,
+                    "Keywords": true,
+                    "Level": true,
+                    "LevelText": true,
+                    "Line": true,
+                    "Message": true,
+                    "OpcodeText": true,
+                    "ProcessName": true,
+                    "Source": true,
+                    "Task": true,
+                    "TaskText": true,
+                    "TimeCreated": true,
+                    "UserID": true,
+                    "UserName": true,
+                    "Version": true,
+                    "__name": true,
+                    "host": true,
+                    "id": true,
+                    "labels": true,
+                    "tsNs": true
+                  },
+                  "includeByName": {},
+                  "indexByName": {
+                    "Channel": 13,
+                    "Computer": 1,
+                    "Data_Image": 4,
+                    "Data_ProcessGuid": 8,
+                    "Data_ProcessId": 3,
+                    "Data_QueryName": 5,
+                    "Data_QueryResults": 6,
+                    "Data_QueryStatus": 7,
+                    "Data_RuleName": 14,
+                    "Data_User": 2,
+                    "Data_UtcTime": 15,
+                    "EventID": 16,
+                    "EventRecordID": 17,
+                    "Keywords": 18,
+                    "Level": 19,
+                    "LevelText": 20,
+                    "Line": 10,
+                    "Message": 21,
+                    "OpcodeText": 22,
+                    "ProcessName": 23,
+                    "Source": 24,
+                    "Task": 25,
+                    "TaskText": 26,
+                    "Time": 0,
+                    "TimeCreated": 27,
+                    "UserID": 28,
+                    "UserName": 29,
+                    "Version": 30,
+                    "__name": 31,
+                    "host": 32,
+                    "id": 12,
+                    "labels": 9,
+                    "tsNs": 11
+                  },
+                  "renameByName": {}
+                }
+              }
+            ],
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 24,
+              "x": 0,
+              "y": 32
+            },
+            "id": 38,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Message) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `22` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "DNS Lookups by Domain",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 13,
+              "x": 0,
+              "y": 38
+            },
+            "id": 39,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_QueryName) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `22` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "DNS Lookups by Domain",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 11,
+              "x": 13,
+              "y": 38
+            },
+            "id": 4,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "values": [
+                  "percent",
+                  "value"
+                ]
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `22` [$__range]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "queryType": "instant",
+                "refId": "A"
+              }
+            ],
+            "title": "DNS Lookups by Image",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 13,
+              "x": 0,
+              "y": 47
+            },
+            "id": 36,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_QueryName) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `22` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "DNS Lookups by Domain",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "P53E94FA6B1E28789"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "bars",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "stepAfter",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 11,
+              "x": 13,
+              "y": 47
+            },
+            "id": 10,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "max"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": true,
+                "sortBy": "Max",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "asc"
+              }
+            },
+            "pluginVersion": "10.4.1",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "loki",
+                  "uid": "P53E94FA6B1E28789"
+                },
+                "editorMode": "builder",
+                "expr": "sum by(Data_Image) (count_over_time({Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt | Task = `22` [1m]))",
+                "key": "Q-49ffbdd3-3087-4f1f-ae64-3f4ca2094b03-0",
+                "legendFormat": "{{Data_QueryName}}",
+                "queryType": "range",
+                "refId": "A"
+              }
+            ],
+            "title": "DNS Lookups by Image",
+            "type": "timeseries"
+          }
+        ],
+        "title": "DNS Events",
+        "type": "row"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "shift-logs",
+            "value": "P53E94FA6B1E28789"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "logs",
+          "options": [],
+          "query": "loki",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "definition": "",
+          "hide": 0,
+          "includeAll": true,
+          "multi": true,
+          "name": "host",
+          "options": [],
+          "query": {
+            "label": "host",
+            "refId": "LokiVariableQueryEditor-VariableQuery",
+            "stream": "{Channel=`Microsoft-Windows-Sysmon/Operational`}",
+            "type": 1
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "Sysmon",
+    "uid": "ddgokuueouadce",
+    "version": 16,
+    "weekStart": ""
+  }
