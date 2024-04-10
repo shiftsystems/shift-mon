@@ -52,7 +52,7 @@ schema_config:
         period: 24h
 {% endif %}
 {% if loki.tsdb_13_date is defined %}
-    - from: {{ loki.tsdb_date }}
+    - from: {{ loki.tsdb_13_date }}
       store: tsdb
       object_store: filesystem
       schema: v13
