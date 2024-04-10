@@ -11,7 +11,7 @@
     dest: /etc/rsyslog.d/50-shiftmon.conf
     mode: "644"
   become: true
-  notify: Restart Rsyslog
+  notify: Restart Syslog
 
 - name: Add metrics server
   ansible.builtin.blockinfile:

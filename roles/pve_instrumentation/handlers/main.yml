@@ -1,4 +1,4 @@
-- name: Restart Rsyslog
+- name: Restart Syslog
   ansible.builtin.systemd:
     name: rsyslog
     state: restarted
