@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 70,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -359,7 +358,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -374,7 +374,7 @@
             "h": 10,
             "w": 19,
             "x": 0,
-            "y": 8
+            "y": 11
           },
           "id": 19,
           "options": {
@@ -399,7 +399,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+              "expr": "traefik_service_server_up_gauge{host=~\"$host\"}",
               "legendFormat": "{{service}}",
               "range": true,
               "refId": "A"
@@ -423,7 +423,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -438,7 +439,7 @@
             "h": 10,
             "w": 5,
             "x": 19,
-            "y": 8
+            "y": 11
           },
           "id": 24,
           "options": {
@@ -457,7 +458,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.0",
+          "pluginVersion": "10.4.2",
           "targets": [
             {
               "datasource": {
@@ -465,7 +466,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+              "expr": "traefik_service_server_up_gauge{host=~\"$host\"}",
               "legendFormat": "{{service}}",
               "range": true,
               "refId": "A"
@@ -1050,6 +1051,6 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "NYgtqsRVz",
-  "version": 5,
+  "version": 2,
   "weekStart": ""
 }
