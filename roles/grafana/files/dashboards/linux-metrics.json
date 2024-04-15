@@ -314,6 +314,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -334,8 +335,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
+        "h": 4,
+        "w": 8,
         "x": 16,
         "y": 0
       },
@@ -352,7 +353,7 @@
           "show": false
         },
         "frameIndex": 0,
-        "showHeader": false
+        "showHeader": true
       },
       "pluginVersion": "10.4.2",
       "targets": [
@@ -362,57 +363,48 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{__name=\"exec_os_release\",host=~\"$host\"} | logfmt | pattern `NAME=<OS>` | pattern `Version=<Version>`",
-          "queryType": "range",
+          "expr": "count by(host, VERSION) (rate({__name=\"exec_os_release\",host=~\"$host\"} |~ `VERSION` | logfmt | pattern `Version=<Version>` [$__auto]))",
+          "queryType": "instant",
           "refId": "A",
           "resolution": 1
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "count by(host, NAME) (rate({__name=\"exec_os_release\",host=~\"$host\"} |~ `NAME` | logfmt | pattern `NAME=<OS>` [$__auto]))",
+          "hide": false,
+          "queryType": "instant",
+          "refId": "B"
         }
       ],
       "title": "OS Version",
       "transformations": [
         {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Line": true,
-              "Line (allValues)": true,
-              "OS": true,
               "Time": true,
-              "__name": true,
-              "host": true,
-              "id": true,
-              "labels": true,
-              "tsNs": true
+              "VERSION": false,
+              "Value #A": true,
+              "Value #B": true
             },
+            "includeByName": {},
             "indexByName": {
-              "Line": 4,
-              "NAME": 0,
-              "OS": 9,
+              "NAME": 1,
               "Time": 3,
-              "VERSION": 1,
-              "__name": 7,
-              "host": 8,
-              "id": 6,
-              "labels": 2,
-              "tsNs": 5
+              "VERSION": 2,
+              "Value #A": 4,
+              "Value #B": 5,
+              "host": 0
             },
             "renameByName": {}
-          }
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "mode": "seriesToRows",
-            "reducers": [
-              "lastNotNull"
-            ]
           }
         }
       ],
@@ -453,10 +445,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 20,
-        "y": 0
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 4
       },
       "id": 27,
       "options": {
@@ -501,7 +493,9 @@
         },
         {
           "id": "labelsToFields",
-          "options": {}
+          "options": {
+            "mode": "columns"
+          }
         },
         {
           "id": "merge",
@@ -511,29 +505,31 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "__name__": true,
               "active": true,
               "active_code": true,
               "db": true,
               "eren": true,
               "erwin": true,
-              "host": true,
+              "host": false,
               "id": true,
               "load": true,
               "load_code": true,
               "sasha.local.mathiasp.me": true,
               "sub": true,
-              "sub_code": true
+              "sub_code": true,
+              "systemd_units_active_code": true
             },
+            "includeByName": {},
             "indexByName": {
-              "active": 1,
-              "active_code": 3,
-              "id": 8,
-              "load": 4,
-              "load_code": 5,
+              "__name__": 6,
+              "active": 2,
+              "db": 7,
+              "host": 1,
+              "load": 3,
               "name": 0,
-              "sasha.local.mathiasp.me": 7,
-              "sub": 6,
-              "sub_code": 2
+              "sub": 4,
+              "systemd_units_active_code": 5
             },
             "renameByName": {}
           }
@@ -807,10 +803,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 7,
         "w": 8,
         "x": 16,
-        "y": 5
+        "y": 8
       },
       "id": 6,
       "options": {
@@ -3433,8 +3429,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3561,8 +3556,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3789,8 +3783,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3906,7 +3899,7 @@
       "type": "logs"
     }
   ],
-  "refresh": "5s",
+  "refresh": "30s",
   "revision": 1,
   "schemaVersion": 39,
   "tags": [
@@ -3952,14 +3945,12 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
-            "zoe.local.shiftsystems.net",
-            "armin.local.shiftsystems.net"
+            "All"
           ],
           "value": [
-            "zoe.local.shiftsystems.net",
-            "armin.local.shiftsystems.net"
+            "$__all"
           ]
         },
         "datasource": {
@@ -3983,7 +3974,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "nvme0"
           ],
@@ -4051,6 +4042,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 19,
+  "version": 21,
   "weekStart": ""
 }
