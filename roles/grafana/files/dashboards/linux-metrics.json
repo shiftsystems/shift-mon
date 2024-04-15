@@ -42,6 +42,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -120,6 +121,40 @@
                 "id": "custom.cellOptions",
                 "value": {
                   "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IOWait"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 5
+                    },
+                    {
+                      "color": "red",
+                      "value": 7
+                    }
+                  ]
                 }
               }
             ]
@@ -905,7 +940,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(net_bytes_recv{host=~\"$host\",db=\"linux\"})",
+          "expr": "deriv(net_bytes_recv{host=~\"$host\",db=\"linux\",interface!~\"veth.*\"})",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1004,7 +1039,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(net_bytes_sent{host=~\"$host\",db=\"linux\"})",
+          "expr": "deriv(net_bytes_sent{host=~\"$host\",db=\"linux\",interface!~`veth.*`})",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1147,8 +1182,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1323,8 +1357,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1528,8 +1561,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1633,8 +1665,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2419,8 +2450,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -2525,8 +2555,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2622,8 +2651,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2719,8 +2747,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2816,8 +2843,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2913,8 +2939,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3023,8 +3048,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3122,8 +3146,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3221,8 +3244,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3320,8 +3342,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3404,6 +3425,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -3531,6 +3553,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -3931,10 +3954,12 @@
         "current": {
           "selected": true,
           "text": [
-            "All"
+            "zoe.local.shiftsystems.net",
+            "armin.local.shiftsystems.net"
           ],
           "value": [
-            "$__all"
+            "zoe.local.shiftsystems.net",
+            "armin.local.shiftsystems.net"
           ]
         },
         "datasource": {
@@ -3958,9 +3983,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "nvme0",
-          "value": "nvme0"
+          "selected": true,
+          "text": [
+            "nvme0"
+          ],
+          "value": [
+            "nvme0"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -3986,9 +4015,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "AdGuardHome.service",
-          "value": "AdGuardHome.service"
+          "selected": false,
+          "text": "NetworkManager-dispatcher.service",
+          "value": "NetworkManager-dispatcher.service"
         },
         "datasource": {
           "type": "prometheus",
@@ -4018,11 +4047,10 @@
     "from": "now-24h",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 18,
+  "version": 19,
   "weekStart": ""
 }
