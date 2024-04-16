@@ -472,7 +472,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "systemd_units_active_code{db=\"linux\",host=~\"$host\",active=\"failed\"}",
+          "expr": "systemd_units_active_code{db=\"linux\",host=~\"$host\"} == 3",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -3429,7 +3429,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3556,7 +3557,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3565,7 +3567,182 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Active Status"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "index": 0,
+                        "text": "active"
+                      },
+                      "1": {
+                        "index": 1,
+                        "text": "reloading"
+                      },
+                      "2": {
+                        "index": 2,
+                        "text": "incative"
+                      },
+                      "3": {
+                        "index": 3,
+                        "text": "failed"
+                      },
+                      "4": {
+                        "index": 4,
+                        "text": "activating"
+                      },
+                      "5": {
+                        "index": 5,
+                        "text": "deactivating"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Load Status"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "index": 0,
+                        "text": "loaded"
+                      },
+                      "1": {
+                        "index": 1,
+                        "text": "stub"
+                      },
+                      "2": {
+                        "index": 2,
+                        "text": "not-found"
+                      },
+                      "3": {
+                        "index": 3,
+                        "text": "bad-setting"
+                      },
+                      "4": {
+                        "index": 4,
+                        "text": "error"
+                      },
+                      "5": {
+                        "index": 5,
+                        "text": "merged"
+                      },
+                      "6": {
+                        "index": 6,
+                        "text": "masked"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sub Status"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "index": 0,
+                        "text": "running"
+                      },
+                      "1": {
+                        "index": 1,
+                        "text": "dead"
+                      },
+                      "2": {
+                        "index": 2,
+                        "text": "start-pre"
+                      },
+                      "3": {
+                        "index": 3,
+                        "text": "start"
+                      },
+                      "4": {
+                        "index": 4,
+                        "text": "exited"
+                      },
+                      "5": {
+                        "index": 5,
+                        "text": "reload"
+                      },
+                      "6": {
+                        "index": 6,
+                        "text": "stop"
+                      },
+                      "7": {
+                        "index": 7,
+                        "text": "stop-watchdog"
+                      },
+                      "8": {
+                        "index": 8,
+                        "text": "stop-sigterm"
+                      },
+                      "9": {
+                        "index": 9,
+                        "text": "stop-sigkill"
+                      },
+                      "10": {
+                        "index": 10,
+                        "text": "stop-post"
+                      },
+                      "11": {
+                        "index": 11,
+                        "text": "final-sigterm"
+                      },
+                      "12": {
+                        "index": 12,
+                        "text": "failed"
+                      },
+                      "13": {
+                        "index": 13,
+                        "text": "auto-restart"
+                      },
+                      "14": {
+                        "index": 14,
+                        "text": "condition"
+                      },
+                      "15": {
+                        "index": 15,
+                        "text": "cleaning"
+                      },
+                      "16": {
+                        "index": 16,
+                        "text": "waiting"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
@@ -3584,7 +3761,13 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "host"
+          }
+        ]
       },
       "pluginVersion": "10.4.2",
       "targets": [
@@ -3594,32 +3777,48 @@
             "uid": "P84D368831E8B3638"
           },
           "editorMode": "code",
-          "exemplar": true,
+          "exemplar": false,
           "expr": "systemd_units_active_code{db=\"linux\",host=~\"$host\"}",
+          "format": "table",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
-          "range": true,
+          "range": false,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemd_units_load_code{db=\"linux\",host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemd_units_sub_code{db=\"linux\",host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
         }
       ],
       "title": "Services",
       "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "mode": "reduceFields",
-            "reducers": [
-              "lastNotNull"
-            ]
-          }
-        },
-        {
-          "id": "labelsToFields",
-          "options": {
-            "valueLabel": "host"
-          }
-        },
         {
           "id": "merge",
           "options": {}
@@ -3628,27 +3827,31 @@
           "id": "groupBy",
           "options": {
             "fields": {
-              "active": {
+              "Value #A": {
                 "aggregations": [
                   "lastNotNull"
                 ],
                 "operation": "aggregate"
+              },
+              "Value #B": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #C": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "host": {
+                "aggregations": [],
+                "operation": "groupby"
               },
               "name": {
                 "aggregations": [],
                 "operation": "groupby"
-              },
-              "sub": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "ts": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
               }
             }
           }
@@ -3656,43 +3859,16 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {
-              "active_code": true,
-              "historia.local.mathiasp.me": true,
-              "id": true,
-              "load": true,
-              "load_code": true,
-              "sasha.local.mathiasp.me": true,
-              "sub_code": true
-            },
-            "indexByName": {
-              "active": 1,
-              "active_code": 3,
-              "id": 8,
-              "load": 4,
-              "load_code": 5,
-              "name": 0,
-              "sasha.local.mathiasp.me": 7,
-              "sub": 6,
-              "sub_code": 2
-            },
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {},
             "renameByName": {
-              "active (lastNotNull)": "Status",
-              "name": "Name",
-              "sub (lastNotNull)": "Sub Status",
-              "ts (lastNotNull)": "Time"
+              "Value #A (lastNotNull)": "Active Status",
+              "Value #B (lastNotNull)": "Load Status",
+              "Value #C (lastNotNull)": "Sub Status",
+              "host": "",
+              "name": ""
             }
-          }
-        },
-        {
-          "id": "sortBy",
-          "options": {
-            "fields": {},
-            "sort": [
-              {
-                "field": "name"
-              }
-            ]
           }
         }
       ],
@@ -3783,7 +3959,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3945,7 +4122,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -3974,7 +4151,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "nvme0"
           ],
@@ -4007,8 +4184,8 @@
       {
         "current": {
           "selected": false,
-          "text": "NetworkManager-dispatcher.service",
-          "value": "NetworkManager-dispatcher.service"
+          "text": "NetworkManager.service",
+          "value": "NetworkManager.service"
         },
         "datasource": {
           "type": "prometheus",
@@ -4035,7 +4212,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},

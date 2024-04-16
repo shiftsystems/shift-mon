@@ -97,10 +97,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -161,10 +162,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -237,10 +239,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -305,10 +308,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -382,10 +386,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -446,10 +451,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -514,10 +520,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -579,10 +586,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -743,7 +751,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -886,7 +894,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "avg by (server) (http_response_response_time{result=\"success\"})",
+          "expr": "avg by (server) (http_response_response_time{})",
           "legendFormat": "{{server}} {{ name }}",
           "range": true,
           "refId": "A"
@@ -950,10 +958,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1014,10 +1023,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1082,10 +1092,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1147,10 +1158,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1314,7 +1326,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1521,10 +1533,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1585,10 +1598,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1650,10 +1664,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1718,10 +1733,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1896,7 +1912,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2110,10 +2126,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2174,10 +2191,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2239,10 +2257,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2251,7 +2270,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg(http_response_response_time{result=\"success\"})",
+          "expr": "avg(http_response_response_time{})",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -2307,10 +2326,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2474,7 +2494,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2749,7 +2769,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2922,7 +2942,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -3095,7 +3115,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -3166,6 +3186,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -3179,6 +3204,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -3191,6 +3221,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "erwin.local.shiftsystems.net",
+          "value": "erwin.local.shiftsystems.net"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
@@ -3214,13 +3249,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Blackbox",
   "uid": "AF-zl-Y4j",
-  "version": 11,
+  "version": 12,
   "weekStart": ""
 }
