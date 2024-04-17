@@ -47,15 +47,20 @@
         "type": "prometheus",
         "uid": "${metrics}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -64,440 +69,493 @@
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 8,
-        "x": 0,
-        "y": 0
-      },
-      "id": 15,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "100 - cpu_usage_idle{host=~\"$host\",db=\"linux\"}",
-          "interval": "",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Percent",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+                "color": "#EAB839",
+                "value": 70
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 90
               }
             ]
-          },
-          "unit": "percent",
-          "unitScale": true
+          }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 8,
-        "x": 8,
-        "y": 0
-      },
-      "id": 17,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "mem_used_percent{db=\"linux\",host=~\"$host\"}",
-          "interval": "",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Percent Memory",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory"
             },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+            "properties": [
               {
-                "color": "green",
-                "value": null
+                "id": "unit",
+                "value": "bytes"
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
-        },
-        "overrides": []
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uptime"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Usage"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IOWait"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 5
+                    },
+                    {
+                      "color": "red",
+                      "value": 7
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 5,
-        "w": 8,
-        "x": 16,
+        "h": 7,
+        "w": 24,
+        "x": 0,
         "y": 0
       },
-      "id": 19,
+      "id": 22,
       "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "min",
-            "max"
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
           ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
+          "show": false
         },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "IOWait"
+          }
+        ]
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
-            "uid": "${metrics}"
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
           },
           "editorMode": "code",
-          "exemplar": true,
-          "expr": "deriv(diskio_read_bytes{host=~\"$host\",db=\"linux\"} + diskio_read_bytes{host=~\"$host\",db=\"linux\"})",
-          "interval": "",
-          "legendFormat": "{{host}} - {{name}}",
-          "range": true,
+          "exemplar": false,
+          "expr": "avg by (host) (100 - cpu_usage_idle{host=~\"$host\",db=\"linux\"}[$__range])",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "A"
-        }
-      ],
-      "title": "Diskio",
-      "transformations": [],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "unitScale": true
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 0,
-        "y": 5
-      },
-      "id": 6,
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.1.0",
-      "targets": [
         {
           "datasource": {
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "docker_container_cpu_usage_percent{host=~\"$host\"}",
-          "interval": "",
-          "legendFormat": "{{host}} - {{container_name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "container CPU usage",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 8,
-        "y": 5
-      },
-      "id": 5,
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "docker_container_mem_usage_percent{host=~\"$host\"}",
-          "interval": "",
-          "legendFormat": "{{host}} - {{container_name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "container memory usage",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "unit": "bytes",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 16,
-        "y": 5
-      },
-      "id": 12,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
+            "type": "prometheus",
             "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(docker_container_blkio_io_service_bytes_recursive_read{host=~\"$host\"}[$__range]) + increase(docker_container_blkio_io_service_bytes_recursive_write{host=~\"$host\"}[$__range])",
+          "expr": "avg by (host) (mem_used_percent{db=\"linux\",host=~\"$host\"}[$__range])",
+          "format": "table",
+          "hide": false,
           "instant": true,
-          "interval": "",
-          "legendFormat": "{{container_name}} - {{ device }}",
+          "legendFormat": "__auto",
           "range": false,
-          "refId": "A"
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (host) (cpu_usage_iowait{host=~\"$host\",db=\"linux\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (system_uptime{host=~\"$host\",db=\"linux\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (system_n_cpus{host=~\"$host\",db=\"linux\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (mem_total{host=~\"$host\",db=\"linux\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
         }
       ],
-      "title": "DiskIO in Megabytes",
-      "type": "piechart"
+      "title": "Host Status",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "CPU Usage",
+              "Value #B": "Memory Usage",
+              "Value #C": "IOWait",
+              "Value #D": "Uptime",
+              "Value #E": "CPUs",
+              "Value #F": "Memory"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Usage"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Read"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Write"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 23,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum without (cpu) (docker_container_cpu_usage_percent{host=~\"$host\",container_name=~\"$container\"})",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "docker_container_mem_usage_percent{host=~\"$host\",container_name=~\"$container\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "increase(docker_container_blkio_io_service_bytes_recursive_read{host=~\"$host\",container_name=~\"$container\"}[$__range]) ",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "increase(docker_container_blkio_io_service_bytes_recursive_write{host=~\"$host\",container_name=~\"$container\"}[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        }
+      ],
+      "title": "Container Stats",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "PODMAN_SYSTEMD_UNIT": true,
+              "Time": true,
+              "__name__": true,
+              "container_image": true,
+              "cpu": true,
+              "db": true,
+              "device": true,
+              "engine_host": true,
+              "maintainer": true,
+              "repository": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "PODMAN_SYSTEMD_UNIT": 17,
+              "Time": 9,
+              "Value #A": 5,
+              "Value #B": 6,
+              "Value #C": 7,
+              "Value #D": 8,
+              "__name__": 10,
+              "container_image": 11,
+              "container_name": 0,
+              "container_status": 1,
+              "container_version": 2,
+              "cpu": 12,
+              "db": 13,
+              "device": 18,
+              "engine_host": 14,
+              "host": 3,
+              "maintainer": 15,
+              "repository": 16,
+              "server_version": 4
+            },
+            "renameByName": {
+              "Value #A": "CPU Usage",
+              "Value #B": "Memory Usage",
+              "Value #C": "Read",
+              "Value #D": "Write",
+              "Value #E": "CPUs",
+              "Value #F": "Memory"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -555,7 +613,7 @@
               }
             ]
           },
-          "unitScale": true
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -563,24 +621,25 @@
         "h": 9,
         "w": 8,
         "x": 0,
-        "y": 14
+        "y": 16
       },
       "id": 4,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
-            "mean",
             "min",
-            "max"
+            "max",
+            "mean"
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "pluginVersion": "8.1.0",
@@ -591,7 +650,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_cpu_usage_percent{host=~\"$host\"}",
+          "expr": "docker_container_cpu_usage_percent{host=~\"$host\",container_name=~\"$container\"}",
           "interval": "",
           "legendFormat": "{{host}} - {{container_name}}",
           "range": true,
@@ -659,8 +718,7 @@
               }
             ]
           },
-          "unit": "percent",
-          "unitScale": true
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -668,24 +726,25 @@
         "h": 9,
         "w": 8,
         "x": 8,
-        "y": 14
+        "y": 16
       },
       "id": 7,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
-            "mean",
             "min",
-            "max"
+            "max",
+            "mean"
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -695,7 +754,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "docker_container_mem_usage_percent{host=~\"$host\"}",
+          "expr": "docker_container_mem_usage_percent{host=~\"$host\",container_name=~\"$container\"}",
           "interval": "",
           "legendFormat": "{{host}} - {{container_name}}",
           "range": true,
@@ -757,8 +816,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -766,23 +824,26 @@
         "h": 9,
         "w": 8,
         "x": 16,
-        "y": 14
+        "y": 16
       },
       "id": 13,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
+            "min",
+            "max",
             "mean",
-            "max"
+            "sum"
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Total",
+          "sortDesc": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -792,7 +853,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(docker_container_blkio_io_service_bytes_recursive_read{host=~\"$host\"} + docker_container_blkio_io_service_bytes_recursive_write{host=~\"$host\"})",
+          "expr": "rate(docker_container_blkio_io_service_bytes_recursive_read{host=~\"$host\",container_name=~\"$container\"} + docker_container_blkio_io_service_bytes_recursive_write{host=~\"$host\",container_name=~\"$container\"})",
           "interval": "",
           "legendFormat": "{{host}} - {{container_name}}",
           "range": true,
@@ -854,8 +915,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -863,24 +923,25 @@
         "h": 8,
         "w": 16,
         "x": 0,
-        "y": 23
+        "y": 25
       },
       "id": 10,
       "options": {
         "legend": {
           "calcs": [
-            "mean",
-            "lastNotNull",
             "min",
-            "max"
+            "max",
+            "mean"
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -890,7 +951,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_tx_bytes{host=~\"$host\"})",
+          "expr": "deriv(docker_container_net_tx_bytes{host=~\"$host\",container_name=~\"$container\"})",
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
@@ -918,8 +979,7 @@
             }
           },
           "mappings": [],
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -927,7 +987,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 23
+        "y": 25
       },
       "id": 20,
       "options": {
@@ -959,7 +1019,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(docker_container_net_tx_bytes{host=~\"$host\"}[$__range])",
+          "expr": "increase(docker_container_net_tx_bytes{host=~\"$host\",container_name=~\"$container\"}[$__range])",
           "instant": true,
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
@@ -1023,8 +1083,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -1032,7 +1091,7 @@
         "h": 8,
         "w": 16,
         "x": 0,
-        "y": 31
+        "y": 33
       },
       "id": 21,
       "options": {
@@ -1048,8 +1107,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -1059,7 +1118,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_rx_bytes{host=~\"$host\"})",
+          "expr": "deriv(docker_container_net_rx_bytes{host=~\"$host\",container_name=~\"$container\"})",
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
@@ -1087,8 +1146,7 @@
             }
           },
           "mappings": [],
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -1096,7 +1154,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 31
+        "y": 33
       },
       "id": 9,
       "options": {
@@ -1128,7 +1186,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(docker_container_net_rx_bytes{host=~\"$host\"})",
+          "expr": "rate(docker_container_net_rx_bytes{host=~\"$host\",container_name=~\"$container\"})",
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
@@ -1180,6 +1238,15 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
@@ -1199,6 +1266,37 @@
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "definition": "label_values(docker_container_cpu_usage_percent{host=~\"$host\"},container_name)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "container",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(docker_container_cpu_usage_percent{host=~\"$host\"},container_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
@@ -1210,6 +1308,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 10,
+  "version": 12,
   "weekStart": ""
 }
