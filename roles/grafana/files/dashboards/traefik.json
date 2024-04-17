@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 70,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -46,8 +45,8 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -107,7 +106,7 @@
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "pluginVersion": "10.4.0",
@@ -144,8 +143,8 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -374,7 +373,7 @@
             "h": 10,
             "w": 19,
             "x": 0,
-            "y": 8
+            "y": 11
           },
           "id": 19,
           "options": {
@@ -399,7 +398,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+              "expr": "traefik_service_server_up_gauge{host=~\"$host\"}",
               "legendFormat": "{{service}}",
               "range": true,
               "refId": "A"
@@ -438,7 +437,7 @@
             "h": 10,
             "w": 5,
             "x": 19,
-            "y": 8
+            "y": 11
           },
           "id": 24,
           "options": {
@@ -457,7 +456,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.0",
+          "pluginVersion": "10.4.2",
           "targets": [
             {
               "datasource": {
@@ -465,7 +464,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "traefik.service.server.up_value{host=~\"$host\"}",
+              "expr": "traefik_service_server_up_gauge{host=~\"$host\"}",
               "legendFormat": "{{service}}",
               "range": true,
               "refId": "A"
@@ -776,7 +775,7 @@
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "targets": [
@@ -812,8 +811,8 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -831,7 +830,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -1050,6 +1049,6 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "NYgtqsRVz",
-  "version": 5,
+  "version": 3,
   "weekStart": ""
 }

@@ -97,10 +97,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -161,10 +162,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -237,10 +239,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -305,10 +308,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -382,10 +386,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -446,10 +451,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -514,10 +520,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -579,10 +586,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -591,7 +599,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg(http_response_response_time{result=\"success\"})",
+          "expr": "avg(http_response_response_time{})",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -727,7 +735,7 @@
         "x": 0,
         "y": 12
       },
-      "id": 10,
+      "id": 46,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -743,7 +751,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -752,8 +760,9 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "1 - ((sum_over_time(sum by (server,host) (clamp(http_response_result_code,0,1))[$__range])) / (sum_over_time(sum by (server,host) (clamp(http_response_result_code,1,1))[$__range])))",
+          "expr": "sum by (host,server) (share_le_over_time(http_response_result_code[$__range], 0))",
           "format": "table",
+          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -876,7 +885,7 @@
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "targets": [
@@ -886,7 +895,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "avg by (server) (http_response_response_time{result=\"success\"})",
+          "expr": "avg by (server) (http_response_response_time{})",
           "legendFormat": "{{server}} {{ name }}",
           "range": true,
           "refId": "A"
@@ -950,10 +959,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1014,10 +1024,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1082,10 +1093,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1147,10 +1159,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1159,7 +1172,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg(dns_query_query_time_ms{result=\"success\"})",
+          "expr": "avg(dns_query_query_time_ms{})",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -1314,7 +1327,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1457,7 +1470,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "avg by (domain, record_type) (dns_query_query_time_ms{rcode=\"NOERROR\"})",
+          "expr": "avg by (domain, record_type) (dns_query_query_time_ms{})",
           "legendFormat": "{{ name }} {{domain}} {{ record_type}}",
           "range": true,
           "refId": "A"
@@ -1521,10 +1534,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1585,10 +1599,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1650,10 +1665,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1662,7 +1678,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg(net_response_response_time{result=\"success\"})",
+          "expr": "avg(net_response_response_time{})",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -1718,10 +1734,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1896,7 +1913,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1905,7 +1922,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "1 - ((sum_over_time(sum by (server,port,host) (clamp(net_response_result_code,0,1))[$__range])) / (sum_over_time(sum by (server,port,host) (clamp(net_response_result_code,1,1))[$__range])))",
+          "expr": "share_le_over_time(net_response_result_code{}[$__range],0)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1919,7 +1936,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (server,record_type,domain,host) (clamp(net_response_result_code,0,1))",
+          "expr": "clamp(net_response_result_code,0,1)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1937,13 +1954,23 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "db": true,
+              "protocol": true
+            },
+            "includeByName": {},
             "indexByName": {
               "Time": 0,
-              "Value #A": 4,
-              "Value #B": 5,
-              "host": 1,
-              "port": 3,
+              "Value #A": 5,
+              "Value #B": 6,
+              "__name__": 7,
+              "check_name": 1,
+              "db": 8,
+              "host": 3,
+              "port": 4,
+              "protocol": 9,
               "server": 2
             },
             "renameByName": {
@@ -2036,7 +2063,7 @@
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "targets": [
@@ -2046,7 +2073,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "avg by (server,port) (net_response_response_time{result=\"success\"})",
+          "expr": "avg by (server,port) (net_response_response_time{})",
           "legendFormat": "{{ server }}:{{ port }}",
           "range": true,
           "refId": "A"
@@ -2110,10 +2137,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2174,10 +2202,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2239,10 +2268,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2251,7 +2281,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg(http_response_response_time{result=\"success\"})",
+          "expr": "avg(http_response_response_time{})",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -2307,10 +2337,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2474,7 +2505,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2483,7 +2514,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "1 - ((sum_over_time(sum by (url,host) (clamp(ping_result_code,0,1))[$__range])) / (sum_over_time(sum by (url,host) (clamp(ping_result_code,1,1))[$__range])))",
+          "expr": "share_le_over_time(ping_result_code{}[$__range],0)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -2497,7 +2528,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (url,host) (clamp(ping_result_code,0,1))",
+          "expr": "clamp(ping_result_code,0,1)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -2515,7 +2546,12 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "db": true
+            },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
               "Value #A": "UpTime",
@@ -2749,7 +2785,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2922,7 +2958,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -3095,7 +3131,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -3166,6 +3202,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -3179,6 +3220,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -3189,27 +3235,6 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${metrics}"
-        },
-        "definition": "label_values(x509_cert_enddate,host)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "host",
-        "options": [],
-        "query": {
-          "query": "label_values(x509_cert_enddate,host)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
       }
     ]
   },
@@ -3221,6 +3246,6 @@
   "timezone": "",
   "title": "Blackbox",
   "uid": "AF-zl-Y4j",
-  "version": 11,
+  "version": 12,
   "weekStart": ""
 }

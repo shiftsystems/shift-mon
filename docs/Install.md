@@ -200,12 +200,19 @@ You can copy and paste these groups of variables to enable additional features o
           #key_path: "{{ playbook_dir }}/files/uptime-kuma.key"
 ```
 
-###### Only Use This If You Know What Your Doing!
+###### TSDB Date
 
-For existing install without this variable set or your log db will get corrupted.
+If you are just installing Shiftmon please set `tsdb_13_date` the date you are deploying Shiftmon formatted `yyyy-mm-dd` This will be the default in the future.
+
+```yaml
+tsdb_13_date: 2024-04-10
+```
+
+Loki is moving to using the TSDB index and depcrecating the default boltdb index since the TSDB index is performant and they were struggling to maintain all the older indices. To take advantage of these features set `tsdb_13_date` to a date in future formatted `YYYY-MM-DD` this can be used with the existing `tsdb_date` and is a legacy variable which is uses an older schema with the TSDB index.
 
 ```yaml
           tsdb_date: "2023-04-30"
+          tsdb_13_date: "2024-04-01"
 ```
 
 ###### LDAP Authentication
