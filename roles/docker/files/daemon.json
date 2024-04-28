@@ -1,0 +1,8 @@
+{
+    "log-driver": "syslog",
+    "log-opts": {
+      "syslog-address": "udp://localhost:6667",
+      "syslog-format": "rfc5424",
+      "tag": "{{.Name}}"
+    }
+}  
