@@ -535,6 +535,16 @@
   when: syslog is defined
   notify: Restart Telegraf
 
+- name: Add User provided Telegraf config
+  ansible.builtin.template:
+    src: "{{ item.value }}"
+    dest: "/etc/telegraf/telegraf.d/{{ item.key}}.conf"
+  become: true
+  notify: Restart Telegraf
+  with_dict: "{{ telegraf_config_paths }}"
+  when:
+    - telegraf_config_paths is defined
+
 - name: Add Telegraf config for remote syslog
   ansible.builtin.template:
     src: "remote-syslog.conf"
