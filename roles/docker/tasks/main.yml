@@ -6,7 +6,7 @@
       become: true
 
 - name: Generate Docker daemon config
-  ansible.builtin.file:
+  ansible.builtin.copy:
     src: daemon.json
     dest: /etc/docker/daemon.json
   become: true
