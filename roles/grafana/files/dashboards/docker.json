@@ -519,8 +519,14 @@
               "db": true,
               "device": true,
               "engine_host": true,
+              "license": true,
               "maintainer": true,
-              "repository": true
+              "name": true,
+              "repository": true,
+              "vendor": true,
+              "version": true,
+              "wp_step": true,
+              "wp_uuid": true
             },
             "includeByName": {},
             "indexByName": {
@@ -1078,8 +1084,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1308,6 +1313,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 12,
+  "version": 13,
   "weekStart": ""
 }

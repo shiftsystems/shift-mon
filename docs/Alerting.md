@@ -146,7 +146,7 @@ Summary: `{{ $labels.host }} has high iowait`\
 Description: `{{ $labels.host }} is at {{ $values.B }}% of iowait this could be causing issues with application responsiveness`\
 
 ### HTTPS Failure
-Query: ```avg(http_response_result_code)```\
+Query: ```http_response_result_code{}```\
 B: Reduce
 * Function: LAST
 * Input A

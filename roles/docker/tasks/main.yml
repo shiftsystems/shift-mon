@@ -5,6 +5,13 @@
     apply:
       become: true
 
+- name: Generate Docker daemon config
+  ansible.builtin.file:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  become: true
+  notify: Restart Docker
+
 - name: Generate compose file
   ansible.builtin.template:
     src: 'docker-compose.yml'
