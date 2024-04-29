@@ -74,8 +74,8 @@
   ansible.builtin.template:
     src: telegraf-defaults.j2
     dest: /etc/default/telegraf
-    mode: "650"
-    owner: "telegraf"
+    mode: "660"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   notify: Restart Telegraf
@@ -85,10 +85,38 @@
     src: "linux/telegraf.conf"
     dest: /etc/telegraf/telegraf.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   notify: Restart Telegraf
+
+- name: Add secret store config
+  ansible.builtin.copy:
+    src: linux/shiftmon-secretstore.conf
+    dest: /etc/telegraf/telegraf.d/shiftmon-secretstore.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+
+- name: Set Telegraf secrets
+  ansible.builtin.command: |
+    telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value }}'
+  with_dict: "{{ telegraf_secrets }}"
+  become: true
+  become_user: "{{ telegraf_user }}"
+  no_log: true
+  changed_when: false
+
+- name: Set Telegraf secrets
+  ansible.builtin.command: |
+    telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value }}'
+  with_dict: "{{ telegraf_user_secrets }}"
+  become: true
+  become_user: "{{ telegraf_user }}"
+  no_log: true
+  when: telegraf_user_secrets is defined
+  changed_when: false
 
 - name: Gather Systemd units
   ansible.builtin.service_facts:
@@ -98,7 +126,7 @@
     src: "linux/mesh-central.conf"
     dest: /etc/telegraf/telegraf.d/mesh-central.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'meshagent.service' in ansible_facts.services and 'meshagent' not in do_not_instrument"
@@ -109,7 +137,7 @@
     src: "linux/crowdsec.conf"
     dest: /etc/telegraf/telegraf.d/crowdsec.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'crowdsec.service' in ansible_facts.services and 'crowdsec' not in do_not_instrument"
@@ -120,7 +148,7 @@
     src: "adgaurd.conf"
     dest: /etc/telegraf/telegraf.d/adgaurd.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'AdGuardHome.service' in ansible_facts.services and 'AdGuardHome' not in do_not_instrument"
@@ -144,7 +172,7 @@
     src: "caddy.conf"
     dest: /etc/telegraf/telegraf.d/caddy.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'caddy.service' in ansible_facts.services and 'caddy' not in do_not_instrument"
@@ -215,7 +243,7 @@
     src: "linux/ipvs.conf"
     dest: /etc/telegraf/telegraf.d/ipvs.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'keepalived.service' in ansible_facts.services and 'keepalived' not in do_not_instrument"
@@ -241,7 +269,7 @@
     src: "linux/docker.conf"
     dest: /etc/telegraf/telegraf.d/docker.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'docker.service' in ansible_facts.services and 'docker' not in do_not_instrument"
@@ -252,7 +280,7 @@
     src: "linux/podman.conf"
     dest: /etc/telegraf/telegraf.d/podman.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'podman.service' in ansible_facts.services and 'podman' not in do_not_instrument"
@@ -263,7 +291,7 @@
     src: "linux/libvirt.conf"
     dest: /etc/telegraf/telegraf.d/libvirt.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'libvirtd.service' in ansible_facts.services and 'libvirtd' not in do_not_instrument"
@@ -274,7 +302,7 @@
     src: "linux/mysql.conf"
     dest: /etc/telegraf/telegraf.d/mysql.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services and 'mysql' not in do_not_instrument"
@@ -285,7 +313,7 @@
     src: "linux/fleet.conf"
     dest: /etc/telegraf/telegraf.d/fleet.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'fleetdm.service' in ansible_facts.services"
@@ -296,7 +324,7 @@
     src: "linux/loki.conf"
     dest: /etc/telegraf/telegraf.d/loki.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'loki.service' in ansible_facts.services and 'loki' not in do_not_instrument"
@@ -307,7 +335,7 @@
     src: telegraf-traefik.conf
     dest: /etc/telegraf/telegraf.d/traefik.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: telegraf_traefik_config is defined and telegraf_traefik_config
@@ -318,7 +346,7 @@
     src: logrotate-traefik.conf
     dest: /etc/logrotate.d/traefik.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: telegraf_traefik_config is defined and telegraf_traefik_config
@@ -329,7 +357,7 @@
     src: victoriametrics-docker.conf
     dest: /etc/telegraf/telegraf.d/victoriametrics-docker.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   notify: Restart Telegraf
@@ -340,7 +368,7 @@
     src: grafana-docker.conf
     dest: /etc/telegraf/telegraf.d/grafana-docker.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   notify: Restart Telegraf
@@ -351,7 +379,7 @@
     src: loki-docker.conf
     dest: /etc/telegraf/telegraf.d/loki-docker.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   notify: Restart Telegraf
@@ -362,7 +390,7 @@
     src: "linux/victoriametrics.conf"
     dest: /etc/telegraf/telegraf.d/victoriametrics.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "'victoriametrics.service' in ansible_facts.services and 'victoriametrics' not in do_not_instrument"
@@ -378,7 +406,7 @@
     src: "linux/zfs.conf"
     dest: /etc/telegraf/telegraf.d/zfs.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   notify: Restart Telegraf
@@ -389,7 +417,7 @@
     src: "linux/vsphere.conf"
     dest: /etc/telegraf/telegraf.d/vsphere.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "vsphere_enabled is defined and vsphere_enabled"
@@ -400,7 +428,7 @@
     src: "linux/nut.conf"
     dest: /etc/telegraf/telegraf.d/nut.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "nut_enabled"
@@ -411,7 +439,7 @@
     src: "haproxy.conf"
     dest: /etc/telegraf/telegraf.d/haproxy.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "haproxy_stats_path is defined"
@@ -422,7 +450,7 @@
     src: "openldap.conf"
     dest: /etc/telegraf/telegraf.d/openldap.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: "openldap_enabled is defined and openldap_enabled"
@@ -443,7 +471,7 @@
     src: "linux/smart.conf"
     dest: /etc/telegraf/telegraf.d/smart.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: ansible_facts['virtualization_role'] != 'guest' and (deploy_smart is not defined or deploy_smart)
@@ -461,7 +489,7 @@
     src: blackbox-https.conf
     dest: /etc/telegraf/telegraf.d/blackbox-https.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: blackbox_https_urls is defined and blackbox_https_urls
@@ -472,7 +500,7 @@
     src: blackbox-dns.conf
     dest: /etc/telegraf/telegraf.d/blackbox-dns.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: blackbox_dns_queries is defined and blackbox_dns_queries
@@ -483,7 +511,7 @@
     src: blackbox-ping.conf
     dest: /etc/telegraf/telegraf.d/blackbox-ping.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: blackbox_ping_hosts is defined and blackbox_ping_hosts
@@ -494,7 +522,7 @@
     src: blackbox-net.conf
     dest: /etc/telegraf/telegraf.d/blackbox-net.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: blackbox_ping_hosts is defined and blackbox_net_hosts
@@ -529,7 +557,7 @@
     src: "syslog.conf"
     dest: /etc/telegraf/telegraf.d/syslog.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: syslog is defined
@@ -550,7 +578,7 @@
     src: "remote-syslog.conf"
     dest: /etc/telegraf/telegraf.d/remote-syslog.conf
     mode: "660"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
   when: remote_syslog is defined and remote_syslog
@@ -585,14 +613,14 @@
     name: /etc/systemd/system/telegraf.service.d
     state: directory
   become: true
-  when: telegraf_root is defined and telegraf_root
+  when: telegraf_user != 'telegraf'
 
-- name: Configure Telegraf to run as root
-  ansible.builtin.copy:
+- name: Configure Telegraf to run as non default user
+  ansible.builtin.template:
     src: override.conf
     dest: /etc/systemd/system/telegraf.service.d/override.conf
   become: true
-  when: telegraf_root is defined and telegraf_root
+  when: telegraf_user != 'telegraf'
   notify: Restart Telegraf
 
 - name: Add global tags
@@ -600,7 +628,7 @@
     src: global_tags.conf.j2
     dest: /etc/telegraf/telegraf.d/global_tags.conf
     mode: "0640"
-    owner: "telegraf"
+    owner: "{{ telegraf_user }}"
     group: "telegraf"
   when: global_telegraf_tags | length > 0
   become: true

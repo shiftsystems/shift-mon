@@ -16,3 +16,10 @@ telegraf_victoriametrics_config: false
 telegraf_crowdsec_config: false
 telegraf_grafana_config: false
 telegraf_loki_config: false
+telegraf_root: false # here to support users that rely on old behavior of allowing to telegraf root by setting a variable
+telegraf_secrets:
+  victoria_user: "{{ victoria.user }}"
+  victoria_password: "{{ victoria.password }}"
+  loki_user: "{{ loki.user }}"
+  loki_password: "{{ loki.password }}"
+telegraf_user: "{{ 'root' if (telegraf_root) else 'telegraf' }}"
