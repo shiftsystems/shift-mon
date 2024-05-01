@@ -18,7 +18,6 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 78,
     "links": [
       {
         "asDropdown": true,
@@ -1219,7 +1218,7 @@
     ],
     "schemaVersion": 39,
     "tags": [
-      "promxox"
+      "proxmox"
     ],
     "templating": {
       "list": [
@@ -1298,6 +1297,6 @@
     "timezone": "browser",
     "title": "Proxmox Backup Server",
     "uid": "adk91j7kw5j40f",
-    "version": 6,
+    "version": 7,
     "weekStart": ""
   }
