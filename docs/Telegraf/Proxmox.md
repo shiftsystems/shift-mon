@@ -1,7 +1,10 @@
 # Adding a Metric Server in Proxmox
 
 ## Using Ansible
-This is assuming you have ssh access as root with an SSH key to the PVE servers in the inventory
+This is assuming you have ssh access as root with an SSH key to the PVE and PBS servers in the inventory.
+
+## WARNING FOR PROXMOX BACKUP SERVER (PBS) THIS WILL OVERRIDE EXISTING METRIC SERVER SETTINGS
+As far as I can tell PBS's metric server config doesn't support comments so we the ansible role will override the file instead of using blockinfile which perserves the config
 
 ### Inventory
 Create an inventory named `pve-inventory.yml` with the following content with the hosts and variables adjusted to suit your environment
@@ -33,7 +36,7 @@ run the following command. note you might need to adjust the path if you used a 
 ansible-playbook -i ../pve-inventory.yml instrument-pve.yml
 ```
 
-## Add Metrics Manually
+## Add Metrics Manually in Proxmox Virtual Environment (PVE)
 Due to how Proxmox sends metrics, and how shiftmon handles authentication currently we do not support pushing metrics to shiftmon from proxmox over TLS at this time
 1. login to Proxmox with an account administrative privileges 
 2. click on Datacenter
@@ -45,7 +48,19 @@ Due to how Proxmox sends metrics, and how shiftmon handles authentication curren
   * Port: 8428
   * Organization: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the organization field
   * bucket: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the bucket field
-  * token: Leave blank for Unauthenticated metrics. For Authenticated metrics set the Token field to `username:password` where the username and password are any of the users you listed in your shift-mon inventory. 
+  * token: Leave blank for Unauthenticated metrics.listed in your shift-mon inventory. 
+5. hit create or ok.
+
+## Add Metrics Manually in Proxmox Backup Server (PBS)
+1. login to Proxmox Backup Server with an account with administrative privileges
+2. click on Configuration in left side of the scree
+3. click on the Metric Server submenu
+4. Click add -> InfluxDB (HTTP) and fill out the settings below
+  * Name: shiftmon
+  * URL: http://<yourmetricsserverurl>:8428
+  * Organization: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the organization field
+  * bucket: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the bucket field
+  * token: Leave blank for Unauthenticated metrics.listed in your shift-mon inventory. 
 5. hit create or ok.
 
 ## Adding Syslog to Proxmox Manually
@@ -59,6 +74,8 @@ Note these steps will need to be performed on each proxmox host, and we do not h
 1. SSH into the proxmox node. By default you can ssh in as root to a proxmox node using the root password you use to sign into the web interface
 1. Install Rsyslog `apt -y install rsyslog`
 2. Add the following contents to `/etc/rsyslog.d/50-shiftmon.conf` with the ip address swapped out for the telegraf instance with `remote_syslog: true`
+
+For Proxmox Virtual Environment PVE
 ```
 # Enable imfile module
 module(load="imfile")
@@ -72,5 +89,19 @@ input(type="imfile" File="/var/log/pveam.log" Tag="pveam" Severity="info" Facili
 input(type="imfile" File="/var/log/pve-firewall.log" Tag="pve-firewall" Severity="info" Facility="local7")
 
 ```
+For Proxmox Backup Server (PBS)
+```
+# Enable imfile module
+module(load="imfile")
+
+# Forward syslog to Telegraf
+*.* action(type="omfwd" Target="logs.local.shiftsystems.net" Port="6666" Protocol="udp" Template="RSYSLOG_SyslogProtocol23Format")
+
+#scrape Proxmox Logs
+input(type="imfile" File="/var/log/proxmox-backup/tasks/archive" Tag="pbs-archive" Severity="info" Facility="local7")
+input(type="imfile" File="/var/log/proxmox-backup/tasks/active" Tag="pbs-active" Severity="info" Facility="local7")
+
+```
+
 3. Restart rsyslog `systemctl restart rsyslog`
 4. Confirm that logs are flowing by checking out the Proxmox Dashboard in your shiftmon instance.

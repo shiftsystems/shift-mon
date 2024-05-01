@@ -24,7 +24,23 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "links": [],
+  "id": 12,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [
+        "proxmox"
+      ],
+      "targetBlank": true,
+      "title": "Proxmox",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -1294,8 +1310,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1465,8 +1480,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1617,7 +1631,9 @@
   ],
   "refresh": "",
   "schemaVersion": 39,
-  "tags": [],
+  "tags": [
+    "proxmox"
+  ],
   "templating": {
     "list": [
       {
@@ -1725,6 +1741,6 @@
   "timezone": "",
   "title": "Proxmox metrics",
   "uid": "CcDBg5Knk",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
