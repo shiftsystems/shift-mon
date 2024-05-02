@@ -57,8 +57,7 @@
                 "value": 90
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -84,7 +83,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -133,8 +132,7 @@
                 "value": 90
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -160,7 +158,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -202,8 +200,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -231,7 +228,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -270,8 +267,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -299,7 +295,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -337,8 +333,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -366,7 +361,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -415,8 +410,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -440,7 +434,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -539,8 +533,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -564,7 +557,7 @@
         "frameIndex": 7,
         "showHeader": false
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "exemplar": true,
@@ -702,8 +695,7 @@
                 "value": 90
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -811,8 +803,7 @@
                 "value": 90
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -889,8 +880,7 @@
               }
             ]
           },
-          "unit": "percent",
-          "unitScale": true
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -920,7 +910,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -969,8 +959,7 @@
                 "value": 1
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1008,7 +997,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1081,7 +1070,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1100,8 +1089,7 @@
               }
             ]
           },
-          "unit": "binBps",
-          "unitScale": true
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -1137,7 +1125,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(net_bytes_recv{host=~\"$host\",db=\"windows\"})",
+          "expr": "increase(net_bytes_recv{host=~\"$host\",db=\"windows\"}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1180,7 +1168,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1199,8 +1187,7 @@
               }
             ]
           },
-          "unit": "binBps",
-          "unitScale": true
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -1236,7 +1223,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(net_bytes_sent{host=~\"$host\",db=\"windows\"})",
+          "expr": "increase(net_bytes_sent{host=~\"$host\",db=\"windows\"}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1299,8 +1286,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -1345,7 +1331,6 @@
         }
       ],
       "title": "DiskIO",
-      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -1392,8 +1377,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1501,7 +1485,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1655,8 +1639,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1718,7 +1701,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2670,7 +2653,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -2682,8 +2666,7 @@
                   }
                 ]
               },
-              "unit": "percent",
-              "unitScale": true
+              "unit": "percent"
             },
             "overrides": []
           },
@@ -2691,7 +2674,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 44
+            "y": 42
           },
           "id": 46,
           "options": {
@@ -2775,12 +2758,12 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "percent",
-              "unitScale": true
+              "unit": "percent"
             },
             "overrides": []
           },
@@ -2788,7 +2771,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 44
+            "y": 42
           },
           "id": 48,
           "options": {
@@ -2880,16 +2863,17 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Inbound Error Packets 💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none",
-              "unitScale": true
+              "unit": "none"
             },
             "overrides": []
           },
@@ -2897,7 +2881,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 45
+            "y": 43
           },
           "id": 56,
           "options": {
@@ -2925,7 +2909,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_err_in{host=~\"$host\",db=\"windows\"})",
+              "expr": "increase(net_err_in{host=~\"$host\",db=\"windows\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -2978,16 +2962,17 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Outbound Error Packets 💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none",
-              "unitScale": true
+              "unit": "none"
             },
             "overrides": []
           },
@@ -2995,7 +2980,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 45
+            "y": 43
           },
           "id": 59,
           "options": {
@@ -3023,7 +3008,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_err_in{host=~\"$host\",db=\"windows\"})",
+              "expr": "increase(net_err_in{host=~\"$host\",db=\"windows\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3076,16 +3061,17 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Dropped Inbound Packets 💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none",
-              "unitScale": true
+              "unit": "none"
             },
             "overrides": []
           },
@@ -3093,7 +3079,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 55
+            "y": 53
           },
           "id": 57,
           "options": {
@@ -3121,7 +3107,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_drop_in{host=~\"$host\",db=\"windows\"})",
+              "expr": "increase(net_drop_in{host=~\"$host\",db=\"windows\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3174,16 +3160,17 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Dropped packets out 💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none",
-              "unitScale": true
+              "unit": "none"
             },
             "overrides": []
           },
@@ -3191,7 +3178,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 55
+            "y": 53
           },
           "id": 58,
           "options": {
@@ -3219,7 +3206,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_drop_out{host=~\"$host\",db=\"windows\"})",
+              "expr": "increase(net_drop_out{host=~\"$host\",db=\"windows\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3279,6 +3266,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "uid": "${metrics}"
         },
@@ -3301,13 +3293,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Windows Metrics",
   "uid": "LqfSpKn7y",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }

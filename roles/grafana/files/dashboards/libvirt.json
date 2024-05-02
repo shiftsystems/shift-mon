@@ -65,8 +65,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -94,7 +93,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -133,8 +132,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -162,7 +160,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -201,8 +199,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -229,7 +226,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -269,8 +266,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -297,7 +293,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -333,8 +329,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -362,7 +357,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -411,8 +406,7 @@
               }
             ]
           },
-          "unit": "percent",
-          "unitScale": true
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -439,7 +433,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -485,8 +479,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -513,7 +506,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -550,8 +543,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -579,7 +571,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -630,8 +622,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -659,7 +650,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -723,10 +714,10 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -751,8 +742,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -776,8 +766,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "pluginVersion": "9.3.2",
@@ -788,7 +778,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "increase(diskio_read_bytes{host=~\"$hypervisor\"} + diskio_write_bytes{host=~\"$hypervisor\"})",
+          "expr": "increase(diskio_read_bytes{host=~\"$hypervisor\"} + diskio_write_bytes{host=~\"$hypervisor\"}[1s]) > 0",
           "legendFormat": "{{host}} - {{name}}",
           "range": true,
           "refId": "A"
@@ -830,7 +820,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -858,8 +848,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -883,8 +872,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "pluginVersion": "9.3.2",
@@ -895,7 +884,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "deriv(net_bytes_sent{host=~\"$hypervisor\"} + net_bytes_recv{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"})",
+          "expr": "increase(net_bytes_sent{host=~\"$hypervisor\"} + net_bytes_recv{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"}[1s]) > 0",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
           "refId": "A"
@@ -950,7 +939,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -973,8 +962,7 @@
               }
             ]
           },
-          "unit": "binBps",
-          "unitScale": true
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -1010,7 +998,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(libvirt_net_tx_bytes{host=~\"$hypervisor\"} + libvirt_net_rx_bytes{host=~\"$hypervisor\"})",
+          "expr": "increase(libvirt_net_tx_bytes{host=~\"$hypervisor\"} + libvirt_net_rx_bytes{host=~\"$hypervisor\"}) > 0",
           "interval": "",
           "legendFormat": "{{host}} - {{domain_name}}",
           "range": true,
@@ -1076,8 +1064,7 @@
               }
             ]
           },
-          "unit": "ns",
-          "unitScale": true
+          "unit": "ns"
         },
         "overrides": []
       },
@@ -1113,7 +1100,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(libvirt_vcpu_time{host=~\"$hypervisor\"})",
+          "expr": "rate(libvirt_vcpu_time{host=~\"$hypervisor\"})",
           "interval": "",
           "legendFormat": "{{host}} - {{domain_name}}",
           "range": true,
@@ -1151,8 +1138,7 @@
               }
             ]
           },
-          "unit": "bytes",
-          "unitScale": true
+          "unit": "bytes"
         },
         "overrides": [
           {
@@ -1202,7 +1188,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1335,6 +1321,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
@@ -1366,6 +1357,6 @@
   "timezone": "",
   "title": "Libvirt",
   "uid": "SPHYuL5Vk",
-  "version": 15,
+  "version": 16,
   "weekStart": ""
 }

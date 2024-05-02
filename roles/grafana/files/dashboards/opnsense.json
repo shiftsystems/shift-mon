@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 11,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -68,6 +69,8 @@
       },
       "id": 48,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -77,9 +80,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -137,6 +141,8 @@
       },
       "id": 49,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -146,9 +152,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -209,10 +216,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -272,10 +281,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -338,10 +349,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -411,7 +424,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -507,10 +520,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -539,6 +554,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -552,6 +568,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -643,6 +660,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -656,6 +674,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -779,8 +798,10 @@
       "id": 6,
       "options": {
         "displayMode": "lcd",
+        "maxVizHeight": 300,
         "minVizHeight": 10,
         "minVizWidth": 0,
+        "namePlacement": "auto",
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
@@ -790,10 +811,11 @@
           "values": false
         },
         "showUnfilled": true,
+        "sizing": "auto",
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -854,10 +876,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -899,6 +923,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -912,6 +937,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -919,7 +945,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -976,10 +1002,12 @@
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(net_bytes_recv{host=\"$host\",db=\"opnsense\"})",
+          "expr": "increase(net_bytes_recv{host=\"$host\",db=\"opnsense\"}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{interface}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -997,6 +1025,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1010,6 +1039,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1017,7 +1047,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1076,7 +1106,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "deriv(net_bytes_sent{host=\"$host\",db=\"opnsense\"})",
+          "expr": "increase(net_bytes_sent{host=\"$host\",db=\"opnsense\"}[1s]) > 0",
           "instant": false,
           "interval": "",
           "legendFormat": "{{interface}}",
@@ -1098,6 +1128,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1111,6 +1142,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1227,10 +1259,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1505,7 +1539,6 @@
         }
       ],
       "title": "Suricata alerts",
-      "transformations": [],
       "type": "logs"
     },
     {
@@ -1523,8 +1556,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1566,7 +1598,6 @@
         }
       ],
       "title": "Suricata alerts",
-      "transformations": [],
       "type": "stat"
     },
     {
@@ -1792,8 +1823,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1889,16 +1919,15 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
           "selected": false,
-          "text": "opnsense",
-          "value": "opnsense"
+          "text": "rose.local.shiftsystems.net",
+          "value": "rose.local.shiftsystems.net"
         },
         "datasource": {
           "uid": "${metrics}"
@@ -1920,6 +1949,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1932,6 +1966,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -1945,6 +1984,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "igc0",
+          "value": "igc0"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
@@ -1975,6 +2019,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 10,
+  "version": 12,
   "weekStart": ""
 }
