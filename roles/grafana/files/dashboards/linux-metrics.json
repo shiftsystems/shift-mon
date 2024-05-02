@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 10,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -880,7 +881,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -936,7 +937,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(net_bytes_recv{host=~\"$host\",db=\"linux\",interface!~\"veth.*\"})",
+          "expr": "increase(net_bytes_recv{host=~\"$host\",db=\"linux\",interface!~\"veth.*\"}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -979,7 +980,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1035,7 +1036,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(net_bytes_sent{host=~\"$host\",db=\"linux\",interface!~`veth.*`})",
+          "expr": "increase(net_bytes_sent{host=~\"$host\",db=\"linux\",interface!~`veth.*`}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1079,7 +1080,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1136,7 +1137,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(diskio_read_bytes{host=~\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=~\"$host\",db=\"linux\"})",
+          "expr": "increase(diskio_read_bytes{host=~\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=~\"$host\",db=\"linux\"}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{host}} - {{name}}",
           "range": true,
@@ -3039,12 +3040,25 @@
                   "mode": "off"
                 }
               },
-              "mappings": [],
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null+nan",
+                    "result": {
+                      "color": "green",
+                      "index": 0
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "noValue": "No Inbound Errors  💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
@@ -3085,7 +3099,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_err_in{host=~\"$host\",db=\"linux\"})",
+              "expr": "increase(net_err_in{host=~\"$host\",db=\"linux\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3138,11 +3152,13 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Outbound Errors 💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
@@ -3183,14 +3199,14 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_err_in{host=~\"$host\",db=\"linux\"})",
+              "expr": "increase(net_err_out{host=~\"$host\",db=\"linux\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Error Packets In",
+          "title": "Error Packets Out",
           "type": "timeseries"
         },
         {
@@ -3236,11 +3252,13 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Dropped Inbound Packets  💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
@@ -3258,13 +3276,16 @@
           "options": {
             "legend": {
               "calcs": [
+                "min",
                 "max",
                 "mean",
                 "sum"
               ],
               "displayMode": "table",
               "placement": "right",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
             },
             "tooltip": {
               "maxHeight": 600,
@@ -3281,7 +3302,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_drop_in{host=~\"$host\",db=\"linux\"})",
+              "expr": "increase(net_drop_in{host=~\"$host\",db=\"linux\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3334,11 +3355,13 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Dropped Outbound Packets  💪",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
@@ -3379,7 +3402,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "deriv(net_drop_out{host=~\"$host\",db=\"linux\"})",
+              "expr": "increase(net_drop_out{host=~\"$host\",db=\"linux\"}[1s]) > 0",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -4219,6 +4242,6 @@
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 21,
+  "version": 22,
   "weekStart": ""
 }

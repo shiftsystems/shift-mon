@@ -902,7 +902,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -957,7 +957,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_tx_bytes{host=~\"$host\",container_name=~\"$container\"})",
+          "expr": "increase(docker_container_net_tx_bytes{host=~\"$host\",container_name=~\"$container\"}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
@@ -1070,7 +1070,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1084,7 +1084,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1123,7 +1124,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "deriv(docker_container_net_rx_bytes{host=~\"$host\",container_name=~\"$container\"})",
+          "expr": "increase(docker_container_net_rx_bytes{host=~\"$host\",container_name=~\"$container\"}[1s]) > 0",
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
@@ -1313,6 +1314,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 13,
+  "version": 14,
   "weekStart": ""
 }
