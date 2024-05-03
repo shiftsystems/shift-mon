@@ -26,8 +26,8 @@ all:
     blackbox_https_urls:
       - url: 'https://loki.example.com/ready'
         check_name: 'Loki'
-        basic_user: '$victoria_user'
-        basic_password: '$victoria_password'
+        basic_user: '@{shiftmon:victoria_user}'
+        basic_password: '@{shiftmon:victoria_password}'
         response_string: 'ready'
         interval: '5m'
 ```
@@ -133,8 +133,8 @@ all:
 # Use basic auth with telegraf secrets
       - url: 'https://metrics.local.example'
         check_name: 'Victoriametrics'
-        basic_user: '$victoria_user'
-        basic_password: '$victoria_password'
+        basic_user: '@{shiftmon:victoria_user}'
+        basic_password: '@{shiftmon:victoria_password}'
     blackbox_dns_queries:
       - server: 10.0.0.254
         check_name: 'local DNS'
