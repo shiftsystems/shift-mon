@@ -99,7 +99,7 @@
     group: "telegraf"
   become: true
 
-- name: Set Telegraf secrets
+- name: Set shiftmon Telegraf secrets
   ansible.builtin.command: |
     telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value }}'
   with_dict: "{{ telegraf_secrets }}"
@@ -108,7 +108,7 @@
   no_log: true
   changed_when: false
 
-- name: Set Telegraf secrets
+- name: Set user Telegraf secrets
   ansible.builtin.command: |
     telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value }}'
   with_dict: "{{ telegraf_user_secrets }}"
