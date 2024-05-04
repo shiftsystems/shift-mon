@@ -101,24 +101,22 @@
 
 - name: Set shiftmon Telegraf secrets
   ansible.builtin.command: |
-    runuser -l telegraf -c "telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'"
+    runuser -u {{ telegraf_user }} -- telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'
   with_dict: "{{ telegraf_secrets }}"
   register: exec_return
   become: true
-  no_log: true
+  no_log: false
   changed_when: false
-  failed_when: exec_return.rc not in [0,1]
 
 - name: Set user Telegraf secrets
   ansible.builtin.command: |
-    runuser -l telegraf -c "telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'"
+    runuser -u {{ telegraf_user }} -- telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'
   with_dict: "{{ telegraf_user_secrets }}"
   become: true
   register: exec_return
   no_log: true
   changed_when: false
   when: telegraf_user_secrets is defined
-  failed_when: exec_return.rc not in [0,1]
 
 - name: Gather Systemd units
   ansible.builtin.service_facts:
