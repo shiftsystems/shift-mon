@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 79,
   "links": [
     {
       "asDropdown": true,
@@ -71,8 +72,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -122,7 +122,7 @@
               }
             ]
           },
-          "pluginVersion": "10.2.3",
+          "pluginVersion": "10.4.2",
           "targets": [
             {
               "datasource": {
@@ -178,8 +178,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -224,7 +223,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "10.2.3",
+          "pluginVersion": "10.4.2",
           "targets": [
             {
               "datasource": {
@@ -338,10 +337,11 @@
           "fields": "/^short_version$/",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -350,7 +350,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "vm_app_version_value{host=\"$host\"}",
+          "expr": "prometheus_vm_app_version{host=~\"$host\",url!=\"http://127.0.0.1:9093/metrics\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -383,15 +383,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "vm_cache_entries_value"
-            },
-            "properties": []
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 5,
@@ -412,10 +404,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -424,7 +417,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "vm_cache_entries_value{host=\"$host\",type=\"storage/hour_metric_ids\"}",
+          "expr": "prometheus_vm_cache_entries{host=~\"$host\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -478,10 +471,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -538,20 +532,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vm_data_size_bytes_value{host=\"$host\"})",
+          "expr": "sum(prometheus_vm_data_size_bytes{host=~\"$host\"})",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -601,20 +598,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "vm_free_disk_space_bytes_value{host=\"$host\"} - vm_free_disk_space_limit_bytes_value{host=\"$host\"}",
+          "expr": "prometheus_vm_free_disk_space_bytes{host=~\"$host\"} - prometheus_vm_free_disk_space_limit_bytes{host=~\"$host\"}",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -667,20 +667,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(vm_slow_row_inserts_total_value{host=\"$host\"}[$__interval])",
+          "expr": "increase(prometheus_vm_slow_row_inserts_total{host=~\"$host\"}[$__interval])",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -733,20 +736,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(vm_slow_queries_total_value{host=\"$host\"}[$__interval])",
+          "expr": "increase(prometheus_vm_slow_queries_total{host=~\"$host\"}[$__interval])",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -795,20 +801,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vm_rows_value{host=\"$host\",type!=\"indexdb\"})",
+          "expr": "sum(prometheus_vm_rows{host=~\"$host\",type!=\"indexdb\"})",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -905,7 +914,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(vm_request_duration_seconds_value{host=\"$host\"}) by (path, quantile)",
+          "expr": "max(prometheus_vm_request_duration_seconds{host=~\"$host\"}) by (path, quantile)",
           "interval": "",
           "legendFormat": "{{quantile}} ({{path}})",
           "range": true,
@@ -1008,10 +1017,12 @@
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(vm_rows_inserted_total_value{host=\"$host\"}) > 0",
+          "expr": "rate(prometheus_vm_rows_inserted_total{host=~\"$host\"}) > 0",
           "interval": "",
           "legendFormat": "{{type}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1109,7 +1120,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1117,7 +1128,7 @@
             "uid": "${logs}"
           },
           "editorMode": "builder",
-          "expr": "{appname=\"shift-mon_victoriametrics_1\", host=\"$host\"} | logfmt",
+          "expr": "{appname=\"shift-mon_victoriametrics_1\", host=~\"$host\"} | logfmt",
           "queryType": "range",
           "refId": "A"
         }
@@ -1265,7 +1276,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "vm_cache_entries_value{host=\"$host\"}",
+          "expr": "prometheus_vm_cache_entries{host=~\"$host\"}",
           "interval": "",
           "legendFormat": "{{ type }}",
           "range": true,
@@ -1347,10 +1358,11 @@
           "fields": "/^version$/",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1359,7 +1371,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "loki_build_info_gauge{host=\"$host\"}",
+          "expr": "prometheus_loki_build_info{host=~\"$host\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1414,10 +1426,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1474,10 +1487,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1485,7 +1499,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "loki_chunk_store_stored_chunk_bytes_total_counter{host=\"$host\"} / loki_chunk_store_stored_chunks_total_counter{host=\"$host\"}",
+          "expr": "prometheus_loki_chunk_store_stored_chunk_bytes_total{host=~\"$host\"} / prometheus_loki_chunk_store_stored_chunks_total{host=~\"$host\"}",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1538,10 +1552,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1550,7 +1565,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(loki_distributor_bytes_received_total_counter{host=\"$host\"}[$__range])",
+          "expr": "rate(prometheus_loki_distributor_bytes_received_total{host=~\"$host\"}[$__range])",
           "interval": "",
           "legendFormat": "{{host}}",
           "range": true,
@@ -1603,10 +1618,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1615,7 +1631,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "loki_distributor_bytes_received_total_counter{host=\"$host\"}",
+          "expr": "prometheus_loki_distributor_bytes_received_total{host=~\"$host\"}",
           "interval": "",
           "legendFormat": "{{host}}",
           "range": true,
@@ -1668,10 +1684,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -1680,7 +1697,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "loki_chunk_store_stored_chunk_bytes_total_counter{host=\"$host\"}",
+          "expr": "prometheus_loki_chunk_store_stored_chunk_bytes_total{host=~\"$host\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "",
@@ -1776,10 +1793,12 @@
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "loki_ingester_checkpoint_duration_seconds_0.99{host=\"$host\"}",
+          "expr": "prometheus_loki_ingester_checkpoint_duration_seconds{host=~\"$host\",quantile=\"0.99\"}",
           "interval": "",
           "legendFormat": "99th percentile",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1787,11 +1806,13 @@
             "type": "prometheus",
             "uid": "${metrics}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "loki_ingester_checkpoint_duration_seconds_0.5{host=\"$host\"}",
+          "expr": "prometheus_loki_ingester_checkpoint_duration_seconds{host=~\"$host\",quantile=\"0.5\"}",
           "hide": false,
           "interval": "",
           "legendFormat": "50th percentile",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -1977,7 +1998,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "loki_chunk_store_stored_chunks_total_counter{host=\"$host\"}",
+          "expr": "prometheus_loki_chunk_store_stored_chunks_total{host=~\"$host\"}",
           "interval": "",
           "legendFormat": "{{host}}",
           "range": true,
@@ -2036,7 +2057,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -2045,7 +2066,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(loki_discarded_samples_total_counter{host=\"$host\"})",
+          "expr": "increase(prometheus_loki_ingester_wal_discarded_samples_total{host=~\"$host\"})",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2172,6 +2193,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -2184,6 +2210,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -2196,20 +2227,30 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": true,
+          "text": [
+            "armin.local.shiftsystems.net"
+          ],
+          "value": [
+            "armin.local.shiftsystems.net"
+          ]
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(loki_ingester_checkpoint_logged_bytes_total_counter{},host)",
+        "definition": "label_values(prometheus_vm_app_version,host)",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "",
-        "multi": false,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
-          "query": "label_values(loki_ingester_checkpoint_logged_bytes_total_counter{},host)",
-          "refId": "StandardVariableQuery"
+          "qryType": 1,
+          "query": "label_values(prometheus_vm_app_version,host)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -2227,6 +2268,6 @@
   "timezone": "",
   "title": "Internal Metrics",
   "uid": "ALYMBhank",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }
