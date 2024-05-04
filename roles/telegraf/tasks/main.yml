@@ -101,22 +101,24 @@
 
 - name: Set shiftmon Telegraf secrets
   ansible.builtin.command: |
-    telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value }}'
+    runuser -l telegraf -c "telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'"
   with_dict: "{{ telegraf_secrets }}"
+  register: exec_return
   become: true
-  become_user: "{{ telegraf_user }}"
   no_log: true
   changed_when: false
+  failed_when: exec_return.rc not in [0,1]
 
 - name: Set user Telegraf secrets
   ansible.builtin.command: |
-    telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value }}'
+    runuser -l telegraf -c "telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'"
   with_dict: "{{ telegraf_user_secrets }}"
   become: true
-  become_user: "{{ telegraf_user }}"
+  register: exec_return
   no_log: true
-  when: telegraf_user_secrets is defined
   changed_when: false
+  when: telegraf_user_secrets is defined
+  failed_when: exec_return.rc not in [0,1]
 
 - name: Gather Systemd units
   ansible.builtin.service_facts:
@@ -600,13 +602,24 @@
   when: "remote_syslog is defined and remote_syslog and 'firewalld.service' in ansible_facts.services"
 
 - name: Enable forwarding systemd journal to syslog
-  ansible.builtin.lineinfile:
-    path: /etc/systemd/journald.conf
-    regexp: '^ForwardToSyslog='
-    line: 'ForwardToSyslog=yes'
-  become: true
-  when: journald_forwarding and syslog is defined
-  notify: Restart Journald
+  block:
+    - name: Add Syslog Forwarding from etc
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/journald.conf
+        regexp: '^ForwardToSyslog='
+        line: 'ForwardToSyslog=yes'
+      become: true
+      when: journald_forwarding and syslog is defined
+      notify: Restart Journald
+  rescue:
+    - name: Add Syslog Forwarding from usr
+      ansible.builtin.lineinfile:
+        path: /usr/lib//systemd/journald.conf
+        regexp: '^ForwardToSyslog='
+        line: 'ForwardToSyslog=yes'
+      become: true
+      when: journald_forwarding and syslog is defined
+      notify: Restart Journald
 
 - name: Create Telegraf override directory
   ansible.builtin.file:
