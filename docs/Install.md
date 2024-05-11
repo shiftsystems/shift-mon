@@ -116,7 +116,11 @@ Below you will see many lines that look like this. There are two main things to 
           # Bring your own SSL cert
           #cert_path: "{{ playbook_dir }}/files/grafana.crt"
           #key_path: "{{ playbook_dir }}/files/grafana.key"
-        
+          # Path to YAML File which contains Grafana Alerts
+          #alert_path: "{{ playbook_dir }}/user-alerts.yml"
+          # Dictionary of folders with your own dashboards you want to provision with shiftmon
+          #dashboard_paths:
+            #business: "{{ playbook_dir }}/business"
         # Ansible variables
         ansible_remote_tmp: /tmp
         ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
@@ -251,6 +255,18 @@ Loki is moving to using the TSDB index and depcrecating the default boltdb index
           allowed_domains: 'example.com example.net'
 ```
 
+###### Bring Your Own Dashboards
+You can define a dictionary in the shiftmon.yml file that will deploy dashboards you have exported from Grafana
+The dictionary name is `dashboard_paths` under `grafana`
+The key is the folder name it will appear under in Grafana
+The value is the path to the folder on the Ansible Controller
+```yaml
+grafana:
+  domain: "grafana.example.com"
+  dashboard_paths:
+    business: "{{ playbook_dir }}/business"
+```
+You can export Grafana dashoards by following the [Grafana docs](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/view-dashboard-json-model/#dashboard-json-model).
 4. Deploy or update Shift-mon by running `ansible-galaxy collection install --force shiftsystems.shift_mon  && ansible-playbook -i shift-inventory.yml shift-mon.yml --ask-become-pass` from `~/shift-mon`
 
 

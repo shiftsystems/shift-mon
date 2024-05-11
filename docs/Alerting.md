@@ -16,6 +16,28 @@ Please make sure you have enabled SMTP alerts so you can receive emails from gra
 5. Configure your own query or paste the query from the  our example ones below
 6. Configure your
 
+## Defining Alerts using Ansible
+You can define a set of alerts by adding key named `alert_path` to the Grafana dictionary in the shiftmon inventory.
+```yaml
+grafana:
+  domain: grafana.local.shiftsystems.net
+  alert_path: "{{ playbook_dir }}/user-alerts.yml"
+```
+
+These alert rules will be evaluated every minute and is not customizable at this time.
+An example file can found [user-alerts.yml](../user-alerts.yml)
+If you are experiencing alert fatigue you can edit the alerts in the UI and update the user-alerts.yml file or empty the user-alerts.yml file and rerun the shiftmon playbook to update the alerts.
+
+### Updating Provisioned alerts in the UI
+Grafana offers a way to edit provisioned alerts in the UI which is more convienent than updating yml file by hand.
+1. Login to Grafana and navigate to Alerts & IRM -> Alerting ->Alert rules
+2. Expanded the folder with your provisioned alerts
+3. Click the More dropdown on the alert you want to edit
+4. Click modify export
+5. Modify the alert
+6. Click Export in the upper right hand side of the screen
+7. Copy the file to your user-alerts.yml file
+8. Run the shiftmon.yml playbook
 
 ## Example Alerts
 Feel free to customize any of the numbers or use these as the basis for your own alerts
