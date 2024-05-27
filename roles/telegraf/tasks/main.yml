@@ -81,8 +81,8 @@
   notify: Restart Telegraf
 
 - name: Download telegraf config
-  ansible.builtin.copy:
-    src: "linux/telegraf.conf"
+  ansible.builtin.template:
+    src: "telegraf.conf"
     dest: /etc/telegraf/telegraf.conf
     mode: "660"
     owner: "{{ telegraf_user }}"
@@ -97,6 +97,7 @@
     mode: "660"
     owner: "{{ telegraf_user }}"
     group: "telegraf"
+  when: telegraf_use_secrets
   become: true
 
 - name: Set shiftmon Telegraf secrets
@@ -107,6 +108,7 @@
   become: true
   no_log: false
   changed_when: false
+  when: telegraf_use_secrets
 
 - name: Set user Telegraf secrets
   ansible.builtin.command: |
