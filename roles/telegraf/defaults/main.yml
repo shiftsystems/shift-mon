@@ -23,3 +23,4 @@ telegraf_secrets:
   loki_user: "{{ loki.user }}"
   loki_password: "{{ loki.password }}"
 telegraf_user: "{{ 'root' if (telegraf_root) else 'telegraf' }}"
+telegraf_use_secrets: false

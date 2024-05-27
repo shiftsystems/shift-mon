@@ -1,5 +1,11 @@
 loki_url="{{ loki.url }}"
 victoria_url="{{ victoria.url }}"
+{% if not telegraf_use_secrets %}
+victoria_user="{{ victoria.user }}"
+victoria_password="{{ victoria.password }}"
+loki_user="{{ loki.user }}"
+loki_password="{{ loki.password }}"
+{% endif %}
 {% if metric_buffer_limit is defined %}
 metric_buffer_limit={{ metric_buffer_limit }}
 {% else %}

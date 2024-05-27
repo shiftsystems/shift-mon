@@ -1,4 +1,19 @@
-- hosts: all
+- hosts: all,!shiftwatch_servers,!shiftmon_servers
+  name: Deploy Telegraf
   tasks:
-    - ansible.builtin.include_role:
+    - name: Set Telegraf Secrets
+      run_once: true
+      ansible.builtin.set_fact:
+        loki:
+          user: telegraf
+          password: "{{ lookup('community.general.bitwarden_secrets_manager', 'b4b85d71-8601-4874-ae92-b152001d9ba9').value }}"
+          url: 'https://logs.local.shiftsystems.net'
+        victoria:
+          user: telegraf
+          password: "{{ lookup('community.general.bitwarden_secrets_manager', 'b4b85d71-8601-4874-ae92-b152001d9ba9').value }}"
+          url: 'https://metrics.local.shiftsystems.net'
+
+    - name: Deploy Telegraf
+      ansible.builtin.include_role:
         name: telegraf
+        public: true
