@@ -100,7 +100,7 @@
   when: telegraf_use_secrets
   become: true
 
-- name: Set shiftmon Telegraf secrets
+- name: Set Shiftmon Telegraf secrets
   ansible.builtin.command: |
     runuser -u {{ telegraf_user }} -- telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'
   with_dict: "{{ telegraf_secrets }}"

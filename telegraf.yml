@@ -6,11 +6,11 @@
       ansible.builtin.set_fact:
         loki:
           user: telegraf
-          password: "{{ lookup('community.general.bitwarden_secrets_manager', 'b4b85d71-8601-4874-ae92-b152001d9ba9').value }}"
+          password: "USE_A_SECRET"
           url: 'https://logs.local.shiftsystems.net'
         victoria:
           user: telegraf
-          password: "{{ lookup('community.general.bitwarden_secrets_manager', 'b4b85d71-8601-4874-ae92-b152001d9ba9').value }}"
+          password: "USE_A_SECRET"
           url: 'https://metrics.local.shiftsystems.net'
 
     - name: Deploy Telegraf
