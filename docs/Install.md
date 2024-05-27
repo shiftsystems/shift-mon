@@ -278,6 +278,8 @@ Then fill out your username and password. You should do this even if you have ld
 ### Deploying Telegraf. 
 For Linux Devices Please use the ansible roles. There is a shell script but it does not do nearly as much as the Ansible Role. For other Operating systems, you will find various scripts in the Scripts folder that you can upload to your RMM and push out telegraf on an ad hoc or scheduled basis.
 
+By default the username and password for loki and Victoriametrics are stored in `/etc/default/telegraf` if you want to use linux kernel secrets you can set `use_telegraf_secrets: true` but you will need to apply secrets after every reboot since Linux kernel secrets do not persist across reboots.
+
 By default the Telegraf Ansible role will try to instrument the following services automatically if found on a system.
 
 * adguardhome
