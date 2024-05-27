@@ -1,5 +1,4 @@
 # Linux Install
-Currently on Linux We recommend using our Ansible role, but there is also a shell script available if you are not able to use ansible.
 Currently we support Debian 10 or newer, Ubuntu 18.04 and newer, Fedora, and Redhat based distributions.
 The Ansible role will detect if the following systemd services exist and will deploy telegraf configs for the services listed below.
 * MySQL
@@ -21,7 +20,7 @@ The configs can be added manually by adding one of the configs in the [telegraf 
 The only thing that is required is that SSH needs to accessible on all endpoints and you have a Linux machine with ansible and git installed. 
 Ansible can be installed by following [the Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems) and git can be installed from your Linux distribution's repository.
 
-### What does the script/role do? 
+### What does the role do? 
 * Places connection info for Victoriametrics and Loki in /etc/default/telegraf
 * Adds code signing keys and repos from influxdata
 * Install the telegraf agent
@@ -73,3 +72,27 @@ Once your Inventory is setup deploy Telegraf by running `ansible-galaxy collecti
 This Command will be different if you are adding this to an existing automation repo.
 
 If you are using your own automation repo you will need to modify the `ansible-playbook` command.
+
+### Adding Your Own Telegraf Configs
+Shiftmon supports user provided Telegraf configs by defining them in their ansible inventory and copying them to `/etc/telegraf/telegraf.d/`.
+The filename and local location for the config file are defined in a dictionary named `telegraf_config_paths`.
+The key of the dictionary is the filenmae and value of the dictionary is where the configuration is stored on the ansible controller.
+The inventory
+```yaml
+all:
+  hosts:
+    localhost:
+  vars:
+   telegraf_config_paths:
+     gitea: "{{playbook_dir}}/telegraf-configs/gitea.conf"
+```
+Will copy the contents of the gitea.conf in the telegraf-configs on the Ansible Controller to `/etc/telegraf/telegraf.d/gitea.conf` and trigger telegraf to restart if that file is updated.
+To apply this config only a single host you would use an inventory where `telegraf_config_paths` is defined under the host
+
+```yaml
+all:
+  hosts:
+    localhost:
+      telegraf_config_pathas:
+        gitea: "{{playbook_dir}}/telegraf-configs/gitea.conf"
+```
