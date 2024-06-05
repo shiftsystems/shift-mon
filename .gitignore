@@ -1,3 +1,4 @@
 inventory/*
 .env
 shiftmon.yml
+telegraf.yml

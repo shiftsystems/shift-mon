@@ -120,6 +120,17 @@
   changed_when: false
   when: telegraf_user_secrets is defined
 
+- name: Add Processor config
+  ansible.builtin.template:
+    src: processes.conf
+    dest: /etc/telegraf/telegraf.d/processes.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  when: processes is defined
+  become: true
+  notify: Restart Telegraf
+
 - name: Gather Systemd units
   ansible.builtin.service_facts:
 
