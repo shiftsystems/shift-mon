@@ -96,3 +96,47 @@ all:
       telegraf_config_pathas:
         gitea: "{{playbook_dir}}/telegraf-configs/gitea.conf"
 ```
+
+### Per Process Configuration
+Shiftmon allows users to collect metrics from specified processes from based on the user, systemd units, or a pattern via the [procstat Telegraf plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/procstat).
+By default no per process metrics are collected.
+To add per process metrics define the processes variable with 1 or more of the following variables containing a list.
+* systemd_units
+* users
+* patterns
+
+Below are some are a couple of examples for defining processes for a single host or across your whole fleet.
+
+#### Collecting Metrics for all hosts
+```yaml
+all:
+  hosts:
+    host1:
+    host2:
+  vars:
+    processes:
+      systemd_units:
+        - "telegraf.service"
+        - "mongod.service"
+      patterns:
+        - ".*omada*"
+        - ".*tplink.*"
+      users:
+        - "telegraf"
+```
+#### Collecting process metrics for a single host
+```yaml
+all:
+  hosts:
+    no-proc.example.com:
+    process.example.com:
+      processes:
+        systemd_units:
+          - "telegraf.service"
+          - "mongod.service"
+        patterns:
+          - ".*omada*"
+          - ".*tplink.*"
+        users:
+          - "telegraf"
+```
