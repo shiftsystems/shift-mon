@@ -40,6 +40,15 @@ http:
         - basic-auth
       entryPoints:
         - websecure
+    victoriametrics_metrics:
+      rule: Host(`{{ victoria.domain }}`) && Path(`/metrics`)
+      tls:
+        certResolver: dynamicResolver
+      service: victoriametrics
+      middlewares:
+        - basic-auth
+      entryPoints:
+        - websecure
     victoriametrics:
       rule: Host(`{{ victoria.domain }}`)
       tls:
