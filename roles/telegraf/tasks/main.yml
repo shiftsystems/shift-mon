@@ -106,7 +106,7 @@
   with_dict: "{{ telegraf_secrets }}"
   register: exec_return
   become: true
-  no_log: false
+  no_log: true
   changed_when: false
   when: telegraf_use_secrets
 

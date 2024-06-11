@@ -60,7 +60,7 @@ Due to how Proxmox sends metrics, and how shiftmon handles authentication curren
   * URL: http://<yourmetricsserverurl>:8428
   * Organization: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the organization field
   * bucket: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the bucket field
-  * token: Leave blank for Unauthenticated metrics.listed in your shift-mon inventory. 
+  * token: Leave blank for Unauthenticated metrics. or set to the value of in the list of victoria.tokens 
 5. hit create or ok.
 
 ## Adding Syslog to Proxmox Manually

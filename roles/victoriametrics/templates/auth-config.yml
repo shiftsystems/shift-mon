@@ -4,3 +4,10 @@ users:
     password: "{{ password }}"
     url_prefix: "http://victoriametrics:8428"
 {%endfor %}
+{% if victoria.tokens is defined %}
+{% for token in victoria.tokens %}
+  - bearer_token: "{{ token }}"
+    url_prefix: "http://victoriametrics:8428"
+{% endfor %}
+{% endif %}
+

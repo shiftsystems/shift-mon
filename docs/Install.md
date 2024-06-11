@@ -99,7 +99,10 @@ Below you will see many lines that look like this. There are two main things to 
           url: 'https://metrics.local.example.com'
           domain: metrics.local.example.com
           retention_period: 90d
-
+          # OPTIONAL list strings that can be used to authenticate to shiftmon
+          tokens:
+            - token1
+            - token2
           ## OPTIONAL
           # Bring your own SSL cert
           #cert_path: "{{ playbook_dir }}/files/victoria.crt"

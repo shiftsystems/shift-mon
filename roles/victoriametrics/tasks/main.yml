@@ -21,3 +21,12 @@
     - /opt/shift-mon/victoriametrics
     - /opt/shift-mon/victoriametrics-storage
     - /opt/shift-mon/vmalert/rules
+    - /opt/shift-mon/vmauth
+- name: Add VMAuth Template
+  ansible.builtin.template:
+    src: auth-config.yml
+    dest: /opt/shift-mon/vmauth/auth-config.yml
+    mode: '770'
+    setype: container_file_t
+  become: true
+
