@@ -137,6 +137,23 @@ services:
       retries: 5
     ports:
      - "127.0.0.1:9093:9093"
+  vmauth:
+    restart: unless-stopped
+    image: docker.io/victoriametrics/vmauth:latest
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/vmauth
+        target: /auth
+    command:
+      - "-auth.config=/auth/auth-config.yml"
+      - "-httpListenAddr=0.0.0.0:8427"
+    healthcheck:
+      test: "wget -qO- http://localhost:8427/-/healthy"
+      interval: "30s"
+      timeout: "10s"
+      retries: 5
+    ports:
+     - "127.0.0.1:8427:8427"
 {% if uptime_kuma_enabled %}
   uptime-kuma:
     image: docker.io/louislam/uptime-kuma:1
