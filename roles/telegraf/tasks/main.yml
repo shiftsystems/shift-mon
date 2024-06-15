@@ -576,7 +576,7 @@
   when: syslog is defined
   notify: Restart Telegraf
 
-- name: Add User provided Telegraf config
+- name: Add User provided Telegraf configs
   ansible.builtin.template:
     src: "{{ item.value }}"
     dest: "/etc/telegraf/telegraf.d/{{ item.key}}.conf"

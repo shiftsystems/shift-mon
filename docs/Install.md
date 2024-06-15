@@ -94,8 +94,10 @@ Below you will see many lines that look like this. There are two main things to 
         
         # Victoria Metrics is the metrics collector, it indexes and stores all metrics for shift-mon
         victoria:
+          # username and password telegraf should use to authenticate to victoriametrics
           user: telegraf
           password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
+          # URL telegraf should use to send metrics to victoriametrics
           url: 'https://metrics.local.example.com'
           domain: metrics.local.example.com
           retention_period: 90d
@@ -107,10 +109,13 @@ Below you will see many lines that look like this. There are two main things to 
           # Bring your own SSL cert
           #cert_path: "{{ playbook_dir }}/files/victoria.crt"
           #key_path: "{{ playbook_dir }}/files/victoria.key"
-          
+          # Provision recording rules for storing metrics from commonly used queries like SLOs must end in .yaml or .yml to be evaluated
+          rule_files:
+            blackbox: /path/to/blackbox.yaml
+            pango: /path/to/pango-rules.yml
           # Used for bring you own SSL and if you have devices that do not support SSL
           #insecure: true
-        
+
         # Grafana is a GUI for viewing your logs and metrics using graphs
         grafana:
           domain: grafana.local.example.com
@@ -120,7 +125,7 @@ Below you will see many lines that look like this. There are two main things to 
           #cert_path: "{{ playbook_dir }}/files/grafana.crt"
           #key_path: "{{ playbook_dir }}/files/grafana.key"
           # Path to YAML File which contains Grafana Alerts
-          #alert_path: "{{ playbook_dir }}/user-alerts.yml"
+          #abert_path: "{{ playbook_dir }}/user-alerts.yml"
           # Dictionary of folders with your own dashboards you want to provision with shiftmon
           #dashboard_paths:
             #business: "{{ playbook_dir }}/business"

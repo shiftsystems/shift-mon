@@ -26,17 +26,12 @@
           url: "{{ lookup('env', 'LOKI_URL') }}"
           domain: "{{ lookup('env', 'LOKI_DOMAIN') }}"
           retention_period: 90d
-          # cert_path: "{{ playbook_dir }}/files/loki.crt" # optional use if you want to use your own cert for Loki
-          # key_path: "{{ playbook_dir }}/files/loki.key" # optional use if you want to use your own cert for Loki
         victoria:
           user: telegraf
           password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
           url: "{{ lookup('env', 'VICTORIA_URL') }}"
           retention_period: 90d
           domain: "{{ lookup('env', 'VICTORIA_DOMAIN') }}"
-          # cert_path: "{{ playbook_dir }}/files/victoria.crt" # optional use if you want to use your own cert for Victoriametrics
-          # key_path: "{{ playbook_dir }}/files/victoria.key" # optional use if you want to use your own cert for Victoriametrics
-          # insecure: true # set to true if you need insecure access to Victoriametrics for things that cannot handle SSL or self signed certs
         email:
           enabled: false # uncomment and set to true to allow grafana to send email set to false or uncomment to ignore.
           host: "{{ lookup('env', 'GRAFANA_EMAIL_DOMAIN') }}"
