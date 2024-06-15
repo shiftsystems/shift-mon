@@ -130,6 +130,7 @@ services:
       - "-httpListenAddr=0.0.0.0:9093"
       - "-rule=/rules/*.yaml"
       - "-rule=/rules/*.yml"
+      - "-configCheckInterval=1m"
     healthcheck:
       test: "wget -qO- http://localhost:9093/-/healthy"
       interval: "30s"

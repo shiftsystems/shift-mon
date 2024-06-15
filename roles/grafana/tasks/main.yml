@@ -77,17 +77,18 @@
   become: true
   when: ldap_host is defined
 
-- name: Add user provisioned Alerts
+- name: Add user provisioned alerts
   ansible.builtin.copy:
     src: "{{ grafana.alert_path }}"
     dest: /opt/shift-mon/grafana-config/provisioning/alerting/user-alerts.yml
   become: true
   when: grafana.alert_path is defined
 
-- name: Upload user provisioned folders
+- name: Upload user provisioned dashboards
   ansible.builtin.copy:
     src: "{{ item.value }}"
     dest: "/opt/shift-mon/grafana"
   become: true
   when: grafana.dashboard_paths is defined
   with_items: "{{ grafana.dashboard_paths | dict2items }}"
+
