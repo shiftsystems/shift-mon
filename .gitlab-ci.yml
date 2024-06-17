@@ -34,7 +34,6 @@ shiftmon-release:
     description: './CHANGELOG.md'
   only:
     - main@shiftsystems/shiftmon
-    - tags
 
 galaxy-publish:
   stage: galaxy-publish
@@ -43,5 +42,4 @@ galaxy-publish:
     - 'ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-$(grep "version: " galaxy.yml | sed "s:.*\ ::").tar.gz --token $GALAXY_API_KEY'
   only:
     - main@shiftsystems/shiftmon
-    - tags
 
