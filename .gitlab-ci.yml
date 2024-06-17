@@ -30,7 +30,7 @@ shiftmon-release:
     - 'SHIFTMON_RELEASE=v$(grep version: galaxy.yml | sed "s:.*\ ::")'
     - 'echo $SHIFTMON_RELEASE'
   release:
-    tag_name: 'v$CI_COMMIT_TAG'
+    tag_name: 'v0.164.0'
     description: './CHANGELOG.md'
   only:
     - main@shiftsystems/shiftmon
