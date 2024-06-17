@@ -1,6 +1,8 @@
+
 ## 0.160
 * added release notes
 * fixed doc mistake added in 0.159
+* added extra file to Proxmox VE syslog
 
 ## 0.159
 * VMAlert Rules now Refresh every minute
