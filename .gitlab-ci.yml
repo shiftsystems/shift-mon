@@ -23,23 +23,23 @@ ansible-lint:
   script:
     - ansible-lint .
 
+shiftmon-release:
+  stage: shiftmon-release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  script:
+    - 'now releasing Shiftmon version $CI_COMMIT_TAG'
+  release:
+    tag_name: $CI_COMMIT_TAG
+    description: './CHANGELOG.md'
+  only:
+    - main@shiftsystems/shiftmon
+    - tags
+
 galaxy-publish:
   stage: galaxy-publish
   image: quay.io/pulp/galaxy-minimal:latest
   script:
     - 'ansible-galaxy collection build . --force && ansible-galaxy collection publish shiftsystems-shift_mon-$(grep "version: " galaxy.yml | sed "s:.*\ ::").tar.gz --token $GALAXY_API_KEY'
-  only:
-    - main@shiftsystems/shiftmon
-    - tags
-
-shiftmon-release:
-  stage: shiftmon-release
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
-  script:
-    - 'now releasing Shiftmon version ${CI_COMMIT_TAG}'
-  release:
-    tag_name: '${CI_COMMIT_TAG}'
-    description: './CHANGELOG.md'
   only:
     - main@shiftsystems/shiftmon
     - tags
