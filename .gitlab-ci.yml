@@ -34,6 +34,7 @@ galaxy-publish:
 
 shiftmon-release:
   stage: shiftmon-release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
   script:
     - 'now releasing Shiftmon version ${CI_COMMIT_TAG}'
   release:
