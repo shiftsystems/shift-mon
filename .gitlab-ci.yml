@@ -28,7 +28,7 @@ shiftmon-release:
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   script:
     - 'SHIFTMON_RELEASE=v$(grep version: galaxy.yml | sed "s:.*\ ::")'
-    - 'now releasing Shiftmon version $CI_COMMIT_TAG'
+    - 'echo $SHIFTMON_RELEASE'
   release:
     tag_name: $SHIFTMON_RELEASE
     description: './CHANGELOG.md'
