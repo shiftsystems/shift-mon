@@ -114,8 +114,10 @@ Below you will see many lines that look like this. There are two main things to 
             blackbox: /path/to/blackbox.yaml
             pango: /path/to/pango-rules.yml
           # Used for bring you own SSL and if you have devices that do not support SSL
-          #insecure: true
-
+          # insecure: true
+          # license: asdfasdfasdfasdf # Victoriametrics enterprise license required for rententionfilter and downsampling to work
+          # downsampling_period: 1d:1m,7d:5m # rqeuires enterprise license more details about downsampling can be found in the victoriametrics docs https://docs.victoriametrics.com/#downsampling
+          # retention_filter: # sets per label retention policy more info can be found in the victoriametrics docs https://docs.victoriametrics.com/#retention-filters
         # Grafana is a GUI for viewing your logs and metrics using graphs
         grafana:
           domain: grafana.local.example.com
