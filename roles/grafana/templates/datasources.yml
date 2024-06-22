@@ -7,8 +7,16 @@ datasources:
       httpmethod: POST
       manageAlerts: true
       prometheusType: Prometheus
-      prometheusVersion: 2.47.0
+      prometheusVersion: 2.53.0
       disableRecordingRules: false
   - name: shift-logs
     type: loki
     url: 'http://loki:3100'
+  - name: shift-victoriametrics
+    type: victoriametrics-datasource
+    url: 'http://victoriametrics:8428'
+    isDefault: false
+    jsonData:
+      httpmethod: POST
+      vmuiUrl: 'https://{{victoria.domain }}/vmui'
+

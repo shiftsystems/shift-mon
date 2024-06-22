@@ -23,6 +23,14 @@
     - /opt/shift-mon/vmalert/rules
     - /opt/shift-mon/vmauth
 
+- name: Upload Scrape Config
+  ansible.builtin.template:
+    src: scrape-config.yml
+    dest: /opt/shift-mon/victoriametrics/scrape-config.yml
+    mode: '770'
+    setype: container_file_t
+  become: true
+
 - name: Add VMAuth Template
   ansible.builtin.template:
     src: auth-config.yml
