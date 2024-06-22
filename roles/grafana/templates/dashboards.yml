@@ -6,6 +6,11 @@ providers:
     type: file
     options:
       path: /var/lib/grafana/dashboards
+  - name: victoriametrics
+    folder: victoriametrics
+    type: file
+    options:
+      path: /var/lib/grafana/victoriametrics-dashboards
 {% if grafana.dashboard_paths is defined %}
 {% for name,path in grafana.dashboard_paths.items() %}
   - name: {{ name }}
