@@ -76,7 +76,10 @@ services:
       retries: 5
 {% if oncall_enabled %}
     environment:
-      GF_INSTALL_PLUGINS: grafana-oncall-app,https://github.com/VictoriaMetrics/grafana-datasource/releases/download/v0.8.2/victoriametrics-datasource-v0.8.2.zip;victoriametrics-datasource
+      GF_INSTALL_PLUGINS: grafana-oncall-app,https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource
+{% else %}
+    environment:
+      GF_INSTALL_PLUGINS: https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource
 {% endif %}
   loki:
     image: docker.io/grafana/loki:latest

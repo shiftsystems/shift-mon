@@ -75,6 +75,13 @@
     dest: /opt/shift-mon/grafana-config/provisioning/datasources/shift-datasources.yml
   become: true
 
+- name: Get Latest Version of VictoriaMetrics Datasource
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/VictoriaMetrics/grafana-datasource/releases/latest
+    return_content: true
+    body_format: json
+  register: vm_datasource_release
+
 - name: Copy Grafana config
   ansible.builtin.template:
     src: grafana.ini
