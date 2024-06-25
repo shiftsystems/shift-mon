@@ -70,7 +70,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: 'wget -qO- http://localhost:3000/api/health'
+      test: 'wget -qO- http://127.0.0.1:3000/api/health'
       interval: '30s'
       timeout: '10s'
       retries: 5
@@ -94,7 +94,7 @@ services:
     command:
       - "-config.file=/etc/loki/loki-config.yml"
     healthcheck:
-      test: "wget -qO- http://localhost:3100/ready"
+      test: "wget -qO- http://127.0.0.1:3100/ready"
       interval: "30s"
       timeout: "10s"
       retries: 5
@@ -128,7 +128,7 @@ services:
       - "-downsampling.period={{ victoria.downsampling_period }}"
 {% endif %}
     healthcheck:
-      test: "wget -qO- http://localhost:8428/-/healthy"
+      test: "wget -qO- http://127.0.0.1:8428/-/healthy"
       interval: "30s"
       timeout: "10s"
       retries: 5
@@ -159,7 +159,7 @@ services:
       - "-license={{ victoria.license }}"
 {% endif %}
     healthcheck:
-      test: "wget -qO- http://localhost:9093/-/healthy"
+      test: "wget -qO- http://127.0.0.1:9093/-/healthy"
       interval: "30s"
       timeout: "10s"
       retries: 5
@@ -183,12 +183,26 @@ services:
       - "-license={{ victoria.license }}"
 {% endif %}
     healthcheck:
-      test: "wget -qO- http://localhost:8427/-/healthy"
+      test: "wget -qO- http://127.0.0.1:8427/-/healthy"
       interval: "30s"
       timeout: "10s"
       retries: 5
     ports:
      - "127.0.0.1:8427:8427"
+{% if vmanomaly_enabled and victoria.license is defined %}
+  vmanomaly:
+    image: victoriametrics/vmanomaly:latest
+    depends_on:
+      victoriametrics:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-config
+        target: /config
+    command:
+      - "/config/config.yml"
+      - "--license={{ victoria.license }}"
+{% endif %}
 {% if uptime_kuma_enabled %}
   uptime-kuma:
     image: docker.io/louislam/uptime-kuma:1
