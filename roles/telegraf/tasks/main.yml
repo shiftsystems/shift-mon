@@ -538,7 +538,7 @@
     owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
-  when: blackbox_ping_hosts is defined and blackbox_net_hosts
+  when: blackbox_net_hosts is defined and blackbox_net_hosts
   notify: Restart Telegraf
 
 - name: Install Rsyslog
