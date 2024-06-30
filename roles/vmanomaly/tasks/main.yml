@@ -10,7 +10,7 @@
 
 - name: Add config file
   ansible.builtin.template:
-    src: config.yml.j2
+    src: "{{ vmanomaly_config_path }}"
     dest: /opt/shift-mon/vmanomaly-config/config.yml
     owner: 1000
     group: 1000

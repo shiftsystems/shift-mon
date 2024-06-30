@@ -192,6 +192,7 @@ services:
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
     image: victoriametrics/vmanomaly:latest
+    restart: always
     depends_on:
       victoriametrics:
         condition: service_healthy
