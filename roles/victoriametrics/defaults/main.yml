@@ -1,1 +1,2 @@
 telegraf_victoriametrics_config: true
+vmanomaly_enabled: false
