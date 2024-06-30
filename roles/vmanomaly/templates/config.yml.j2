@@ -1,0 +1,35 @@
+schedulers:
+  periodic:
+    # class: "periodic"
+    infer_every: "1m"
+    fit_every: "1h"
+    fit_window: "6h"
+
+models:
+  mad:
+    class: "mad"
+    z_threshold: 3.5
+    detection_direction: 'above_expected'
+    min_dev_from_expected: 3.0
+    queries:
+{% for query in detections.keys() %}
+      - '{{ query }}'
+{% endfor %}
+    schedulers:
+      - 'periodic'
+
+reader:
+  datasource_url: "http://victoriametrics:8428/"
+  sampling_period: "1m"
+  queries:
+{% for detection, query in detections.items() %}
+   {{ detection }}: '{{ query }}'
+{% endfor %}
+writer:
+  datasource_url: "http://victoriametrics:8428/"
+
+monitoring:
+  pull:
+    addr: "0.0.0.0"
+    port: 8490
+

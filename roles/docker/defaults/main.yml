@@ -3,3 +3,4 @@ docker_users:
   - telegraf
 uptime_kuma_enabled: false
 oncall_enabled: false
+vmanomaly_enabled: false

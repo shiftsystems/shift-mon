@@ -8,3 +8,6 @@ scrape_configs:
       - 'http://vmalert:9093'
       - 'http://vmauth:8427'
       - 'http://loki:3100'
+{% if vmanomaly_enabled and victoria.license is defined %}
+      - 'http://vmanomaly:8490'
+{% endif %}

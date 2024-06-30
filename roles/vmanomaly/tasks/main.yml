@@ -1,0 +1,19 @@
+- name: Create Victoriametrics directory
+  ansible.builtin.file:
+    path: '/opt/shift-mon/vmanomaly-config'
+    state: directory
+    mode: '770'
+    setype: container_file_t
+    owner: 1000
+    group: 1000
+  become: true
+
+- name: Add config file
+  ansible.builtin.template:
+    src: "{{ vmanomaly_config_path }}"
+    dest: /opt/shift-mon/vmanomaly-config/config.yml
+    owner: 1000
+    group: 1000
+    mode: '770'
+    setype: container_file_t
+  become: true
