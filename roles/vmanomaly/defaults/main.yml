@@ -1,4 +1,5 @@
 detections:
   dns_blackbox: 'avg by (server) (dns_query_query_time_ms[5m])'
-  http_blackbox: 'avg by (server) (http_response_response_time[5m])'
+  http_blackbox: 'avg by (server) (http_response_response_time[5m]) * 1000'
+min_deviation_value: 50.0
 vmanomaly_config_path: 'config.yml.j2'

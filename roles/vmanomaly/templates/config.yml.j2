@@ -10,7 +10,7 @@ models:
     class: "mad"
     z_threshold: 3.5
     detection_direction: 'above_expected'
-    min_dev_from_expected: 3.0
+    min_dev_from_expected: {{ min_deviation_value }}
     queries:
 {% for query in detections.keys() %}
       - '{{ query }}'
