@@ -33,11 +33,29 @@
           bucket {{ metrics_bucket }}
           influxdbproto  {{ metrics_protocol }}
   notify: Restart pvestatd
-  when: pve.stat.isdir is defined and pve.stat.isdir
+  when:
+    - pve.stat.isdir is defined
+    - pve.stat.isdir
+
+- name: Add Token to Proxmox Virtual Environment
+  ansible.builtin.template:
+    src: metrics.pw
+    dest: "/etc/pve/priv/metricserver/{{ metrics_name}}.pw"
+    mode: '600'
+    owner: root
+    group: www-data
+    unsafe_writes: true
+  become: true
+  when:
+    - metrics_token is defined
+    - pve.stat.isdir is defined
+    - pve.stat.isdir
 
 # Metric server doesn't support comments in PBS so we overrite the file
 - name: Add metric server on Proxmox Backup Server
   ansible.builtin.template:
     src: metricserver.cfg
     dest: /etc/proxmox-backup/metricserver.cfg
-  when: pbs.stat.isdir is defined and pbs.stat.isdir
+  when:
+    - pbs.stat.isdir is defined
+    - pbs.stat.isdir

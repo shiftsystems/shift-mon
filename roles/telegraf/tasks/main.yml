@@ -409,7 +409,7 @@
   when: "'victoriametrics.service' in ansible_facts.services and 'victoriametrics' not in do_not_instrument"
   notify: Restart Telegraf
 
-- name: Is ZFS installed
+- name: Check if ZFS is installed
   ansible.builtin.stat:
     path: /etc/zfs/
   register: zfs_path
@@ -424,6 +424,30 @@
   become: true
   notify: Restart Telegraf
   when: "zfs_path.stat.exists and 'zfs' not in do_not_instrument"
+
+- name: Check if ROCM SMI is installed from repos
+  ansible.builtin.stat:
+    path: /usr/bin/rocm-smi
+  register: rocm_smi_repo
+
+- name: Check if ROCM SMI is installed from propetairy drivers
+  ansible.builtin.stat:
+    path: /opt/rocm/rocm-smi
+  register: rocm_smi_propetairy
+
+
+- name: Add ROCM SMI config to telegraf
+  ansible.builtin.template:
+    src: "rocm.conf"
+    dest: /etc/telegraf/telegraf.d/rocm.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  notify: Restart Telegraf
+  when: 
+    - rocm_smi_repo.stat.exists or rocm_smi_propetairy.stat.exists
+    - rocm not in do_not_instrument
 
 - name: Deploy VSphere config when Vsphere Creds are Available
   ansible.builtin.copy:
