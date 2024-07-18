@@ -409,7 +409,7 @@
   when: "'victoriametrics.service' in ansible_facts.services and 'victoriametrics' not in do_not_instrument"
   notify: Restart Telegraf
 
-- name: Check if Zfs is installed
+- name: Check if ZFS is installed
   ansible.builtin.stat:
     path: /etc/zfs/
   register: zfs_path
