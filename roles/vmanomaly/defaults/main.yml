@@ -3,3 +3,6 @@ detections:
   http_blackbox: 'avg by (server) (http_response_response_time[5m]) * 1000'
 min_deviation_value: 50.0
 vmanomaly_config_path: 'config.yml.j2'
+vmanomaly_fit_window: '24h'
+vmanomaly_fit_every: '1h'
+vmanomaly_infer_every: '1m'
