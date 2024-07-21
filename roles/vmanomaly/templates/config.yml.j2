@@ -1,9 +1,9 @@
 schedulers:
   periodic:
     # class: "periodic"
-    infer_every: "1m"
-    fit_every: "1h"
-    fit_window: "6h"
+    infer_every: "{{ vmanomaly_infer_every }}"
+    fit_every: "{{ vmanomaly_fit_every }}"
+    fit_window: "{{ vmanomaly_fit_window }}"
 
 models:
   mad:

@@ -74,13 +74,8 @@ services:
       interval: '30s'
       timeout: '10s'
       retries: 5
-{% if oncall_enabled %}
     environment:
-      GF_INSTALL_PLUGINS: grafana-oncall-app,https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource
-{% else %}
-    environment:
-      GF_INSTALL_PLUGINS: https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource
-{% endif %}
+      GF_INSTALL_PLUGINS: grafana-oncall-app,https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource,https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/{{ vl_datasource_release.json.tag_name }}/victorialogs-datasource-{{ vl_datasource_release.json.tag_name }}.zip;victorialogs-datasource
   loki:
     image: docker.io/grafana/loki:latest
     restart: unless-stopped
@@ -200,10 +195,15 @@ services:
       - type: bind
         source: /opt/shift-mon/vmanomaly-config
         target: /config
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-models
+        target: /models
     command:
       - "/config/config.yml"
       - "--license={{ victoria.license }}"
     user: "1000:1000"
+    environment:
+      VMANOMALY_MODEL_DUMPS_DIR: /models
 {% endif %}
 {% if uptime_kuma_enabled %}
   uptime-kuma:
