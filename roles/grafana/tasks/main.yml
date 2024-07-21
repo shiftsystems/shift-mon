@@ -83,6 +83,13 @@
     body_format: json
   register: vm_datasource_release
 
+- name: Get Latest Version of Victorialogs Datasource
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/VictoriaMetrics/victorialogs-datasource/releases/latest
+    return_content: true
+    body_format: json
+  register: vl_datasource_release
+
 - name: Copy Grafana config
   ansible.builtin.template:
     src: grafana.ini
