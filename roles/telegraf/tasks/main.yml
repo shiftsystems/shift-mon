@@ -449,6 +449,7 @@
     - rocm_smi_repo.stat.exists or rocm_smi_propetairy.stat.exists
     - rocm not in do_not_instrument
 
+
 - name: Deploy VSphere config when Vsphere Creds are Available
   ansible.builtin.copy:
     src: "linux/vsphere.conf"
@@ -502,6 +503,37 @@
   with_items:
     - smartmontools
     - nvme-cli
+
+- name: Install Sensors on RedHat based systems
+  ansible.builtin.dnf:
+    name: lm_sensors
+    state: latest
+  become: true
+  when:
+    - ansible_facts['virtualization_role'] != 'guest' 
+    - deploy_sensors is not defined or deploy_smart
+    - ansible_facts['os_family'] == "RedHat"
+
+- name: Install Sensors on Debian based systems
+  ansible.builtin.dnf:
+    name: lm-sensors
+    state: latest
+  become: true
+  when:
+    - ansible_facts['virtualization_role'] != 'guest' 
+    - deploy_sensors is not defined or deploy_smart
+    - ansible_facts['os_family'] == "Debian"
+
+- name: Add sensors config to telegraf
+  ansible.builtin.template:
+    src: "sensors.conf"
+    dest: /etc/telegraf/telegraf.d/sensors.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  notify: Restart Telegraf
+  when: ansible_facts['virtualization_role'] != 'guest' and (deploy_smart is not defined or deploy_smart)
 
 - name: Deploy SMART Monitoring Config
   ansible.builtin.copy:
