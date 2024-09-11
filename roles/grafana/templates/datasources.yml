@@ -15,7 +15,7 @@ datasources:
   - name: shift-victoriametrics
     type: victoriametrics-datasource
     url: 'http://victoriametrics:8428'
-    isDefault: false
+    isDefault: true
     jsonData:
       httpmethod: POST
       vmuiUrl: 'https://{{victoria.domain }}/vmui'
