@@ -332,17 +332,6 @@
   when: "'fleetdm.service' in ansible_facts.services"
   notify: Restart Telegraf
 
-- name: Deploy Loki config when Loki is installed
-  ansible.builtin.copy:
-    src: "linux/loki.conf"
-    dest: /etc/telegraf/telegraf.d/loki.conf
-    mode: "660"
-    owner: "{{ telegraf_user }}"
-    group: "telegraf"
-  become: true
-  when: "'loki.service' in ansible_facts.services and 'loki' not in do_not_instrument"
-  notify: Restart Telegraf
-
 - name: Add Traefik log config to telegraf
   ansible.builtin.template:
     src: telegraf-traefik.conf
@@ -363,50 +352,6 @@
     group: "telegraf"
   become: true
   when: telegraf_traefik_config is defined and telegraf_traefik_config
-  notify: Restart Telegraf
-
-- name: Add Victoriametrics config to telegraf
-  ansible.builtin.copy:
-    src: victoriametrics-docker.conf
-    dest: /etc/telegraf/telegraf.d/victoriametrics-docker.conf
-    mode: "660"
-    owner: "{{ telegraf_user }}"
-    group: "telegraf"
-  become: true
-  notify: Restart Telegraf
-  when: telegraf_victoriametrics_config
-
-- name: Add Grafana config to telegraf
-  ansible.builtin.template:
-    src: grafana-docker.conf
-    dest: /etc/telegraf/telegraf.d/grafana-docker.conf
-    mode: "660"
-    owner: "{{ telegraf_user }}"
-    group: "telegraf"
-  become: true
-  notify: Restart Telegraf
-  when: telegraf_grafana_config
-
-- name: Add loki config to telegraf
-  ansible.builtin.copy:
-    src: loki-docker.conf
-    dest: /etc/telegraf/telegraf.d/loki-docker.conf
-    mode: "660"
-    owner: "{{ telegraf_user }}"
-    group: "telegraf"
-  become: true
-  notify: Restart Telegraf
-  when: telegraf_loki_config
-
-- name: Deploy Victoriametrics config when Victoriametrics is installed
-  ansible.builtin.copy:
-    src: "linux/victoriametrics.conf"
-    dest: /etc/telegraf/telegraf.d/victoriametrics.conf
-    mode: "660"
-    owner: "{{ telegraf_user }}"
-    group: "telegraf"
-  become: true
-  when: "'victoriametrics.service' in ansible_facts.services and 'victoriametrics' not in do_not_instrument"
   notify: Restart Telegraf
 
 - name: Check if ZFS is installed

@@ -8,6 +8,9 @@ scrape_configs:
       - 'http://vmalert:9093'
       - 'http://vmauth:8427'
       - 'http://loki:3100'
+      - 'http://grafana:3000'
 {% if vmanomaly_enabled and victoria.license is defined %}
       - 'http://vmanomaly:8490'
 {% endif %}
+      labels:
+        host: {{ ansible_nodename }}
