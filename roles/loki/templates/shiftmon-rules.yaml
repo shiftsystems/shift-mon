@@ -18,3 +18,8 @@ groups:
           (count by (host) (rate({path=~".*querylog.json"} | logfmt[5m])))
         labels:
           user: "shiftmon"
+      - record: adguardhome_blocked_request_rate5m
+        expr: |
+          count(rate({path=~".*data/querylog.json"} | logfmt | Result_IsFiltered="true"[5m])) by (host)
+        labels:
+          user: "shiftmon"

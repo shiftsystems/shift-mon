@@ -167,6 +167,21 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum_over_time(sum by (host) (adguardhome_blocked_request_rate5m{host=~\"$host\"})[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
         }
       ],
       "title": "Totals",
@@ -182,12 +197,20 @@
               "Time": true
             },
             "includeByName": {},
-            "indexByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value #A": 2,
+              "Value #B": 4,
+              "Value #C": 5,
+              "Value #D": 3,
+              "host": 1
+            },
             "renameByName": {
               "Time": "",
               "Value #A": "Requests",
               "Value #B": "Block Rate",
               "Value #C": "Cache Hit Ratio",
+              "Value #D": "Blocked Requests",
               "host": ""
             }
           }
@@ -854,7 +877,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1010,7 +1034,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1224,6 +1249,6 @@
   "timezone": "",
   "title": "Adguard",
   "uid": "RXBFLS0nz",
-  "version": 11,
+  "version": 12,
   "weekStart": ""
 }
