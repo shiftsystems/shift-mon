@@ -31,4 +31,9 @@
     src: loki-config.yml
     dest: /opt/shift-mon/loki-config/loki-config.yml
   become: true
-  
+
+- name: Copy Shiftmon Recording Rules
+  ansible.builtin.template:
+    src: shiftmon-rules.yaml
+    dest: /opt/shift-mon/loki/rules/fake/shiftmon-rules.yaml
+  become: true
