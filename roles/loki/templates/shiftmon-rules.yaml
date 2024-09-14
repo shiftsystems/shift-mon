@@ -16,4 +16,5 @@ groups:
       - record: adguardhome_request_rate5m
         expr: |
           (count by (host) (rate({path=~".*querylog.json"} | logfmt[5m])))
-
+        labels:
+          user: "shiftmon"
