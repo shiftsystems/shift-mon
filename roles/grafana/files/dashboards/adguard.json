@@ -44,8 +44,9 @@
   "panels": [
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "default": false,
+        "type": "victoriametrics-datasource",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -57,7 +58,6 @@
             "cellOptions": {
               "type": "auto"
             },
-            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -73,18 +73,42 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Block Rate"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cache Hit Ratio"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
+        "h": 7,
+        "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "id": 11,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -95,104 +119,99 @@
           ],
           "show": false
         },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "filtered"
-          }
-        ]
+        "frameIndex": 1,
+        "showHeader": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "victoriametrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",path=~\".*data/querylog.json\"} | logfmt",
-          "queryType": "range",
+          "exemplar": false,
+          "expr": "sum_over_time(sum by (host) (adguardhome_request_rate5m{host=~\"$host\"})[$__range])",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time(sum by (host) (adguardhome_block_rate5m{host=~\"$host\"})[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time(sum by (host) (adguardhome_cache_rate5m{host=~\"$host\"})[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum_over_time(sum by (host) (adguardhome_blocked_request_rate5m{host=~\"$host\"})[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
         }
       ],
-      "title": "All Queries",
+      "title": "Totals",
       "transformations": [
         {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "AD": true,
-              "CP": true,
-              "Cached": true,
-              "Line": true,
-              "OrigAnswer": true,
-              "QC": true,
-              "Result_IPList_0": true,
-              "Result_IPList_1": true,
-              "Result_Reason": true,
-              "Result_Rules_0_FilterListID": true,
-              "Result_Rules_0_IP": true,
-              "Result_Rules_0_Text": true,
-              "Result_Rules_1_FilterListID": true,
-              "Result_Rules_1_IP": true,
-              "Result_Rules_1_Text": true,
-              "Time": true,
-              "Upstream": true,
-              "__name": true,
-              "host": true,
-              "id": true,
-              "labels": true,
-              "line": true,
-              "path": true,
-              "ts": true,
-              "tsNs": true
+              "Time": true
             },
+            "includeByName": {},
             "indexByName": {
-              "CP": 14,
-              "Cached": 6,
-              "Elapsed": 4,
-              "IP": 1,
-              "OrigAnswer": 20,
-              "QC": 12,
-              "QH": 2,
-              "QT": 3,
-              "Result_IPList_0": 21,
-              "Result_IPList_1": 22,
-              "Result_IsFiltered": 5,
-              "Result_Reason": 17,
-              "Result_Rules_0_FilterListID": 19,
-              "Result_Rules_0_IP": 25,
-              "Result_Rules_0_Text": 18,
-              "Result_Rules_1_FilterListID": 23,
-              "Result_Rules_1_IP": 26,
-              "Result_Rules_1_Text": 24,
-              "T": 0,
-              "Upstream": 7,
-              "__name": 15,
-              "host": 16,
-              "id": 10,
-              "line": 9,
-              "path": 13,
-              "ts": 8,
-              "tsNs": 11
+              "Time": 0,
+              "Value #A": 2,
+              "Value #B": 4,
+              "Value #C": 5,
+              "Value #D": 3,
+              "host": 1
             },
             "renameByName": {
-              "Cached": "",
-              "Elapsed": "query time",
-              "IP": "Source",
-              "QC": "",
-              "QH": "domain",
-              "QT": "Query type",
-              "Result_IsFiltered": "filtered",
-              "T": "Time",
-              "Upstream": ""
+              "Time": "",
+              "Value #A": "Requests",
+              "Value #B": "Block Rate",
+              "Value #C": "Cache Hit Ratio",
+              "Value #D": "Blocked Requests",
+              "host": ""
             }
           }
         }
@@ -201,21 +220,49 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
+        "default": false,
+        "type": "victoriametrics-datasource",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 1,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "filterable": true,
-            "inspect": false
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -231,129 +278,262 @@
               }
             ]
           },
-          "unitScale": true
+          "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 0
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 7
       },
-      "id": 3,
+      "id": 8,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
           ],
-          "show": false
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": false
         },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Result_Rules_1_Text"
-          }
-        ]
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",path=~\".*data/querylog.json\"}  |~ \"Result_IsFiltered\"| logfmt ",
-          "queryType": "range",
+          "expr": "adguardhome_cache_rate5m{host=~\"$host\"}",
+          "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "filtered queries",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
+      "title": "Cache Hit Ratio",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "victoriametrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           }
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 7
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Total",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
         {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "CP": true,
-              "Cached": true,
-              "Line": true,
-              "OrigAnswer": true,
-              "QC": true,
-              "QT": false,
-              "Result_IPList_0": true,
-              "Result_IPList_1": true,
-              "Result_IsFiltered": true,
-              "Result_Reason": true,
-              "Result_Rules_0_FilterListID": true,
-              "Result_Rules_0_IP": true,
-              "Result_Rules_0_Text": false,
-              "Result_Rules_1_FilterListID": true,
-              "Result_Rules_1_IP": true,
-              "Result_Rules_1_Text": true,
-              "Time": true,
-              "Upstream": true,
-              "__name": true,
-              "host": true,
-              "id": true,
-              "labels": true,
-              "line": true,
-              "path": true,
-              "ts": true,
-              "tsNs": true
-            },
-            "indexByName": {
-              "CP": 17,
-              "Cached": 8,
-              "Elapsed": 4,
-              "IP": 1,
-              "OrigAnswer": 20,
-              "QC": 15,
-              "QH": 2,
-              "QT": 3,
-              "Result_IsFiltered": 9,
-              "Result_Reason": 7,
-              "Result_Rules_0_FilterListID": 6,
-              "Result_Rules_0_IP": 23,
-              "Result_Rules_0_Text": 5,
-              "Result_Rules_1_FilterListID": 21,
-              "Result_Rules_1_IP": 24,
-              "Result_Rules_1_Text": 22,
-              "T": 0,
-              "Upstream": 10,
-              "__name": 18,
-              "host": 19,
-              "id": 13,
-              "line": 12,
-              "path": 16,
-              "ts": 11,
-              "tsNs": 14
-            },
-            "renameByName": {
-              "Cached": "",
-              "Elapsed": "query time",
-              "IP": "source",
-              "QC": "",
-              "QH": "domain",
-              "QT": "type",
-              "Result_Rules_0_Text": "rule",
-              "T": "time",
-              "Upstream": ""
-            }
-          }
+          "datasource": {
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "adguardhome_request_rate5m{host=~\"$host\"}",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
         }
       ],
-      "type": "table"
+      "title": "Request Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "victoriametrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 1,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 7
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "adguardhome_block_rate5m{host=~\"$host\"}",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Block Rate",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -372,8 +552,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -381,13 +560,13 @@
         "h": 13,
         "w": 6,
         "x": 0,
-        "y": 9
+        "y": 15
       },
       "id": 5,
       "options": {
         "displayLabels": [],
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
@@ -485,8 +664,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -494,7 +672,7 @@
         "h": 13,
         "w": 6,
         "x": 6,
-        "y": 9
+        "y": 15
       },
       "id": 7,
       "options": {
@@ -536,7 +714,6 @@
         }
       ],
       "title": "Top Queriers",
-      "transformations": [],
       "type": "piechart"
     },
     {
@@ -556,8 +733,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -565,7 +741,7 @@
         "h": 13,
         "w": 6,
         "x": 12,
-        "y": 9
+        "y": 15
       },
       "id": 4,
       "options": {
@@ -607,7 +783,6 @@
         }
       ],
       "title": "Top filtered domains",
-      "transformations": [],
       "type": "piechart"
     },
     {
@@ -627,8 +802,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -636,7 +810,7 @@
         "h": 13,
         "w": 6,
         "x": 18,
-        "y": 9
+        "y": 15
       },
       "id": 6,
       "options": {
@@ -678,8 +852,319 @@
         }
       ],
       "title": "Top Filtered Hosts",
-      "transformations": [],
       "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 28
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "filtered"
+          }
+        ]
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "{host=~\"$host\",path=~\".*data/querylog.json\"} | logfmt",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "All Queries",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "AD": true,
+              "CP": true,
+              "Cached": true,
+              "Line": true,
+              "OrigAnswer": true,
+              "QC": true,
+              "Result_IPList_0": true,
+              "Result_IPList_1": true,
+              "Result_Reason": true,
+              "Result_Rules_0_FilterListID": true,
+              "Result_Rules_0_IP": true,
+              "Result_Rules_0_Text": true,
+              "Result_Rules_1_FilterListID": true,
+              "Result_Rules_1_IP": true,
+              "Result_Rules_1_Text": true,
+              "Time": true,
+              "Upstream": true,
+              "__name": true,
+              "host": true,
+              "id": true,
+              "labels": true,
+              "line": true,
+              "path": true,
+              "ts": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "CP": 14,
+              "Cached": 6,
+              "Elapsed": 4,
+              "IP": 1,
+              "OrigAnswer": 20,
+              "QC": 12,
+              "QH": 2,
+              "QT": 3,
+              "Result_IPList_0": 21,
+              "Result_IPList_1": 22,
+              "Result_IsFiltered": 5,
+              "Result_Reason": 17,
+              "Result_Rules_0_FilterListID": 19,
+              "Result_Rules_0_IP": 25,
+              "Result_Rules_0_Text": 18,
+              "Result_Rules_1_FilterListID": 23,
+              "Result_Rules_1_IP": 26,
+              "Result_Rules_1_Text": 24,
+              "T": 0,
+              "Upstream": 7,
+              "__name": 15,
+              "host": 16,
+              "id": 10,
+              "line": 9,
+              "path": 13,
+              "ts": 8,
+              "tsNs": 11
+            },
+            "renameByName": {
+              "Cached": "",
+              "Elapsed": "query time",
+              "IP": "Source",
+              "QC": "",
+              "QH": "domain",
+              "QT": "Query type",
+              "Result_IsFiltered": "filtered",
+              "T": "Time",
+              "Upstream": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 28
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Result_Rules_1_Text"
+          }
+        ]
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "{host=~\"$host\",path=~\".*data/querylog.json\"} | logfmt | Result_IsFiltered=\"true\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "filtered queries",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "CP": true,
+              "Cached": true,
+              "Line": true,
+              "OrigAnswer": true,
+              "QC": true,
+              "QT": false,
+              "Result_IPList_0": true,
+              "Result_IPList_1": true,
+              "Result_IsFiltered": true,
+              "Result_Reason": true,
+              "Result_Rules_0_FilterListID": true,
+              "Result_Rules_0_IP": true,
+              "Result_Rules_0_Text": false,
+              "Result_Rules_1_FilterListID": true,
+              "Result_Rules_1_IP": true,
+              "Result_Rules_1_Text": true,
+              "Time": true,
+              "Upstream": true,
+              "__name": true,
+              "host": true,
+              "id": true,
+              "labels": true,
+              "line": true,
+              "path": true,
+              "ts": true,
+              "tsNs": true
+            },
+            "indexByName": {
+              "CP": 17,
+              "Cached": 8,
+              "Elapsed": 4,
+              "IP": 1,
+              "OrigAnswer": 20,
+              "QC": 15,
+              "QH": 2,
+              "QT": 3,
+              "Result_IsFiltered": 9,
+              "Result_Reason": 7,
+              "Result_Rules_0_FilterListID": 6,
+              "Result_Rules_0_IP": 23,
+              "Result_Rules_0_Text": 5,
+              "Result_Rules_1_FilterListID": 21,
+              "Result_Rules_1_IP": 24,
+              "Result_Rules_1_Text": 22,
+              "T": 0,
+              "Upstream": 10,
+              "__name": 18,
+              "host": 19,
+              "id": 13,
+              "line": 12,
+              "path": 16,
+              "ts": 11,
+              "tsNs": 14
+            },
+            "renameByName": {
+              "Cached": "",
+              "Elapsed": "query time",
+              "IP": "source",
+              "QC": "",
+              "QH": "domain",
+              "QT": "type",
+              "Result_Rules_0_Text": "rule",
+              "T": "time",
+              "Upstream": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": "",
@@ -688,6 +1173,23 @@
   "tags": [],
   "templating": {
     "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "metrics",
+        "options": [],
+        "query": "victoriametrics-datasource",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
       {
         "current": {
           "selected": false,
@@ -707,22 +1209,14 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "metrics",
-        "options": [],
-        "query": "prometheus",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
         "datasource": {
           "type": "loki",
           "uid": "${logs}"
@@ -748,13 +1242,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Adguard",
   "uid": "RXBFLS0nz",
-  "version": 7,
+  "version": 12,
   "weekStart": ""
 }

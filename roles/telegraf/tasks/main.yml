@@ -156,10 +156,18 @@
   when: "'crowdsec.service' in ansible_facts.services and 'crowdsec' not in do_not_instrument"
   notify: Restart Telegraf
 
+- name: Remove Mispelled Adguard config
+  ansible.builtin.file:
+    path: /etc/telegraf/telegraf.d/adgaurd.conf
+    state: absent
+  become: true
+  when: "'AdGuardHome.service' in ansible_facts.services and 'AdGuardHome' not in do_not_instrument"
+  notify: Restart Telegraf
+
 - name: Add Adguard Config if Adguard is installed
   ansible.builtin.template:
-    src: "adgaurd.conf"
-    dest: /etc/telegraf/telegraf.d/adgaurd.conf
+    src: "adguard.conf"
+    dest: /etc/telegraf/telegraf.d/adguard.conf
     mode: "660"
     owner: "{{ telegraf_user }}"
     group: "telegraf"
