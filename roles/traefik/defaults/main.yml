@@ -1,3 +1,4 @@
 telegraf_traefik_config: true
 uptime_kuma_enabled: false
+victorialogs_enabled: false
 oncall_enabled: false

@@ -13,6 +13,17 @@ http:
       entryPoints:
         - websecure
 {% endif %}
+{% if victorialogs_enabled %}
+    victorialogs:
+      rule: Host(`{{ victorialogs.domain }}`)
+      tls:
+        certResolver: dynamicResolver
+      service: victorialogs
+      middlewares:
+        - basic-auth
+      entryPoints:
+        - websecure
+{% endif %}
     grafana_metrics:
       rule: Host(`{{ grafana.domain }}`) && Path(`/metrics`)
       priority: 2
@@ -82,7 +93,6 @@ http:
           path: /ready
           interval: "10s"
           timeout: "5s"
-
     victoriametrics:
       loadBalancer:
         servers:
@@ -91,6 +101,16 @@ http:
           path: /health
           interval: "10s"
           timeout: "5s"
+{% if victorialogs_enabled %}
+    victorialogs:
+      loadBalancer:
+        servers:
+          - url: http://victorialogs:9428
+        healthCheck:
+          path: /health
+          interval: "10s"
+          timeout: "5s"
+{% endif %}
 {% if uptime_kuma_enabled %}
     uptime-kuma:
       loadBalancer:

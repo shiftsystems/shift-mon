@@ -26,6 +26,10 @@ tls:
     - certfile: /etc/traefik/certs/oncall.crt
       keyfile: /etc/traefik/certs/oncall.key
 {% endif %}
+{% if victorialogs.cert_path is defined and victorialogs.key_path is defined %}
+    - certfile: /etc/traefik/certs/victorialogs.crt
+      keyfile: /etc/traefik/certs/victorialogs.key
+{% endif %}
   options:
     default:
       minVersion: VersionTLS12

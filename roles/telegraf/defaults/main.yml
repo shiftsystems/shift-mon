@@ -24,3 +24,4 @@ telegraf_secrets:
   loki_password: "{{ loki.password }}"
 telegraf_user: "{{ 'root' if (telegraf_root) else 'telegraf' }}"
 telegraf_use_secrets: false
+victorialogs_enabled: false

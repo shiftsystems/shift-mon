@@ -1,0 +1,7 @@
+- name: Create Victorialogs Folders
+  ansible.builtin.file:
+    path: /opt/shift-mon/victorialogs
+    state: directory
+    mode: '770'
+    setype: container_file_t
+  become: true

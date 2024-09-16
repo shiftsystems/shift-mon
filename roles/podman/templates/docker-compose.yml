@@ -108,7 +108,7 @@ services:
         source: /opt/shift-mon/victoriametrics-storage
         target: /victoriametrics-storage
     command:
-      - "-retentionPeriod=90d"
+      - "-retentionPeriod={{ victoria.retention_period | default('90d') }}"
       - "-storageDataPath=/victoriametrics-storage"
       - "-httpListenAddr=:8428"
       - "-vmalert.proxyURL=http://vmalert:9093"
@@ -233,6 +233,29 @@ services:
       timeout: 5s
       interval: 5s
       retries: 10
+{% if victorialogs_enabled is defined and victorialogs_enabled  %}
+  victorialogs:
+    image: docker.io/victoriametrics/victoria-logs:latest
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/victorialogs
+        target: /victorialogs
+    command:
+      - -storageDataPath=/victorialogs
+      - -retentionPeriod={{ victorialogs.retention_period }}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9428/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+{% if victorialogs.syslog_port is defined %}
+      - -syslog.listenAdder.tcp=0.0.0.0:{{ victorialogs.syslog_port }}
+      - -syslog.listenAdder.udp=0.0.0.0:{{ victorialogs.syslog_port }}
+    ports:
+      - {{ victorialogs.syslog_port }}
+{% endif %}
+{% endif %}
   traefik:
     restart: unless-stopped
     image: docker.io/traefik:latest

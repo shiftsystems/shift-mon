@@ -19,4 +19,8 @@ datasources:
     jsonData:
       httpmethod: POST
       vmuiUrl: 'https://{{victoria.domain }}/vmui'
-
+{% if victorialogs_enabled %}
+  - name: shiftmon-victorialogs
+    type: victorialogs-datasource
+    url: http://victorialogs:9428
+{% endif %}

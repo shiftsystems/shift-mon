@@ -1,1 +1,2 @@
 telegraf_grafana_config: true
+victorialogs_enabled: false
