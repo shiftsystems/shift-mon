@@ -77,7 +77,7 @@ services:
     environment:
       GF_INSTALL_PLUGINS: grafana-oncall-app,https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource,https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/{{ vl_datasource_release.json.tag_name }}/victorialogs-datasource-{{ vl_datasource_release.json.tag_name }}.zip;victorialogs-datasource
   loki:
-    image: docker.io/grafana/loki:latest
+    image: docker.io/grafana/loki:3.2.0
     restart: unless-stopped
     volumes:
       - type: bind
