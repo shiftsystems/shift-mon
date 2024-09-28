@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 100,
+  "id": 112,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -194,7 +194,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
           "datasource": {
@@ -369,7 +369,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
           "datasource": {
@@ -477,7 +477,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
           "datasource": {
@@ -580,6 +580,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "scheme",
@@ -690,6 +691,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "scheme",
@@ -842,7 +844,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
           "datasource": {
@@ -878,6 +880,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 100,
             "gradientMode": "none",
@@ -977,6 +980,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1077,6 +1081,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -4212,6 +4217,7 @@
       "panels": [
         {
           "datasource": {
+            "default": false,
             "type": "prometheus",
             "uid": "${metrics}"
           },
@@ -4312,6 +4318,18 @@
                     "value": "percent"
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Power Draw"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "watt"
+                  }
+                ]
               }
             ]
           },
@@ -4335,7 +4353,7 @@
             "frameIndex": 1,
             "showHeader": true
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.2.1",
           "targets": [
             {
               "datasource": {
@@ -4411,6 +4429,25 @@
               "range": false,
               "refId": "D",
               "useBackend": false
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P84D368831E8B3638"
+              },
+              "disableTextWrap": false,
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "avg by (host,name) (amd_rocm_smi_power_draw{host=~\"$host\"})",
+              "format": "table",
+              "fullMetaSearch": false,
+              "hide": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "E",
+              "useBackend": false
             }
           ],
           "title": "Panel Title",
@@ -4439,12 +4476,121 @@
                   "Value #A": "Mem Total",
                   "Value #B": "Mem Used",
                   "Value #C": "Edge Temp",
-                  "Value #D": "Utilization"
+                  "Value #D": "Utilization",
+                  "Value #E": "Power Draw"
                 }
               }
             }
           ],
           "type": "table"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 95,
+                "axisSoftMin": 20,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 50,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "dashed"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "watt"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 36
+          },
+          "id": 85,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${metrics}"
+              },
+              "disableTextWrap": false,
+              "editorMode": "code",
+              "expr": "amd_rocm_smi_power_draw{host=~\"$host\"}",
+              "fullMetaSearch": false,
+              "includeNullMetadata": true,
+              "instant": false,
+              "legendFormat": "{{host}} - {{name}}",
+              "range": true,
+              "refId": "A",
+              "useBackend": false
+            }
+          ],
+          "title": "GPU Power Draw",
+          "type": "timeseries"
         },
         {
           "datasource": {
@@ -4465,6 +4611,7 @@
                 "axisSoftMax": 95,
                 "axisSoftMin": 20,
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "none",
@@ -4516,12 +4663,12 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
-            "w": 24,
-            "x": 0,
+            "h": 7,
+            "w": 12,
+            "x": 12,
             "y": 36
           },
-          "id": 85,
+          "id": 86,
           "options": {
             "legend": {
               "calcs": [
@@ -4579,6 +4726,7 @@
                 "axisSoftMax": 1,
                 "axisSoftMin": 0,
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "none",
@@ -4622,7 +4770,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 42
+            "y": 43
           },
           "id": 82,
           "options": {
@@ -4682,6 +4830,7 @@
                 "axisSoftMax": 100,
                 "axisSoftMin": 0,
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "none",
@@ -4725,7 +4874,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 42
+            "y": 43
           },
           "id": 83,
           "options": {
@@ -4843,7 +4992,7 @@
           }
         ]
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
           "datasource": {
@@ -5146,7 +5295,7 @@
           }
         ]
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
           "datasource": {
@@ -5306,6 +5455,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -5410,7 +5560,7 @@
         "content": "0 - Active\n\n1 - Reloading\n\n2 - Inactive\n\n3 - Failed\n\n4 - Activating\n\n5 - Deactivating\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.1",
       "title": "Status code mapping",
       "type": "text"
     },
@@ -5592,11 +5742,10 @@
     "from": "now-1h",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
   "title": "Linux Metrics",
-  "uid": "LqfSpKm7z",
-  "version": 5,
+  "uid": "LqfSpKm72",
+  "version": 2,
   "weekStart": ""
 }
