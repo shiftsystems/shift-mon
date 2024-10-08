@@ -7,8 +7,8 @@ schedulers:
 
 models:
   mad:
-    class: "mad"
-    z_threshold: 3.5
+    class: "mad_online"
+    threshold: 3.5
     detection_direction: 'above_expected'
     min_dev_from_expected: {{ min_deviation_value }}
     queries:
