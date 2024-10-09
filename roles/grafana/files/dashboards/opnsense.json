@@ -24,85 +24,26 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 11,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 90
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
+      "collapsed": false,
       "gridPos": {
-        "h": 6,
-        "w": 3,
+        "h": 1,
+        "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 48,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "10.4.2",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"opnsense\",cpu=\"cpu-total\"}",
-          "interval": "",
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Mean CPU %",
-      "type": "gauge"
+      "id": 52,
+      "panels": [],
+      "title": "Host Metrics",
+      "type": "row"
     },
     {
       "datasource": {
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -110,9 +51,15 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -131,244 +78,240 @@
             ]
           }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 3,
-        "x": 3,
-        "y": 0
-      },
-      "id": 49,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "10.4.2",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "${metrics}"
-          },
-          "exemplar": true,
-          "expr": "mem_used_percent{db=\"opnsense\",host=\"$host\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Percent Memory",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory"
+            },
+            "properties": [
               {
-                "color": "green",
-                "value": null
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uptime"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Usage"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
               },
               {
-                "color": "red",
-                "value": 80
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IOWait"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 5
+                    },
+                    {
+                      "color": "red",
+                      "value": 7
+                    }
+                  ]
+                }
               }
             ]
           }
-        },
-        "overrides": []
+        ]
       },
       "gridPos": {
         "h": 6,
-        "w": 3,
-        "x": 6,
-        "y": 0
+        "w": 14,
+        "x": 0,
+        "y": 1
       },
-      "id": 22,
+      "id": 50,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
           "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.4.2",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "${metrics}"
-          },
-          "exemplar": true,
-          "expr": "system_n_cpus{host=\"$host\",db=\"opnsense\"}",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Count",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 2,
-        "x": 9,
-        "y": 0
-      },
-      "id": 24,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "reducer": [
+            "sum"
           ],
-          "fields": "",
-          "values": false
+          "show": false
         },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
+        "showHeader": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "mem_total{host=\"$host\",db=\"opnsense\"}",
+          "expr": "avg by (host) (100 - cpu_usage_idle{host=~\"$host\",db=\"opnsense\"}[$__range])",
+          "format": "table",
           "instant": true,
-          "interval": "",
-          "legendFormat": "",
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "A"
-        }
-      ],
-      "title": "Memory",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 3,
-        "x": 11,
-        "y": 0
-      },
-      "id": 20,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.4.2",
-      "targets": [
         {
           "datasource": {
+            "type": "prometheus",
             "uid": "${metrics}"
           },
-          "exemplar": true,
-          "expr": "(system_uptime{host=\"$host\",db=\"opnsense\"}) / 86400",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (host) (mem_used_percent{db=\"opnsense\",host=~\"$host\"}[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (host) (cpu_usage_iowait{host=~\"$host\",db=\"opnsense\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (system_uptime{host=~\"$host\",db=\"opnsense\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (system_n_cpus{host=~\"$host\",db=\"opnsense\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (mem_total{host=~\"$host\",db=\"opnsense\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
         }
       ],
-      "title": "uptime in days",
-      "type": "stat"
+      "title": "Host Summary",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "CPU Usage",
+              "Value #B": "Memory Usage",
+              "Value #C": "IOWait",
+              "Value #D": "Uptime",
+              "Value #E": "CPUs",
+              "Value #F": "Memory"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -408,7 +351,7 @@
         "h": 6,
         "w": 3,
         "x": 14,
-        "y": 0
+        "y": 1
       },
       "id": 16,
       "options": {
@@ -424,7 +367,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -476,7 +419,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -505,7 +449,7 @@
         "h": 6,
         "w": 7,
         "x": 17,
-        "y": 0
+        "y": 1
       },
       "id": 44,
       "options": {
@@ -513,6 +457,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -525,7 +470,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -545,7 +490,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -560,6 +506,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -604,7 +551,8 @@
                 "value": 90
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -612,7 +560,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 6
+        "y": 7
       },
       "id": 2,
       "options": {
@@ -641,7 +589,7 @@
           "exemplar": true,
           "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"opnsense\",cpu=\"cpu-total\"}",
           "interval": "",
-          "legendFormat": "{{hsot}}",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -666,6 +614,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -719,7 +668,7 @@
         "h": 7,
         "w": 7,
         "x": 6,
-        "y": 6
+        "y": 7
       },
       "id": 4,
       "options": {
@@ -758,9 +707,11 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -770,7 +721,7 @@
           "max": 100,
           "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -778,14 +729,15 @@
               },
               {
                 "color": "#EAB839",
-                "value": 50
+                "value": 70
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 90
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -793,16 +745,16 @@
         "h": 7,
         "w": 7,
         "x": 13,
-        "y": 6
+        "y": 7
       },
-      "id": 6,
+      "id": 51,
       "options": {
         "displayMode": "lcd",
         "maxVizHeight": 300,
-        "minVizHeight": 10,
+        "minVizHeight": 12,
         "minVizWidth": 0,
         "namePlacement": "auto",
-        "orientation": "vertical",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -815,22 +767,23 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
-            "uid": "${metrics}"
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "disk_used_percent{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
+          "expr": "sort_desc(disk_used_percent{host=~\"$host\",db=\"opnsense\",path!~`/var/.*|/usr/.*|/zroot|/tmp`})",
           "interval": "",
-          "legendFormat": "{{path}}",
+          "legendFormat": "{{host}} - {{path}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "disk usage",
+      "title": "Disk Used %",
       "type": "bargauge"
     },
     {
@@ -861,7 +814,7 @@
         "h": 9,
         "w": 4,
         "x": 20,
-        "y": 6
+        "y": 7
       },
       "id": 46,
       "options": {
@@ -869,6 +822,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "vertical",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -881,7 +835,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -914,7 +868,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -929,8 +884,9 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 30,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -968,7 +924,7 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -976,7 +932,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 13
+        "y": 14
       },
       "id": 8,
       "options": {
@@ -1004,9 +960,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(net_bytes_recv{host=\"$host\",db=\"opnsense\"}[1s]) > 0",
+          "expr": "rate(net_bytes_recv{host=\"$host\",db=\"opnsense\"}[$__rate_interval]) * 8",
           "interval": "",
-          "legendFormat": "{{interface}}",
+          "legendFormat": "{{host}} - {{interface}}",
           "range": true,
           "refId": "A"
         }
@@ -1016,7 +972,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -1031,8 +988,9 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 30,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1070,7 +1028,7 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -1078,7 +1036,7 @@
         "h": 10,
         "w": 7,
         "x": 6,
-        "y": 13
+        "y": 14
       },
       "id": 10,
       "options": {
@@ -1106,10 +1064,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(net_bytes_sent{host=\"$host\",db=\"opnsense\"}[1s]) > 0",
+          "expr": "rate(net_bytes_sent{host=\"$host\",db=\"opnsense\"}[$__rate_interval]) * 8",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{interface}}",
+          "legendFormat": "{{ host }} - {{interface}}",
           "range": true,
           "refId": "A"
         }
@@ -1134,6 +1092,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -1180,7 +1139,7 @@
         "h": 10,
         "w": 7,
         "x": 13,
-        "y": 13
+        "y": 14
       },
       "id": 43,
       "options": {
@@ -1244,7 +1203,7 @@
         "h": 8,
         "w": 4,
         "x": 20,
-        "y": 15
+        "y": 16
       },
       "id": 47,
       "options": {
@@ -1252,6 +1211,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "vertical",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1264,7 +1224,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -1296,6 +1256,19 @@
       "type": "stat"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 54,
+      "panels": [],
+      "title": "Filter Logs",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "loki",
         "uid": "${logs}"
@@ -1321,7 +1294,7 @@
         "h": 9,
         "w": 8,
         "x": 0,
-        "y": 23
+        "y": 25
       },
       "id": 36,
       "options": {
@@ -1387,7 +1360,7 @@
         "h": 9,
         "w": 8,
         "x": 8,
-        "y": 23
+        "y": 25
       },
       "id": 40,
       "options": {
@@ -1464,7 +1437,7 @@
         "h": 9,
         "w": 8,
         "x": 16,
-        "y": 23
+        "y": 25
       },
       "id": 41,
       "options": {
@@ -1506,415 +1479,878 @@
       "type": "piechart"
     },
     {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
+      "collapsed": true,
       "gridPos": {
-        "h": 10,
-        "w": 21,
+        "h": 1,
+        "w": 24,
         "x": 0,
-        "y": 32
+        "y": 34
       },
-      "id": 29,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
+      "id": 56,
+      "panels": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "default": false,
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
           },
-          "expr": "{__name=\"suricata\",host=\"$host\"}| logfmt",
-          "refId": "A"
-        }
-      ],
-      "title": "Suricata alerts",
-      "type": "logs"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 3,
-        "x": 21,
-        "y": 32
-      },
-      "id": 45,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "10.0.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
-          },
-          "editorMode": "builder",
-          "expr": "count(rate({__name=\"suricata\", host=\"$host\"} [$__range]))",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Suricata alerts",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 0,
-        "y": 42
-      },
-      "id": 33,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^ts \\(count\\)$/",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.3.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
-          },
-          "editorMode": "code",
-          "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Queried Domains",
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": {}
-        },
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "domain": {
-                "aggregations": [],
-                "operation": "groupby"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
               },
-              "id": {
-                "aggregations": [
-                  "count"
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null+nan",
+                    "result": {
+                      "color": "green",
+                      "index": 0
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "noValue": "No Inbound Errors  💪",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
                 ]
               },
-              "querying_ip": {
-                "aggregations": []
+              "unit": "pps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 25
+          },
+          "id": 57,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P84D368831E8B3638"
               },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "rate(net_err_in{host=~\"$host\",db=\"opnsense\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{host}} - {{interface}}",
+              "range": true,
+              "refId": "A"
             }
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 7,
-        "x": 5,
-        "y": 42
-      },
-      "id": 32,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
           ],
-          "fields": "/^ts \\(count\\)$/",
-          "values": true
+          "title": "Error Packets In",
+          "type": "timeseries"
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.3.2",
-      "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "default": false,
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
           },
-          "editorMode": "code",
-          "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Querying IPs",
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": {
-            "valueLabel": "path"
-          }
-        },
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "id": {
-                "aggregations": [
-                  "count"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "No Outbound Errors 💪",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
                 ]
               },
-              "querying_ip": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
+              "unit": "pps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 25
+          },
+          "id": 58,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "multi",
+              "sort": "desc"
             }
-          }
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P84D368831E8B3638"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "rate(net_err_out{host=~\"$host\",db=\"opnsense\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{host}} - {{interface}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Error Packets Out",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "No Dropped Inbound Packets  💪",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              },
+              "unit": "pps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 35
+          },
+          "id": 59,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean",
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P84D368831E8B3638"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "rate(net_drop_in{host=~\"$host\",db=\"opnsense\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{host}} - {{interface}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Dropped Packets in",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "victoriametrics-datasource",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "No Dropped Outbound Packets  💪",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              },
+              "unit": "pps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 35
+          },
+          "id": 60,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P84D368831E8B3638"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "rate(net_drop_out{host=~\"$host\",db=\"opnsense\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{host}} - {{interface}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Dropped Packets Out",
+          "type": "timeseries"
         }
       ],
-      "type": "piechart"
+      "title": "Advanced Network Statistics",
+      "type": "row"
     },
     {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
+      "collapsed": true,
       "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 42
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
       },
-      "id": 31,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "10.0.1",
-      "targets": [
+      "id": 53,
+      "panels": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "uid": "${logs}"
           },
-          "editorMode": "code",
-          "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "unbound logs",
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": {}
-        },
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
+          "gridPos": {
+            "h": 10,
+            "w": 21,
+            "x": 0,
+            "y": 33
+          },
+          "id": 29,
           "options": {
-            "excludeByName": {
-              "__name": true,
-              "host": true,
-              "hostname": true,
-              "id": true,
-              "level": true,
-              "line": true,
-              "path": true,
-              "pid": true,
-              "thread": true,
-              "timestamp": false,
-              "ts": true,
-              "tsNs": true
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": false,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "pluginVersion": "9.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "P53E94FA6B1E28789"
+              },
+              "expr": "{__name=\"suricata\",host=\"$host\"}| logfmt",
+              "refId": "A"
+            }
+          ],
+          "title": "Suricata alerts",
+          "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              }
             },
-            "indexByName": {
-              "__name": 9,
-              "domain": 1,
-              "host": 11,
-              "hostname": 12,
-              "id": 7,
-              "level": 13,
-              "line": 6,
-              "path": 14,
-              "pid": 10,
-              "querying_ip": 2,
-              "record_type": 3,
-              "thread": 5,
-              "timestamp": 0,
-              "ts": 4,
-              "tsNs": 8
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 3,
+            "x": 21,
+            "y": 33
+          },
+          "id": 45,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
             },
-            "renameByName": {}
-          }
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.2.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "P53E94FA6B1E28789"
+              },
+              "editorMode": "builder",
+              "expr": "count(rate({__name=\"suricata\", host=\"$host\"} [$__range]))",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Suricata alerts",
+          "type": "stat"
         }
       ],
-      "type": "table"
+      "title": "Suricata",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 55,
+      "panels": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "mappings": []
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 5,
+            "x": 0,
+            "y": 57
+          },
+          "id": 33,
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^ts \\(count\\)$/",
+              "values": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "P53E94FA6B1E28789"
+              },
+              "editorMode": "code",
+              "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Queried Domains",
+          "transformations": [
+            {
+              "id": "labelsToFields",
+              "options": {}
+            },
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "domain": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "id": {
+                    "aggregations": [
+                      "count"
+                    ]
+                  },
+                  "querying_ip": {
+                    "aggregations": []
+                  },
+                  "ts": {
+                    "aggregations": [
+                      "count"
+                    ],
+                    "operation": "aggregate"
+                  }
+                }
+              }
+            }
+          ],
+          "type": "piechart"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "mappings": []
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 7,
+            "x": 5,
+            "y": 57
+          },
+          "id": 32,
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^ts \\(count\\)$/",
+              "values": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "P53E94FA6B1E28789"
+              },
+              "editorMode": "code",
+              "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Querying IPs",
+          "transformations": [
+            {
+              "id": "labelsToFields",
+              "options": {
+                "valueLabel": "path"
+              }
+            },
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "id": {
+                    "aggregations": [
+                      "count"
+                    ]
+                  },
+                  "querying_ip": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "ts": {
+                    "aggregations": [
+                      "count"
+                    ],
+                    "operation": "aggregate"
+                  }
+                }
+              }
+            }
+          ],
+          "type": "piechart"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 57
+          },
+          "id": 31,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.2.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "P53E94FA6B1E28789"
+              },
+              "editorMode": "code",
+              "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "unbound logs",
+          "transformations": [
+            {
+              "id": "labelsToFields",
+              "options": {}
+            },
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "__name": true,
+                  "host": true,
+                  "hostname": true,
+                  "id": true,
+                  "level": true,
+                  "line": true,
+                  "path": true,
+                  "pid": true,
+                  "thread": true,
+                  "timestamp": false,
+                  "ts": true,
+                  "tsNs": true
+                },
+                "indexByName": {
+                  "__name": 9,
+                  "domain": 1,
+                  "host": 11,
+                  "hostname": 12,
+                  "id": 7,
+                  "level": 13,
+                  "line": 6,
+                  "path": 14,
+                  "pid": 10,
+                  "querying_ip": 2,
+                  "record_type": 3,
+                  "thread": 5,
+                  "timestamp": 0,
+                  "ts": 4,
+                  "tsNs": 8
+                },
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Unbound",
+      "type": "row"
     }
   ],
   "refresh": "",
@@ -1951,15 +2387,15 @@
       {
         "current": {
           "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-datasource",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2019,6 +2455,6 @@
   "timezone": "",
   "title": "OPNSense Metrics",
   "uid": "CqBhDX77z",
-  "version": 12,
+  "version": 15,
   "weekStart": ""
 }

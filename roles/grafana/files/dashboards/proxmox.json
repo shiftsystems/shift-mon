@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 12,
   "links": [
     {
       "asDropdown": true,
@@ -200,7 +199,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -449,7 +448,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -769,7 +768,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -955,7 +954,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -970,6 +970,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1002,14 +1003,10 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -1046,7 +1043,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "irate(system_netin{object=~\"lxc|qemu\",nodename=~\"$node\",host=~\"$guest\"})",
+          "expr": "rate(system_netin{object=~\"lxc|qemu\",nodename=~\"$node\",host=~\"$guest\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{host}}_in",
           "range": true,
@@ -1059,7 +1056,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "irate(system_netout{object=~\"lxc|qemu\",nodename=~\"$node\",host=~\"$guest\"})",
+          "expr": "rate(system_netout{object=~\"lxc|qemu\",nodename=~\"$node\",host=~\"$guest\"}[$__rate_interval])",
           "hide": false,
           "interval": "",
           "legendFormat": "{{host}}_out",
@@ -1087,6 +1084,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1188,6 +1186,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1310,7 +1309,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1407,7 +1407,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -1480,7 +1480,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1577,7 +1578,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -1639,15 +1640,15 @@
       {
         "current": {
           "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-datasource",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1741,6 +1742,6 @@
   "timezone": "",
   "title": "Proxmox metrics",
   "uid": "CcDBg5Knk",
-  "version": 11,
+  "version": 12,
   "weekStart": ""
 }

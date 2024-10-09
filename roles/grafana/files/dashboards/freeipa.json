@@ -82,8 +82,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -99,6 +98,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -110,7 +110,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -153,8 +153,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -170,6 +169,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "count"
@@ -181,7 +181,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -202,6 +202,20 @@
             "reducers": [
               "count"
             ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "labelTypes": true,
+              "labels": true,
+              "tsNs": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {}
           }
         }
       ],
@@ -244,8 +258,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -307,7 +320,7 @@
           }
         ]
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -462,7 +475,6 @@
         }
       ],
       "title": "IPA Healthchecks Verbose",
-      "transformations": [],
       "type": "logs"
     },
     {
@@ -501,7 +513,6 @@
         }
       ],
       "title": "Unhealthy Check Logs",
-      "transformations": [],
       "type": "logs"
     },
     {
@@ -684,6 +695,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "loki",
           "uid": "${logs}"
@@ -716,6 +732,6 @@
   "timezone": "",
   "title": "FreeIPA",
   "uid": "c139adf6-f70a-4ebe-af92-ee893076be50",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }

@@ -81,6 +81,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -93,7 +94,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -148,6 +149,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -160,7 +162,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -215,6 +217,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -226,7 +229,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -282,6 +285,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -293,7 +297,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -345,6 +349,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -357,7 +362,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -422,6 +427,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -433,7 +439,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -495,6 +501,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -506,7 +513,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -559,6 +566,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -571,7 +579,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -638,6 +646,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -650,7 +659,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -698,6 +707,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -789,7 +799,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -804,6 +815,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -848,7 +860,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -884,7 +896,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "increase(net_bytes_sent{host=~\"$hypervisor\"} + net_bytes_recv{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"}[1s]) > 0",
+          "expr": "rate(net_bytes_sent{host=~\"$hypervisor\"} + net_bytes_recv{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"}[$__rate_interval])",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
           "refId": "A"
@@ -908,7 +920,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -923,6 +936,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -998,7 +1012,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(libvirt_net_tx_bytes{host=~\"$hypervisor\"} + libvirt_net_rx_bytes{host=~\"$hypervisor\"}) > 0",
+          "expr": "rate(libvirt_net_tx_bytes{host=~\"$hypervisor\"} + libvirt_net_rx_bytes{host=~\"$hypervisor\"}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host}} - {{domain_name}}",
           "range": true,
@@ -1025,6 +1039,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1188,7 +1203,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -1287,15 +1302,15 @@
       {
         "current": {
           "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-datasource",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
@@ -1357,6 +1372,6 @@
   "timezone": "",
   "title": "Libvirt",
   "uid": "SPHYuL5Vk",
-  "version": 16,
+  "version": 18,
   "weekStart": ""
 }
