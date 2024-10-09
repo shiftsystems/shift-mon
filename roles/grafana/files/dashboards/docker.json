@@ -201,7 +201,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -439,7 +439,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -580,6 +580,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -685,6 +686,7 @@
             "axisSoftMax": 100,
             "axisSoftMin": 0,
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -787,6 +789,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -871,7 +874,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -886,6 +890,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -921,7 +926,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -957,7 +962,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(docker_container_net_tx_bytes{host=~\"$host\",container_name=~\"$container\"}[1s]) > 0",
+          "expr": "rate(docker_container_net_tx_bytes{host=~\"$host\",container_name=~\"$container\"}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
@@ -1038,7 +1043,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "description": "",
@@ -1054,6 +1060,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1089,7 +1096,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -1124,7 +1131,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(docker_container_net_rx_bytes{host=~\"$host\",container_name=~\"$container\"}[1s]) > 0",
+          "expr": "rate(docker_container_net_rx_bytes{host=~\"$host\",container_name=~\"$container\"}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host }} - {{container_name}} - {{ network }}",
           "range": true,
@@ -1212,15 +1219,15 @@
       {
         "current": {
           "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-datasource",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1314,6 +1321,6 @@
   "timezone": "",
   "title": "Docker",
   "uid": "T4VzSNN7k",
-  "version": 14,
+  "version": 15,
   "weekStart": ""
 }

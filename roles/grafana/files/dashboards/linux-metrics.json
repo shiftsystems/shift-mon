@@ -193,7 +193,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.2.1",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -368,7 +368,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.2.1",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -476,7 +476,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "11.2.1",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -843,7 +843,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.2.1",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -864,7 +864,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -915,7 +916,7 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -952,7 +953,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(net_bytes_recv{host=~\"$host\",db=\"linux\",interface!~\"veth.*\"}[1s]) > 0",
+          "expr": "rate(net_bytes_recv{host=~\"$host\",db=\"linux\",interface!~\"veth.*\"}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -964,7 +965,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -981,7 +983,7 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 30,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1015,7 +1017,7 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -1052,7 +1054,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(net_bytes_sent{host=~\"$host\",db=\"linux\",interface!~`veth.*`}[1s]) > 0",
+          "expr": "rate(net_bytes_sent{host=~\"$host\",db=\"linux\",interface!~`veth.*`}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1064,7 +1066,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "description": "",
@@ -1154,7 +1157,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(diskio_read_bytes{host=~\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=~\"$host\",db=\"linux\"}[1s]) > 0",
+          "expr": "rate(diskio_read_bytes{host=~\"$host\",db=\"linux\"}) + rate(diskio_write_bytes{host=~\"$host\",db=\"linux\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{host}} - {{name}}",
           "range": true,
@@ -2537,8 +2540,7 @@
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -2546,7 +2548,7 @@
             "h": 10,
             "w": 7,
             "x": 0,
-            "y": 120
+            "y": 26
           },
           "id": 26,
           "options": {
@@ -2567,7 +2569,7 @@
             "sizing": "auto",
             "valueMode": "color"
           },
-          "pluginVersion": "10.3.3",
+          "pluginVersion": "11.2.2",
           "targets": [
             {
               "datasource": {
@@ -2619,8 +2621,7 @@
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -2628,7 +2629,7 @@
             "h": 10,
             "w": 7,
             "x": 7,
-            "y": 120
+            "y": 26
           },
           "id": 38,
           "options": {
@@ -2649,7 +2650,7 @@
             "sizing": "auto",
             "valueMode": "color"
           },
-          "pluginVersion": "10.3.3",
+          "pluginVersion": "11.2.2",
           "targets": [
             {
               "datasource": {
@@ -2686,6 +2687,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2721,8 +2723,7 @@
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -2730,7 +2731,7 @@
             "h": 10,
             "w": 10,
             "x": 14,
-            "y": 120
+            "y": 26
           },
           "id": 39,
           "options": {
@@ -2800,6 +2801,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2837,8 +2839,7 @@
                     "value": 80
                   }
                 ]
-              },
-              "unitScale": true
+              }
             },
             "overrides": []
           },
@@ -2846,7 +2847,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 121
+            "y": 27
           },
           "id": 51,
           "options": {
@@ -2898,6 +2899,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2935,8 +2937,7 @@
                     "value": 80
                   }
                 ]
-              },
-              "unitScale": true
+              }
             },
             "overrides": []
           },
@@ -2944,7 +2945,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 121
+            "y": 27
           },
           "id": 52,
           "options": {
@@ -2996,6 +2997,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -3034,8 +3036,7 @@
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -3043,7 +3044,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 129
+            "y": 35
           },
           "id": 53,
           "options": {
@@ -3095,6 +3096,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -3133,8 +3135,7 @@
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -3142,7 +3143,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 129
+            "y": 35
           },
           "id": 54,
           "options": {
@@ -3240,8 +3241,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -3347,8 +3347,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3445,8 +3444,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3543,8 +3541,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3800,7 +3797,8 @@
       "panels": [
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -3815,6 +3813,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -3857,11 +3856,12 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "pps"
             },
             "overrides": []
           },
@@ -3869,7 +3869,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 115
+            "y": 29
           },
           "id": 56,
           "options": {
@@ -3898,7 +3898,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_err_in{host=~\"$host\",db=\"linux\"}[1s]) > 0",
+              "expr": "rate(net_err_in{host=~\"$host\",db=\"linux\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3910,7 +3910,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -3925,6 +3926,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -3956,11 +3958,12 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "pps"
             },
             "overrides": []
           },
@@ -3968,7 +3971,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 115
+            "y": 29
           },
           "id": 59,
           "options": {
@@ -3997,7 +4000,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_err_out{host=~\"$host\",db=\"linux\"}[1s]) > 0",
+              "expr": "rate(net_err_out{host=~\"$host\",db=\"linux\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -4009,7 +4012,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -4024,6 +4028,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -4055,11 +4060,12 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "pps"
             },
             "overrides": []
           },
@@ -4067,7 +4073,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 125
+            "y": 39
           },
           "id": 57,
           "options": {
@@ -4099,7 +4105,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_drop_in{host=~\"$host\",db=\"linux\"}[1s]) > 0",
+              "expr": "rate(net_drop_in{host=~\"$host\",db=\"linux\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -4111,7 +4117,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -4126,6 +4133,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -4157,11 +4165,12 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "pps"
             },
             "overrides": []
           },
@@ -4169,7 +4178,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 125
+            "y": 39
           },
           "id": 58,
           "options": {
@@ -4198,7 +4207,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_drop_out{host=~\"$host\",db=\"linux\"}[1s]) > 0",
+              "expr": "rate(net_drop_out{host=~\"$host\",db=\"linux\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -4245,8 +4254,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -4298,8 +4306,7 @@
                       "mode": "absolute",
                       "steps": [
                         {
-                          "color": "green",
-                          "value": null
+                          "color": "green"
                         },
                         {
                           "color": "#EAB839",
@@ -4545,8 +4552,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -4652,8 +4658,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#EAB839",
@@ -4764,8 +4769,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -4868,8 +4872,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -4999,7 +5002,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.1",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -5302,7 +5305,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.1",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -5462,6 +5465,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -5492,7 +5496,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5565,7 +5570,7 @@
         "content": "0 - Active\n\n1 - Reloading\n\n2 - Inactive\n\n3 - Failed\n\n4 - Activating\n\n5 - Deactivating\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.2.2",
       "title": "Status code mapping",
       "type": "text"
     },
@@ -5619,15 +5624,15 @@
       {
         "current": {
           "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-datasource",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
@@ -5744,13 +5749,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Linux Metrics",
   "uid": "LqfSpKm7z",
-  "version": 25,
+  "version": 27,
   "weekStart": ""
 }

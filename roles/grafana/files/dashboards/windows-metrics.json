@@ -83,7 +83,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -158,7 +158,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -216,6 +216,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -228,7 +229,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -283,6 +284,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -295,7 +297,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -349,6 +351,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -361,7 +364,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -434,7 +437,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -557,7 +560,7 @@
         "frameIndex": 7,
         "showHeader": false
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "exemplar": true,
@@ -651,6 +654,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "scheme",
@@ -759,6 +763,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "scheme",
@@ -910,7 +915,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -997,7 +1002,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -1039,7 +1044,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -1054,6 +1060,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 100,
             "gradientMode": "none",
@@ -1089,7 +1096,7 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -1125,7 +1132,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(net_bytes_recv{host=~\"$host\",db=\"windows\"}[1s]) > 0",
+          "expr": "rate(net_bytes_recv{host=~\"$host\",db=\"windows\"}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1137,7 +1144,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -1152,8 +1160,9 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 30,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1187,7 +1196,7 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binbps"
         },
         "overrides": []
       },
@@ -1223,7 +1232,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(net_bytes_sent{host=~\"$host\",db=\"windows\"}[1s]) > 0",
+          "expr": "rate(net_bytes_sent{host=~\"$host\",db=\"windows\"}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1235,7 +1244,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "default": false,
+        "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
       "description": "",
@@ -1251,6 +1261,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -1323,7 +1334,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "increase(diskio_read_bytes{host=~\"$host\",db=\"windows\"}) + rate(diskio_write_bytes{host=~\"$host\",db=\"windows\"})",
+          "expr": "rate(diskio_read_bytes{host=~\"$host\",db=\"windows\"} + diskio_write_bytes{host=~\"$host\",db=\"windows\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{host}} - {{name}}",
           "range": true,
@@ -1485,7 +1496,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -1701,7 +1712,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -2214,6 +2225,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2244,15 +2256,15 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
                     "value": 80
                   }
                 ]
-              },
-              "unitScale": true
+              }
             },
             "overrides": []
           },
@@ -2260,7 +2272,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 43
+            "y": 41
           },
           "id": 51,
           "options": {
@@ -2312,6 +2324,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2342,15 +2355,15 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
                     "value": 80
                   }
                 ]
-              },
-              "unitScale": true
+              }
             },
             "overrides": []
           },
@@ -2358,7 +2371,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 43
+            "y": 41
           },
           "id": 52,
           "options": {
@@ -2410,6 +2423,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2440,7 +2454,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2448,8 +2463,7 @@
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -2457,7 +2471,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 51
+            "y": 49
           },
           "id": 53,
           "options": {
@@ -2494,7 +2508,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -2509,6 +2524,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2539,7 +2555,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2547,8 +2564,7 @@
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -2556,7 +2572,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 51
+            "y": 49
           },
           "id": 54,
           "options": {
@@ -2653,8 +2669,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -2758,8 +2773,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2822,7 +2836,8 @@
       "panels": [
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -2837,6 +2852,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2909,7 +2925,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_err_in{host=~\"$host\",db=\"windows\"}[1s]) > 0",
+              "expr": "rate(net_err_in{host=~\"$host\",db=\"windows\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -2921,7 +2937,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -2936,6 +2953,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -3008,7 +3026,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_err_in{host=~\"$host\",db=\"windows\"}[1s]) > 0",
+              "expr": "rate(net_err_in{host=~\"$host\",db=\"windows\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3020,7 +3038,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -3035,6 +3054,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -3071,7 +3091,7 @@
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "pps"
             },
             "overrides": []
           },
@@ -3107,7 +3127,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_drop_in{host=~\"$host\",db=\"windows\"}[1s]) > 0",
+              "expr": "rate(net_drop_in{host=~\"$host\",db=\"windows\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3119,7 +3139,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "default": false,
+            "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
           "fieldConfig": {
@@ -3134,6 +3155,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -3206,7 +3228,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "increase(net_drop_out{host=~\"$host\",db=\"windows\"}[1s]) > 0",
+              "expr": "rate(net_drop_out{host=~\"$host\",db=\"windows\"}[$__rate_interval]) * 8",
               "interval": "",
               "legendFormat": "{{host}} - {{interface}}",
               "range": true,
@@ -3232,15 +3254,15 @@
       {
         "current": {
           "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-datasource",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
@@ -3293,13 +3315,13 @@
     ]
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Windows Metrics",
   "uid": "LqfSpKn7y",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }
