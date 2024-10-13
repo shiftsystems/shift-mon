@@ -29,6 +29,7 @@
   "panels": [
     {
       "datasource": {
+        "default": false,
         "type": "loki",
         "uid": "P53E94FA6B1E28789"
       },
@@ -114,7 +115,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -122,7 +123,7 @@
             "uid": "P53E94FA6B1E28789"
           },
           "editorMode": "code",
-          "expr": "{path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `",
+          "expr": "{path=~\".*crowdsec.log\",host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `",
           "legendFormat": "{{country_code}}",
           "queryType": "range",
           "refId": "A"
@@ -141,6 +142,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "loki",
         "uid": "P53E94FA6B1E28789"
       },
@@ -198,18 +200,18 @@
             "uid": "P53E94FA6B1E28789"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `[$__interval])) by (behavior)",
+          "expr": "sum(count_over_time({path=~\".*crowdsec.log\",host=\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `[$__interval])) by (behavior)",
           "legendFormat": "{{behavior}}",
           "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Behaviors",
-      "transformations": [],
       "type": "piechart"
     },
     {
       "datasource": {
+        "default": false,
         "type": "loki",
         "uid": "P53E94FA6B1E28789"
       },
@@ -241,8 +243,10 @@
       "maxDataPoints": 1,
       "options": {
         "displayMode": "lcd",
+        "maxVizHeight": 300,
         "minVizHeight": 10,
         "minVizWidth": 0,
+        "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -251,9 +255,11 @@
           "fields": "",
           "values": true
         },
-        "showUnfilled": true
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -261,18 +267,18 @@
             "uid": "P53E94FA6B1E28789"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__range])) by (country)",
+          "expr": "sum(count_over_time({path=~\".*crowdsec.log\",host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__range])) by (country)",
           "legendFormat": "{{asn}}",
           "queryType": "instant",
           "refId": "A"
         }
       ],
       "title": "Top countries",
-      "transformations": [],
       "type": "bargauge"
     },
     {
       "datasource": {
+        "default": false,
         "type": "loki",
         "uid": "P53E94FA6B1E28789"
       },
@@ -304,8 +310,10 @@
       "maxDataPoints": 1,
       "options": {
         "displayMode": "lcd",
+        "maxVizHeight": 300,
         "minVizHeight": 10,
         "minVizWidth": 0,
+        "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -314,9 +322,11 @@
           "fields": "",
           "values": true
         },
-        "showUnfilled": true
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -324,18 +334,18 @@
             "uid": "P53E94FA6B1E28789"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~\".*crowdsec.log\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__interval])) by (asn) > 3",
+          "expr": "sum(count_over_time({path=~\".*crowdsec.log\",host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__interval])) by (asn)",
           "legendFormat": "{{asn}}",
           "queryType": "instant",
           "refId": "A"
         }
       ],
       "title": "Top ISPs",
-      "transformations": [],
       "type": "bargauge"
     },
     {
       "datasource": {
+        "default": false,
         "type": "loki",
         "uid": "P53E94FA6B1E28789"
       },
@@ -376,6 +386,7 @@
       },
       "id": 5,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -387,7 +398,7 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "11.2.2",
       "targets": [
         {
           "datasource": {
@@ -395,7 +406,7 @@
             "uid": "P53E94FA6B1E28789"
           },
           "editorMode": "code",
-          "expr": "{path=~`.*crowdsec.log`,host=\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <_>\" `",
+          "expr": "{path=~`.*crowdsec.log`,host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <_>\" `",
           "queryType": "range",
           "refId": "A"
         }
@@ -445,23 +456,36 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": [
+            ""
+          ],
+          "value": [
+            ""
+          ]
+        },
         "datasource": {
           "type": "loki",
           "uid": "P53E94FA6B1E28789"
         },
-        "definition": "label_values({path=\"/var/log/crowdsec.log\"},host)",
+        "definition": "",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
-        "query": "label_values({path=\"/var/log/crowdsec.log\"},host)",
+        "query": {
+          "label": "host",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{path=~\".*crowdsec.log\"}",
+          "type": 1
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -469,6 +493,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": true,
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
+        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
@@ -488,8 +517,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Crowdsec dev",
+  "title": "Crowdsec",
   "uid": "j4KEK3L7k",
-  "version": 2,
+  "version": 6,
   "weekStart": ""
 }
