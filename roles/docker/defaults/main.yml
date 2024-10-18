@@ -5,3 +5,10 @@ uptime_kuma_enabled: false
 victorialogs_enabled: false
 oncall_enabled: false
 vmanomaly_enabled: false
+docker_daemon_options:
+  log-driver: syslog
+  log-opts:
+    syslog-address: 'udp://localhost:6667'
+    syslog-format: rfc5424
+    tag: "{% raw %}{{.Name}}{% endraw %}"
+
