@@ -9,6 +9,8 @@ $loki_url = "https://loki.example.com"
 $loki_user = "loki"
 $loki_password = "loki"
 
+param([string]$logging-backend = 'Loki'
+
 Write-Host "Creating Telegraf config folder"
 $path = "C:\Program Files\telegraf\telegraf.d\"
 If(!(test-path $path))
@@ -51,7 +53,13 @@ Else {
 
 
 # download and install telegraf config
+If ($logging-backaned == "Loki") {
 $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/telegraf.conf"
+}
+Else {
+$url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/telegraf-vl.conf"
+}
+
 $output = "C:\Program Files\telegraf\telegraf.conf"
 Invoke-WebRequest -Uri $url -OutFile $output
 Write-Host "Added Base Telegraf Config"
