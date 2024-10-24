@@ -1,3 +1,6 @@
+# Set Loki as the default Logging Backend
+param($LoggingBackend='Loki')
+
 # Victoria Metrics Settings
 $victoria_url = "https://victoriametrics.example.com"
 $victoria_user = "telegraf"
@@ -8,8 +11,6 @@ $victoria_database = "windows"
 $loki_url = "https://loki.example.com"
 $loki_user = "loki"
 $loki_password = "loki"
-
-param([string]$logging-backend = 'Loki'
 
 Write-Host "Creating Telegraf config folder"
 $path = "C:\Program Files\telegraf\telegraf.d\"
@@ -53,7 +54,7 @@ Else {
 
 
 # download and install telegraf config
-If ($logging-backaned == "Loki") {
+If ($LoggingBackend -eq "Loki") {
 $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/telegraf.conf"
 }
 Else {
@@ -70,7 +71,7 @@ if ($build -gt 10000) {
     $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/defender.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\defender.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
-	Write-Host "Added Defender config"
+        Write-Host "Added Defender config"
 }
 
 # ADD IIS config if IIS is present
@@ -79,7 +80,7 @@ if($service) {
     $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/iis.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\iis.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
-	Write-Host "Added IIS Config"
+        Write-Host "Added IIS Config"
 }
 
 # ADD Sysmon config if Sysmon is present
@@ -88,7 +89,7 @@ if($service) {
     $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/sysmon.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\sysmon.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
-	Write-Host "Added Sysmon Config"
+        Write-Host "Added Sysmon Config"
 }
 
 # Create and start telegraf service
@@ -107,4 +108,4 @@ Write-Host "Created Registry Entry"
 Set-Service -Name telegraf -Status Running -StartupType Automatic
 Write-Host "Restarting Telegraf"
 Restart-Service telegraf
-Write-Host "Restarted Telegraf"
+Write-Host "Restarted Telegraf"rite-Host "Restarted Telegraf"
