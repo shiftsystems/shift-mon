@@ -12,17 +12,16 @@ reverse_lookup_syslog: true
 reverse_lookup_traefik: true
 journald_forwarding: true
 nut_enabled: false
-telegraf_victoriametrics_config: false
 telegraf_crowdsec_config: false
-telegraf_grafana_config: false
-telegraf_loki_config: false
-telegraf_root: false # here to support users that rely on old behavior of allowing to telegraf root by setting a variable
 telegraf_secrets:
   victoria_user: "{{ victoria.user }}"
   victoria_password: "{{ victoria.password }}"
   loki_user: "{{ loki.user }}"
   loki_password: "{{ loki.password }}"
+telegraf_root: false
 telegraf_user: "{{ 'root' if (telegraf_root) else 'telegraf' }}"
-telegraf_use_secrets: false
-victorialogs_enabled: false
-logging_backend: loki
+metric_buffer_limit: "10000"
+metric_batch_size: "1000"
+interval: "10s"
+flush_interval: "10s"
+
