@@ -22,6 +22,8 @@
     - /opt/shift-mon/victoriametrics-storage
     - /opt/shift-mon/vmalert/rules
     - /opt/shift-mon/vmauth
+    - /opt/shift-mon/alertmanager/data
+    - /opt/shift-mon/alertmanager/config
 
 - name: Upload Scrape Config
   ansible.builtin.template:
@@ -47,3 +49,10 @@
   when: victoria.rule_files is defined
   with_items: "{{victoria.rule_files | dict2items }}"
 
+- name: Upload alertmanager config
+  ansible.builtin.template:
+    src: "alertmanager.yml"
+    dest: /opt/shift-mon/alertmanager/config/alertmanager.yml"
+    mode: '770'
+    setype: container_file_t
+  become: true
