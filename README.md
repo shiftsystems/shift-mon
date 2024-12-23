@@ -20,7 +20,7 @@ An open source monitoring and logging tool based on Telegraf, Victoriametrics, L
   * Deploy Victoriametrics for metric storage
   * Deploy Loki for log and alert state storage
   * Deploy Grafana for viewing this data and send alerts
-  * Configure Redis cache for Grafana
+  * Configure Valkey cache for Grafana
 * Optionally ShiftMon can deploy the following
   * Grafana Oncall for advanced alerting features and send health checks to Grafana cloud
   * Deploy Uptime Kuma for black box checks

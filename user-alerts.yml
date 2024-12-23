@@ -995,7 +995,7 @@ groups:
               datasourceUid: P84D368831E8B3638
               model:
                 editorMode: code
-                expr: lag(group by (host,container_name) (docker_container_cpu_usage_percent{container_name=~`shift-mon-crowdsec-.*|shift-mon-celery-.*|shift-mon-engine-.*|shift-mon-grafana-.*|shift-mon-loki-.*|shift-mon-redis-.*|shift-mon-traefik-.*|shift-mon-uptime-kuma-.*|shift-mon-victoriametrics-.*|shift-mon-vmalert-.*|imageofthehour.*`})[1h])
+                expr: lag(group by (host,container_name) (docker_container_cpu_usage_percent{container_name=~`shift-mon-crowdsec-.*|shift-mon-celery-.*|shift-mon-engine-.*|shift-mon-grafana-.*|shift-mon-loki-.*|shift-mon-valkey-.*|shift-mon-traefik-.*|shift-mon-uptime-kuma-.*|shift-mon-victoriametrics-.*|shift-mon-vmalert-.*|imageofthehour.*`})[1h])
                 instant: false
                 intervalMs: 1000
                 legendFormat: __auto
