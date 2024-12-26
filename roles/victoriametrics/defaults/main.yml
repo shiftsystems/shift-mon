@@ -1,2 +1,16 @@
 telegraf_victoriametrics_config: true
 vmanomaly_enabled: false
+alertmanager_config:
+  global:
+  route:
+    group_by:
+      - 'alertname'
+    group_wait: 30s
+    group_interval: 5m
+    repeat_interval: 1h
+    receiver: 'webhook'
+  receivers:
+    - name: "ilert"
+      webhook_configs:
+        - url: "{{ webhook_url }}"
+          send_resolved: true
