@@ -529,6 +529,14 @@
   when: blackbox_net_hosts is defined and blackbox_net_hosts
   notify: Restart Telegraf
 
+- name: Add Blocky DNS config
+  ansible.builtin.template:
+    src: blocky.conf
+    dest: /etc/telegraf/telegraf.d/blocky.conf
+    mode: "660"
+  become: true
+  when: "'blocky.service' in ansible_facts.services and 'blocky' not in do_not_instrument"
+
 - name: Install Rsyslog
   ansible.builtin.package:
     name: rsyslog
