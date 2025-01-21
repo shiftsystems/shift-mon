@@ -10,7 +10,14 @@ alertmanager_config:
     repeat_interval: 1h
     receiver: 'webhook'
   receivers:
-    - name: "ilert"
+    - name: "{{ alertmanager.webhook_name }}"
       webhook_configs:
-        - url: "{{ webhook_url }}"
+        - url: "{{ alertmanager.webhook_url }}"
           send_resolved: true
+#      email_configs:
+#        - to: '{{ alertmanager.to_email }}'
+#          from: '{{ alertmanager.from_email }}'
+#          smarthost: '{{ alertmanager.smarthost }}'
+#          auth_username: '{{ alertmanager. }}'
+#          auth_identity: '{{ alertmanager.smtp_username }}'
+#          auth_password: '{{ alertmanager.smtp_password }}'

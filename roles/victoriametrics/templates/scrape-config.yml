@@ -1,16 +1,24 @@
 scrape_configs:
+- job_name: shiftmon_grafana
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  basic_auth:
+    username: '{{ grafana.basic_auth_user }}'
+    password: '{{ grafana.basic_auth_password }}'
+  static_configs:
+    - targets:
+      - 'http://grafana:3000'
 - job_name: shiftmon_victoriametrics
   scrape_interval: 30s
   scrape_timeout: 20s
   static_configs:
     - targets:
       - 'http://victoriametrics:8428'
-      - 'http://vmalert:9093'
+      - 'http://vmalert:8880'
       - 'http://vmauth:8427'
       - 'http://loki:3100'
-      - 'http://grafana:3000'
       - 'http://victorialogs:9428'
-      - 'http://alertmanager:9300'
+      - 'http://alertmanager:9093'
 {% if vmanomaly_enabled and victoria.license is defined %}
       - 'http://vmanomaly:8490'
 {% endif %}

@@ -1,3 +1,4 @@
+services:
   grafana:
     image: docker.io/grafana/grafana-oss:latest
     restart: unless-stopped
@@ -21,6 +22,7 @@
   alertmanager:
     image: prom/alertmanager:latest
     restart: unless-stopped
+    user: root
     command:
       - '--config.file=/config/alertmanager.yml'
       - '--web.external-url=https://am.local.shiftsystems.net'
@@ -33,7 +35,7 @@
         source: /opt/shift-mon/alertmanager/config
         target: /config
   loki:
-    image: docker.io/grafana/loki:3.2.0
+    image: docker.io/grafana/loki:3.3.2
     restart: unless-stopped
     volumes:
       - type: bind
@@ -52,9 +54,9 @@
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/victoria-metrics:enterprise-stable
+    image: docker.io/victoriametrics/victoria-metrics:v1.109.1-enterprise
 {% else %}
-    image: docker.io/victoriametrics/victoria-metrics:stable
+    image: docker.io/victoriametrics/victoria-metrics:v1.109.1
 {% endif %}
     volumes:
       - type: bind
@@ -67,8 +69,9 @@
       - "-retentionPeriod={{ victoria.retention_period | default('90d') }}"
       - "-storageDataPath=/victoriametrics-storage"
       - "-httpListenAddr=:8428"
-      - "-vmalert.proxyURL=http://vmalert:9093"
+      - "-vmalert.proxyURL=http://vmalert:8880"
       - "-promscrape.config=/victoriametrics/scrape-config.yml"
+      #- "-streamAggr.config=/victoriametrics/aggregation-config.yml"
 {% if victoria.license is defined %}
       - "-license={{ victoria.license }}"
 {% endif %}
@@ -83,45 +86,45 @@
       interval: "30s"
       timeout: "10s"
       retries: 5
-{% if victoria.insecure is defined and victoria.insecure is true %}
-    ports:
-      - 8428:8428
-{% endif %}
   vmalert:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmalert:enterprise-stable
+    image: docker.io/victoriametrics/vmalert:v1.109.1-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmalert:stable
+    image: docker.io/victoriametrics/vmalert:v1.109.1
 {% endif %}
     volumes:
       - type: bind
         source: /opt/shift-mon/vmalert/rules
         target: /rules
     command:
-      - "-datasource.url=http://victoriametrics:8428"
+      - "-datasource.url=http://vmauth:8427"
+      - "-datasource.bearerToken=vmalert"
+      - "-notifier.url=http://alertmanager:9093"
       - "-remoteWrite.url=http://victoriametrics:8428"
       - "-remoteRead.url=http://victoriametrics:8428"
-      - "-httpListenAddr=0.0.0.0:9093"
+      - "-httpListenAddr=0.0.0.0:8880"
       - "-rule=/rules/*.yaml"
       - "-rule=/rules/*.yml"
       - "-configCheckInterval=1m"
+      - "-external.url=https://{{ grafana.domain }}"
+{% raw %}
+      - -external.alert.source=explore?left={"datasource":"shift-victoriametrics","queries":[{"expr":{{ .Expr|jsonEscape|queryEscape }},"refId":"A"}],"range":{"from":"{{ .ActiveAt.UnixMilli }}","to":"now"}}
+{% endraw %}
 {% if victoria.license is defined %}
       - "-license={{ victoria.license }}"
 {% endif %}
     healthcheck:
-      test: "wget -qO- http://127.0.0.1:9093/-/healthy"
+      test: "wget -qO- http://127.0.0.1:8880/-/healthy"
       interval: "30s"
       timeout: "10s"
       retries: 5
-    ports:
-     - "127.0.0.1:9093:9093"
   vmauth:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmauth:enterprise-stable
+    image: docker.io/victoriametrics/vmauth:v1.109.1-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmauth:stable
+    image: docker.io/victoriametrics/vmauth:v1.109.1
 {% endif %}
     volumes:
       - type: bind
@@ -142,7 +145,7 @@
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: victoriametrics/vmanomaly:latest
+    image: victoriametrics/vmanomaly:v1.19.0-alpha1
     restart: always
     depends_on:
       victoriametrics:

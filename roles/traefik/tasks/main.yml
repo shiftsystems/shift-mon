@@ -33,15 +33,6 @@
     - '/opt/shift-mon/traefik/certs'
     - '/opt/shift-mon'
 
-- name: Generate http usernames and passwords
-  community.general.htpasswd:
-    path: /opt/shift-mon/traefik/htpasswd
-    name: '{{ item.key }}'
-    password: '{{ item.value }}'
-  become: true
-  no_log: true
-  with_dict: '{{ users }}'
-
 - name: Copy Base Traefik config
   ansible.builtin.template:
     src: traefik.yml
