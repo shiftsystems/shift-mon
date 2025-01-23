@@ -18,7 +18,7 @@ services:
       timeout: '10s'
       retries: 5
     environment:
-      GF_INSTALL_PLUGINS: https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource,https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/{{ vl_datasource_release.json.tag_name }}/victoriametrics-logs-datasource-{{ vl_datasource_release.json.tag_name }}.zip;victorialogs-datasource
+      GF_INSTALL_PLUGINS: https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-metrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource,https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/{{ vl_datasource_release.json.tag_name }}/victoriametrics-logs-datasource-{{ vl_datasource_release.json.tag_name }}.zip;victorialogs-datasource
   alertmanager:
     image: prom/alertmanager:latest
     restart: unless-stopped

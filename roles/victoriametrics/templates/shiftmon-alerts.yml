@@ -1,5 +1,6 @@
-{% raw %}
 groups:
+{% if shiftmon_alerts_deadman_enabled %}
+{% raw %}
   - name: DeadMan
     interval: 1m
     type: prometheus
@@ -22,6 +23,10 @@ groups:
         annotations:
           summary: '{{ $labels.ups_name }} is not sending metrics'
           description: 'no metrics from {{ $labels.ups_name }} on {{ $labels.host }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_infra_enabled %}
+{% raw %}
   - name: InfraAlerts
     interval: 5m
     type: prometheus
@@ -68,6 +73,10 @@ groups:
         annotations:
           summary: '{{ $labels.container_name }} is not healthy'
           description: '{{ $labels.container_name }} is down on {{ $labels.host }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_blackbox_enabled %}
+{% raw %}
   - name: Blackbox Alerts
     interval: 1m
     type: prometheus
@@ -102,6 +111,10 @@ groups:
         annotations:
           summary: '{{ $labels.common_name }} will expire soon please renew'
           description: '{{ $labels.common_name }} will expire in {{ $value }} seconds according to {{ $labels.host }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_proxmox_enabled %}
+{% raw %}
   - name: Proxmox metric alerts
     interval: 5m
     type: prometheus
@@ -136,6 +149,10 @@ groups:
         annotations:
           summary: 'task errors on {{ $labels.tags.hostname }}'
           description: '{{ $labels.task_info }} occured on {{ $labels.tags.hostname }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_freeipa_enabled %}
+{% raw %}
   - name: FreeIPA log Alerts
     interval: 5m
     type: vlogs
@@ -145,6 +162,10 @@ groups:
         annotations:
           summary: 'FreeIPA Replication failure on {{ $labels.tags.host }}'
           description: 'FreeIPA Replication failure on {{ $labels.tags.host }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_victorialogs_enabled %}
+{% raw %}
   - name: Victorialogs Alerts
     interval: 5m
     type: prometheus
@@ -167,6 +188,10 @@ groups:
           summary: "Some rows are rejected on \"{{ $labels.instance }}\" on ingestion attempt"
           description: "VictoriaLogs is rejecting to ingest rows on \"{{ $labels.instance }}\" due to the
             following reason: \"{{ $labels.reason }}\""
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_vmauth_enabled %}
+{% raw %}
   - name: vmauth
     interval: 30s
     type: prometheus
@@ -187,6 +212,10 @@ groups:
         annotations:
           summary: "vmauth has reached concurrent requests limit for username {{ $labels.username }}"
           description: "Possible solutions: increase limit with flag: -maxConcurrentPerUserRequests, deploy additional vmauth replicas, check requests latency at backend service."
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_victoriametrics_enabled %}
+{% raw %}
   - name: vm-health
     type: prometheus
     rules:
@@ -272,6 +301,10 @@ groups:
           summary: "Some rows are rejected on \"{{ $labels.instance }}\" on ingestion attempt"
           description: "Ingested rows on instance \"{{ $labels.instance }}\" are rejected due to the
             following reason: \"{{ $labels.reason }}\""
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_alertmanager_enabled %}
+{% raw %}
   - name: Alertmanager
     type: prometheus
     rules:
@@ -285,3 +318,4 @@ groups:
           description: "vmalert instance {{ $labels.instance }} is failing to send alert notifications to \"{{ $labels.addr }}\".
             Check vmalert's logs for detailed error message."
 {% endraw %}
+{% endif %}
