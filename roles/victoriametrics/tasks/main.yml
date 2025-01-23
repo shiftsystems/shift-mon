@@ -41,6 +41,12 @@
     setype: container_file_t
   become: true
 
+- name: Upload Shiftmon rules
+  ansible.builtin.template:
+    src: "shiftmon-alerts.yml"
+    dest: "/opt/shift-mon/vmalert/rules/shiftmon.yml"
+  become: true
+
 - name: Upload user provisioned rules
   ansible.builtin.copy:
     src: "{{ item.value }}"
