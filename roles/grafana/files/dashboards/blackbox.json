@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 49,
   "links": [
     {
       "asDropdown": true,
@@ -40,7 +41,6 @@
       "url": ""
     }
   ],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -103,7 +103,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -170,7 +170,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -249,7 +249,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -320,7 +320,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -400,7 +400,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -467,7 +467,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -538,7 +538,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -606,7 +606,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -768,7 +768,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -907,6 +907,7 @@
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -984,7 +985,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1051,7 +1052,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1122,7 +1123,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1190,7 +1191,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1355,7 +1356,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1493,6 +1494,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1570,7 +1572,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1637,7 +1639,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1705,7 +1707,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1776,7 +1778,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1819,8 +1821,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "semi-dark-red",
-                "value": null
+                "color": "semi-dark-red"
               },
               {
                 "color": "semi-dark-yellow",
@@ -1901,8 +1902,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-green",
-                      "value": null
+                      "color": "semi-dark-green"
                     },
                     {
                       "color": "semi-dark-red",
@@ -2070,8 +2070,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2152,8 +2151,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2219,8 +2217,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               }
             ]
           }
@@ -2286,8 +2283,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2354,8 +2350,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2433,8 +2428,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "semi-dark-red",
-                "value": null
+                "color": "semi-dark-red"
               },
               {
                 "color": "semi-dark-yellow",
@@ -2515,8 +2509,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-green",
-                      "value": null
+                      "color": "semi-dark-green"
                     },
                     {
                       "color": "semi-dark-red",
@@ -2661,8 +2654,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2765,8 +2757,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -2939,8 +2930,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -3113,8 +3103,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -3250,33 +3239,27 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-victoriametrics",
           "value": "P342DAF48C1D70AE5"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "victoriametrics-datasource",
-        "queryValue": "",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -3289,7 +3272,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values({__name__=~\"http_response_result_code|dns_query_result_code|ping_result_code|net_response_result_code\"},host)",
-        "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "host",
@@ -3301,13 +3283,10 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -3320,7 +3299,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(http_response_result_code{host=~\"$host\"},server)",
-        "hide": 0,
         "includeAll": true,
         "label": "HTTP Check",
         "multi": true,
@@ -3333,13 +3311,10 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -3353,7 +3328,6 @@
         },
         "definition": "label_values(dns_query_result_code{host=~\"$host\"},domain)",
         "description": "",
-        "hide": 0,
         "includeAll": true,
         "label": "DNS Check",
         "multi": true,
@@ -3366,13 +3340,10 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -3386,7 +3357,6 @@
         },
         "definition": "label_values(net_response_result_code{host=~\"$host\"},server)",
         "description": "",
-        "hide": 0,
         "includeAll": true,
         "label": "Net Check",
         "multi": true,
@@ -3399,13 +3369,10 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -3418,7 +3385,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(ping_result_code{host=~\"$host\"},url)",
-        "hide": 0,
         "includeAll": true,
         "label": "Ping Check",
         "multi": true,
@@ -3431,8 +3397,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -3445,6 +3409,6 @@
   "timezone": "",
   "title": "Blackbox",
   "uid": "AF-zl-Y4j",
-  "version": 13,
+  "version": 14,
   "weekStart": ""
 }
