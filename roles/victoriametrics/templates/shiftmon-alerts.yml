@@ -12,6 +12,7 @@ groups:
           summary: '{{ $labels.host }} is not sending metrics'
           description: '{{ $labels.host }} has not sent metrics in {{ $value }} seconds'
       - alert: Missing Grafana Metrics
+        expr: 'lag(grafana_alerting_state_history_writes_bytes_total[24h]) > 120'
         for: 10m
         annotations:
           summary: 'No metrics from Grafana'
