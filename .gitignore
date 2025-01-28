@@ -2,3 +2,5 @@ inventory/*
 .env
 shiftmon.yml
 telegraf.yml
+group_vars/**
+host_vars/**

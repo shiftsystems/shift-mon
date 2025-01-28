@@ -18,9 +18,22 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 153,
   "links": [],
-  "liveNow": false,
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 17,
+      "panels": [],
+      "title": "UPS Metrics",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "datasource",
@@ -58,7 +71,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 2,
       "options": {
@@ -76,7 +89,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -120,7 +133,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 0
+        "y": 1
       },
       "id": 9,
       "options": {
@@ -128,6 +141,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -135,10 +149,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -192,7 +207,7 @@
         "h": 5,
         "w": 3,
         "x": 8,
-        "y": 0
+        "y": 1
       },
       "id": 13,
       "options": {
@@ -200,6 +215,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -207,10 +223,11 @@
           "fields": "/^value$/",
           "values": true
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -278,7 +295,7 @@
         "h": 5,
         "w": 3,
         "x": 11,
-        "y": 0
+        "y": 1
       },
       "id": 15,
       "options": {
@@ -286,6 +303,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -293,10 +311,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -357,7 +376,7 @@
         "h": 5,
         "w": 4,
         "x": 14,
-        "y": 0
+        "y": 1
       },
       "id": 6,
       "options": {
@@ -365,6 +384,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -372,10 +392,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -419,7 +440,7 @@
         "h": 5,
         "w": 3,
         "x": 18,
-        "y": 0
+        "y": 1
       },
       "id": 5,
       "options": {
@@ -427,6 +448,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -434,10 +456,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -481,7 +504,7 @@
         "h": 5,
         "w": 3,
         "x": 21,
-        "y": 0
+        "y": 1
       },
       "id": 7,
       "options": {
@@ -489,6 +512,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -496,10 +520,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -530,6 +555,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -583,7 +609,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 5
+        "y": 6
       },
       "id": 1,
       "options": {
@@ -602,6 +628,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -609,7 +636,7 @@
             "uid": "P84D368831E8B3638"
           },
           "editorMode": "code",
-          "expr": "upsd_load_percent{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "upsd_load_percent{}",
           "legendFormat": "{{host}} {{ups_name}} {{model}}",
           "range": true,
           "refId": "A"
@@ -654,7 +681,7 @@
         "h": 8,
         "w": 5,
         "x": 6,
-        "y": 5
+        "y": 6
       },
       "id": 14,
       "options": {
@@ -669,7 +696,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -679,7 +706,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "upsd_ups_power_nominal{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "upsd_ups_power_nominal{}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
@@ -731,6 +758,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -787,7 +815,7 @@
         "h": 8,
         "w": 7,
         "x": 11,
-        "y": 5
+        "y": 6
       },
       "id": 12,
       "options": {
@@ -806,7 +834,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -841,6 +869,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -884,7 +913,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 5
+        "y": 6
       },
       "id": 11,
       "options": {
@@ -903,7 +932,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -938,6 +967,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -981,7 +1011,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 13
+        "y": 14
       },
       "id": 3,
       "options": {
@@ -1000,7 +1030,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1035,6 +1065,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -1078,7 +1109,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 13
+        "y": 14
       },
       "id": 4,
       "options": {
@@ -1097,7 +1128,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1132,6 +1163,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "none",
@@ -1175,7 +1207,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 13
+        "y": 14
       },
       "id": 8,
       "options": {
@@ -1194,7 +1226,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1211,35 +1243,86 @@
       ],
       "title": "Output Voltage",
       "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 18,
+      "panels": [
+        {
+          "datasource": {
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 15,
+            "w": 24,
+            "x": 0,
+            "y": 22
+          },
+          "id": 16,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": false,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "pluginVersion": "11.4.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "(tags.host:$host) AND (tags.appname:~\"ups.*|nut.*\")",
+              "queryType": "instant",
+              "refId": "A"
+            }
+          ],
+          "title": "UPSD/NUT Logs",
+          "type": "logs"
+        }
+      ],
+      "title": "UPS Logs",
+      "type": "row"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
         "query": "prometheus",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
@@ -1247,22 +1330,17 @@
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(upsd_load_percent,host)",
-        "hide": 0,
+        "definition": "label_values(upsd_ups_power_nominal,host)",
         "includeAll": false,
-        "label": "",
-        "multi": false,
         "name": "host",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(upsd_load_percent,host)",
+          "query": "label_values(upsd_ups_power_nominal,host)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
@@ -1271,10 +1349,7 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(upsd_load_percent{host=\"$host\"},ups_name)",
-        "hide": 0,
         "includeAll": false,
-        "label": "",
-        "multi": false,
         "name": "ups",
         "options": [],
         "query": {
@@ -1284,8 +1359,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -1296,8 +1369,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "NUT/USPD",
-  "uid": "ebdaf6d0-ee4f-4f78-839c-8b2cff481de6",
-  "version": 6,
+  "title": "NUT/UPSD",
+  "uid": "shiftmon-nut",
+  "version": 1,
   "weekStart": ""
 }

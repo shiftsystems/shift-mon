@@ -1,6 +1,7 @@
 services:
   grafana:
     image: docker.io/grafana/grafana-oss:latest
+    user: root
     restart: unless-stopped
     volumes:
       - type: bind
