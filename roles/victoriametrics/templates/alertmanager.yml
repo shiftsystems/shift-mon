@@ -1,1 +1,1 @@
-{{ alertmanager_config | to_nice_yaml }}
+{{ alertmanager_config | to_nice_yaml(indent=2,sort_keys=false) }}

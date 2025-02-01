@@ -58,7 +58,8 @@
 - name: Upload alertmanager config
   ansible.builtin.template:
     src: "alertmanager.yml"
-    dest: /opt/shift-mon/alertmanager/config/alertmanager.yml"
+    dest: "/opt/shift-mon/alertmanager/config/alertmanager.yml"
     mode: '770'
     setype: container_file_t
+    force: true
   become: true

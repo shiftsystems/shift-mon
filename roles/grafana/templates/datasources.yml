@@ -22,3 +22,10 @@ datasources:
   - name: shiftmon-victorialogs
     type: victoriametrics-logs-datasource
     url: http://victorialogs:9428
+  - name: shiftmon-alertmanager
+    type: alertmanager
+    url: http://alertmanager:9093
+    access: proxy
+    jsonData:
+      implementation: prometheus
+      handleGrafanaManagedAlerts: false

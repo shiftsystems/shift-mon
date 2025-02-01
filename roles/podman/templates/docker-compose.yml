@@ -19,7 +19,7 @@ services:
       timeout: '10s'
       retries: 5
     environment:
-      GF_INSTALL_PLUGINS: https://github.com/VictoriaMetrics/grafana-datasource/releases/download/{{ vm_datasource_release.json.tag_name }}/victoriametrics-metrics-datasource-{{ vm_datasource_release.json.tag_name }}.zip;victoriametrics-datasource,https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/{{ vl_datasource_release.json.tag_name }}/victoriametrics-logs-datasource-{{ vl_datasource_release.json.tag_name }}.zip;victorialogs-datasource
+      GF_INSTALL_PLUGINS: victoriametrics-metrics-datasource,victoriametrics-logs-datasource
   alertmanager:
     image: prom/alertmanager:latest
     restart: unless-stopped
@@ -55,9 +55,9 @@ services:
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.109.1-enterprise
+    image: docker.io/victoriametrics/victoria-metrics:v1.110.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.109.1
+    image: docker.io/victoriametrics/victoria-metrics:v1.110.0
 {% endif %}
     volumes:
       - type: bind
@@ -90,9 +90,9 @@ services:
   vmalert:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmalert:v1.109.1-enterprise
+    image: docker.io/victoriametrics/vmalert:v1.110.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmalert:v1.109.1
+    image: docker.io/victoriametrics/vmalert:v1.110.0
 {% endif %}
     volumes:
       - type: bind
@@ -123,9 +123,9 @@ services:
   vmauth:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmauth:v1.109.1-enterprise
+    image: docker.io/victoriametrics/vmauth:v1.110.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmauth:v1.109.1
+    image: docker.io/victoriametrics/vmauth:v1.110.0
 {% endif %}
     volumes:
       - type: bind
@@ -185,7 +185,7 @@ services:
       interval: 5s
       retries: 10
   victorialogs:
-    image: docker.io/victoriametrics/victoria-logs:v1.7.0-victorialogs
+    image: docker.io/victoriametrics/victoria-logs:v1.8.0-victorialogs
     restart: unless-stopped
     volumes:
       - type: bind
