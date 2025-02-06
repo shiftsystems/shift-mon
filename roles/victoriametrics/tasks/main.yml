@@ -21,9 +21,10 @@
     - /opt/shift-mon/victoriametrics
     - /opt/shift-mon/victoriametrics-storage
     - /opt/shift-mon/vmalert/rules
+    - /opt/shift-mon/vmalert/templates
     - /opt/shift-mon/vmauth
     - /opt/shift-mon/alertmanager/data
-    - /opt/shift-mon/alertmanager/config
+    - /opt/shift-mon/alertmanager/config/templates
 
 - name: Upload Scrape Config
   ansible.builtin.template:

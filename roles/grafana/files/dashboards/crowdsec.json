@@ -145,7 +145,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -221,11 +221,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -330,7 +331,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -424,7 +425,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -517,7 +518,7 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -587,9 +588,7 @@
     "list": [
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -635,8 +634,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Crowdsec - VictoriaLogs",
-  "uid": "shiftmon-crowdsec",
-  "version": 9,
+  "title": "Crowdsec",
+  "uid": "crowdsec-vl",
+  "version": 10,
   "weekStart": ""
 }

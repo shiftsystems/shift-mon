@@ -19,6 +19,8 @@ alertmanager_config:
     smtp_auth_password: "{{ alertmanager.smtp_password }}"
     smtp_auth_identity: "{{ alertmanager.smtp_auth_identity }}"
     smtp_require_tls: true
+  templates:
+    - '/config/templates/email.tmpl'
   route:
     group_by:
       - 'alertname'
@@ -30,8 +32,10 @@ alertmanager_config:
       - matchers:
         - severity="info"
         receiver: Shiftmon SMTP
-        repeat_interval: 1h
+        repeat_interval: 24h
         group_interval: 1m
+        group_by:
+          - 'alertgroup'
   receivers:
     - name: "{{ alertmanager.webhook_name }}"
       webhook_configs:

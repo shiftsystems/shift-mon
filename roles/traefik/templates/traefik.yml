@@ -65,6 +65,10 @@ certificatesResolvers:
 {% endif %}
 accessLog:
   format: json
+  filters:
+    statusCodes:
+      - "400-499"
+      - "500-599"
 metrics:
   prometheus:
     entrypoint: metrics

@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 13,
+  "id": 156,
   "links": [],
   "panels": [
     {
@@ -83,7 +83,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -158,7 +158,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -229,7 +229,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -297,7 +297,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -364,7 +364,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -437,7 +437,7 @@
         "frameIndex": 0,
         "showHeader": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -560,7 +560,7 @@
         "frameIndex": 7,
         "showHeader": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "exemplar": true,
@@ -722,11 +722,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -831,11 +832,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -921,7 +923,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -1008,7 +1010,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -1125,11 +1127,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -1225,11 +1228,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -1327,11 +1331,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -1502,7 +1507,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -1718,7 +1723,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.0",
       "targets": [
         {
           "datasource": {
@@ -1847,7 +1852,7 @@
       "type": "table"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1855,93 +1860,96 @@
         "y": 38
       },
       "id": 75,
-      "panels": [],
-      "title": "Logs",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "victoriametrics-logs-datasource",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 39
-      },
-      "id": 70,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
+      "panels": [
         {
           "datasource": {
             "type": "victoriametrics-logs-datasource",
             "uid": "${logs}"
           },
-          "editorMode": "code",
-          "expr": "tags.Channel:Microsoft-Windows-Sysmon/Operational",
-          "queryType": "instant",
-          "refId": "A"
-        }
-      ],
-      "title": "Sysmon Logs",
-      "type": "logs"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 39
-      },
-      "id": 68,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 39
+          },
+          "id": 70,
+          "options": {
+            "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "pluginVersion": "11.5.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.Channel:Microsoft-Windows-Sysmon/Operational",
+              "queryType": "instant",
+              "refId": "A"
+            }
+          ],
+          "title": "Sysmon Logs",
+          "type": "logs"
+        },
         {
           "datasource": {
             "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "uid": "${logs}"
           },
-          "editorMode": "code",
-          "expr": "tags.host:$host",
-          "queryType": "range",
-          "refId": "A"
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 39
+          },
+          "id": 68,
+          "options": {
+            "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "pluginVersion": "11.5.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "P53E94FA6B1E28789"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:$host",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Host Logs",
+          "type": "logs"
         }
       ],
-      "title": "Host Logs",
-      "type": "logs"
+      "title": "Logs",
+      "type": "row"
     },
     {
       "collapsed": true,
@@ -1949,7 +1957,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 39
       },
       "id": 41,
       "panels": [
@@ -2215,7 +2223,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 48
+        "y": 40
       },
       "id": 50,
       "panels": [
@@ -2624,7 +2632,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 41
       },
       "id": 45,
       "panels": [
@@ -2837,7 +2845,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 42
       },
       "id": 55,
       "panels": [
@@ -3309,8 +3317,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Windows Metrics",
+  "title": "Windows Host",
   "uid": "LqfSpKn7y",
-  "version": 9,
+  "version": 1,
   "weekStart": ""
 }
