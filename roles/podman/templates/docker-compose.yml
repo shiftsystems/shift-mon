@@ -36,6 +36,11 @@ services:
       - type: bind
         source: /opt/shift-mon/alertmanager/config
         target: /config
+    healthcheck:
+      test: 'wget -qO- http://127.0.0.1:9093/-/healthy'
+      interval: '30s'
+      timeout: '10s'
+      retries: 5
   loki:
     image: docker.io/grafana/loki:3.3.2
     restart: unless-stopped
@@ -56,9 +61,9 @@ services:
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.110.0-enterprise
+    image: docker.io/victoriametrics/victoria-metrics:v1.111.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.110.0
+    image: docker.io/victoriametrics/victoria-metrics:v1.111.0
 {% endif %}
     volumes:
       - type: bind
@@ -91,9 +96,9 @@ services:
   vmalert:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmalert:v1.110.0-enterprise
+    image: docker.io/victoriametrics/vmalert:v1.111.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmalert:v1.110.0
+    image: docker.io/victoriametrics/vmalert:v1.111.0
 {% endif %}
     volumes:
       - type: bind
@@ -128,9 +133,9 @@ services:
   vmauth:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmauth:v1.110.0-enterprise
+    image: docker.io/victoriametrics/vmauth:v1.111.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmauth:v1.110.0
+    image: docker.io/victoriametrics/vmauth:v1.111.0
 {% endif %}
     volumes:
       - type: bind
@@ -139,6 +144,7 @@ services:
     command:
       - "-auth.config=/auth/auth-config.yml"
       - "-httpListenAddr=0.0.0.0:8427"
+      - "-httpInternalListenAddr=0.0.0.0:9999"
 {% if victoria.license is defined %}
       - "-license={{ victoria.license }}"
 {% endif %}
@@ -190,7 +196,7 @@ services:
       interval: 5s
       retries: 10
   victorialogs:
-    image: docker.io/victoriametrics/victoria-logs:v1.8.0-victorialogs
+    image: docker.io/victoriametrics/victoria-logs:v1.9.1-victorialogs
     restart: unless-stopped
     volumes:
       - type: bind

@@ -15,7 +15,7 @@ scrape_configs:
     - targets:
       - 'http://victoriametrics:8428'
       - 'http://vmalert:8880'
-      - 'http://vmauth:8427'
+      - 'http://vmauth:9999'
       - 'http://loki:3100'
       - 'http://victorialogs:9428'
       - 'http://alertmanager:9093'

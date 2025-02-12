@@ -63,6 +63,21 @@
     - victoriametrics.json
     - vmalert.json
     - vmauth.json
+    - victorialogs.json
+
+- name: Download Dashbaords from Grafana.com
+  ansible.builtin.get_url:
+    url: https://grafana.com/api/dashboards/20715/revisions/1/download
+    dest: '/opt/shift-mon/grafana/dashboards/{{ item.name }}.json'
+    mode: '770'
+  become: true
+  with_items:
+    - name: alertmanager
+      id: 20715
+      revision: 1
+    - name: vmanomaly
+      id: 22337
+      revision: 7
 
 - name: Configure Dashboard Provisioning 
   ansible.builtin.template:

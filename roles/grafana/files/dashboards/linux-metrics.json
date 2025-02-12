@@ -5780,7 +5780,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Linux Metrics",
+  "title": "Linux Host",
   "uid": "shiftmon-linux-metrics",
   "version": 11,
   "weekStart": ""

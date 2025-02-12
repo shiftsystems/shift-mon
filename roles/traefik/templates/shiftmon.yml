@@ -43,6 +43,7 @@ http:
         servers:
           - url: http://vmauth:8427
         healthCheck:
+          port: 9999
           path: /health
           interval: "10s"
           timeout: "5s"

@@ -30,7 +30,7 @@ alertmanager_config:
     receiver: "{{ alertmanager.webhook_name }}"
     routes:
       - matchers:
-        - severity="info"
+        - severity="reporting"
         receiver: Shiftmon SMTP
         repeat_interval: 24h
         group_interval: 1m
