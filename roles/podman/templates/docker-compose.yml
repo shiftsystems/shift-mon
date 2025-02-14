@@ -78,6 +78,7 @@ services:
       - "-httpListenAddr=:8428"
       - "-vmalert.proxyURL=http://vmalert:8880"
       - "-promscrape.config=/victoriametrics/scrape-config.yml"
+      - "-relabelConfig=/victoriametrics/relabel-config.yml"
       #- "-streamAggr.config=/victoriametrics/aggregation-config.yml"
 {% if victoria.license is defined %}
       - "-license={{ victoria.license }}"

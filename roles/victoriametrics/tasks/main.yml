@@ -26,13 +26,16 @@
     - /opt/shift-mon/alertmanager/data
     - /opt/shift-mon/alertmanager/config/templates
 
-- name: Upload Scrape Config
+- name: Upload Victoriametrics Configs
   ansible.builtin.template:
-    src: scrape-config.yml
-    dest: /opt/shift-mon/victoriametrics/scrape-config.yml
+    src: "{{ item }}"
+    dest: "/opt/shift-mon/victoriametrics/{{ item }}"
     mode: '770'
     setype: container_file_t
   become: true
+  with_items:
+    - scrape-config.yml
+    - relabel-config.yml
 
 - name: Add VMAuth Template
   ansible.builtin.template:
