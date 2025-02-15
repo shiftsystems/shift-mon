@@ -539,6 +539,16 @@
   become: true
   when: "'blocky.service' in ansible_facts.services and 'blocky' not in do_not_instrument"
 
+- name: Add Tailscale config
+  ansible.builtin.template:
+    src: tailscale.conf
+    dest: /etc/telegraf/telegraf.d/tailscale.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: "'tailscaled.service' in ansible_facts.services and 'tailscaled' not in do_not_instrument"
+
 - name: Install Rsyslog
   ansible.builtin.package:
     name: rsyslog
