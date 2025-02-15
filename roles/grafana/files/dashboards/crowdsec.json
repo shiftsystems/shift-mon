@@ -145,7 +145,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -226,7 +226,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -331,7 +331,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -425,7 +425,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -518,7 +518,7 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -547,31 +547,32 @@
               "Time": true,
               "__name": true,
               "_stream_id": true,
+              "fields.level": true,
               "host": true,
               "id": true,
               "labels": true,
               "path": true,
+              "tags.path": true,
               "time": false,
               "tsNs": true
             },
             "includeByName": {},
             "indexByName": {
               "Line": 1,
-              "Time": 5,
-              "__name": 2,
-              "_stream_id": 13,
-              "asn": 10,
-              "ban_duration": 11,
-              "ban_ip": 12,
-              "behavior": 7,
-              "country": 9,
-              "host": 3,
-              "ip": 8,
+              "Time": 2,
+              "_stream_id": 3,
+              "asn": 11,
+              "ban_duration": 12,
+              "ban_ip": 13,
+              "behavior": 8,
+              "country": 10,
+              "fields.level": 4,
+              "fields.time": 6,
+              "ip": 9,
               "labels": 0,
-              "level": 14,
-              "msg": 15,
-              "path": 4,
-              "time": 6
+              "name": 14,
+              "tags.host": 7,
+              "tags.path": 5
             },
             "renameByName": {}
           }
@@ -635,7 +636,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Crowdsec",
-  "uid": "crowdsec-vl",
-  "version": 10,
+  "uid": "shiftmon-crowdsec",
+  "version": 11,
   "weekStart": ""
 }
