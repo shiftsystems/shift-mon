@@ -23,14 +23,117 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
   "id": 165,
   "links": [],
   "panels": [
     {
       "datasource": {
-        "type": "victoriametrics-logs-datasource",
-        "uid": "${logs}"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile($percentile, sum(rate(caddy_http_request_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval])) by (le))",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Percentil response time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -88,12 +191,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
+        "h": 8,
+        "w": 13,
+        "x": 11,
         "y": 0
       },
-      "id": 2,
+      "id": 21,
       "options": {
         "legend": {
           "calcs": [
@@ -107,21 +210,22 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-logs-datasource",
-            "uid": "${logs}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
           },
           "editorMode": "code",
-          "expr": "(tags.appname:caddy) AND (tags.host:$host)} | stats by (time:_1m,tags.host) count() ",
-          "legendFormat": "{{tags.host}}",
-          "queryType": "statsRange",
+          "expr": "sum(rate(caddy_http_requests_total{host=~\"$host\"})) by (host)",
+          "legendFormat": "__auto",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -130,8 +234,138 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-logs-datasource",
-        "uid": "${logs}"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 0.1,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.05
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "dot.local.shiftsystems.net"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 11,
+        "x": 0,
+        "y": 8
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "rate(caddy_http_request_errors_total{host=~\"$host\"}) / rate(caddy_http_requests_total{host=~\"$host\"})",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Request Error Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -215,11 +449,11 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 0
+        "w": 13,
+        "x": 11,
+        "y": 8
       },
-      "id": 19,
+      "id": 20,
       "options": {
         "legend": {
           "calcs": [
@@ -233,21 +467,22 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-logs-datasource",
-            "uid": "${logs}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
           },
           "editorMode": "code",
-          "expr": "(tags.appname:caddy) AND (tags.host:$host)} fields.status:>399 | stats by (time:_1m,tags.host) count()",
-          "legendFormat": "{{tags.host}}",
-          "queryType": "statsRange",
+          "expr": "increase(caddy_http_request_errors_total{host=~\"$host\"})",
+          "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -279,7 +514,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 7
+        "y": 15
       },
       "id": 4,
       "options": {
@@ -302,11 +537,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -348,7 +584,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 7
+        "y": 15
       },
       "id": 11,
       "options": {
@@ -370,11 +606,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -416,7 +653,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 7
+        "y": 15
       },
       "id": 8,
       "options": {
@@ -438,11 +675,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -500,7 +738,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 23
       },
       "id": 15,
       "panels": [
@@ -528,7 +766,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -557,11 +796,12 @@
             "rowHeight": 0.9,
             "showValue": "auto",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -569,7 +809,7 @@
                 "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "expr": "prometheus_caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
+              "expr": "caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
               "legendFormat": "{{upstream}}",
               "range": true,
               "refId": "A"
@@ -593,7 +833,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -629,7 +870,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -637,7 +878,7 @@
                 "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "expr": "prometheus_caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
+              "expr": "caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
               "legendFormat": "{{upstream}}",
               "range": true,
               "refId": "A"
@@ -684,6 +925,7 @@
         "type": "datasource"
       },
       {
+        "allowCustomValue": false,
         "current": {
           "text": "rose.local.shiftsystems.net",
           "value": "rose.local.shiftsystems.net"
@@ -692,18 +934,50 @@
           "type": "victoriametrics-metrics-datasource",
           "uid": "${Metrics}"
         },
-        "definition": "label_values(prometheus_caddy_admin_http_requests_total,host)",
-        "includeAll": false,
+        "definition": "label_values(caddy_admin_http_requests_total,host)",
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(prometheus_caddy_admin_http_requests_total,host)",
+          "query": "label_values(caddy_admin_http_requests_total,host)",
           "refId": "VariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
         "type": "query"
+      },
+      {
+        "current": {
+          "text": ".99",
+          "value": ".99"
+        },
+        "name": "percentile",
+        "options": [
+          {
+            "selected": false,
+            "text": ".50",
+            "value": ".50"
+          },
+          {
+            "selected": false,
+            "text": ".90",
+            "value": ".90"
+          },
+          {
+            "selected": false,
+            "text": ".95",
+            "value": ".95"
+          },
+          {
+            "selected": true,
+            "text": ".99",
+            "value": ".99"
+          }
+        ],
+        "query": ".50,.90,.95,.99",
+        "type": "custom"
       }
     ]
   },
@@ -714,7 +988,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Caddy",
-  "uid": "kmrQlud4k",
-  "version": 2,
+  "uid": "shiftmon-caddy",
+  "version": 3,
   "weekStart": ""
 }

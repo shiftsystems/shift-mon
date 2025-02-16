@@ -1,1302 +1,1197 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "links": [
+  "annotations": {
+    "list": [
       {
-        "asDropdown": true,
-        "icon": "external link",
-        "includeVars": false,
-        "keepTime": true,
-        "tags": [
-          "proxmox"
-        ],
-        "targetBlank": true,
-        "title": "proxmox",
-        "tooltip": "",
-        "type": "dashboards",
-        "url": ""
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "panels": [
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${metrics}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 149,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [
+        "proxmox"
+      ],
+      "targetBlank": true,
+      "title": "proxmox",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
             },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "min": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
               },
-              "filterable": true,
-              "inspect": false
-            },
-            "mappings": [],
-            "min": 100,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 70
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "bytes"
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Percent Used"
+              {
+                "color": "#EAB839",
+                "value": 70
               },
-              "properties": [
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-background"
-                  }
-                },
-                {
-                  "id": "unit",
-                  "value": "percentunit"
-                },
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": null
-                      },
-                      {
-                        "color": "#EAB839",
-                        "value": 0.7
-                      },
-                      {
-                        "color": "red",
-                        "value": 0.8
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 0
-        },
-        "id": 4,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "frameIndex": 0,
-          "showHeader": true,
-          "sortBy": [
-            {
-              "desc": true,
-              "displayName": "type"
-            }
-          ]
-        },
-        "pluginVersion": "10.4.2",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P84D368831E8B3638"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "system_used{host=~\"$host\"} ",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "interval": "",
-            "intervalFactor": 1,
-            "legendFormat": "",
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P84D368831E8B3638"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "system_total{host=~\"$host\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "interval": "",
-            "intervalFactor": 1,
-            "legendFormat": "",
-            "refId": "B"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "system_used{host=~\"$host\"} / system_total{host=~\"$host\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "C"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "system_total{nodename=~\"$node\"} - system_used{nodename=~\"$node\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "D"
-          }
-        ],
-        "title": "Node Storage",
-        "transformations": [
-          {
-            "id": "seriesToColumns",
-            "options": {
-              "byField": "host"
-            }
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "Time 1": true,
-                "Time 2": true,
-                "Time 3": true,
-                "Time 4": true,
-                "__name__": true,
-                "__name__ 1": true,
-                "__name__ 2": true,
-                "nodename 1": true,
-                "nodename 2": true,
-                "nodename 3": true,
-                "nodename 4": true,
-                "object 1": true,
-                "object 2": true,
-                "object 3": true,
-                "object 4": true,
-                "type 2": true,
-                "type 3": true,
-                "type 4": true
-              },
-              "includeByName": {},
-              "indexByName": {
-                "Time 1": 6,
-                "Time 2": 9,
-                "Time 3": 15,
-                "Time 4": 19,
-                "Value #A": 2,
-                "Value #B": 4,
-                "Value #C": 5,
-                "Value #D": 3,
-                "__name__ 1": 13,
-                "__name__ 2": 14,
-                "host": 0,
-                "nodename 1": 7,
-                "nodename 2": 10,
-                "nodename 3": 16,
-                "nodename 4": 20,
-                "object 1": 8,
-                "object 2": 11,
-                "object 3": 17,
-                "object 4": 21,
-                "type 1": 1,
-                "type 2": 12,
-                "type 3": 18,
-                "type 4": 22
-              },
-              "renameByName": {
-                "Percent": "",
-                "Time 1": "",
-                "Value #A": "Used",
-                "Value #B": "Total",
-                "Value #C": "Percent Used",
-                "Value #D": "Available",
-                "host": "Storage",
-                "type 1": "Type"
+              {
+                "color": "red",
+                "value": 80
               }
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${metrics}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "filterable": true,
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "dtdhms"
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "CPU Usage"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "percentunit"
-                },
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-background"
-                  }
-                },
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": null
-                      },
-                      {
-                        "color": "#EAB839",
-                        "value": 0.7
-                      },
-                      {
-                        "color": "red",
-                        "value": 0.9
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "memory usage"
-              },
-              "properties": [
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-background"
-                  }
-                },
-                {
-                  "id": "unit",
-                  "value": "percentunit"
-                },
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": null
-                      },
-                      {
-                        "color": "#EAB839",
-                        "value": 0.8
-                      },
-                      {
-                        "color": "red",
-                        "value": 0.9
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "memory"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "bytes"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "CPUs"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "none"
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 0
-        },
-        "id": 3,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "frameIndex": 0,
-          "showHeader": true
-        },
-        "pluginVersion": "10.4.2",
-        "targets": [
-          {
-            "datasource": {
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "system_uptime{host=~\"$host\"}",
-            "format": "table",
-            "instant": true,
-            "interval": "",
-            "legendFormat": "{{host}}",
-            "range": false,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "cpustat_cpu{host=~\"$host\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "B"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "memory_memused{host=~\"$host\"} / memory_memtotal{host=~\"$host\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "C"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "memory_memtotal{host=~\"$host\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "D"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "cpustat_cpu_count{host=~\"$host\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "E"
-          }
-        ],
-        "title": "Host Metrics",
-        "transformations": [
-          {
-            "id": "joinByField",
-            "options": {
-              "byField": "host",
-              "mode": "outer"
-            }
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "Time 1": true,
-                "Time 2": true,
-                "Time 3": true,
-                "Time 4": true,
-                "Time 5": true,
-                "__name__ 1": true,
-                "__name__ 2": true,
-                "__name__ 3": true,
-                "__name__ 4": true,
-                "object 1": true,
-                "object 2": true,
-                "object 3": true,
-                "object 4": true,
-                "object 5": true
-              },
-              "includeByName": {},
-              "indexByName": {
-                "Time 1": 7,
-                "Time 2": 9,
-                "Time 3": 12,
-                "Time 4": 14,
-                "Time 5": 17,
-                "Value #A": 1,
-                "Value #B": 5,
-                "Value #C": 3,
-                "Value #D": 2,
-                "Value #E": 4,
-                "__name__ 1": 6,
-                "__name__ 2": 10,
-                "__name__ 3": 15,
-                "__name__ 4": 18,
-                "host": 0,
-                "object 1": 8,
-                "object 2": 11,
-                "object 3": 13,
-                "object 4": 16,
-                "object 5": 19
-              },
-              "renameByName": {
-                "Field": "Node",
-                "Last *": "Uptime",
-                "Value #A": "uptime",
-                "Value #B": "CPU Usage",
-                "Value #C": "memory usage",
-                "Value #D": "memory",
-                "Value #E": "CPUs",
-                "__name__ 1": ""
-              }
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${metrics}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "none"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 0,
-          "y": 8
-        },
-        "id": 5,
-        "options": {
-          "legend": {
-            "calcs": [
-              "min",
-              "max",
-              "mean"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true,
-            "sortBy": "Max",
-            "sortDesc": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": true,
-            "expr": "cpustat_iowait_percent{host=\"$host\"}",
-            "interval": "",
-            "legendFormat": "{{host}}",
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "iowait",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${metrics}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "binBps"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 8,
-          "y": 8
-        },
-        "id": 6,
-        "options": {
-          "legend": {
-            "calcs": [
-              "min",
-              "max",
-              "mean"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true,
-            "sortBy": "Max",
-            "sortDesc": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": true,
-            "expr": "rate(nics_receive{host=~\"$host\"})",
-            "interval": "",
-            "legendFormat": "{{host}} - {{ instance }} - receive",
-            "range": true,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": true,
-            "expr": "rate(nics_send{host=~\"$host\"})",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "{{host}} - {{ instance }} - send",
-            "range": true,
-            "refId": "B"
-          }
-        ],
-        "title": "Bandwidth",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${metrics}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "binBps"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 16,
-          "y": 8
-        },
-        "id": 7,
-        "options": {
-          "legend": {
-            "calcs": [
-              "min",
-              "max",
-              "mean"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true,
-            "sortBy": "Max",
-            "sortDesc": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": true,
-            "expr": "rate(blockstat_read_bytes{host=\"$host\"})",
-            "interval": "",
-            "legendFormat": "{{host}} - read",
-            "range": true,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "uid": "${metrics}"
-            },
-            "editorMode": "code",
-            "exemplar": true,
-            "expr": "rate(blockstat_write_bytes{host=\"$host\"})",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "{{host}} - write",
-            "range": true,
-            "refId": "B"
-          }
-        ],
-        "title": "Diskio",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "loki",
-          "uid": "${logs}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "filterable": true,
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Time"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 190
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "hostname"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 137
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "appname"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 114
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 16
-        },
-        "id": 1,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "10.4.2",
-        "targets": [
-          {
-            "datasource": {
-              "type": "loki",
-              "uid": "${logs}"
-            },
-            "editorMode": "code",
-            "expr": "{appname=~\"pbs-.*\",hostname=~\"$host\"} | logfmt | pattern `<_>message=\"<_>:<pbs_host>:<_>:<_>:<_>:<_>:<cmd>:<job>:<user>:<msg>\"`",
-            "queryType": "range",
-            "refId": "A"
-          }
-        ],
-        "title": "PBS Logs",
-        "transformations": [
-          {
-            "id": "extractFields",
-            "options": {
-              "keepTime": true,
-              "replace": true,
-              "source": "labels"
-            }
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "__name": true,
-                "appname": false,
-                "facility": true,
-                "facility_code": true,
-                "host": true,
-                "message": true,
-                "pbs_host": true,
-                "severity": true,
-                "severity_code": true,
-                "source": true,
-                "timestamp": true,
-                "version": true
-              },
-              "includeByName": {},
-              "indexByName": {
-                "Time": 0,
-                "__name": 8,
-                "appname": 2,
-                "cmd": 4,
-                "facility": 9,
-                "facility_code": 10,
-                "host": 11,
-                "hostname": 1,
-                "job": 5,
-                "message": 7,
-                "msg": 6,
-                "pbs_host": 17,
-                "severity": 12,
-                "severity_code": 13,
-                "source": 14,
-                "timestamp": 15,
-                "user": 3,
-                "version": 16
-              },
-              "renameByName": {}
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "datasource": {
-          "type": "loki",
-          "uid": "${logs}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "filterable": true,
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green"
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Time"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 190
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "hostname"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 137
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "appname"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 114
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 23
-        },
-        "id": 8,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "10.4.2",
-        "targets": [
-          {
-            "datasource": {
-              "type": "loki",
-              "uid": "${logs}"
-            },
-            "editorMode": "code",
-            "expr": "{appname!~\"pbs-.*\",hostname=~\"$host\"} | logfmt",
-            "queryType": "range",
-            "refId": "A"
-          }
-        ],
-        "title": "Other Syslog",
-        "transformations": [
-          {
-            "id": "extractFields",
-            "options": {
-              "keepTime": true,
-              "replace": true,
-              "source": "labels"
-            }
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "__name": true,
-                "appname": false,
-                "facility": true,
-                "facility_code": true,
-                "host": true,
-                "message": false,
-                "pbs_host": true,
-                "severity": true,
-                "severity_code": true,
-                "source": true,
-                "timestamp": true,
-                "version": true
-              },
-              "includeByName": {},
-              "indexByName": {
-                "Time": 0,
-                "__name": 5,
-                "appname": 2,
-                "facility": 6,
-                "facility_code": 7,
-                "host": 8,
-                "hostname": 1,
-                "message": 4,
-                "procid": 3,
-                "severity": 9,
-                "severity_code": 10,
-                "source": 11,
-                "timestamp": 12,
-                "version": 13
-              },
-              "renameByName": {}
-            }
-          }
-        ],
-        "type": "table"
-      }
-    ],
-    "schemaVersion": 39,
-    "tags": [
-      "proxmox"
-    ],
-    "templating": {
-      "list": [
-        {
-          "current": {
-            "selected": false,
-            "text": "shift-metrics",
-            "value": "P84D368831E8B3638"
-          },
-          "hide": 0,
-          "includeAll": false,
-          "multi": false,
-          "name": "metrics",
-          "options": [],
-          "query": "prometheus",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "type": "datasource"
-        },
-        {
-          "current": {
-            "selected": false,
-            "text": "shift-logs",
-            "value": "P53E94FA6B1E28789"
-          },
-          "hide": 0,
-          "includeAll": false,
-          "multi": false,
-          "name": "logs",
-          "options": [],
-          "query": "loki",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "type": "datasource"
-        },
-        {
-          "current": {
-            "selected": true,
-            "text": [
-              "All"
-            ],
-            "value": [
-              "$__all"
             ]
           },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Percent Used"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 0.7
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.8
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "type"
+          }
+        ]
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_used{host=~\"$host\"} ",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_total{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "B"
+        },
+        {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
-          "definition": "label_values(blockstat_write_ios,host)",
-          "hide": 0,
-          "includeAll": true,
-          "multi": true,
-          "name": "host",
-          "options": [],
-          "query": {
-            "qryType": 1,
-            "query": "label_values(blockstat_write_ios,host)",
-            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_used{host=~\"$host\"} / blockstat_total{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
           },
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "type": "query"
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_total{nodename=~\"$node\"} - blockstat_used{nodename=~\"$node\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
         }
-      ]
+      ],
+      "title": "Node Storage",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "host"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time 1": true,
+              "Time 2": true,
+              "Time 3": true,
+              "Time 4": true,
+              "__name__": true,
+              "__name__ 1": true,
+              "__name__ 2": true,
+              "datastore 1": true,
+              "datastore 2": true,
+              "datastore 3": true,
+              "nodename 1": true,
+              "nodename 2": true,
+              "nodename 3": true,
+              "nodename 4": true,
+              "object 1": true,
+              "object 2": true,
+              "object 3": true,
+              "object 4": true,
+              "type 2": true,
+              "type 3": true,
+              "type 4": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time 1": 6,
+              "Time 2": 9,
+              "Time 3": 15,
+              "Time 4": 19,
+              "Value #A": 2,
+              "Value #B": 4,
+              "Value #C": 5,
+              "Value #D": 3,
+              "__name__ 1": 13,
+              "__name__ 2": 14,
+              "host": 0,
+              "nodename 1": 7,
+              "nodename 2": 10,
+              "nodename 3": 16,
+              "nodename 4": 20,
+              "object 1": 8,
+              "object 2": 11,
+              "object 3": 17,
+              "object 4": 21,
+              "type 1": 1,
+              "type 2": 12,
+              "type 3": 18,
+              "type 4": 22
+            },
+            "renameByName": {
+              "Percent": "",
+              "Time 1": "",
+              "Value #A": "Used",
+              "Value #B": "Total",
+              "Value #C": "Percent Used",
+              "Value #D": "Available",
+              "host": "Storage",
+              "type 1": "Type"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
-    "time": {
-      "from": "now-24h",
-      "to": "now"
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "dtdhms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 0.7
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.9
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "memory usage"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 0.8
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.9
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "memory"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPUs"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "system_uptime{host=~\"$host\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{host}}",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "cpustat_cpu{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "memory_memused{host=~\"$host\"} / memory_memtotal{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "memory_memtotal{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "cpustat_cpu_count{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        }
+      ],
+      "title": "Host Metrics",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "host",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time 1": true,
+              "Time 2": true,
+              "Time 3": true,
+              "Time 4": true,
+              "Time 5": true,
+              "__name__ 1": true,
+              "__name__ 2": true,
+              "__name__ 3": true,
+              "__name__ 4": true,
+              "object 1": true,
+              "object 2": true,
+              "object 3": true,
+              "object 4": true,
+              "object 5": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time 1": 7,
+              "Time 2": 9,
+              "Time 3": 12,
+              "Time 4": 14,
+              "Time 5": 17,
+              "Value #A": 1,
+              "Value #B": 5,
+              "Value #C": 3,
+              "Value #D": 2,
+              "Value #E": 4,
+              "__name__ 1": 6,
+              "__name__ 2": 10,
+              "__name__ 3": 15,
+              "__name__ 4": 18,
+              "host": 0,
+              "object 1": 8,
+              "object 2": 11,
+              "object 3": 13,
+              "object 4": 16,
+              "object 5": 19
+            },
+            "renameByName": {
+              "Field": "Node",
+              "Last *": "Uptime",
+              "Value #A": "uptime",
+              "Value #B": "CPU Usage",
+              "Value #C": "memory usage",
+              "Value #D": "memory",
+              "Value #E": "CPUs",
+              "__name__ 1": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
-    "timepicker": {},
-    "timezone": "browser",
-    "title": "Proxmox Backup Server",
-    "uid": "adk91j7kw5j40f",
-    "version": 7,
-    "weekStart": ""
-  }
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "cpustat_iowait_percent{host=~\"$host\"}",
+          "interval": "",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "iowait",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "rate(nics_receive{host=~\"$host\"})",
+          "interval": "",
+          "legendFormat": "{{host}} - {{ instance }} - receive",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "rate(nics_send{host=~\"$host\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{host}} - {{ instance }} - send",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Bandwidth",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "rate(blockstat_read_bytes{host=~\"$host\"})",
+          "interval": "",
+          "legendFormat": "{{host}} - read",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "rate(blockstat_write_bytes{host=~\"$host\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{host}} - write",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Diskio",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 177
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tags.hostname"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 149
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "task_user"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 141
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "task_type"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 148
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "task_path"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 308
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "(tags.hostname:$host) tags.appname:pbs AND ~\"fail|error\" | extract \"UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_id_4>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>\"",
+          "queryType": "instant",
+          "refId": "A"
+        }
+      ],
+      "title": "PBS Logs",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "keepTime": true,
+            "replace": true,
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "__name": true,
+              "_stream_id": true,
+              "appname": false,
+              "facility": true,
+              "facility_code": true,
+              "fields.facility_code": true,
+              "fields.severity_code": true,
+              "fields.timestamp": true,
+              "fields.version": true,
+              "host": true,
+              "message": true,
+              "name": true,
+              "pbs_host": true,
+              "proxmox_host": true,
+              "severity": true,
+              "severity_code": true,
+              "source": true,
+              "tags.appname": true,
+              "tags.facility": true,
+              "tags.host": true,
+              "tags.hostname": false,
+              "tags.severity": true,
+              "tags.source": true,
+              "task_id": true,
+              "task_id_1": true,
+              "task_id_2": true,
+              "task_id_3": true,
+              "task_id_4": true,
+              "timestamp": true,
+              "version": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "_stream_id": 8,
+              "fields.facility_code": 9,
+              "fields.severity_code": 10,
+              "fields.timestamp": 11,
+              "fields.version": 12,
+              "log_message": 6,
+              "name": 13,
+              "proxmox_host": 7,
+              "tags.appname": 4,
+              "tags.facility": 14,
+              "tags.host": 15,
+              "tags.hostname": 1,
+              "tags.severity": 16,
+              "tags.source": 17,
+              "task_id": 18,
+              "task_id_1": 19,
+              "task_id_2": 20,
+              "task_id_3": 21,
+              "task_id_4": 22,
+              "task_path": 5,
+              "task_type": 3,
+              "task_user": 2
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 40,
+  "tags": [
+    "proxmox"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
+        },
+        "includeAll": false,
+        "name": "metrics",
+        "options": [],
+        "query": "victoriametrics-metrics-datasource",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
+        },
+        "includeAll": false,
+        "name": "logs",
+        "options": [],
+        "query": "victoriametrics-logs-datasource",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${metrics}"
+        },
+        "definition": "label_values(blockstat_write_ios,host)",
+        "includeAll": true,
+        "multi": true,
+        "name": "host",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(blockstat_write_ios,host)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Proxmox Backup Server",
+  "uid": "shiftmon-pbs",
+  "version": 3,
+  "weekStart": ""
+}

@@ -199,7 +199,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -448,7 +448,7 @@
           }
         ]
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -768,7 +768,7 @@
           }
         ]
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1031,11 +1031,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1149,11 +1150,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1253,11 +1255,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1349,7 +1352,7 @@
           }
         ]
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1518,8 +1521,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Proxmox Metrics",
+  "title": "Proxmox",
   "uid": "shiftmon-pve",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }

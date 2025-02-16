@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 123,
+  "id": 162,
   "links": [],
   "panels": [
     {
@@ -105,11 +105,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -204,11 +205,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -305,11 +307,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -540,11 +543,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -608,11 +612,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -711,11 +716,12 @@
           "values": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -812,11 +818,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -942,11 +949,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -981,6 +989,7 @@
       "id": 9,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -989,7 +998,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -997,7 +1006,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:traefik AND (tags.host:$host) | unpack_json",
+          "expr": "tags.appname:traefik AND (tags.host:$host)",
           "queryType": "range",
           "refId": "A"
         }
@@ -1023,6 +1032,7 @@
       "id": 10,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -1031,7 +1041,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1039,7 +1049,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:traefik (tags.host:$host) | unpack_json |  DownstreamStatus:~`4.*|5.*`",
+          "expr": "tags.appname:traefik (tags.host:$host) |  fields.DownstreamStatus:~`4.*|5.*`",
           "queryType": "range",
           "refId": "A"
         }
@@ -1115,6 +1125,6 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "shiftmon-traefik",
-  "version": 13,
+  "version": 1,
   "weekStart": ""
 }

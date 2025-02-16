@@ -59,7 +59,7 @@ groups:
     rules:
     - record: uptime_kuma_latency_2m
       expr: |
-        avg({__name__="prometheus_monitor_response_time"}[5m])
+        avg({__name__="monitor_response_time"}[5m])
       labels:
         user: "tiny"
 ```

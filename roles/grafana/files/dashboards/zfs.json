@@ -24,9 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 36,
+  "id": 207,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -38,203 +37,13 @@
       },
       "id": 26,
       "panels": [],
-      "title": "General",
+      "title": "Overview",
       "type": "row"
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "noValue": "No Value",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 75
-              },
-              {
-                "color": "red",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 0,
-        "y": 1
-      },
-      "id": 2,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "(1-zpool_stats_free{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}/zpool_stats_size{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"})*100",
-          "legendFormat": "{{name}}",
-          "range": true,
-          "refId": "A1"
-        }
-      ],
-      "title": "Pool % Used",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "noValue": "No Value",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 3,
-        "y": 1
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "zpool_stats_alloc{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Allicated",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 6,
-        "y": 1
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "zpool_stats_free{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Space Free",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "P342DAF48C1D70AE5"
       },
       "fieldConfig": {
         "defaults": {
@@ -244,8 +53,9 @@
           "custom": {
             "align": "auto",
             "cellOptions": {
-              "type": "color-text"
+              "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -253,7 +63,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "green",
                 "value": null
               }
             ]
@@ -263,72 +73,126 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "label"
+              "options": "Usage"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 63
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 0.5
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.8
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Used|Size/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Errors/"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 1
+                    }
+                  ]
+                }
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "value"
+              "options": "Fragmentation"
             },
             "properties": [
               {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "DEGRADED": {
-                        "color": "orange",
-                        "index": 1,
-                        "text": "DEGRADED"
-                      },
-                      "FAULTED": {
-                        "color": "red",
-                        "index": 2,
-                        "text": "FAULTED"
-                      },
-                      "OFFLINE": {
-                        "color": "super-light-blue",
-                        "index": 3,
-                        "text": "OFFLINE"
-                      },
-                      "ONLINE": {
-                        "color": "green",
-                        "index": 0,
-                        "text": "ONLINE"
-                      },
-                      "REMOVED": {
-                        "color": "super-light-blue",
-                        "index": 5,
-                        "text": "REMOVED"
-                      },
-                      "UNAVAIL": {
-                        "color": "super-light-blue",
-                        "index": 4,
-                        "text": "UNAVAIL"
-                      }
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
                     },
-                    "type": "value"
-                  }
-                ]
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 9,
+        "h": 10,
+        "w": 24,
+        "x": 0,
         "y": 1
       },
-      "id": 22,
+      "id": 64,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -339,33 +203,118 @@
           ],
           "show": false
         },
-        "showHeader": false,
-        "sortBy": []
+        "showHeader": true
       },
-      "pluginVersion": "9.5.1",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,name,vdev,state) ((1-zpool_stats_free{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}/zpool_stats_size{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}))",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
           "editorMode": "code",
-          "expr": "zpool_stats_free{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+          "exemplar": false,
+          "expr": "sum by (host,name,vdev,state) (zpool_stats_size{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,name,vdev,state) (zpool_stats_size{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}-zpool_stats_free{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,name,vdev,state) (zpool_stats_read_errors{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}) + sum by (host,name,vdev,state) (zpool_stats_write_errors{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,name,vdev,state) (zpool_stats_checksum_errors{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,name,vdev,state) (zpool_stats_fragmentation{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "G"
         }
       ],
-      "title": "ZPool Status",
+      "title": "Pool Stats",
       "transformations": [
         {
-          "id": "labelsToFields",
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
           "options": {
-            "keepLabels": [
-              "state"
-            ],
-            "mode": "rows",
-            "valueLabel": "state"
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "Usage",
+              "Value #B": "Used",
+              "Value #C": "Size",
+              "Value #D": "Read/Write Errors",
+              "Value #E": "Write Errors",
+              "Value #F": "Checksum Errors",
+              "Value #G": "Fragmentation",
+              "state": ""
+            }
           }
         }
       ],
@@ -379,295 +328,16 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 12,
-        "y": 1
-      },
-      "id": 10,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "zpool_stats_read_errors{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Read Errors",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 15,
-        "y": 1
-      },
-      "id": 11,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "zpool_stats_write_errors{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Write Errors",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 18,
-        "y": 1
-      },
-      "id": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "zpool_stats_checksum_errors{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "CheckSum Errors",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 10
-              },
-              {
-                "color": "orange",
-                "value": 20
-              },
-              {
-                "color": "red",
-                "value": 50
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 21,
-        "y": 1
-      },
-      "id": 13,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "zpool_stats_fragmentation{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Fragmentation",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 20,
             "gradientMode": "opacity",
@@ -676,6 +346,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineStyle": {
               "fill": "solid"
@@ -714,7 +385,7 @@
         "h": 9,
         "w": 9,
         "x": 0,
-        "y": 6
+        "y": 11
       },
       "id": 8,
       "options": {
@@ -725,10 +396,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -736,7 +409,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "zpool_stats_free{host=\"$host\",name=\"$zpool\",vdev=\"root\"}",
+          "expr": "zpool_stats_free{host=~\"$host\",name=~\"$zpool\",vdev=\"root\"}",
           "legendFormat": "Free",
           "range": true,
           "refId": "A"
@@ -747,7 +420,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "zpool_stats_alloc{host=\"$host\",name=\"$zpool\",vdev=\"root\"}",
+          "expr": "zpool_stats_alloc{host=~\"$host\",name=~\"$zpool\",vdev=\"root\"}",
           "hide": false,
           "legendFormat": "Used",
           "range": true,
@@ -769,11 +442,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 25,
             "gradientMode": "opacity",
@@ -782,6 +457,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
@@ -818,7 +494,7 @@
         "h": 9,
         "w": 7,
         "x": 9,
-        "y": 6
+        "y": 11
       },
       "id": 15,
       "options": {
@@ -833,10 +509,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -844,7 +522,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "rate(zpool_stats_read_ops{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}[1m])",
+          "expr": "rate(zpool_stats_read_ops{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[1m])",
           "legendFormat": "Reads",
           "range": true,
           "refId": "A"
@@ -855,7 +533,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "rate(zpool_stats_write_ops{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}[1m])",
+          "expr": "rate(zpool_stats_write_ops{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[1m])",
           "hide": false,
           "legendFormat": "Writes",
           "range": true,
@@ -876,11 +554,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 25,
             "gradientMode": "opacity",
@@ -889,6 +569,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
@@ -926,7 +607,7 @@
         "h": 9,
         "w": 8,
         "x": 16,
-        "y": 6
+        "y": 11
       },
       "id": 16,
       "options": {
@@ -941,10 +622,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -952,7 +635,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "rate(zpool_stats_read_bytes{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}[1m])",
+          "expr": "rate(zpool_stats_read_bytes{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[1m])",
           "legendFormat": "Reads",
           "range": true,
           "refId": "A"
@@ -963,7 +646,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "rate(zpool_stats_write_bytes{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}[1m])",
+          "expr": "rate(zpool_stats_write_bytes{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[1m])",
           "hide": false,
           "legendFormat": "Writes",
           "range": true,
@@ -979,7 +662,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 20
       },
       "id": 24,
       "panels": [
@@ -998,8 +681,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1039,7 +721,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_errors{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_errors{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1063,8 +745,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1104,7 +785,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_examined{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_examined{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1128,8 +809,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1170,7 +850,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_rate{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_rate{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1194,8 +874,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1235,7 +914,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_start_ts{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_start_ts{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1259,8 +938,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1300,7 +978,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_end_ts{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_end_ts{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1324,8 +1002,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1365,7 +1042,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_pause_ts{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_pause_ts{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1389,8 +1066,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1430,7 +1106,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_paused_t{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_paused_t{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1454,8 +1130,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1495,7 +1170,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_scan_stats_remaining_t{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_scan_stats_remaining_t{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -1514,7 +1189,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 21
       },
       "id": 33,
       "panels": [],
@@ -1532,11 +1207,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1545,6 +1222,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1582,7 +1260,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 22
       },
       "id": 35,
       "options": {
@@ -1597,10 +1275,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1731,7 +1411,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 34
       },
       "id": 55,
       "panels": [
@@ -1805,7 +1485,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_io_size_sync_read_ind{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_io_size_sync_read_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "instant": false,
               "legendFormat": "__auto",
@@ -1818,7 +1498,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "sum(zpool_io_size_trim_write_ind{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"})",
+              "expr": "sum(zpool_io_size_trim_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
               "hide": true,
               "legendFormat": "Independent Trim/Unmap Writes",
               "range": true,
@@ -1898,7 +1578,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_io_size_sync_write_ind{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_io_size_sync_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "instant": false,
               "legendFormat": "__auto",
@@ -1979,7 +1659,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_io_size_sync_write_ind{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_io_size_sync_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "instant": false,
               "legendFormat": "__auto",
@@ -2060,7 +1740,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_io_size_async_write_ind{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_io_size_async_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "instant": false,
               "legendFormat": "__auto",
@@ -2141,7 +1821,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_io_size_scrub_read_ind{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_io_size_scrub_read_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "instant": false,
               "legendFormat": "__auto",
@@ -2222,7 +1902,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_io_size_trim_write_ind{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_io_size_trim_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "instant": false,
               "legendFormat": "__auto",
@@ -2243,7 +1923,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 35
       },
       "id": 45,
       "panels": [
@@ -2326,7 +2006,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_latency_total_read{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_total_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "instant": false,
@@ -2340,7 +2020,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "sum(zpool_latency_scrub{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"})",
+              "expr": "sum(zpool_latency_scrub{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
               "hide": true,
               "legendFormat": "Scrub",
               "range": true,
@@ -2352,7 +2032,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "sum(zpool_latency_trim{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"})",
+              "expr": "sum(zpool_latency_trim{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
               "hide": true,
               "legendFormat": "Trim",
               "range": true,
@@ -2441,7 +2121,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "zpool_latency_total_write{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_total_write{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "instant": false,
@@ -2531,7 +2211,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_disk_read{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_disk_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -2620,7 +2300,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_disk_read{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_disk_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -2709,7 +2389,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_sync_read{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_sync_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -2798,7 +2478,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_sync_read{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_sync_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -2887,7 +2567,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_async_read{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_async_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -2976,7 +2656,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_async_write{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_async_write{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -3065,7 +2745,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_trim{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_trim{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -3154,7 +2834,7 @@
                 "uid": "${metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_scrub{host=\"$host\",name=\"$zpool\",vdev=\"$vdev\"}",
+              "expr": "zpool_latency_scrub{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
               "format": "heatmap",
               "hide": false,
               "legendFormat": "__auto",
@@ -3170,52 +2850,41 @@
       "type": "row"
     }
   ],
+  "preload": false,
   "refresh": "5s",
-  "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-metrics",
           "value": "shift-metrics"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
-        "queryValue": "",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
           "text": "shift-logs",
           "value": "shift-logs"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
-        "queryValue": "",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
+        "allowCustomValue": false,
         "current": {
-          "selected": false,
           "text": "rose.local.shiftsystems.net",
           "value": "rose.local.shiftsystems.net"
         },
@@ -3224,9 +2893,8 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(zpool_stats_size,host)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
@@ -3235,13 +2903,11 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
+        "allowCustomValue": false,
         "current": {
-          "selected": false,
           "text": "zroot",
           "value": "zroot"
         },
@@ -3249,25 +2915,22 @@
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(zpool_stats_size{host=\"$host\"},name)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "definition": "label_values(zpool_stats_size{host=~\"$host\"},name)",
+        "includeAll": true,
+        "multi": true,
         "name": "zpool",
         "options": [],
         "query": {
-          "query": "label_values(zpool_stats_size{host=\"$host\"},name)",
+          "query": "label_values(zpool_stats_size{host=~\"$host\"},name)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
+        "allowCustomValue": false,
         "current": {
-          "selected": true,
           "text": "root",
           "value": "root"
         },
@@ -3275,20 +2938,17 @@
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(zpool_stats_size{host=\"$host\"},vdev)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "definition": "label_values(zpool_stats_size{host=~\"$host\"},vdev)",
+        "includeAll": true,
+        "multi": true,
         "name": "vdev",
         "options": [],
         "query": {
-          "query": "label_values(zpool_stats_size{host=\"$host\"},vdev)",
+          "query": "label_values(zpool_stats_size{host=~\"$host\"},vdev)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -3300,7 +2960,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "ZFS",
-  "uid": "sKnDUUE4z",
-  "version": 11,
+  "uid": "shiftmon-zfs",
+  "version": 3,
   "weekStart": ""
 }

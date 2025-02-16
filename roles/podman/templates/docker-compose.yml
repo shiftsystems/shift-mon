@@ -42,7 +42,7 @@ services:
       timeout: '10s'
       retries: 5
   loki:
-    image: docker.io/grafana/loki:3.3.2
+    image: docker.io/grafana/loki:3.4.2
     restart: unless-stopped
     volumes:
       - type: bind
@@ -197,7 +197,7 @@ services:
       interval: 5s
       retries: 10
   victorialogs:
-    image: docker.io/victoriametrics/victoria-logs:v1.9.1-victorialogs
+    image: docker.io/victoriametrics/victoria-logs:v1.10.1-victorialogs
     restart: unless-stopped
     volumes:
       - type: bind
