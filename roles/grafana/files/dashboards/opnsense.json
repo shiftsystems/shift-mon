@@ -1553,11 +1553,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1621,11 +1622,12 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -2630,6 +2632,6 @@
   "timezone": "",
   "title": "OPNSense",
   "uid": "shiftmon-opnsense",
-  "version": 15,
+  "version": 1,
   "weekStart": ""
 }
