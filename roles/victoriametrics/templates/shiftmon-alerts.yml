@@ -18,7 +18,7 @@ groups:
           summary: 'No metrics from Grafana'
           description: '{{ $labels.host }} has not sent Grafana Metrics in {{ $value }} seconds'
       - alert: Missing UPS Metrics
-        expr: 'lag(upsd_battery_charge_percent{}[24h]) > 120'
+        expr: 'lag(upsd_battery_charge_percent{ups_status="OL"}[24h]) > 120'
         for: 10m
         annotations:
           summary: '{{ $labels.ups_name }} is not sending metrics'
