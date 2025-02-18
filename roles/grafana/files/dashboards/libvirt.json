@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 200,
+  "id": 213,
   "links": [
     {
       "asDropdown": true,
@@ -803,7 +803,7 @@
               }
             ]
           },
-          "unit": "ns"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -817,9 +817,9 @@
       "options": {
         "legend": {
           "calcs": [
+            "min",
             "max",
-            "mean",
-            "sum"
+            "mean"
           ],
           "displayMode": "table",
           "placement": "right",
@@ -840,14 +840,14 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(libvirt_vcpu_time{host=~\"$hypervisor\"})",
+          "expr": "rate(libvirt_cpu_time{host=~\"$hypervisor\"}) / (1000000000 * libvirt_vcpu_total_current{host=~\"$hypervisor\"})",
           "interval": "",
           "legendFormat": "{{host}} - {{domain_name}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": " Guest CPU time",
+      "title": " Guest CPU Usage",
       "type": "timeseries"
     },
     {
@@ -884,23 +884,74 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Cpu Count"
+              "options": "CPU"
             },
             "properties": [
               {
-                "id": "unit"
+                "id": "unit",
+                "value": "none"
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "State"
+              "options": "CPU Usage"
             },
             "properties": [
               {
                 "id": "unit",
-                "value": "bool_on_off"
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 70
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/State|CPUs/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem Total"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "kbytes"
               }
             ]
           }
@@ -937,7 +988,8 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_balloon_current{host=~\"$hypervisor\"} * 1024",
+          "expr": "sum by (domain_name,host) (libvirt_balloon_current{host=~\"$hypervisor\"})",
+          "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": "__auto",
@@ -951,7 +1003,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_block_capacity{host=~\"$hypervisor\"}",
+          "expr": "sum by (domain_name,host) (libvirt_block_capacity{host=~\"$hypervisor\"})",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
@@ -965,7 +1017,8 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_state_state{host=~\"$hypervisor\"}",
+          "expr": "sum by (domain_name,host) (libvirt_state_state{host=~\"$hypervisor\"})",
+          "format": "table",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
@@ -979,38 +1032,74 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "libvirt_vcpu_total_current{host=~\"$hypervisor\"}",
+          "expr": "sum by (domain_name,host) (libvirt_vcpu_total_current{host=~\"$hypervisor\"})",
+          "format": "table",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
           "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (domain_name,host) (rate(libvirt_cpu_time{host=~\"$hypervisor\"}) / 1000000000)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (domain_name,host) (libvirt_balloon_current{host=~\"$hypervisor\"} - libvirt_balloon_unused{host=~\"$hypervisor\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
         }
       ],
       "title": "Guest Resource Usage",
       "transformations": [
         {
-          "id": "joinByLabels",
-          "options": {
-            "join": [
-              "domain_name"
-            ],
-            "value": "__name__"
-          }
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Value": false
+              "Time": true
             },
-            "indexByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value #A": 5,
+              "Value #C": 3,
+              "Value #D": 4,
+              "Value #E": 7,
+              "domain_name": 1,
+              "host": 2,
+              "{domain_name=\"server-2025\", host=\"zoe.local.shiftsystems.net\"}": 6
+            },
             "renameByName": {
-              "Value": "Memory",
-              "domain_name": "Guest",
-              "libvirt_block_capacity": "Block Size",
-              "libvirt_state_state": "State",
-              "libvirt_vcpu_total_current": "Cpu Count"
+              "Value #A": "Mem Total",
+              "Value #C": "State",
+              "Value #D": "CPUs",
+              "Value #E": "CPU Usage",
+              "{domain_name=\"server-2025\", host=\"zoe.local.shiftsystems.net\"}": "Storage"
             }
           }
         }

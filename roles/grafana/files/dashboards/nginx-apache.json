@@ -21,12 +21,11 @@
       }
     ]
   },
-  "description": "",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 215,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
@@ -45,6 +44,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 100,
             "gradientMode": "opacity",
@@ -83,8 +83,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -108,25 +107,25 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({host=~\"$host\",__name=\"tail_http_log\"} | logfmt[1m])) by (resp_code)",
-          "legendFormat": "{{ resp_code }}",
-          "queryType": "range",
+          "expr": "(tags.host:$host) and name:tail_http_log | stats by (_time:1m,tags.resp_code) count()",
+          "legendFormat": "{{ tags.resp_code }}",
+          "queryType": "statsRange",
           "refId": "A"
         }
       ],
       "title": "Request by Status Codes",
-      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -146,8 +145,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -157,9 +155,8 @@
         "x": 19,
         "y": 0
       },
-      "id": 12,
+      "id": 9,
       "options": {
-        "displayLabels": [],
         "legend": {
           "displayMode": "table",
           "placement": "right",
@@ -172,54 +169,31 @@
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "count"
+            "lastNotNull"
           ],
           "fields": "",
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",__name=\"tail_http_log\"} | logfmt",
-          "queryType": "range",
+          "expr": "(tags.host:$host) and name:tail_http_log | stats by (tags.resp_code) count()",
+          "legendFormat": "{{tags.resp_code}}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
-      "title": "Top IPs",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "client_ip": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "tsNs": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
+      "title": "Status Codes",
       "type": "piechart"
     },
     {
@@ -239,6 +213,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 100,
             "gradientMode": "opacity",
@@ -277,8 +252,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -302,25 +276,25 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({host=~\"$host\",__name=\"tail_http_error_log\"} | logfmt[1m])) by (errorcode)",
+          "expr": "(tags.host:$host) AND name:\"tail_http_error_log\" | stats by (_time:1m) count()",
           "legendFormat": "{{ resp_code }}",
-          "queryType": "range",
+          "queryType": "statsRange",
           "refId": "A"
         }
       ],
       "title": "Errors over time",
-      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -340,8 +314,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -351,7 +324,7 @@
         "x": 19,
         "y": 8
       },
-      "id": 9,
+      "id": 17,
       "options": {
         "legend": {
           "displayMode": "table",
@@ -371,50 +344,25 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 100",
-          "queryType": "range",
+          "expr": "(tags.host:$host) and name:tail_http_log | stats by (fields.client_ip) count()",
+          "legendFormat": "{{fields.client_ip}}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "Status Codes",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "keepTime": false,
-            "replace": false,
-            "source": "labels"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "resp_code": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "tsNs": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
       "type": "piechart"
     },
     {
@@ -432,6 +380,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -447,8 +396,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -605,14 +553,14 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"/var/log/nginx/access.*|/var/log/httpd/access.*\",host=~\"$host\"} | logfmt",
+          "expr": "(tags.host:$host) and name:tail_http_log",
           "queryType": "range",
           "refId": "A"
         }
@@ -631,17 +579,20 @@
             "excludeByName": {
               "Line": true,
               "__name": true,
+              "_stream_id": true,
               "bytes_sent": true,
               "host": true,
               "http_version": true,
               "id": true,
               "labels": true,
               "line": true,
+              "name": true,
               "path": true,
               "remote_user": true,
               "ts": true,
               "tsNs": true
             },
+            "includeByName": {},
             "indexByName": {
               "Line": 15,
               "Time": 0,
@@ -686,8 +637,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -702,7 +652,7 @@
         "displayLabels": [],
         "legend": {
           "displayMode": "table",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true,
           "values": [
             "percent",
@@ -719,48 +669,25 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
-          "queryType": "range",
+          "expr": "(tags.host:$host) and name:tail_http_log | stats by (fields.request) count()",
+          "legendFormat": "{{fields.request}}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "top 10 endpoints",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "request": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "tsNs": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
       "type": "piechart"
     },
     {
@@ -780,9 +707,7 @@
               "viz": false
             }
           },
-          "mappings": [],
-          "noValue": "unknown",
-          "unitScale": true
+          "mappings": []
         },
         "overrides": []
       },
@@ -792,7 +717,7 @@
         "x": 19,
         "y": 27
       },
-      "id": 13,
+      "id": 18,
       "options": {
         "displayLabels": [],
         "legend": {
@@ -810,58 +735,29 @@
             "count"
           ],
           "fields": "",
+          "limit": 10,
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",path=~\"/var/log/nginx/.*|/var/log/httpd.*\"} | logfmt",
-          "queryType": "range",
+          "expr": "(tags.host:$host) and name:tail_http_log | stats by (fields.request) count()",
+          "legendFormat": "{{fields.request}}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
-      "title": "Top User Agents",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "agent": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "client_ip": {
-                "aggregations": []
-              },
-              "http_user_agent": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "tsNs": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
+      "title": "top 10 endpoints",
       "type": "piechart"
     },
     {
@@ -894,8 +790,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1065,6 +960,30 @@
                 "value": 94
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tags.host"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 127
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tags.path"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 266
+              }
+            ]
           }
         ]
       },
@@ -1088,14 +1007,14 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"/var/log/nginx/error.*|/var/log/httpd/error.*\",host=~\"$host\"} | logfmt",
+          "expr": "(tags.host:$host) AND name:\"tail_http_error_log\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -1112,27 +1031,27 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Line": true,
+              "Line": false,
               "Time": true,
               "__name": true,
+              "_stream_id": true,
               "host": true,
               "id": true,
               "labels": true,
               "loglevel": true,
+              "name": true,
+              "tags.path": false,
               "tsNs": true
             },
+            "includeByName": {},
             "indexByName": {
-              "Line": 8,
-              "Time": 7,
-              "errorcode": 4,
-              "id": 10,
-              "labels": 6,
-              "message": 5,
-              "module": 3,
-              "pid": 1,
-              "tid": 2,
-              "timestamp": 0,
-              "tsNs": 9
+              "Line": 6,
+              "Time": 1,
+              "_stream_id": 2,
+              "labels": 0,
+              "name": 3,
+              "tags.host": 4,
+              "tags.path": 5
             },
             "renameByName": {}
           }
@@ -1170,8 +1089,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1292,14 +1210,14 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${Logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",__name=\"tail_http_log\"} | logfmt | resp_code >= 400",
+          "expr": "(tags.host:$host) and name:tail_http_log AND tags.resp_code:>= 400",
           "queryType": "range",
           "refId": "A"
         }
@@ -1309,7 +1227,7 @@
         {
           "id": "extractFields",
           "options": {
-            "source": "Line"
+            "source": "labels"
           }
         },
         {
@@ -1317,6 +1235,7 @@
           "options": {
             "excludeByName": {
               "Line": true,
+              "_stream_id": true,
               "bytes_sent": true,
               "host": true,
               "http_version": true,
@@ -1324,11 +1243,13 @@
               "ident": false,
               "labels": true,
               "line": true,
+              "name": true,
               "path": true,
               "remote_user": true,
               "ts": true,
               "tsNs": true
             },
+            "includeByName": {},
             "indexByName": {
               "bytes_sent": 7,
               "host": 10,
@@ -1354,9 +1275,9 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [
     "HTTPD"
   ],
@@ -1364,84 +1285,65 @@
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-metrics",
           "value": "P84D368831E8B3638"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "Metrics",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
+        "description": "",
         "includeAll": false,
-        "multi": false,
         "name": "Logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "uid": "${Logs}"
         },
-        "definition": "label_values({path=~\"/var/log/nginx/.*\"},host)",
-        "hide": 0,
+        "definition": "name:tail_http_log",
         "includeAll": true,
         "multi": true,
         "name": "host",
         "options": [],
         "query": {
-          "label": "host",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{__name=\"tail_http_log\"}",
-          "type": 1
+          "field": "tags.host",
+          "limit": 25,
+          "query": "name:tail_http_log",
+          "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
+          "type": "fieldValue"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
-  "timepicker": {
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ]
-  },
+  "timepicker": {},
   "timezone": "",
-  "title": "Nginx/Apache/HTTPD",
-  "uid": "cWrlIMS7q",
-  "version": 6,
+  "title": "HTTP CLF Logs (Apache Nginx)",
+  "uid": "shiftmon-http-clf",
+  "version": 1,
   "weekStart": ""
 }
