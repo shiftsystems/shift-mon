@@ -2,8 +2,8 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    owner: root
-    group: telegraf
+    owner: shiftmon
+    group: shiftmon
     mode: '770'
     setype: container_file_t
   become: true
@@ -15,8 +15,8 @@
     path: "{{ item }}"
     state: directory
     mode: '770'
-    owner: '10001'
-    group: '10001'
+    owner: shiftmon
+    group: shiftmon
     setype: container_file_t
   become: true
   with_items:
@@ -30,10 +30,14 @@
   ansible.builtin.template:
     src: loki-config.yml
     dest: /opt/shift-mon/loki-config/loki-config.yml
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Copy Shiftmon Recording Rules
   ansible.builtin.template:
     src: shiftmon-rules.yaml
     dest: /opt/shift-mon/loki/rules/fake/shiftmon-rules.yaml
+    owner: shiftmon
+    group: shiftmon
   become: true

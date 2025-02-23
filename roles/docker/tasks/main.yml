@@ -1,17 +1,45 @@
-- name: Install docker
+- name: Install Docker
   ansible.builtin.include_role:
     name: ansible-role-docker
     public: true
     apply:
       become: true
 
-- name: Generate compose file
+- name: Create shiftmon group
+  ansible.builtin.group:
+    name: shiftmon
+    state: present
+  become: true
+
+- name: Create shiftmon user
+  ansible.builtin.user:
+    name: shiftmon
+    state: present
+    groups: shiftmon
+    append: true
+  become: true
+
+- name: get shiftmon userid
+  ansible.builtin.command: id -u shiftmon
+  register: shiftmon_user_id
+  become: true
+
+- name: get shiftmon userid
+  ansible.builtin.command: id -g shiftmon
+  register: shiftmon_group_id
+  become: true
+
+- name: Generate compose File
   ansible.builtin.template:
     src: 'docker-compose.yml'
     dest: /opt/shift-mon/docker-compose.yml
+    mode: '770'
+    owner: shiftmon
+    group: shiftmon
+    setype: container_file_t
   become: true
 
-- name: Copy startup and shutdown scripts
+- name: Remove Legacy Scripts
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/opt/shift-mon/{{ item }}"
@@ -21,20 +49,37 @@
     - startup.bash
     - shutdown.bash
 
-- name: Create Systemd unit file
-  ansible.builtin.copy:
-    src: shift-mon.service
-    dest: /etc/systemd/system/shift-mon.service
-  become: true
-
-- name: Reload Systemd units
+- name: Reload Systemd Units
   ansible.builtin.systemd:
     daemon-reload: true
   become: true
 
-- name: Restart and enable shift-mon.service
+- name: Disable legacy Shiftmon service
   ansible.builtin.systemd:
     name: shift-mon.service
-    enabled: true
-    state: restarted
+    enabled: false
+    masked: true
+    state: stopped
+  become: true
+  notify:
+    - Stop Containers
+    - Ensure permissions on shiftmon files
+
+- name: Trigger Migration handlers
+  ansible.builtin.debug:
+    msg: "Trigger migration handlers"
+  changed_when: true
+  notify:
+    - Stop Containers
+    - Ensure permissions on shiftmon files
+
+- name: Flush Handlers
+  meta: flush_handlers
+
+- name: Ensure Containers are Running and Updated
+  community.docker.docker_compose_v2:
+    project_src: /opt/shift-mon
+    recreate: always
+    pull: always
+    state: present
   become: true

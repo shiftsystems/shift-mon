@@ -1,5 +1,18 @@
-- name: Reload Systemd
-  ansible.builtin.systemd:
-    daemon_reload: true
+- name: Stop Containers
+  community.docker.docker_compose_v2:
+    project_src: /opt/shift-mon
+    state: absent
   become: true
 
+- name: Ensure permissions on shiftmon files
+  #  ansible.builtin.command: "chown -Rf shiftmon:shiftmon /opt/shift-mon && chmod -Rf 770 /opt/shift-mon"
+  #  become: true
+  ansible.builtin.file:
+    path: /opt/shift-mon
+    owner: shiftmon
+    group: shiftmon
+    mode: '770'
+    recurse: true
+    setype: container_file_t
+  become: true
+  ignore_errors: true

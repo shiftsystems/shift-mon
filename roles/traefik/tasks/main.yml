@@ -22,8 +22,8 @@
   ansible.builtin.file:
     path: '{{ item }}'
     state: directory
-    owner: root
-    group: telegraf
+    owner: shiftmon
+    group: shiftmon
     mode: '770'
     setype: container_file_t
   become: true
@@ -38,6 +38,8 @@
     src: traefik.yml
     dest: /opt/shift-mon/traefik/traefik.yml
     mode: '770'
+    onwer: shiftmon
+    group: shiftmon
   become: true
 
 - name: Copy Shiftmon Traefik config
@@ -45,6 +47,8 @@
     src: shiftmon.yml
     dest: /opt/shift-mon/traefik/traefik.d/shiftmon.yml
     mode: '770'
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Copy Grafana cert
