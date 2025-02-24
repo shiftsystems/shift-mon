@@ -5,20 +5,6 @@
     apply:
       become: true
 
-- name: Create shiftmon group
-  ansible.builtin.group:
-    name: shiftmon
-    state: present
-  become: true
-
-- name: Create shiftmon user
-  ansible.builtin.user:
-    name: shiftmon
-    state: present
-    groups: shiftmon
-    append: true
-  become: true
-
 - name: get shiftmon userid
   ansible.builtin.command: id -u shiftmon
   register: shiftmon_user_id
