@@ -62,9 +62,9 @@ services:
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.111.0-enterprise
+    image: docker.io/victoriametrics/victoria-metrics:v1.112.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.111.0
+    image: docker.io/victoriametrics/victoria-metrics:v1.112.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
@@ -99,9 +99,9 @@ services:
   vmalert:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmalert:v1.111.0-enterprise
+    image: docker.io/victoriametrics/vmalert:v1.112.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmalert:v1.111.0
+    image: docker.io/victoriametrics/vmalert:v1.112.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
@@ -137,9 +137,9 @@ services:
   vmauth:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmauth:v1.111.0-enterprise
+    image: docker.io/victoriametrics/vmauth:v1.112.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmauth:v1.111.0
+    image: docker.io/victoriametrics/vmauth:v1.112.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:

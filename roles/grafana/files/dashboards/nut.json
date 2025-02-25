@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 153,
+  "id": 196,
   "links": [],
   "panels": [
     {
@@ -29,514 +29,322 @@
         "x": 0,
         "y": 0
       },
-      "id": 17,
+      "id": 20,
       "panels": [],
-      "title": "UPS Metrics",
+      "title": "Overview",
       "type": "row"
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "P342DAF48C1D70AE5"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 70
               }
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time Available"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ns"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 300000000000
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Utilization"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 50
+                    },
+                    {
+                      "color": "red",
+                      "value": 75
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Capacity"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "voltamp"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Charge"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 80
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Utilization"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
+        "h": 10,
+        "w": 24,
         "x": 0,
         "y": 1
       },
-      "id": 2,
+      "id": 19,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
           "fields": "",
-          "values": false
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "showHeader": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
-          "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
-          },
-          "panelId": 1,
-          "refId": "A"
-        }
-      ],
-      "title": "Mean Percent Utilzation",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "ns"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 4,
-        "y": 1
-      },
-      "id": 9,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
-          },
-          "panelId": 11,
-          "refId": "A"
-        }
-      ],
-      "title": "Time remaining",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "OL": {
-                  "color": "green",
-                  "index": 0
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              }
-            ]
-          },
-          "unit": "rothz"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 8,
-        "y": 1
-      },
-      "id": 13,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "/^value$/",
-          "values": true
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "upsd_load_percent{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "sum by (host,ups_name,ups_status) (upsd_load_percent{host=~\"$host\",ups_name=~\"$ups\"})",
+          "format": "table",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,ups_name,ups_status) (upsd_time_left_ns{host=~\"$host\",ups_name=~\"$ups\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,ups_name,ups_status) (upsd_ups_power_nominal{host=~\"$host\",ups_name=~\"$ups\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,ups_name,ups_status) (upsd_battery_charge_percent{host=~\"$host\",ups_name=~\"$ups\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,ups_name,ups_status) (upsd_input_frequency{host=~\"$host\",ups_name=~\"$ups\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host,ups_name,ups_status) (upsd_input_voltage{host=~\"$host\",ups_name=~\"$ups\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
         }
       ],
-      "title": "UPS Status",
+      "title": "UPS Overview",
       "transformations": [
         {
-          "id": "labelsToFields",
-          "options": {
-            "keepLabels": [
-              "ups_status"
-            ],
-            "mode": "rows"
-          }
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "organize",
           "options": {
-            "excludeByName": {
-              "label": true
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value #A": 5,
+              "Value #B": 6,
+              "Value #C": 4,
+              "Value #D": 7,
+              "Value #E": 8,
+              "Value #F": 9,
+              "host": 1,
+              "ups_name": 2,
+              "ups_status": 3
             },
-            "indexByName": {},
-            "renameByName": {}
+            "renameByName": {
+              "Value #A": "Utilization",
+              "Value #B": "Time Available",
+              "Value #C": "Capacity",
+              "Value #D": "Charge",
+              "Value #E": "Input Frequency",
+              "Value #F": "Input Voltage",
+              "host": "Host",
+              "ups_name": "Name",
+              "ups_status": "Status"
+            }
           }
         }
       ],
-      "type": "stat"
+      "type": "table"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "voltamp"
-        },
-        "overrides": []
-      },
+      "collapsed": false,
       "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 11,
-        "y": 1
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
       },
-      "id": 15,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "upsd_ups_power_nominal{host=\"$host\",ups_name=\"$ups\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "title": "UPS Capacity",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "green",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 14,
-        "y": 1
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
-          },
-          "panelId": 12,
-          "refId": "A"
-        }
-      ],
-      "title": "Battery Charge Percent",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "rothz"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 18,
-        "y": 1
-      },
-      "id": 5,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
-          },
-          "panelId": 3,
-          "refId": "A"
-        }
-      ],
-      "title": "Mean Input Power Frequency",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "-- Dashboard --"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 21,
-        "y": 1
-      },
-      "id": 7,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "-- Dashboard --"
-          },
-          "panelId": 4,
-          "refId": "A"
-        }
-      ],
-      "title": "Mean Input Voltage",
-      "type": "stat"
+      "id": 17,
+      "panels": [],
+      "title": "UPS Metrics",
+      "type": "row"
     },
     {
       "datasource": {
@@ -607,9 +415,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 6,
+        "w": 8,
         "x": 0,
-        "y": 6
+        "y": 12
       },
       "id": 1,
       "options": {
@@ -624,11 +432,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -644,102 +453,6 @@
       ],
       "title": "Utilization Percent Over Time",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "voltamp"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 5,
-        "x": 6,
-        "y": 6
-      },
-      "id": 14,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "upsd_ups_power_nominal{}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "title": "UPS Info",
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": {
-            "keepLabels": [
-              "db",
-              "device_mfr",
-              "device_type",
-              "host",
-              "model",
-              "serial",
-              "status_OL",
-              "ups_mfr",
-              "ups_model",
-              "ups_name",
-              "ups_status",
-              "ups_vendorid"
-            ],
-            "mode": "rows"
-          }
-        }
-      ],
-      "type": "table"
     },
     {
       "datasource": {
@@ -813,9 +526,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 7,
-        "x": 11,
-        "y": 6
+        "w": 8,
+        "x": 8,
+        "y": 12
       },
       "id": 12,
       "options": {
@@ -830,11 +543,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -842,7 +556,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "upsd_battery_charge_percent{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "upsd_battery_charge_percent{host=~\"$host\",ups_name=~\"$ups\"}",
           "instant": false,
           "legendFormat": "{{host}} {{ups_name}} {{model}}",
           "range": true,
@@ -911,9 +625,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 6,
-        "x": 18,
-        "y": 6
+        "w": 8,
+        "x": 16,
+        "y": 12
       },
       "id": 11,
       "options": {
@@ -928,11 +642,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -940,7 +655,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "upsd_time_left_ns{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "upsd_time_left_ns{host=~\"$host\",ups_name=~\"$ups\"}",
           "instant": false,
           "legendFormat": "{{host}} {{ups_name}} {{model}}",
           "range": true,
@@ -1011,7 +726,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 14
+        "y": 20
       },
       "id": 3,
       "options": {
@@ -1026,11 +741,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1038,7 +754,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "upsd_input_frequency{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "upsd_input_frequency{host=~\"$host\",ups_name=~\"$ups\"}",
           "instant": false,
           "legendFormat": "{{host}} {{ups_name}} {{model}}",
           "range": true,
@@ -1109,7 +825,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 14
+        "y": 20
       },
       "id": 4,
       "options": {
@@ -1124,11 +840,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1136,7 +853,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "upsd_input_voltage{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "upsd_input_voltage{host=~\"$host\",ups_name=~\"$ups\"}",
           "instant": false,
           "legendFormat": "{{host}} {{ups_name}} {{model}}",
           "range": true,
@@ -1207,7 +924,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 14
+        "y": 20
       },
       "id": 8,
       "options": {
@@ -1222,11 +939,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1234,7 +952,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "upsd_output_voltage{host=\"$host\",ups_name=\"$ups\"}",
+          "expr": "upsd_output_voltage{host=~\"$host\",ups_name=~\"$ups\"}",
           "instant": false,
           "legendFormat": "{{host}} {{ups_name}} {{model}}",
           "range": true,
@@ -1250,7 +968,128 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 27
+      },
+      "id": 21,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "voltamp"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 14,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.5.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${metrics}"
+              },
+              "disableTextWrap": false,
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "upsd_ups_power_nominal{host=~\"$host\",ups_name=~\"$ups\"}",
+              "format": "table",
+              "fullMetaSearch": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "A",
+              "useBackend": false
+            }
+          ],
+          "title": "UPS Details",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "Value": true,
+                  "__name__": true,
+                  "db": true
+                },
+                "includeByName": {},
+                "indexByName": {
+                  "Time": 0,
+                  "Value": 14,
+                  "__name__": 1,
+                  "battery_type": 5,
+                  "db": 2,
+                  "device_mfr": 6,
+                  "device_type": 7,
+                  "host": 3,
+                  "model": 8,
+                  "serial": 9,
+                  "ups_mfr": 10,
+                  "ups_model": 11,
+                  "ups_name": 4,
+                  "ups_status": 12,
+                  "ups_vendorid": 13
+                },
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Specs",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 28
       },
       "id": 18,
       "panels": [
@@ -1267,11 +1106,12 @@
             "h": 15,
             "w": 24,
             "x": 0,
-            "y": 22
+            "y": 34
           },
           "id": 16,
           "options": {
             "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
             "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
@@ -1280,7 +1120,7 @@
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.2",
           "targets": [
             {
               "datasource": {
@@ -1311,7 +1151,7 @@
         "includeAll": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
         "type": "datasource"
@@ -1330,13 +1170,14 @@
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(upsd_ups_power_nominal,host)",
-        "includeAll": false,
+        "definition": "label_values(upsd_load_percent,host)",
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(upsd_ups_power_nominal,host)",
+          "query": "label_values(upsd_load_percent,host)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -1348,14 +1189,15 @@
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(upsd_load_percent{host=\"$host\"},ups_name)",
-        "includeAll": false,
+        "definition": "label_values(upsd_load_percent{host=~\"$host\"},ups_name)",
+        "includeAll": true,
+        "multi": true,
         "name": "ups",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(upsd_load_percent{host=\"$host\"},ups_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          "query": "label_values(upsd_load_percent{host=~\"$host\"},ups_name)",
+          "refId": "VariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -1371,6 +1213,6 @@
   "timezone": "",
   "title": "NUT/UPSD",
   "uid": "shiftmon-nut",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
