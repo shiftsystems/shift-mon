@@ -5,6 +5,7 @@ uptime_kuma_enabled: false
 victorialogs_enabled: false
 oncall_enabled: false
 vmanomaly_enabled: false
+victoriametrics_disable_daily_index: true
 docker_daemon_options:
   log-driver: syslog
   log-opts:

@@ -82,6 +82,9 @@ services:
       - "-promscrape.config=/victoriametrics/scrape-config.yml"
       - "-relabelConfig=/victoriametrics/relabel-config.yml"
       #- "-streamAggr.config=/victoriametrics/aggregation-config.yml"
+{% if victoriametrics_disable_daily_index %}
+      - "-disablePerDayIndex"
+{% endif %}
 {% if victoria.license is defined %}
       - "-license={{ victoria.license }}"
 {% endif %}
@@ -166,7 +169,7 @@ services:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
-      test: "wget -qO- http://127.0.0.1:8490"
+      test: ["CMD","curl","http://127.0.0.1:8490/health"]
       interval: "30s"
       timeout: "10s"
       retries: 5
@@ -209,7 +212,7 @@ services:
       retries: 10
   victorialogs:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-    image: docker.io/victoriametrics/victoria-logs:v1.13.0-victorialogs
+    image: docker.io/victoriametrics/victoria-logs:v1.14.0-victorialogs
     restart: unless-stopped
     volumes:
       - type: bind

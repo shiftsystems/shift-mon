@@ -45,7 +45,6 @@
     name: shift-mon.service
     enabled: false
     masked: true
-    state: stopped
   become: true
   notify:
     - Stop Containers
