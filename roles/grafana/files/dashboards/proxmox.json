@@ -199,7 +199,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -448,7 +448,7 @@
           }
         ]
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -768,7 +768,7 @@
           }
         ]
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1036,7 +1036,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1155,7 +1155,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1260,7 +1260,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1352,7 +1352,7 @@
           }
         ]
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1360,7 +1360,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.hostname:$node) AND tags.appname:\"pve-tasks\" | extract \"UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>\"",
+          "expr": "(tags.hostname:$node) AND tags.appname:\"pve-tasks\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -1386,6 +1386,7 @@
               "labels": true,
               "name": true,
               "proxmox_host": false,
+              "tags.appname": true,
               "tags.facility": true,
               "tags.host": true,
               "tags.hostname": true,
@@ -1398,32 +1399,42 @@
             },
             "includeByName": {},
             "indexByName": {
-              "Line": 7,
+              "Line": 2,
               "Time": 0,
-              "_stream_id": 9,
-              "fields.facility_code": 10,
-              "fields.severity_code": 11,
-              "fields.timestamp": 12,
-              "fields.version": 13,
-              "labels": 8,
-              "log_message": 6,
-              "name": 14,
-              "proxmox_host": 1,
-              "tags.appname": 4,
-              "tags.facility": 15,
-              "tags.host": 16,
-              "tags.hostname": 17,
-              "tags.severity": 18,
-              "tags.source": 19,
-              "task_id": 20,
-              "task_id_1": 21,
-              "task_id_2": 22,
-              "task_id_3": 23,
-              "task_path": 3,
-              "task_type": 5,
-              "task_user": 2
+              "_stream_id": 4,
+              "fields.facility_code": 5,
+              "fields.log_message": 23,
+              "fields.proxmox_host": 15,
+              "fields.severity_code": 6,
+              "fields.task_id": 16,
+              "fields.task_id_1": 17,
+              "fields.task_id_2": 18,
+              "fields.task_id_3": 19,
+              "fields.task_path": 22,
+              "fields.task_type": 20,
+              "fields.task_user": 21,
+              "fields.timestamp": 7,
+              "fields.version": 8,
+              "labels": 3,
+              "name": 9,
+              "tags.appname": 1,
+              "tags.facility": 10,
+              "tags.host": 11,
+              "tags.hostname": 12,
+              "tags.severity": 13,
+              "tags.source": 14
             },
-            "renameByName": {}
+            "renameByName": {
+              "fields.log_message": "message",
+              "fields.proxmox_host": "node",
+              "fields.task_id": "task_id",
+              "fields.task_id_1": "task_id_1",
+              "fields.task_id_2": "task_id_2",
+              "fields.task_id_3": "task_id_3",
+              "fields.task_path": "task path",
+              "fields.task_type": "task type",
+              "fields.task_user": "task user"
+            }
           }
         }
       ],
@@ -1523,6 +1534,6 @@
   "timezone": "",
   "title": "Proxmox",
   "uid": "shiftmon-pve",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
