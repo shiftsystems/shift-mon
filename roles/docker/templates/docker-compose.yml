@@ -21,7 +21,7 @@ services:
     environment:
       GF_INSTALL_PLUGINS: victoriametrics-metrics-datasource,victoriametrics-logs-datasource
   alertmanager:
-    image: prom/alertmanager:latest
+    image: quay.io/prometheus/alertmanager:v0.28.0
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: unless-stopped
     command:
@@ -62,9 +62,9 @@ services:
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.112.0-enterprise
+    image: quay.io/victoriametrics/victoria-metrics:v1.112.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/victoria-metrics:v1.112.0
+    image: quay.io/victoriametrics/victoria-metrics:v1.112.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
@@ -102,9 +102,9 @@ services:
   vmalert:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmalert:v1.112.0-enterprise
+    image: quay.io/victoriametrics/vmalert:v1.112.0-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmalert:v1.112.0
+    image: quay.io/victoriametrics/vmalert:v1.112.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
@@ -165,7 +165,7 @@ services:
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: victoriametrics/vmanomaly:v1.19.2
+    image: quay.io/victoriametrics/vmanomaly:v1.19.2
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
@@ -212,7 +212,7 @@ services:
       retries: 10
   victorialogs:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-    image: docker.io/victoriametrics/victoria-logs:v1.14.0-victorialogs
+    image: docker.io/victoriametrics/victoria-logs:v1.15.0-victorialogs
     restart: unless-stopped
     volumes:
       - type: bind
