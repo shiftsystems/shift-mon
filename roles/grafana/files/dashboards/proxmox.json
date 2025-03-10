@@ -1308,6 +1308,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -1534,6 +1535,6 @@
   "timezone": "",
   "title": "Proxmox",
   "uid": "shiftmon-pve",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
