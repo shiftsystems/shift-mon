@@ -58,7 +58,7 @@
 
 - name: Download Dashbaords from Grafana.com
   ansible.builtin.get_url:
-    url: https://grafana.com/api/dashboards/20715/revisions/1/download
+    url: https://grafana.com/api/dashboards/{{ item.id }}/revisions/{{ item.revision }}/download
     dest: '/opt/shift-mon/grafana/dashboards/{{ item.name }}.json'
     mode: '770'
     owner: shiftmon
@@ -68,9 +68,12 @@
     - name: alertmanager
       id: 20715
       revision: 1
-    - name: vmanomaly
+    - name: vmanomaly-self-monitoring
       id: 22337
       revision: 7
+    - name: vmanomaly-stats
+      id: 22922
+      revision: 1
 
 - name: Configure Dashboard Provisioning 
   ansible.builtin.template:
