@@ -34,10 +34,8 @@
     group: shiftmon
   become: true
 
-- name: Copy Shiftmon Recording Rules
-  ansible.builtin.template:
-    src: shiftmon-rules.yaml
+- name: Remove Shiftmon Loki Recording Rules
+  ansible.builtin.file:
     dest: /opt/shift-mon/loki/rules/fake/shiftmon-rules.yaml
-    owner: shiftmon
-    group: shiftmon
+    state: absent
   become: true

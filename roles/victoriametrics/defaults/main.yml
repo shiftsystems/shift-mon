@@ -7,6 +7,7 @@ shiftmon_alerts_victorialogs_enabled: true
 shiftmon_alerts_vmauth_enabled: true
 shiftmon_alerts_alertmanager_enabled: true
 shiftmon_alerts_victoriametrics_enabled: true
+shiftmon_alerts_adguardhome_enabled: false
 telegraf_victoriametrics_config: true
 alertmanager_from_email: "{{ alertmanager_smtp_username }}"
 alertmanger_smtp_auth_identity: "{{ alertmanager_smtp_username }}"
