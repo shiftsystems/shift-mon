@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 149,
+  "id": 197,
   "links": [
     {
       "asDropdown": true,
@@ -122,7 +122,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 4,
+      "id": 9,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -957,55 +957,31 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 177
+                "value": 190
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "tags.hostname"
+              "options": "hostname"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 149
+                "value": 137
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "task_user"
+              "options": "appname"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 141
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "task_type"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 148
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "task_path"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 308
+                "value": 114
               }
             ]
           }
@@ -1039,8 +1015,8 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.hostname:$host) tags.appname:pbs AND ~\"fail|error\" | extract \"UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_id_4>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>\"",
-          "queryType": "instant",
+          "expr": "tags.appname:\"pbs\" AND (tags.hostname:\"$host\") | extract `<_>:<pbs_host>:<task_id1>:<task_id2>:<task_id3>:<task_id4>:<cmd>:<job>:<user>:<msg>`",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -1071,21 +1047,17 @@
               "message": true,
               "name": true,
               "pbs_host": true,
-              "proxmox_host": true,
               "severity": true,
               "severity_code": true,
               "source": true,
-              "tags.appname": true,
               "tags.facility": true,
               "tags.host": true,
-              "tags.hostname": false,
               "tags.severity": true,
               "tags.source": true,
-              "task_id": true,
-              "task_id_1": true,
-              "task_id_2": true,
-              "task_id_3": true,
-              "task_id_4": true,
+              "task_id1": true,
+              "task_id2": true,
+              "task_id3": true,
+              "task_id4": true,
               "timestamp": true,
               "version": true
             },
@@ -1093,33 +1065,98 @@
             "indexByName": {
               "Time": 0,
               "_stream_id": 8,
+              "cmd": 4,
               "fields.facility_code": 9,
               "fields.severity_code": 10,
               "fields.timestamp": 11,
               "fields.version": 12,
-              "log_message": 6,
+              "job": 5,
+              "msg": 6,
               "name": 13,
-              "proxmox_host": 7,
-              "tags.appname": 4,
-              "tags.facility": 14,
-              "tags.host": 15,
+              "pbs_host": 7,
+              "tags.appname": 2,
+              "tags.facility": 15,
+              "tags.host": 16,
               "tags.hostname": 1,
-              "tags.severity": 16,
+              "tags.severity": 14,
               "tags.source": 17,
-              "task_id": 18,
-              "task_id_1": 19,
-              "task_id_2": 20,
-              "task_id_3": 21,
-              "task_id_4": 22,
-              "task_path": 5,
-              "task_type": 3,
-              "task_user": 2
+              "task_id1": 18,
+              "task_id2": 19,
+              "task_id3": 20,
+              "task_id4": 21,
+              "user": 3
             },
             "renameByName": {}
           }
         }
       ],
       "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": []
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "hostname"
+            },
+            "properties": []
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "appname"
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 8,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "11.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${logs}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "(tags.hostname:\"$host\")",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Other Syslog",
+      "type": "logs"
     }
   ],
   "preload": false,
@@ -1131,8 +1168,8 @@
     "list": [
       {
         "current": {
-          "text": "shift-victoriametrics",
-          "value": "P342DAF48C1D70AE5"
+          "text": "shift-metrics",
+          "value": "P84D368831E8B3638"
         },
         "includeAll": false,
         "name": "metrics",
@@ -1144,8 +1181,8 @@
       },
       {
         "current": {
-          "text": "shiftmon-victorialogs",
-          "value": "P4463C362D59DE675"
+          "text": "shift-logs",
+          "value": "P53E94FA6B1E28789"
         },
         "includeAll": false,
         "name": "logs",
@@ -1157,7 +1194,9 @@
       },
       {
         "current": {
-          "text": "All",
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -1190,6 +1229,6 @@
   "timezone": "browser",
   "title": "Proxmox Backup Server",
   "uid": "shiftmon-pbs",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
