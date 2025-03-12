@@ -12,37 +12,4 @@ telegraf_victoriametrics_config: true
 alertmanager_from_email: "{{ alertmanager_smtp_username }}"
 alertmanger_smtp_auth_identity: "{{ alertmanager_smtp_username }}"
 vmanomaly_enabled: false
-alertmanager_config:
-  global:
-    smtp_smarthost: "{{ alertmanager.smtp_host }}"
-    smtp_from: "{{ alertmanager.smtp_from_email }}"
-    smtp_auth_username: "{{ alertmanager.smtp_username }}"
-    smtp_auth_password: "{{ alertmanager.smtp_password }}"
-    smtp_auth_identity: "{{ alertmanager.smtp_auth_identity }}"
-    smtp_require_tls: true
-  templates:
-    - '/config/templates/email.tmpl'
-  route:
-    group_by:
-      - 'alertname'
-    group_wait: 30s
-    group_interval: 5m
-    repeat_interval: 1h
-    receiver: "{{ alertmanager.webhook_name }}"
-    routes:
-      - matchers:
-        - severity="reporting"
-        receiver: Shiftmon SMTP
-        repeat_interval: 24h
-        group_interval: 1m
-        group_by:
-          - 'alertgroup'
-  receivers:
-    - name: "{{ alertmanager.webhook_name }}"
-      webhook_configs:
-        - url: "{{ alertmanager.webhook_url }}"
-          send_resolved: true
-    - name: Shiftmon SMTP
-      email_configs:
-        - to: "{{ alertmanager.to_email }}"
-          send_resolved: false
+

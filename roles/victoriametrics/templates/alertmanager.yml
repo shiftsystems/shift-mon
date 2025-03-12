@@ -1,1 +1,32 @@
-{{ alertmanager_config | to_nice_yaml(indent=2,sort_keys=false) }}
+{% if shiftmon_alertmanager_config is defined %}
+{{ shiftmon_alertmanager_config | to_nice_yaml(indent=2,sort_keys=false) }}
+{% else %}
+global:
+  smtp_smarthost: "{{ alertmanager.smtp_host }}"
+  smtp_from: "{{ alertmanager.smtp_from_email }}"
+  smtp_auth_username: "{{ alertmanager.smtp_username }}"
+  smtp_auth_password: "{{ alertmanager.smtp_password }}"
+  smtp_auth_identity: "{{ alertmanager.smtp_auth_identity }}"
+  smtp_require_tls: true
+templates:
+  - '/config/templates/email.tmpl'
+route:
+  group_by:
+    - 'alertname'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: "Shiftmon Receiver"
+receivers:
+  - name: "Shiftmon Receiver"
+{% if alertmanager.webhook_url %}
+    webhook_configs:
+      - url: "{{ alertmanager.webhook_url }}"
+        send_resolved: true
+{% endif %}
+{% if alertmanager.to_email %}
+    email_configs:
+      - to: "{{ alertmanager.to_email }}"
+        send_resolved: false
+{% endif %}
+{% endif %}
