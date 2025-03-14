@@ -19,12 +19,12 @@ route:
   receiver: "Shiftmon Receiver"
 receivers:
   - name: "Shiftmon Receiver"
-{% if alertmanager.webhook_url %}
+{% if alertmanager.webhook_url is defined %}
     webhook_configs:
       - url: "{{ alertmanager.webhook_url }}"
         send_resolved: true
 {% endif %}
-{% if alertmanager.to_email %}
+{% if alertmanager.to_email is defined %}
     email_configs:
       - to: "{{ alertmanager.to_email }}"
         send_resolved: false
