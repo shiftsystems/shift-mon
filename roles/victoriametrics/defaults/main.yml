@@ -1,15 +1,14 @@
-shiftmon_alerts_deadman_enabled: true
-shiftmon_alerts_infra_enabled: true
-shiftmon_alerts_blackbox_enabled: true
-shiftmon_alerts_proxmox_enabled: true
-shiftmon_alerts_freeipa_enabled: true
-shiftmon_alerts_victorialogs_enabled: true
-shiftmon_alerts_vmauth_enabled: true
-shiftmon_alerts_alertmanager_enabled: true
-shiftmon_alerts_victoriametrics_enabled: true
+shiftmon_alerts_deadman_enabled: false
+shiftmon_alerts_infra_enabled: false
+shiftmon_alerts_blackbox_enabled: false
+shiftmon_alerts_proxmox_enabled: false
+shiftmon_alerts_freeipa_enabled: false
+shiftmon_alerts_victorialogs_enabled: false
+shiftmon_alerts_vmauth_enabled: false
+shiftmon_alerts_alertmanager_enabled: false
+shiftmon_alerts_victoriametrics_enabled: false
 shiftmon_alerts_adguardhome_enabled: false
 telegraf_victoriametrics_config: true
 alertmanager_from_email: "{{ alertmanager_smtp_username }}"
 alertmanger_smtp_auth_identity: "{{ alertmanager_smtp_username }}"
 vmanomaly_enabled: false
-

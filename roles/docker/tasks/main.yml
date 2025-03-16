@@ -8,18 +8,20 @@
 - name: get shiftmon userid
   ansible.builtin.command: id -u shiftmon
   register: shiftmon_user_id
+  changed_when: false
   become: true
 
 - name: get shiftmon userid
   ansible.builtin.command: id -g shiftmon
   register: shiftmon_group_id
+  changed_when: false
   become: true
 
 - name: Generate compose File
   ansible.builtin.template:
-    src: 'docker-compose.yml'
+    src: "docker-compose.yml"
     dest: /opt/shift-mon/docker-compose.yml
-    mode: '770'
+    mode: "770"
     owner: shiftmon
     group: shiftmon
     setype: container_file_t
@@ -44,16 +46,9 @@
   ansible.builtin.systemd:
     name: shift-mon.service
     enabled: false
-    masked: true
+    state: stopped
   become: true
-  notify:
-    - Stop Containers
-    - Ensure permissions on shiftmon files
-
-- name: Trigger Migration handlers
-  ansible.builtin.debug:
-    msg: "Trigger migration handlers"
-  changed_when: true
+  failed_when: false
   notify:
     - Stop Containers
     - Ensure permissions on shiftmon files

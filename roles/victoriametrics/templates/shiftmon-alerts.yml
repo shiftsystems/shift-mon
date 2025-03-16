@@ -4,9 +4,11 @@ groups:
   - name: DeadMan
     interval: 1m
     type: prometheus
+    labels:
+      autoresovle: false
     rules:
       - alert: Host Down
-        expr: 'lag(cpu_usage_idle{host!~"mikasa\\.local\\.shiftsystems\\.net|zoe\\.local\\.shiftsystems\\.net"}[24h]) > 60'
+        expr: 'lag(cpu_usage_idle[24h]) > 60'
         for: 5m
         annotations:
           summary: '{{ $labels.host }} is not sending metrics'
@@ -264,7 +266,7 @@ groups:
           severity: critical
         annotations:
           summary: "Too many TSID misses for job \"{{ $labels.job }}\" ({{ $labels.instance }})"
-          description: | 
+          description: |
             The rate of TSID misses during query lookups is too high for \"{{ $labels.job }}\" ({{ $labels.instance }}).
             Make sure you're running VictoriaMetrics of v1.85.3 or higher.
             Related issue https://github.com/VictoriaMetrics/VictoriaMetrics/issues/3502
@@ -275,11 +277,11 @@ groups:
           severity: warning
         annotations:
           summary: "{{ $labels.job }} on instance {{ $labels.instance }} is constantly hitting concurrent inserts limit"
-          description: | 
+          description: |
             The limit of concurrent inserts on instance {{ $labels.instance }} depends on the number of CPUs.
             Usually, when component constantly hits the limit it is likely the component is overloaded and requires more CPU.
             In some cases for components like vmagent or vminsert the alert might trigger if there are too many clients
-            making write attempts. If vmagent's or vminsert's CPU usage and network saturation are at normal level, then 
+            making write attempts. If vmagent's or vminsert's CPU usage and network saturation are at normal level, then
             it might be worth adjusting `-maxConcurrentInserts` cmd-line flag.
       - alert: IndexDBRecordsDrop
         expr: increase(vm_indexdb_items_dropped_total[5m]) > 0
@@ -287,10 +289,10 @@ groups:
           severity: critical
         annotations:
           summary: "IndexDB skipped registering items during data ingestion with reason={{ $labels.reason }}."
-          description: | 
-            VictoriaMetrics could skip registering new timeseries during ingestion if they fail the validation process. 
-            For example, `reason=too_long_item` means that time series cannot exceed 64KB. Please, reduce the number 
-            of labels or label values for such series. Or enforce these limits via `-maxLabelsPerTimeseries` and 
+          description: |
+            VictoriaMetrics could skip registering new timeseries during ingestion if they fail the validation process.
+            For example, `reason=too_long_item` means that time series cannot exceed 64KB. Please, reduce the number
+            of labels or label values for such series. Or enforce these limits via `-maxLabelsPerTimeseries` and
             `-maxLabelValueLen` command-line flags.
       - alert: RowsRejectedOnIngestion
         expr: rate(vm_rows_ignored_total[5m]) > 0
