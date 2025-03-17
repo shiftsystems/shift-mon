@@ -24,15 +24,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 206,
   "links": [
     {
       "asDropdown": true,
       "icon": "external link",
       "includeVars": true,
       "keepTime": true,
-      "tags": [
-        "Linux"
-      ],
+      "tags": ["Linux"],
       "targetBlank": true,
       "title": "Dashboards",
       "tooltip": "",
@@ -40,7 +39,6 @@
       "url": ""
     }
   ],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
@@ -75,32 +73,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Block Rate"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percentunit"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Cache Hit Ratio"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percentunit"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -114,15 +87,13 @@
         "footer": {
           "countRows": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "frameIndex": 1,
         "showHeader": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -131,7 +102,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum_over_time(sum by (host) (adguardhome_request_rate5m{host=~\"$host\"})[$__range])",
+          "expr": "sum_over_time(sum by (tags.host) (adguardhome:request:rate5m{tags.host=~\"$host\"})[$__range])",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -145,7 +116,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg_over_time(sum by (host) (adguardhome_block_rate5m{host=~\"$host\"})[$__range])",
+          "expr": "sum_over_time(sum by (tags.host) (adguardhome:blocked:request:rate5m{tags.host=~\"$host\"})[$__range])",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -160,28 +131,13 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg_over_time(sum by (host) (adguardhome_cache_rate5m{host=~\"$host\"})[$__range])",
+          "expr": "avg_over_time(sum by (tags.host) (adguardhome:blocked:request:rate5m{tags.host=~\"$host\"})[$__range])",
           "format": "table",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
           "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum_over_time(sum by (host) (adguardhome_blocked_request_rate5m{host=~\"$host\"})[$__range])",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "D"
         }
       ],
       "title": "Totals",
@@ -200,18 +156,18 @@
             "indexByName": {
               "Time": 0,
               "Value #A": 2,
-              "Value #B": 4,
-              "Value #C": 5,
-              "Value #D": 3,
-              "host": 1
+              "Value #B": 3,
+              "Value #C": 4,
+              "tags.host": 1
             },
             "renameByName": {
               "Time": "",
               "Value #A": "Requests",
-              "Value #B": "Block Rate",
-              "Value #C": "Cache Hit Ratio",
+              "Value #B": "Blocked Requests",
+              "Value #C": "Cached Requests",
               "Value #D": "Blocked Requests",
-              "host": ""
+              "host": "",
+              "tags.host": "Host"
             }
           }
         }
@@ -291,11 +247,7 @@
       "id": 8,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -303,11 +255,12 @@
           "sortDesc": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -315,8 +268,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "adguardhome_cache_rate5m{host=~\"$host\"}",
-          "legendFormat": "{{host}}",
+          "expr": "adguardhome:cached:request:rate5m{tags.host=~\"$host\"} / adguardhome:request:rate5m{tags.host=~\"$host\"}",
+          "legendFormat": "{{tags.host}}",
           "range": true,
           "refId": "A"
         }
@@ -395,12 +348,7 @@
       "id": 9,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean",
-            "sum"
-          ],
+          "calcs": ["min", "max", "mean", "sum"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -408,11 +356,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -420,8 +369,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "adguardhome_request_rate5m{host=~\"$host\"}",
-          "legendFormat": "{{host}}",
+          "expr": "adguardhome:request:rate5m{tags.host=~\"$host\"}",
+          "legendFormat": "{{tags.host}}",
           "range": true,
           "refId": "A"
         }
@@ -502,11 +451,7 @@
       "id": 10,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -514,11 +459,12 @@
           "sortDesc": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -526,8 +472,8 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "adguardhome_block_rate5m{host=~\"$host\"}",
-          "legendFormat": "{{host}}",
+          "expr": "adguardhome:blocked:request:rate5m{tags.host=~\"$host\"} / adguardhome:request:rate5m{tags.host=~\"$host\"}",
+          "legendFormat": "{{tags.host}}",
           "range": true,
           "refId": "A"
         }
@@ -569,26 +515,22 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "fields": "",
           "limit": 25,
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -596,9 +538,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "topk(20,sum(count_over_time({host=~\"$host\",path=~\".*data/querylog.json\"}  | logfmt[$__range])) by (QH))",
-          "legendFormat": "{{ QH }}",
-          "queryType": "instant",
+          "expr": "(tags.host:\"$host\") AND tags.path:\"querylog.json\"  | stats by (fields.QH) count()",
+          "legendFormat": "{{ fields.QH }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
@@ -617,9 +559,7 @@
           "options": {
             "fields": {
               "Line": {
-                "aggregations": [
-                  "count"
-                ],
+                "aggregations": ["count"],
                 "operation": "aggregate"
               },
               "QH": {
@@ -636,9 +576,7 @@
                 "aggregations": []
               },
               "line": {
-                "aggregations": [
-                  "count"
-                ],
+                "aggregations": ["count"],
                 "operation": "aggregate"
               }
             }
@@ -681,25 +619,21 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "fields": "",
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -707,9 +641,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "topk(20,sum(count_over_time({host=~\"$host\",path=~\".*data/querylog.json\"}  | logfmt[$__range])) by (IP))",
-          "legendFormat": "{{ IP }}",
-          "queryType": "instant",
+          "expr": "(tags.host:\"$host\") AND tags.path:\"querylog.json\"  | stats by (fields.IP) count()",
+          "legendFormat": "{{ fields.IP }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
@@ -750,25 +684,21 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -776,9 +706,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "topk(20,sum(count_over_time({host=~\"$host\",path=~\".*data/querylog.json\"}  |~ \"Result_IsFiltered\"| logfmt[$__range])) by (QH))",
-          "legendFormat": "{{ QH }}",
-          "queryType": "instant",
+          "expr": "(tags.host:\"$host\") AND tags.path:\"querylog.json\" AND fields.Result_IsFiltered:\"true\" | stats by (fields.QH) count()",
+          "legendFormat": "{{ fields.QH }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
@@ -819,25 +749,21 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "fields": "",
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -845,9 +771,9 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "topk(20,sum(count_over_time({host=~\"$host\",path=~\".*data/querylog.json\"}  |~ \"Result_IsFiltered\"| logfmt[$__range])) by (IP))",
-          "legendFormat": "{{ IP }}",
-          "queryType": "instant",
+          "expr": "(tags.host:\"$host\") AND tags.path:\"querylog.json\" AND fields.Result_IsFiltered:\"true\" | stats by (fields.IP) count()",
+          "legendFormat": "{{ fields.IP }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
@@ -890,8 +816,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
+        "h": 11,
+        "w": 24,
         "x": 0,
         "y": 28
       },
@@ -901,20 +827,13 @@
         "footer": {
           "countRows": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "filtered"
-          }
-        ]
+        "sortBy": []
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -922,8 +841,8 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",path=~\".*data/querylog.json\"} | logfmt",
-          "queryType": "range",
+          "expr": "(tags.host:\"$host\") AND tags.path:\"querylog.json\"",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -957,42 +876,46 @@
               "Time": true,
               "Upstream": true,
               "__name": true,
+              "_stream_id": true,
+              "fields.Answer": true,
+              "fields.QC": true,
+              "fields.Result_Rules_0_FilterListID": true,
+              "fields.Result_Rules_0_IP": true,
+              "fields.Result_Rules_0_Text": true,
               "host": true,
               "id": true,
               "labels": true,
               "line": true,
+              "name": true,
               "path": true,
+              "tags.path": true,
               "ts": true,
               "tsNs": true
             },
+            "includeByName": {},
             "indexByName": {
-              "CP": 14,
-              "Cached": 6,
-              "Elapsed": 4,
-              "IP": 1,
-              "OrigAnswer": 20,
-              "QC": 12,
-              "QH": 2,
-              "QT": 3,
-              "Result_IPList_0": 21,
-              "Result_IPList_1": 22,
-              "Result_IsFiltered": 5,
-              "Result_Reason": 17,
-              "Result_Rules_0_FilterListID": 19,
-              "Result_Rules_0_IP": 25,
-              "Result_Rules_0_Text": 18,
-              "Result_Rules_1_FilterListID": 23,
-              "Result_Rules_1_IP": 26,
-              "Result_Rules_1_Text": 24,
-              "T": 0,
-              "Upstream": 7,
-              "__name": 15,
-              "host": 16,
-              "id": 10,
-              "line": 9,
-              "path": 13,
-              "ts": 8,
-              "tsNs": 11
+              "Line": 1,
+              "Time": 0,
+              "_stream_id": 3,
+              "fields.Answer": 4,
+              "fields.Cached": 21,
+              "fields.Elapsed": 9,
+              "fields.IP": 10,
+              "fields.QC": 5,
+              "fields.QH": 8,
+              "fields.QT": 11,
+              "fields.Result_IsFiltered": 16,
+              "fields.Result_Reason": 17,
+              "fields.Result_Rules_0_FilterListID": 18,
+              "fields.Result_Rules_0_IP": 19,
+              "fields.Result_Rules_0_Text": 20,
+              "fields.T": 6,
+              "fields.Upstream": 12,
+              "fields.reverse_lookup": 13,
+              "labels": 2,
+              "name": 14,
+              "tags.host": 7,
+              "tags.path": 15
             },
             "renameByName": {
               "Cached": "",
@@ -1003,7 +926,16 @@
               "QT": "Query type",
               "Result_IsFiltered": "filtered",
               "T": "Time",
-              "Upstream": ""
+              "Upstream": "",
+              "fields.Elapsed": "response time",
+              "fields.IP": "source ip",
+              "fields.QC": "",
+              "fields.QH": "Query Host",
+              "fields.QT": "Type",
+              "fields.T": "Time",
+              "fields.Upstream": "Upstream",
+              "fields.reverse_lookup": "Reverse Lookup",
+              "tags.host": "host"
             }
           }
         }
@@ -1012,7 +944,6 @@
     },
     {
       "datasource": {
-        "default": false,
         "type": "loki",
         "uid": "${logs}"
       },
@@ -1047,31 +978,24 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 28
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 39
       },
-      "id": 3,
+      "id": 12,
       "options": {
         "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Result_Rules_1_Text"
-          }
-        ]
+        "sortBy": []
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -1079,12 +1003,12 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",path=~\".*data/querylog.json\"} | logfmt | Result_IsFiltered=\"true\"",
-          "queryType": "range",
+          "expr": "(tags.host:\"$host\") AND tags.path:\"querylog.json\" AND fields.Result_IsFiltered:\"true\"",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
-      "title": "filtered queries",
+      "title": "Filtered Queries",
       "transformations": [
         {
           "id": "extractFields",
@@ -1096,70 +1020,84 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "AD": true,
               "CP": true,
               "Cached": true,
               "Line": true,
               "OrigAnswer": true,
               "QC": true,
-              "QT": false,
               "Result_IPList_0": true,
               "Result_IPList_1": true,
-              "Result_IsFiltered": true,
               "Result_Reason": true,
               "Result_Rules_0_FilterListID": true,
               "Result_Rules_0_IP": true,
-              "Result_Rules_0_Text": false,
+              "Result_Rules_0_Text": true,
               "Result_Rules_1_FilterListID": true,
               "Result_Rules_1_IP": true,
               "Result_Rules_1_Text": true,
               "Time": true,
               "Upstream": true,
               "__name": true,
+              "_stream_id": true,
+              "fields.Answer": true,
+              "fields.QC": true,
+              "fields.Result_Rules_0_FilterListID": true,
+              "fields.Result_Rules_0_IP": true,
+              "fields.Result_Rules_0_Text": true,
               "host": true,
               "id": true,
               "labels": true,
               "line": true,
+              "name": true,
               "path": true,
+              "tags.path": true,
               "ts": true,
               "tsNs": true
             },
+            "includeByName": {},
             "indexByName": {
-              "CP": 17,
-              "Cached": 8,
-              "Elapsed": 4,
-              "IP": 1,
-              "OrigAnswer": 20,
-              "QC": 15,
-              "QH": 2,
-              "QT": 3,
-              "Result_IsFiltered": 9,
-              "Result_Reason": 7,
-              "Result_Rules_0_FilterListID": 6,
-              "Result_Rules_0_IP": 23,
-              "Result_Rules_0_Text": 5,
-              "Result_Rules_1_FilterListID": 21,
-              "Result_Rules_1_IP": 24,
-              "Result_Rules_1_Text": 22,
-              "T": 0,
-              "Upstream": 10,
-              "__name": 18,
-              "host": 19,
-              "id": 13,
-              "line": 12,
-              "path": 16,
-              "ts": 11,
-              "tsNs": 14
+              "Line": 1,
+              "Time": 0,
+              "_stream_id": 3,
+              "fields.Answer": 4,
+              "fields.Cached": 21,
+              "fields.Elapsed": 9,
+              "fields.IP": 10,
+              "fields.QC": 5,
+              "fields.QH": 8,
+              "fields.QT": 11,
+              "fields.Result_IsFiltered": 16,
+              "fields.Result_Reason": 17,
+              "fields.Result_Rules_0_FilterListID": 18,
+              "fields.Result_Rules_0_IP": 19,
+              "fields.Result_Rules_0_Text": 20,
+              "fields.T": 6,
+              "fields.Upstream": 12,
+              "fields.reverse_lookup": 13,
+              "labels": 2,
+              "name": 14,
+              "tags.host": 7,
+              "tags.path": 15
             },
             "renameByName": {
               "Cached": "",
               "Elapsed": "query time",
-              "IP": "source",
+              "IP": "Source",
               "QC": "",
               "QH": "domain",
-              "QT": "type",
-              "Result_Rules_0_Text": "rule",
-              "T": "time",
-              "Upstream": ""
+              "QT": "Query type",
+              "Result_IsFiltered": "filtered",
+              "T": "Time",
+              "Upstream": "",
+              "fields.Elapsed": "response time",
+              "fields.IP": "source ip",
+              "fields.QC": "",
+              "fields.QH": "Query Host",
+              "fields.QT": "Type",
+              "fields.T": "Time",
+              "fields.Upstream": "Upstream",
+              "fields.reverse_lookup": "Reverse Lookup",
+              "tags.host": "host"
             }
           }
         }
@@ -1167,76 +1105,61 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-victoriametrics",
           "value": "P342DAF48C1D70AE5"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "victoriametrics-datasource",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
           "text": "shift-logs",
           "value": "P53E94FA6B1E28789"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "text": ["All"],
+          "value": ["$__all"]
         },
         "datasource": {
           "type": "loki",
           "uid": "${logs}"
         },
-        "definition": "label_values({path=\"/opt/AdGuardHome/data/querylog.json\"},host)",
-        "hide": 0,
+        "definition": "tags.path:querylog.json",
         "includeAll": true,
         "multi": true,
         "name": "host",
         "options": [],
         "query": {
-          "label": "host",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{path=~\".*data/querylog.json\"}",
-          "type": 1
+          "field": "tags.host",
+          "limit": 25,
+          "query": "tags.path:querylog.json",
+          "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
+          "type": "fieldValue"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -1248,7 +1171,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Adguard",
-  "uid": "RXBFLS0nz",
-  "version": 12,
+  "uid": "shiftmon-adguardhome",
+  "version": 1,
   "weekStart": ""
 }

@@ -324,29 +324,15 @@ groups:
 {% if shiftmon_alerts_adguardhome_enabled %}
 {% raw %}
 groups:
-  - name: AdGuardHome Rules
-    limit: 100
+  - name: AdGuardHome
     interval: 5m
+    type: vlogs
     rules:
-      - record: adguardhome_cache_rate5m
-        expr: |
-          (count by (host) (rate({path=~".*querylog.json"} | logfmt | Cached = `true` [5m]))) / (count by(host) (rate({path=~".*querylog.json"} | logfmt[5m])))
-        labels:
-          user: "shiftmon"
-      - record: adguardhome_block_rate5m
-        expr: |
-         (count by (host) (rate({path=~".*data/querylog.json"} | logfmt | Result_IsFiltered="true"[5m]))) / (count by(host) (rate({path=~".*data/querylog.json"} | logfmt[5m])))
-        labels:
-          user: "shiftmon"
-      - record: adguardhome_request_rate5m
-        expr: |
-          (count by (host) (rate({path=~".*querylog.json"} | logfmt[5m])))
-        labels:
-          user: "shiftmon"
-      - record: adguardhome_blocked_request_rate5m
-        expr: |
-          count(rate({path=~".*data/querylog.json"} | logfmt | Result_IsFiltered="true"[5m])) by (host)
-        labels:
-          user: "shiftmon"
+      - record: adguardhome:request:rate5m
+        expr: 'tags.path:querylog.json | stats by (tags.host) count()'
+      - record: adguardhome:blocked:request:rate5m
+        expr: 'tags.path:querylog.json AND fields.Result_IsFiltered:"true" | stats by (tags.host) count()'
+      - record: adguardhome:cached:request:rate5m
+        expr: 'tags.path:querylog.json AND fields.Cached:"true" | stats by(tags.host) count()'
 {% endraw %}
 {% endif %}
