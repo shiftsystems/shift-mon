@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 189,
+  "id": 202,
   "links": [],
   "panels": [
     {
@@ -87,9 +87,8 @@
           {
             "config": {
               "blur": 15,
-              "radius": 9,
+              "radius": 5,
               "weight": {
-                "field": "events",
                 "fixed": 1,
                 "max": 1,
                 "min": 0
@@ -100,7 +99,6 @@
               "options": "A"
             },
             "location": {
-              "lookup": "country",
               "mode": "lookup"
             },
             "name": "GeoIP",
@@ -119,7 +117,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -128,7 +126,7 @@
           },
           "editorMode": "code",
           "expr": "tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
-          "queryType": "range",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -137,6 +135,8 @@
         {
           "id": "extractFields",
           "options": {
+            "delimiter": ",",
+            "keepTime": false,
             "replace": true,
             "source": "labels"
           }
@@ -208,7 +208,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -313,7 +313,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -407,7 +407,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
@@ -500,7 +500,7 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
