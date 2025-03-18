@@ -1,8 +1,5 @@
 # TODO
-* fix default alerting groups
-* separate non resolving alerts
 * update diagram
-* fix all the dashboards
 
 ## What is different
 
