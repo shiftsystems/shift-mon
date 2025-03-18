@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 197,
+  "id": 219,
   "links": [
     {
       "asDropdown": true,
@@ -1005,7 +1005,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time"
+          }
+        ]
       },
       "pluginVersion": "11.5.2",
       "targets": [
@@ -1015,8 +1020,8 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:\"pbs\" AND (tags.hostname:\"$host\") | extract `<_>:<pbs_host>:<task_id1>:<task_id2>:<task_id3>:<task_id4>:<cmd>:<job>:<user>:<msg>`",
-          "queryType": "range",
+          "expr": "tags.appname:\"pbs\" AND (tags.hostname:\"$host\")",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -1040,6 +1045,7 @@
               "facility": true,
               "facility_code": true,
               "fields.facility_code": true,
+              "fields.pbs_host": true,
               "fields.severity_code": true,
               "fields.timestamp": true,
               "fields.version": true,
@@ -1050,6 +1056,7 @@
               "severity": true,
               "severity_code": true,
               "source": true,
+              "tags.appname": false,
               "tags.facility": true,
               "tags.host": true,
               "tags.severity": true,
@@ -1064,29 +1071,39 @@
             "includeByName": {},
             "indexByName": {
               "Time": 0,
-              "_stream_id": 8,
-              "cmd": 4,
-              "fields.facility_code": 9,
-              "fields.severity_code": 10,
-              "fields.timestamp": 11,
-              "fields.version": 12,
-              "job": 5,
-              "msg": 6,
-              "name": 13,
-              "pbs_host": 7,
+              "_stream_id": 4,
+              "fields.cmd": 14,
+              "fields.facility_code": 5,
+              "fields.log_message": 15,
+              "fields.pbs_host": 16,
+              "fields.severity_code": 6,
+              "fields.task_id_1": 17,
+              "fields.task_id_2": 18,
+              "fields.task_id_3": 19,
+              "fields.task_id_4": 20,
+              "fields.timestamp": 7,
+              "fields.user": 3,
+              "fields.version": 8,
+              "name": 9,
               "tags.appname": 2,
-              "tags.facility": 15,
-              "tags.host": 16,
+              "tags.facility": 11,
+              "tags.host": 12,
               "tags.hostname": 1,
-              "tags.severity": 14,
-              "tags.source": 17,
-              "task_id1": 18,
-              "task_id2": 19,
-              "task_id3": 20,
-              "task_id4": 21,
-              "user": 3
+              "tags.severity": 10,
+              "tags.source": 13
             },
-            "renameByName": {}
+            "renameByName": {
+              "fields.cmd": "command",
+              "fields.log_message": "message",
+              "fields.pbs_host": "",
+              "fields.task_id_1": "task id 1",
+              "fields.task_id_2": "task id 2",
+              "fields.task_id_3": "task id 3",
+              "fields.task_id_4": "task id 4",
+              "fields.user": "user",
+              "tags.appname": "appname",
+              "tags.hostname": "hostname"
+            }
           }
         }
       ],
