@@ -40,6 +40,8 @@
   ansible.builtin.copy:
     src: dashboards
     dest: /opt/shift-mon/grafana
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Download Victoriametrics Dashboards
@@ -79,6 +81,8 @@
   ansible.builtin.template:
     src: dashboards.yml
     dest: /opt/shift-mon/grafana-config/provisioning/dashboards/shift-dashboards.yml
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Configure Datasource Provisioning
@@ -89,30 +93,20 @@
     dest: /opt/shift-mon/grafana-config/provisioning/datasources/shift-datasources.yml
   become: true
 
-- name: Get Latest Version of VictoriaMetrics Datasource
-  ansible.builtin.uri:
-    url: https://api.github.com/repos/VictoriaMetrics/grafana-datasource/releases/latest
-    return_content: true
-    body_format: json
-  register: vm_datasource_release
-
-- name: Get Latest Version of Victorialogs Datasource
-  ansible.builtin.uri:
-    url: https://api.github.com/repos/VictoriaMetrics/victorialogs-datasource/releases/latest
-    return_content: true
-    body_format: json
-  register: vl_datasource_release
-
 - name: Copy Grafana config
   ansible.builtin.template:
     src: grafana.ini
     dest: /opt/shift-mon/grafana-config/grafana.ini
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Copy LDAP config
   ansible.builtin.template:
     src: ldap.toml
     dest: /opt/shift-mon/grafana-config/ldap.toml
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: ldap_host is defined
 
@@ -120,6 +114,8 @@
   ansible.builtin.copy:
     src: "{{ grafana.alert_path }}"
     dest: /opt/shift-mon/grafana-config/provisioning/alerting/user-alerts.yml
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: grafana.alert_path is defined
 
@@ -127,6 +123,8 @@
   ansible.builtin.copy:
     src: "{{ item.value }}"
     dest: "/opt/shift-mon/grafana"
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: grafana.dashboard_paths is defined
   with_items: "{{ grafana.dashboard_paths | dict2items }}"

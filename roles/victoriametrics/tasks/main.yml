@@ -16,10 +16,13 @@
     state: directory
     mode: '770'
     setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
   become: true
   with_items:
     - /opt/shift-mon/victoriametrics
     - /opt/shift-mon/victoriametrics-storage
+    - /opt/shift-mon/victorialogs
     - /opt/shift-mon/vmalert/rules
     - /opt/shift-mon/vmalert/templates
     - /opt/shift-mon/vmauth
@@ -32,6 +35,8 @@
     dest: "/opt/shift-mon/victoriametrics/{{ item }}"
     mode: '770'
     setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
   become: true
   with_items:
     - scrape-config.yml
@@ -43,18 +48,24 @@
     dest: /opt/shift-mon/vmauth/auth-config.yml
     mode: '770'
     setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Upload Shiftmon rules
   ansible.builtin.template:
     src: "shiftmon-alerts.yml"
     dest: "/opt/shift-mon/vmalert/rules/shiftmon.yml"
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Upload user provisioned rules
   ansible.builtin.copy:
     src: "{{ item.value }}"
     dest: "/opt/shift-mon/vmalert/rules"
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: victoria.rule_files is defined
   with_items: "{{victoria.rule_files | dict2items }}"
@@ -65,5 +76,7 @@
     dest: "/opt/shift-mon/alertmanager/config/alertmanager.yml"
     mode: '770'
     setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
     force: true
   become: true

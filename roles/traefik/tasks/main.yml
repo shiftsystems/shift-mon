@@ -38,7 +38,7 @@
     src: traefik.yml
     dest: /opt/shift-mon/traefik/traefik.yml
     mode: '770'
-    onwer: shiftmon
+    owner: shiftmon
     group: shiftmon
   become: true
 

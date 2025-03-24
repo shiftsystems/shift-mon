@@ -22,6 +22,7 @@ http:
       service: vmauth
       entryPoints:
         - websecure
+{% if alertmanager.domain is defined %}
     alertmanager:
       rule: Host(`{{ alertmanager.domain }}`)
       tls:
@@ -29,6 +30,7 @@ http:
       service: vmauth
       entryPoints:
         - websecure
+{% endif %}
   services:
     grafana:
       loadBalancer:
@@ -47,6 +49,7 @@ http:
           path: /health
           interval: "10s"
           timeout: "5s"
+{% if alertmanager.domain is defined %}
     alertmanager:
       loadBalancer:
         servers:
@@ -55,3 +58,4 @@ http:
           path: '/-/healthy'
           interval: "10s"
           timeout: "5s"
+{% endif %}
