@@ -187,6 +187,7 @@ services:
     command:
       - "/config/config.yml"
       - "--license={{ victoria.license }}"
+      - "--loggerLevel={{ vmanomaly_log_level }}"
 
     environment:
       VMANOMALY_MODEL_DUMPS_DIR: /models

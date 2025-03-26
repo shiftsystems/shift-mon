@@ -25,6 +25,12 @@ groups:
         annotations:
           summary: '{{ $labels.ups_name }} is not sending metrics'
           description: 'no metrics from {{ $labels.ups_name }} on {{ $labels.host }}'
+      - alert: Missing Anomaly Score
+        expr: 'lag(anomaly_score[24h]) > 60'
+        for: 5m
+        annotations:
+          summary: '{{ $labels.instance }} is not reporting anomaly scores'
+          description: '{{ $labels.instance }} has not sent metrics in {{ $value }} seconds'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_infra_enabled %}
@@ -323,7 +329,6 @@ groups:
 {% endif %}
 {% if shiftmon_alerts_adguardhome_enabled %}
 {% raw %}
-groups:
   - name: AdGuardHome
     interval: 5m
     type: vlogs
