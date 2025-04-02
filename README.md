@@ -18,12 +18,12 @@ An open source monitoring and logging tool based on Telegraf, Victoriametrics, L
   * Uses variables inventory for scraping remote data
 * ShiftMon roles will do the following by default
   * Deploy Victoriametrics for metric storage
-  * Deploy Loki for log and alert state storage
-  * Deploy Grafana for viewing this data and send alerts
+  * Deploy Victorialogs for log management
+  * Deploy Grafana for viewing this data and alerts
   * Configure Valkey cache for Grafana
-* Optionally ShiftMon can deploy the following
-  * Grafana Oncall for advanced alerting features and send health checks to Grafana cloud
-  * Deploy Uptime Kuma for black box checks
+  * vmauth for routing requests and managing credentials
+  * vmalert for evaluating alerting and recording rules
+  * alertmanager for routing and send alerts
 
 ![Network Diagram](/docs/images/shift-mon-diagram.png)
 
