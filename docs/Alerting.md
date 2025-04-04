@@ -63,6 +63,10 @@ Below is a snippet from a shiftmon inventory as an example
 ```
 
 
+## Configuring Alertmanager
+
+TODO
+
 ## Configure Contact Points in Grafana managed Alerts
 1. Login to your grafana instance and go the alerting area
 2. click the contact point tab and click the pencil icon by the autogen-contact-point-default.
@@ -103,5 +107,6 @@ Grafana offers a way to edit provisioned alerts in the UI which is more conviene
 ## Related docs
 * [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
 * [Victoriametrics query Function](https://docs.victoriametrics.com/MetricsQL.html)
-* [Using Loki for alert State]
+* [Why loki is used for alertsate](https://grafana.com/blog/2023/07/10/how-we-improved-grafanas-alert-state-history-to-provide-better-insights-into-your-alerting-data/)
 * [vmalert docs](https://docs.victoriametrics.com/vmalert)
+* [alertmanager docs](https://prometheus.io/docs/alerting/latest/configuration/)

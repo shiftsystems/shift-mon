@@ -25,7 +25,7 @@ all:
   vars:
     blackbox_https_urls:
       - url: 'https://metrics.example.com/health'
-        check_name: 'Loki'
+        check_name: 'Victoriametrics'
         basic_user: '$victoria_user'
         basic_password: '$victoria_password'
         response_string: 'ready'
