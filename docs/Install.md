@@ -1,11 +1,18 @@
 ## Requirements
-* Ubuntu with 23.10 or later. Ubuntu 22.04 will work with `container_engine: docker` in the playbook
+* Ubuntu with 22.04 or later.
 * A Redhat 8 or 9 based distro (Alma, Rocky)
 * The Current version of Fedora
 * 4 subdomains to point at the server
-* Debian 12 or later. Will work on Debian 11 with `container_engine: docker` in the playbook
+* Debian 12 or later
 
 ## Installation
+
+### CHECKOUT THE CORRECT BRANCH
+make sure you are on the `shiftmon-1` branch
+
+```bash
+git checkout shiftmon-1
+```
 
 ### Setup Ansible on your machine
 
