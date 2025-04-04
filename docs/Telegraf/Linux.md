@@ -1,31 +1,17 @@
 # Linux Install
 Currently we support Debian 10 or newer, Ubuntu 18.04 and newer, Fedora, and Redhat based distributions.
-The Ansible role will detect if the following systemd services exist and will deploy telegraf configs for the services listed below.
-* MySQL
-* Nginx
-* PHP-FPM
-* Crowdsec
-* Meshcentral
-* Adgaurdhome
-* Docker
-* Podman
-* Syslog (requires ```syslog: true``` in ansible variables)
-* Caddy
-* Libvirt
-
-There is no support for this in the bash script but we take pull requests.
-The configs can be added manually by adding one of the configs in the [telegraf configs folder](../../telegraf-configs/linux) in ```/etc/telegraf/telegraf.d/```
 
 ## Ansible
 The only thing that is required is that SSH needs to accessible on all endpoints and you have a Linux machine with ansible and git installed. 
 Ansible can be installed by following [the Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems) and git can be installed from your Linux distribution's repository.
 
 ### What does the role do? 
-* Places connection info for Victoriametrics and Loki in /etc/default/telegraf
+* Places connection info for Victoriametrics and Victorialogs in /etc/default/telegraf
 * Adds code signing keys and repos from influxdata
 * Install the telegraf agent
 * Edits config files in /etc/telegraf/
-* Can install syslog if ```syslog: true``` is an ansible variable
+* Can install syslog if ```syslog: true``` is an Ansible variable
+* Automatically instruments common services listed in the README](README.md)
 
 ### Setup 
 
@@ -37,18 +23,14 @@ Similar to the shift-mon role you can edit the lookups to be plain text values o
   tasks:
     - name: Set Telegraf Secrets
       ansible.builtin.set_fact:
-        loki:
-          user: telegraf
-          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          url: 'https://logs.local.shiftsystems.net'
-        victoria:
-          user: telegraf
-          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          url: 'https://metrics.local.shiftsystems.net'
-
+        victoriametrics_url: "https://metrics.local.shiftsystems.net"
+        victorialogs_url: "https://vl.local.shiftsystems.net"
+        victoriametrics_token: 'victoriametrics-token'
+        victorialogs_token: 'victorialogs-token'
+        syslog: rsyslog
     - name: Deploy Telegraf
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.telegraf
+        name: telegraf
         public: true
 ```
 
@@ -65,7 +47,6 @@ all:
       remote_syslog: true
     shiftmon_servers:
       server.local.example.com:
-
 ```
 
 Once your Inventory is setup deploy Telegraf by running `ansible-galaxy collection install --force shiftsystems.shift_mon && ansible-playbook -i inventory.yml telegraf.yml --ask-become-pass` from `~/shift-mon`.
