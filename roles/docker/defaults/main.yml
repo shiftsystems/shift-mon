@@ -12,4 +12,3 @@ docker_daemon_options:
     syslog-address: 'udp://localhost:6667'
     syslog-format: rfc5424
     tag: "{% raw %}{{.Name}}{% endraw %}"
-

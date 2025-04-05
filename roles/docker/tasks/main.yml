@@ -4,6 +4,11 @@
     public: true
     apply:
       become: true
+  when: shiftmon_disable_geerling_docker is not defined
+
+- name: Include disable-geerling-workaround.yml only when shiftmon_disable_geerling_docker is defined
+  ansible.builtin.include_tasks: disable-geerling-workaround.yml
+  when: shiftmon_disable_geerling_docker is defined
 
 - name: get shiftmon userid
   ansible.builtin.command: id -u shiftmon
