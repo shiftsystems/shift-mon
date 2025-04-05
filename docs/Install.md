@@ -31,9 +31,10 @@ git checkout shiftmon-1
 You will need to run the following commands on a debian machine before running ansible. Since python3, python3-apt, and gpg are not included in some minimal installs
 ```sudo apt install python3 python3-apt gpg```
 
+
 ### Setup Inventory
-1. Make folder in your home directory for shift-mon and the inventory files `mkdir -p ~/shiftmon` or create a `.yml` or `.yaml` file called `shift-inventory.yml` in your existing repository.
-2. Add the following to `~/shift-mon/shift-inventory.yml`
+1. Create a folder for storing your ansible inventory and playbook for shift-mon `mkdir -p ~/shiftmon`, or you can add the following to your existing Ansible repo.
+2. Add the following to `~/shift-mon/inventory.yml`
 
 ```yaml
 all:
@@ -45,23 +46,34 @@ all:
 ```
 
 
-3. Create a edit shift-mon.yml with the following Template
-If don't have a secretes manager can place the variables in quotes however this is insecure since secrets to various services are in plain text.
+### Install Ansible dependancies
+Shiftmon requires some extrnal ansible dependancies to run to make sure you have these dependancies installed add the following to `requirements.yml
 
+```yaml
+collections:
+  - community.general
+  - ansible.posix
+  - shiftsystems.shift_mon
+roles:
+  - src: https://github.com/tiny-pangolin/ansible-role-docker
+    version: origin/master
+```
 
-#### Configuring Your playbook.yml File
+3. Create a file called `shift-mon.yml` with the following Template
 
-##### Required playbook.yml
+For storing secrets like tokens, API keys, and passwords it is best to store them outside your inventory or playbooks.
+One way to do this is set environment variables in your shell or your deployment pipeline then reference them by using ansible.builtin.env
+Below you will see many lines that use the `ansible.builtin.env` function. There are two main things to look at in these lines. In our example `VMALERT_PASSWORD` is the expected variable name that you need to add to your environment variables and `default='vmalert'` is the default value if you did not supply one.
 
-Below is an example playbook.yml.
-
-The example playbook.yml below expects many variables to be defined in the environment it runs in. This can be accomplished in many ways, sourcing a `.env` file before running shift-mon or by using CI or other automation tools that handle secrets automatically.
-
-I'll put this here as a reference to anyone who doesn't know how the ansible.builtin.env works.
-Below you will see many lines that look like this. There are two main things to look at in these lines. In our example `VMALERT_PASSWORD` is the expected variable name that you need to add to your environment and `default='vmalert'` is the default value if you did not supply one. Note that due to the nature of most of these values they won't have a default and the playbook will not work properly if they are not supplied.
 ```yml
 "{{ lookup('ansible.builtin.env', 'VMALERT_PASSWORD', default='VMALERT') }}"
 ```
+
+If you want a more secure way of storing secrets look into using [ansible vault](https://docs.ansible.com/ansible/latest/vault_guide/index.html), [bitwarden secrets manager](https://bitwarden.com/blog/bitwarden-secrets-manager-and-ansible/), or [openbao](https://openbao.org/). If you are running this from a CI tool it will likely have a way of managing secrets.
+
+Note that if the variables below that are not commented out are defined then shiftmon will not be setup properly, and the playbook will fail or you will have misconfigured shiftmon.
+
+Install them by running `ansible-galaxy collection install -r requirements.yml --force && ansible-galaxy role install requirements.yml --force`
 
 ```yaml
 - hosts: shiftmon_servers
@@ -84,17 +96,30 @@ Below you will see many lines that look like this. There are two main things to 
       ansible.builtin.set_fact:
         #telegraf_root: true #uncomment if telegraf needs to run as root
         env_telegraf_tags: []
+        # tokens for authenticating to Victoriametrics and Victorialogs
+        victoriametrics_token: '{{ secret_token }}'
+        victorialogs_token: 'its-log-its-log'
+        docker_daemon_options:
+        # Configure Shiftmon to forward logs to syslog
+        log-driver: syslog
+        # Configure Docker to forward logs to Telegraf
+        log-opts:
+          syslog-address: 'udp://localhost:6667'
+          syslog-format: rfc5424
+          tag: "{% raw %}{{.Name}}{% endraw %}"
         extra_vars_tag: []
+        # Token for routing requests from vmalert to vmauth
         vmalert_token: vmalert
+        # Options for configuring alertmanager
         alertmanager:
-          domain: am.local.shiftsystems.net
+          domain: am.example.com
           webhook_url: 'https://example.com/webhook-endpoint'
           webhook_name: 'hooky-mchookface'
-          smtp_host: 'mail.example.com:587'
-          smtp_username: "{{ alertmanager_smtp_username }}"
-          smtp_password: "{{ alertmanager_smtp_password }}"
-          smtp_from_email: "{{ alertmanager_smtp_username }}"
-          smtp_auth_identity: "{{ alertmanager_smtp_username }}"
+          #smtp_host: 'mail.example.com:587'
+          #smtp_username: "{{ alertmanager_smtp_username }}"
+          #smtp_password: "{{ alertmanager_smtp_password }}"
+          #smtp_from_email: "{{ alertmanager_smtp_username }}"
+          #smtp_auth_identity: "{{ alertmanager_smtp_username }}"
           #to_email: "hooky@examples.com"
           users:
             - user: alertmanager
@@ -139,16 +164,17 @@ Below you will see many lines that look like this. There are two main things to 
           password: '{{ shiftmon_smtp_password }}'
           alert_from_name: 'Shiftmon Alerts'
           port: '587'
-        oauth:
-          enabled: true
-          name: "muh-sso-provider"
-          client_id: "{{ oauth_client_id }}"
-          client_secret: "{{ oauth_client_secret }}"
-          auth_url: '{{ oauth_auth_url }}'
-          token_url: '{{ oauth_token_url }}'
-          api_url: '{{ oauth_api_url }}'
-          allowed_domains: 'example.com shiftsystems.net'
-          scope: 'openid email profile'
+        # uncomment to configure SSO
+        #oauth:
+          #enabled: true
+          #name: "muh-sso-provider"
+          #client_id: "{{ oauth_client_id }}"
+          #client_secret: "{{ oauth_client_secret }}"
+          #auth_url: '{{ oauth_auth_url }}'
+          #token_url: '{{ oauth_token_url }}'
+          #api_url: '{{ oauth_api_url }}'
+          #allowed_domains: 'example.com shiftsystems.net'
+          #scope: 'openid email profile'
         # Uncomment to enable LDAP login for Grafana
         #ldap_host: 'ldap.example.com'
         #ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text

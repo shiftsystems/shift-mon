@@ -1,6 +1,0 @@
-collections:
-  - community.general
-  - ansible.posix
-roles:
-  - src: https://github.com/tiny-pangolin/ansible-role-docker
-    version: origin/master
