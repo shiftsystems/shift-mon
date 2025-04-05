@@ -99,40 +99,18 @@
                 "color": "green"
               }
             ]
-          },
-          "unit": "ms"
+          }
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "Anomaly Score"
+              "options": "Anomaly Percentage"
             },
             "properties": [
               {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green"
-                    },
-                    {
-                      "color": "red",
-                      "value": 1
-                    }
-                  ]
-                }
-              },
-              {
                 "id": "unit",
-                "value": "none"
+                "value": "percentunit"
               }
             ]
           }
@@ -159,7 +137,7 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "Anomaly Score"
+            "displayName": "Anomalies Detected"
           }
         ]
       },
@@ -172,7 +150,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(__name__) (anomaly_score{for=~\"http_blackbox|dns_blackbox\"})",
+          "expr": "sum(count_gt_over_time(anomaly_score{for=~\"http_blackbox|dns_blackbox\"}[$__range],1)) without(name)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -186,7 +164,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without (__name__) (yhat{for=~\"http_blackbox|dns_blackbox\"})",
+          "expr": "max(max_over_time(anomaly_score{for=~\"http_blackbox|dns_blackbox\"}[$__range])) without (name)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -201,58 +179,13 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without (__name__) (yhat_upper{for=~\"http_blackbox|dns_blackbox\"})",
+          "expr": "sum(share_gt_over_time(anomaly_score{for=~\"http_blackbox|dns_blackbox\"}[$__range],1)) without (name)",
           "format": "table",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
           "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum without (__name__) (yhat_lower{for=~\"http_blackbox|dns_blackbox\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum without (__name__,db) (http_response_response_time{for=~\"http_blackbox|dns_blackbox\"} * 1000)",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum without (__name__,ip_0,ip_1,ip_2,ip_3,db,record_type) (dns_query_query_time_ms{for=~\"http_blackbox|dns_blackbox\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "F"
         }
       ],
       "title": "Anomaly Scores and Expected Values",
@@ -273,25 +206,18 @@
             "indexByName": {
               "Time": 0,
               "Value #A": 6,
-              "Value #B": 7,
-              "Value #C": 8,
-              "Value #D": 9,
-              "Value #E": 10,
-              "Value #F": 11,
-              "check_name": 12,
-              "domain": 15,
+              "Value #B": 8,
+              "Value #C": 7,
               "for": 1,
-              "host": 13,
-              "method": 14,
               "model_alias": 2,
               "preset": 3,
               "scheduler_alias": 4,
               "server": 5
             },
             "renameByName": {
-              "Value #A": "Anomaly Score",
-              "Value #B": "Expected Value",
-              "Value #C": "Max Expected",
+              "Value #A": "Anomalies Detected",
+              "Value #B": "Max Anomaly Score",
+              "Value #C": "Anomaly Percentage",
               "Value #D": "Min Expected",
               "Value #E": "HTTP Actual",
               "Value #F": "DNS Actual",
@@ -303,12 +229,114 @@
       "type": "table"
     },
     {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisPlacement": "auto",
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "fieldMinMax": true,
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "Normal"
+                },
+                "to": 0.999999
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Anomalous"
+                },
+                "to": 99999999
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 10,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": false,
+        "perPage": 10,
+        "rowHeight": 0.9,
+        "showValue": "never",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum without(__name__) (anomaly_score{for=~\"http_blackbox|dns_blackbox\"})",
+          "legendFormat": "{{server}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Anomaly State",
+      "type": "state-timeline"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 20
       },
       "id": 7,
       "panels": [],
@@ -317,8 +345,8 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -416,7 +444,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 21
       },
       "id": 1,
       "options": {
@@ -441,8 +469,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "http_response_response_time{server=\"$http_endpoint\"} * 1000",
@@ -453,8 +481,8 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "builder",
           "expr": "yhat{server=\"$http_endpoint\"}",
@@ -465,8 +493,8 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "builder",
           "expr": "yhat_upper{server=\"$http_endpoint\"}",
@@ -477,8 +505,8 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "builder",
           "expr": "yhat_lower{server=\"$http_endpoint\"}",
@@ -560,7 +588,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 21
       },
       "id": 3,
       "options": {
@@ -606,7 +634,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 29
       },
       "id": 9,
       "panels": [],
@@ -714,7 +742,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 30
       },
       "id": 5,
       "options": {
@@ -857,7 +885,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 30
       },
       "id": 4,
       "options": {
@@ -982,6 +1010,16 @@
         "refresh": 1,
         "regex": "",
         "type": "query"
+      },
+      {
+        "baseFilters": [],
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
+        },
+        "filters": [],
+        "name": "filter",
+        "type": "adhoc"
       }
     ]
   },
@@ -993,5 +1031,5 @@
   "timezone": "browser",
   "title": "Blackbox Anomaly Detection",
   "uid": "shiftmon-blackbox-anomaly-detection",
-  "version": 14
+  "version": 16
 }
