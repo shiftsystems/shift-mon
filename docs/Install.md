@@ -55,7 +55,8 @@ collections:
   - ansible.posix
   - shiftsystems.shift_mon
 roles:
-  - geerlingguy.docker
+  - src: https://github.com/tiny-pangolin/ansible-role-docker.git
+    scm: git
 ```
 
 3. Create a file called `shift-mon.yml` with the following Template
