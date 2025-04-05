@@ -42,7 +42,7 @@ services:
       timeout: '10s'
       retries: 5
   loki:
-    image: docker.io/grafana/loki:3.4.2
+    image: docker.io/grafana/loki:3.4.3
     restart: unless-stopped
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
@@ -166,7 +166,7 @@ services:
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: quay.io/victoriametrics/vmanomaly:v1.21.0
+    image: quay.io/victoriametrics/vmanomaly:v1.22.0-alpha0
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
