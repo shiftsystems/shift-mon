@@ -24,8 +24,8 @@ all:
     erwin:
   vars:
     blackbox_https_urls:
-      - url: 'https://loki.example.com/ready'
-        check_name: 'Loki'
+      - url: 'https://metrics.example.com/health'
+        check_name: 'Victoriametrics'
         basic_user: '$victoria_user'
         basic_password: '$victoria_password'
         response_string: 'ready'
@@ -113,14 +113,10 @@ all:
   hosts:
     erwin:
   vars:
-    loki:
-      user: telegraf
-      password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-      url: "{{ lookup('env', 'LOKI_URL') }}"
-    victoria:
-      user: telegraf
-      password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-      url: "{{ lookup('env', 'VICTORIA_URL') }}"
+    victoriametrics_url: 'https://metrics.example.com'
+    victoriametrics_token: "{{ lookup('env', 'VICTORIAMETRICS_TOKEN') }}"
+    victorialogs_url: 'https://logs.example.com'
+    victorialogs_token: "{{ lookup('env', 'VICTORIALOGS_TOKEN') }}"
     blackbox_https_urls:
       - url: 'https://grafana.local.example.com/login'
         check_name: 'Grafana'
@@ -154,3 +150,4 @@ all:
       - host: dc2.local.example.com
         port: 389
 ```
+
