@@ -1,11 +1,18 @@
 ## Requirements
-* Ubuntu with 23.10 or later. Ubuntu 22.04 will work with `container_engine: docker` in the playbook
+* Ubuntu with 22.04 or later.
 * A Redhat 8 or 9 based distro (Alma, Rocky)
 * The Current version of Fedora
 * 4 subdomains to point at the server
-* Debian 12 or later. Will work on Debian 11 with `container_engine: docker` in the playbook
+* Debian 12 or later
 
 ## Installation
+
+### CHECKOUT THE CORRECT BRANCH
+make sure you are on the `shiftmon-1` branch
+
+```bash
+git checkout shiftmon-1
+```
 
 ### Setup Ansible on your machine
 
@@ -17,14 +24,17 @@
 1. ```sudo dnf install epel-release```
 2. ```sudo dnf install ansible git ansible```
 
+### Fedora
+1. ```sudo dnf install ansible```
 
 ### Prepping Ubuntu Targets
 You will need to run the following commands on a debian machine before running ansible. Since python3, python3-apt, and gpg are not included in some minimal installs
 ```sudo apt install python3 python3-apt gpg```
 
+
 ### Setup Inventory
-1. Make folder in your home directory for shift-mon and the inventory files `mkdir -p ~/shiftmon` or create a `.yml` or `.yaml` file called `shift-inventory.yml` in your existing repository.
-2. Add the following to `~/shift-mon/shift-inventory.yml`
+1. Create a folder for storing your ansible inventory and playbook for shift-mon `mkdir -p ~/shiftmon`, or you can add the following to your existing Ansible repo.
+2. Add the following to `~/shift-mon/inventory.yml`
 
 ```yaml
 all:
@@ -32,143 +42,199 @@ all:
   children:
     shiftmon_servers:
       hosts:
-        server.local.example.com:
+        server.example.com:
 ```
 
 
-3. Create a edit shift-mon.yml with the following Template
-If don't have a secretes manager can place the variables in quotes however this is insecure since secrets to various services are in plain text.
+### Install Ansible dependancies
+Shiftmon requires some extrnal ansible dependancies to run to make sure you have these dependancies installed add the following to `requirements.yml
 
+```yaml
+collections:
+  - community.general
+  - ansible.posix
+  - shiftsystems.shift_mon
+roles:
+  - geerlingguy.docker
+```
 
-#### Configuring Your playbook.yml File
+3. Create a file called `shift-mon.yml` with the following Template
 
-##### Required playbook.yml
+For storing secrets like tokens, API keys, and passwords it is best to store them outside your inventory or playbooks.
+One way to do this is set environment variables in your shell or your deployment pipeline then reference them by using ansible.builtin.env
+Below you will see many lines that use the `ansible.builtin.env` function. There are two main things to look at in these lines. In our example `VMALERT_PASSWORD` is the expected variable name that you need to add to your environment variables and `default='vmalert'` is the default value if you did not supply one.
 
-Below is an example playbook.yml. It has only what is required to get a basic shift-mon system running.
-There are additional features that you can enable by adding to this playbook.yml file. They are listed below.
-
-The example playbook.yml below expects many variables to be defined in the environment it runs in. This can be accomplished in many ways, sourcing a `.env` file before running shift-mon or by using CI or other automation tools that handle secrets automatically.
-
-I'll put this here as a reference to anyone who doesn't know how the ansible.builtin.env works.
-Below you will see many lines that look like this. There are two main things to look at in these lines. In our example `CONTAINER_ENGINE` is the expected variable name that you need to add to your environment and `default='podman'` is the default value if you did not supply one. Note that do to the nature of most of these values they won't have a default and the playbook will error if they are not supplied.
 ```yml
-"{{ lookup('ansible.builtin.env', 'CONTAINER_ENGINE', default='podman') }}"
+"{{ lookup('ansible.builtin.env', 'VMALERT_PASSWORD', default='VMALERT') }}"
 ```
+
+If you want a more secure way of storing secrets look into using [ansible vault](https://docs.ansible.com/ansible/latest/vault_guide/index.html), [bitwarden secrets manager](https://bitwarden.com/blog/bitwarden-secrets-manager-and-ansible/), or [openbao](https://openbao.org/). If you are running this from a CI tool it will likely have a way of managing secrets.
+
+Note that if the variables below that are not commented out are defined then shiftmon will not be setup properly, and the playbook will fail or you will have misconfigured shiftmon.
+
+Install them by running `ansible-galaxy collection install -r requirements.yml --force && ansible-galaxy role install requirements.yml --force`
 
 ```yaml
 - hosts: shiftmon_servers
+  name: Deploy Shift mon
   tasks:
-    - name: Set Secrets
+    - name: Create shiftmon group
+      ansible.builtin.group:
+        name: shiftmon
+        state: present
+      become: true
+    - name: Create shiftmon user
+      ansible.builtin.user:
+        name: shiftmon
+        state: present
+        groups: shiftmon
+        append: true
+      become: true
+    - name: Set Telegraf Secrets
+      run_once: true
       ansible.builtin.set_fact:
-        # Sets what container engine you want to use. 
-        # Note if the selected container engine is not present it will be installed.
-        container_engine: "{{ lookup('ansible.builtin.env', 'CONTAINER_ENGINE', default='podman') }}"
-        
-        # The email given to LetsEncrypt to issue your SSL certificate.
-        tls:
-          email: '{{ lookup('env', 'LETSENCRYPT_EMAIL') }}'
-        
-        # Users 
-        users: # dictionary of users and their password
-          telegraf: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          
-          ## OPTIONAL
-          # Enable this if you are using fleet yeet
-          # fleet_yeet: "{{ lookup('env', 'FLEET_PASSWORD') }}"
-
-        # Loki Is What Collects Logs And Makes Them Searchable Via Grafana
+        #telegraf_root: true #uncomment if telegraf needs to run as root
+        env_telegraf_tags: []
+        # tokens for authenticating to Victoriametrics and Victorialogs
+        victoriametrics_token: '{{ secret_token }}'
+        victorialogs_token: 'its-log-its-log'
+        docker_daemon_options:
+        # Configure Shiftmon to forward logs to syslog
+        log-driver: syslog
+        # Configure Docker to forward logs to Telegraf
+        log-opts:
+          syslog-address: 'udp://localhost:6667'
+          syslog-format: rfc5424
+          tag: "{% raw %}{{.Name}}{% endraw %}"
+        extra_vars_tag: []
+        # Token for routing requests from vmalert to vmauth
+        vmalert_token: vmalert
+        # Options for configuring alertmanager
+        alertmanager:
+          domain: am.example.com
+          webhook_url: 'https://example.com/webhook-endpoint'
+          webhook_name: 'hooky-mchookface'
+          #smtp_host: 'mail.example.com:587'
+          #smtp_username: "{{ alertmanager_smtp_username }}"
+          #smtp_password: "{{ alertmanager_smtp_password }}"
+          #smtp_from_email: "{{ alertmanager_smtp_username }}"
+          #smtp_auth_identity: "{{ alertmanager_smtp_username }}"
+          #to_email: "hooky@examples.com"
+          users:
+            - user: alertmanager
+              password: alertmanager
         loki:
-          user: telegraf
-          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          url: 'https://logs.local.example.com'
-          domain: logs.local.example.com
-          retention_period: 90d
-
-          ## OPTIONAL
-          # Bring your own SSL cert
-          #cert_path: "{{ playbook_dir }}/files/loki.crt"
-          #key_path: "{{ playbook_dir }}/files/loki.key"
-
-          # Used for bring you own SSL and if you have devices that do not support SSL
-          #insecure: true
-        
-        # Victoria Metrics is the metrics collector, it indexes and stores all metrics for shift-mon
+          retention_period: 30d
+          tsdb_date: "2023-04-30"
+          tsdb_13_date: "2024-04-10"
         victoria:
-          # username and password telegraf should use to authenticate to victoriametrics
-          user: telegraf
-          password: "{{ lookup('env', 'TELEGRAF_PASSWORD') }}"
-          # URL telegraf should use to send metrics to victoriametrics
-          url: 'https://metrics.local.example.com'
-          domain: metrics.local.example.com
+          url: 'https://metrics.example.com'
           retention_period: 90d
-          # OPTIONAL list strings that can be used to authenticate to shiftmon
+          domain: metrics.example.com
+          insecure: false
+          #downsampling_period: '1d:1m,7d:5m' # only available if you have an license of Victoriametrics
+          #retention_filter: '{db=~`opnsense|windows`}:30d' # only available if you have an license of Victoriametrics
+          #license: "GET_YOUR_OWN" # only available if you have an license of Victoriametrics
           tokens:
-            - token1
-            - token2
-          ## OPTIONAL
-          # Bring your own SSL cert
-          #cert_path: "{{ playbook_dir }}/files/victoria.crt"
-          #key_path: "{{ playbook_dir }}/files/victoria.key"
-          # Provision recording rules for storing metrics from commonly used queries like SLOs must end in .yaml or .yml to be evaluated
-          rule_files:
-            blackbox: /path/to/blackbox.yaml
-            pango: /path/to/pango-rules.yml
-          # Used for bring you own SSL and if you have devices that do not support SSL
-          # insecure: true
-          # license: asdfasdfasdfasdf # Victoriametrics enterprise license required for rententionfilter and downsampling to work
-          # downsampling_period: 1d:1m,7d:5m # rqeuires enterprise license more details about downsampling can be found in the victoriametrics docs https://docs.victoriametrics.com/#downsampling
-          # retention_filter: # sets per label retention policy more info can be found in the victoriametrics docs https://docs.victoriametrics.com/#retention-filters
-        # Grafana is a GUI for viewing your logs and metrics using graphs
+            - '{{ secret_token }}'
+            - '{{ other_secret_token }}'
+          users:
+            - user: victoriametrics
+              password: victoriametrics
+           # uncomment these lines if you want to add your own rules to vmalert
+           #rule_files:
+           #pango: "{{ playbook_dir}}/rule-files/pango.yaml"
+        victorialogs:
+          domain: logs.example.com
+          tokens:
+            - 'its-log-its-log'
+            - 'its-big-its-heavy-its-wood'
+          users:
+            - user: victorialogs
+              password: "victorialogs"
+          retention_period: '30d'
+          #syslog_port: '514' # uncomment if you want to use Victorialogs as a syslog server Please use Telegraf as syslog if possible
+        vmanomaly_enabled: true
+        email:
+          enabled: true
+          host: 'mail.example.com'
+          alert_from_address: 'alerts@shiftsystems.net'
+          user: 'alerts@example.com'
+          password: '{{ shiftmon_smtp_password }}'
+          alert_from_name: 'Shiftmon Alerts'
+          port: '587'
+        # uncomment to configure SSO
+        #oauth:
+          #enabled: true
+          #name: "muh-sso-provider"
+          #client_id: "{{ oauth_client_id }}"
+          #client_secret: "{{ oauth_client_secret }}"
+          #auth_url: '{{ oauth_auth_url }}'
+          #token_url: '{{ oauth_token_url }}'
+          #api_url: '{{ oauth_api_url }}'
+          #allowed_domains: 'example.com shiftsystems.net'
+          #scope: 'openid email profile'
+        # Uncomment to enable LDAP login for Grafana
+        #ldap_host: 'ldap.example.com'
+        #ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
+        #bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=local,dc=example,dc=com'
+        #base_dn: 'dc=local,dc=shiftsystems,dc=net'
+        #user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
+        #ldap_first_name: 'givenName'
+        #member_of: 'memberOf'
+        #ldap_last_name: 'sn'
+        #ldap_user: 'uid'
+        #ldap_email: 'mail'
+        #admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
+        # bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
+        syslog: rsyslog
+        reverse_lookup_remote_syslog: false
+        reverse_lookup_syslog: false
+        remote_syslog: true
+        # uncomment to use DNS verification with Traefik
+        #dns:
+        #provider: cloudflare
+        #auth_values:
+        #CF_DNS_API_TOKEN: "GET_YOUR_OWN"
         grafana:
-          domain: grafana.local.example.com
-
-          ## OPTIONAL
-          # Bring your own SSL cert
-          #cert_path: "{{ playbook_dir }}/files/grafana.crt"
-          #key_path: "{{ playbook_dir }}/files/grafana.key"
-          # Path to YAML File which contains Grafana Alerts
-          #abert_path: "{{ playbook_dir }}/user-alerts.yml"
-          # Dictionary of folders with your own dashboards you want to provision with shiftmon
+          domain: grafana.example.com
+          #alert_path: "{{ playbook_dir }}/user-alerts.yml" # uncomment to add Grafana managed alerting rules
+          basic_auth_user: "{{ grafana_basic_auth_user }}"
+          basic_auth_password: "{{ grafana_basic_auth_password }}"
+# uncomment to add your own dashboards to Grafana each key should have a value that points to a folder
           #dashboard_paths:
-            #business: "{{ playbook_dir }}/business"
-        # Ansible variables
-        ansible_remote_tmp: /tmp
-        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-        ###########################
-        #
-        # Paste optional feature variables here
-        #
-        ###########################
-
-
+          #  stonks: "{{ playbook_dir }}/stonks"
+          #  business: "{{ playbook_dir }}/business"
+          #  matrix: "{{ playbook_dir }}/matrix"
+        tls:
+          email: 'test@example.com'
     - name: Deploy Telegraf
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.telegraf
+        name: telegraf
         public: true
-    - name: Deploy Uptime-Kuma
+    - name: Deploy victoriametrics
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.uptime_kuma
+        name: victoriametrics
         public: true
-    - name: Deploy Victoriametrics
+    - name: Deploy loki
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.victoriametrics
+        name: loki
         public: true
-    - name: Deploy Loki
+    - name: Deploy grafana
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.loki
+        name: grafana
         public: true
-    - name: Deploy Grafana
+    - name: Deploy traefik
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.grafana
+        name: traefik
         public: true
-    - name: Deploy Traefik
+# Uncomment to deploy vmanomaly this requires a Victoriametrics Enterprise license
+#    - name: Deploy vmanomaly
+#      ansible.builtin.include_role:
+#        name: vmanomaly
+    - name: Deploy Docker
       ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.traefik
-        public: true
-    - name: Deploy Podman
-      ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.podman
+        name: docker
         public: true
 ```
 
@@ -188,32 +254,6 @@ You can copy and paste these groups of variables to enable additional features o
           alert_from_name: 'Shiftmon Alerts'
           port: '587'
 ```
-
-###### Grafana Oncall
-```yaml
-        oncall_enabled: true
-        oncall:
-          secret: "{{ lookup('env', 'ONCALL_SECRET') }}"
-          domain: "oncall.local.example.com"
-
-          ## OPTIONAL
-          # Bring your own SSL cert
-          #key_path: "{{ playbook_dir }}/files/oncall.key"
-          #cert_path: "{{ playbook_dir }}/files/oncall.crt"
-```
-
-###### Uptime Kuma
-```yaml
-        uptime_kuma_enabled: true
-        uptimekuma:
-          domain: uptime-kuma.local.example.com
-
-          ## OPTIONAL
-          # Bring your own SSL cert
-          #cert_path: "{{ playbook_dir }}/files/uptime-kuma.crt"
-          #key_path: "{{ playbook_dir }}/files/uptime-kuma.key"
-```
-
 ###### TSDB Date
 
 If you are just installing Shiftmon please set `tsdb_13_date` the date you are deploying Shiftmon formatted `yyyy-mm-dd` This will be the default in the future.
@@ -231,38 +271,6 @@ Loki is moving to using the TSDB index and depcrecating the default boltdb index
 
 ###### LDAP Authentication
 ```yaml
-        ldap_host: 'ldap.example.com'
-        ldap_port: '389' # use 636 for SSL use 389 for STARTTLS and please don't use plain text
-        bind_dn: 'uid=grafana_bind,cn=users,cn=accounts,dc=local,dc=example,dc=com'
-        base_dn: 'dc=local,dc=shiftsystems,dc=net'
-        user_search: '(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))'
-        ldap_first_name: 'givenName'
-        member_of: 'memberOf'
-        ldap_last_name: 'sn'
-        ldap_user: 'uid'
-        ldap_email: 'mail'
-        admin_group: 'cn=admins,cn=groups,cn=accounts,dc=local,dc=example,dc=com'
-        # bind_password: "{{ lookup('env', 'BIND_PASSWORD') }}" # optional LDAP Bind Password
-```
-
-###### OIDC Authentication
-```yaml
-        oauth:
-          auth: true
-          name: "The name you want to show up on Grafana login page"
-          client_id: "{{ lookup('env', 'OIDC_CLIENT_ID')}}"
-          client_secret: "{{ lookup('env', 'OIDC_CLIENT_SECRET')}}"
-
-          # You will find auth_url, token_url and api_url in the docs of your OIDC provider. 
-          auth_url: 'https://oidc.example.com/login/oauth/authorize'
-          token_url: 'https://oidc.example.com/login/oauth/access_token'
-          api_url: 'https://oidc.example.com/login/oauth/userinfo'
-
-          # These should be fine but also check your OIDC provider's documentation.
-          scope: 'openid profile email'
-
-          # Optional List of space separated domains for deploying 
-          allowed_domains: 'example.com example.net'
 ```
 
 ###### Bring Your Own Dashboards
@@ -290,24 +298,10 @@ For Linux Devices Please use the ansible roles. There is a shell script but it d
 
 By default the username and password for loki and Victoriametrics are stored in `/etc/default/telegraf` if you want to use linux kernel secrets you can set `use_telegraf_secrets: true` but you will need to apply secrets after every reboot since Linux kernel secrets do not persist across reboots.
 
-By default the Telegraf Ansible role will try to instrument the following services automatically if found on a system.
+By default the Telegraf Ansible role will try to instrument the Services listed in the [README](README.md) automatically if found on a system.
 
-* adguardhome
-* crowdsec
-* caddy
-* docker
-* httpd (apache web server)
-* keepalived
-* libvirt
-* loki
-* meshagent (meshcentral client)
-* mysql
-* nginx
-* podman
-* victoriametrics
-* zfs
 
-Services are discovered by looking at the list of systemd services present on a system or looking for a binary.
+Services are discovered by looking at the list of systemd services present on a system, looking for a binary in a certain path, or based off of variables that define an endpoint and credentails for connecting to that endpoint.
 If you add one of the supported services to your system just rerun the Telegraf role and the appropriate Telegraf config will be added.
 To prevent automatic instrumentation for a service from occurring add a variable called `do_not_instrument: []` to your inventory with the services you do not want shift-mon to instrument from the list above in the form of a list ex `do_not_instrument: ["mysql","docker"]` will not instrument mysql and docker but instrument everything else.
 `do_not_instrument: ["docker"]` will not instrument docker automatically, and even though it is 1 item it still needs to be a list.
@@ -317,10 +311,8 @@ Defining this variable WILL NOT cause a previously deployed configurations to be
 By default Telegraf runs as an unprivileged user if you are running into issues with telegraf not having the right permissions to collect certain data please change group membership, permissions on a resource, or add the required capabilities to the telegraf user.
 Telegraf can be run as root on your system by setting `telegraf_root: true` in your inventory for that host or group if needed, but this is a security risk since telegraf can run arbitrary scripts using the exec and execd plugins
 
-### [Pushing Telegraf to Linux hosts via Ansible or shell script](docs/Telegraf/Linux.md)
 
-
-### [Pushing Telegraf to Windows and Linux Endpoints via MeshCentral](docs/Telegraf/Windows.md)
+### [Pushing Telegraf to Windows via MeshCentral](docs/Telegraf/Windows.md)
 This should a be a similar workflow to most RMMs. upload the scripts, change your particulars, and yeet it on to your endpoints
 
 
@@ -366,3 +358,4 @@ If you are not sure how to get a token, please refer to the Generate Additional 
 
 
 ### [OPNSense](docs/Telegraf/OPNSense.md)
+
