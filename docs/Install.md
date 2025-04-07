@@ -96,8 +96,9 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
       ansible.builtin.set_fact:
         #telegraf_root: true #uncomment if telegraf needs to run as root
         env_telegraf_tags: []
-        # tokens for authenticating to Victoriametrics and Victorialogs
+        # token for authenticating to Victorialogs will automatically be added to vmauth
         victoriametrics_token: '{{ secret_token }}'
+        # token for authenticating telegraf to Victorialogs will automatically be added to vmauth
         victorialogs_token: 'its-log-its-log'
         docker_daemon_options:
         # Configure Shiftmon to forward logs to syslog
@@ -108,7 +109,7 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
           syslog-format: rfc5424
           tag: "{% raw %}{{.Name}}{% endraw %}"
         extra_vars_tag: []
-        # Token for routing requests from vmalert to vmauth
+        # Token for routing requests from vmalert to correct backend
         vmalert_token: vmalert
         # Options for configuring alertmanager
         alertmanager:
@@ -136,25 +137,27 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
           #downsampling_period: '1d:1m,7d:5m' # only available if you have an license of Victoriametrics
           #retention_filter: '{db=~`opnsense|windows`}:30d' # only available if you have an license of Victoriametrics
           #license: "GET_YOUR_OWN" # only available if you have an license of Victoriametrics
-          tokens:
-            - '{{ secret_token }}'
-            - '{{ other_secret_token }}'
-          users:
-            - user: victoriametrics
-              password: victoriametrics
+
+          # List of for accessing Victoriametrics
+          # tokens:
+          #  - '{{ other_secret_token }}'
+          # List of users for accessing Victoriametrics using http Basic auth
+          #users:
+          #  - user: victoriametrics
+          #    password: victoriametrics
            # uncomment these lines if you want to add your own rules to vmalert
            #rule_files:
            #pango: "{{ playbook_dir}}/rule-files/pango.yaml"
         victorialogs:
           domain: logs.example.com
-          tokens:
-            - 'its-log-its-log'
-            - 'its-big-its-heavy-its-wood'
-          users:
-            - user: victorialogs
-              password: "victorialogs"
+          # List of tokens allowed to access Victorialogs
+          #tokens:
+          #  - 'its-big-its-heavy-its-wood'
+          # List of Users allowed to Access victorialogs using http basic auth
+          #users:
+          #  - user: victorialogs
+          #    password: "victorialogs"
           retention_period: '30d'
-          #syslog_port: '514' # uncomment if you want to use Victorialogs as a syslog server Please use Telegraf as syslog if possible
         vmanomaly_enabled: true
         email:
           enabled: true
@@ -209,6 +212,10 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
           #  matrix: "{{ playbook_dir }}/matrix"
         tls:
           email: 'test@example.com'
+        # Uncomment to set default Grafana admin user
+        #admin_user: admin
+        #admin_password: password
+        #admin_email: admin@example.com
     - name: Deploy Telegraf
       ansible.builtin.include_role:
         name: telegraf
