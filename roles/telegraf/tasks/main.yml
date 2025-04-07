@@ -447,7 +447,7 @@
     - ansible_facts['os_family'] == "RedHat"
 
 - name: Install Sensors on Debian based systems
-  ansible.builtin.dnf:
+  ansible.builtin.apt:
     name: lm-sensors
     state: latest
   become: true
