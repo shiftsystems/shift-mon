@@ -223,12 +223,6 @@ services:
     command:
       - -storageDataPath=/victorialogs
       - -retentionPeriod={{ victorialogs.retention_period }}
-{% if victorialogs.syslog_port is defined %}
-      - '-syslog.listenAddr.tcp=0.0.0.0:{{ victorialogs.syslog_port }}'
-      - '-syslog.listenAddr.udp=0.0.0.0:{{ victorialogs.syslog_port }}'
-    ports:
-      - {{ victorialogs.syslog_port }}:{{ victorialogs.syslog_port }}
-{% endif %}
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9428/health"]
       interval: 5s
