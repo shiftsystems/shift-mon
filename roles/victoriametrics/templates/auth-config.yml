@@ -1,9 +1,9 @@
 users:
-{% for token in victoria.tokens %}
+{% for token in victoriametrics_merged_tokens %}
   - bearer_token: '{{ token }}'
     url_prefix: 'http://victoriametrics:8428'
 {% endfor %}
-{% for token in victorialogs.tokens %}
+{% for token in victorialogs_merged_tokens %}
   - bearer_token: '{{ token }}'
     url_prefix: 'http://victorialogs:9428'
 {% endfor %}

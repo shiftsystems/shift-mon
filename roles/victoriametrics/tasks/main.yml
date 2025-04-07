@@ -42,6 +42,11 @@
     - scrape-config.yml
     - relabel-config.yml
 
+- name: Append Telegraf tokens to token list
+  ansible.builtin.set_fact:
+    victoriametrics_merged_tokens: "{{ victoria.tokens + [victoriametrics_token] }}"
+    victorialogs_merged_tokens: "{{ victorialogs.tokens + [victorialogs_token] }}"
+
 - name: Add VMAuth Template
   ansible.builtin.template:
     src: auth-config.yml
