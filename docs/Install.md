@@ -122,12 +122,11 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
           #smtp_from_email: "{{ alertmanager_smtp_username }}"
           #smtp_auth_identity: "{{ alertmanager_smtp_username }}"
           #to_email: "hooky@examples.com"
-          users:
-            - user: alertmanager
-              password: alertmanager
+        alertmanager_users:
+          - user: alertmanager
+            password: alertmanager
         loki:
           retention_period: 30d
-          tsdb_date: "2023-04-30"
           tsdb_13_date: "2024-04-10"
         # List of for accessing Victoriametrics
         # victoriametrics_tokens:
@@ -140,7 +139,7 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
         #victorialogs_tokens:
         #  - 'its-big-its-heavy-its-wood'
         # List of Users allowed to Access victorialogs using http basic auth
-        #victoriametrics_users:
+        #victorialogs_users:
         #  - user: victorialogs
         #    password: "victorialogs"
         victoria:
