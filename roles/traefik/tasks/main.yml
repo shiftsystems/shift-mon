@@ -82,62 +82,13 @@
   when: victoria.key_path is defined
   become: true
 
-- name: Copy Loki cert
-  ansible.builtin.copy:
-    src: '{{ loki.cert_path }}'
-    dest: '/opt/shift-mon/traefik/certs/loki.crt'
-    owner: root
-    group: root
-    mode: '660'
-  when: loki.cert_path is defined
+- name: Add Traefik log config to telegraf
+  ansible.builtin.template:
+    src: traefik.conf
+    dest: /etc/telegraf/telegraf.d/traefik.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
   become: true
+  when: telegraf_traefik_config is defined and telegraf_traefik_config
 
-- name: Copy Loki key
-  ansible.builtin.copy:
-    src: '{{ loki.key_path }}'
-    dest: '/opt/shift-mon/traefik/certs/loki.key'
-    owner: root
-    group: root
-    mode: '660'
-  when: loki.key_path is defined
-  become: true
-
-- name: Copy Uptime-Kuma cert
-  ansible.builtin.copy:
-    src: '{{ uptimekuma.cert_path }}'
-    dest: '/opt/shift-mon/traefik/certs/uptime-kuma.crt'
-    owner: root
-    group: root
-    mode: '660'
-  when: uptimekuma.cert_path is defined
-  become: true
-
-- name: Copy Uptime-Kuma key
-  ansible.builtin.copy:
-    src: '{{ uptimekuma.key_path }}'
-    dest: '/opt/shift-mon/traefik/certs/uptime-kuma.key'
-    owner: root
-    group: root
-    mode: '660'
-  when: uptimekuma.key_path is defined
-  become: true
-
-- name: Copy Oncall cert
-  ansible.builtin.copy:
-    src: '{{ oncall.cert_path }}'
-    dest: '/opt/shift-mon/traefik/certs/oncall.crt'
-    owner: root
-    group: root
-    mode: '660'
-  when: oncall.cert_path is defined
-  become: true
-
-- name: Copy Oncall key
-  ansible.builtin.copy:
-    src: '{{ oncall.key_path }}'
-    dest: '/opt/shift-mon/traefik/certs/oncall.key'
-    owner: root
-    group: root
-    mode: '660'
-  when: oncall.key_path is defined
-  become: true
