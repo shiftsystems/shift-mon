@@ -129,6 +129,20 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
           retention_period: 30d
           tsdb_date: "2023-04-30"
           tsdb_13_date: "2024-04-10"
+        # List of for accessing Victoriametrics
+        # victoriametrics_tokens:
+        #  - '{{ other_secret_token }}'
+        # List of users for accessing Victoriametrics using http Basic auth
+        #victoriametrics_users:
+        #  - user: victoriametrics
+        #    password: victoriametrics
+        # List of tokens allowed to access Victorialogs
+        #victorialogs_tokens:
+        #  - 'its-big-its-heavy-its-wood'
+        # List of Users allowed to Access victorialogs using http basic auth
+        #victoriametrics_users:
+        #  - user: victorialogs
+        #    password: "victorialogs"
         victoria:
           url: 'https://metrics.example.com'
           retention_period: 90d
@@ -137,26 +151,11 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
           #downsampling_period: '1d:1m,7d:5m' # only available if you have an license of Victoriametrics
           #retention_filter: '{db=~`opnsense|windows`}:30d' # only available if you have an license of Victoriametrics
           #license: "GET_YOUR_OWN" # only available if you have an license of Victoriametrics
-
-          # List of for accessing Victoriametrics
-          # tokens:
-          #  - '{{ other_secret_token }}'
-          # List of users for accessing Victoriametrics using http Basic auth
-          #users:
-          #  - user: victoriametrics
-          #    password: victoriametrics
            # uncomment these lines if you want to add your own rules to vmalert
            #rule_files:
            #pango: "{{ playbook_dir}}/rule-files/pango.yaml"
         victorialogs:
           domain: logs.example.com
-          # List of tokens allowed to access Victorialogs
-          #tokens:
-          #  - 'its-big-its-heavy-its-wood'
-          # List of Users allowed to Access victorialogs using http basic auth
-          #users:
-          #  - user: victorialogs
-          #    password: "victorialogs"
           retention_period: '30d'
         vmanomaly_enabled: true
         email:

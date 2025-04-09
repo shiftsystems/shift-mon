@@ -7,21 +7,27 @@ users:
   - bearer_token: '{{ token }}'
     url_prefix: 'http://victorialogs:9428'
 {% endfor %}
-{% for user in victoria.users %}
+{% if victoriametrics_users is defined %}
+{% for user in victoriametrics_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
     url_prefix: 'http://victoriametrics:8428'
 {% endfor %}
-{% for user in victorialogs.users %}
+{% endif %}
+{% if victorialogs_users is defined %}
+{% for user in victorialogs_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
     url_prefix: 'http://victorialogs:9428'
 {% endfor %}
-{% for user in alertmanager.users %}
+{% endif %}
+{% if alertmanager_users is defined %}
+{% for user in alertmanager_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
     url_prefix: 'http://alertmanager:9093'
 {% endfor %}
+{% endif %}
   - bearer_token: '{{ vmalert_token }}'
     url_map:
       - src_paths:
