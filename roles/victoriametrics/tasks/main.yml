@@ -44,8 +44,8 @@
 
 - name: Append Telegraf tokens to token list
   ansible.builtin.set_fact:
-    victoriametrics_merged_tokens: "{{ victoria.tokens + [victoriametrics_token] }}"
-    victorialogs_merged_tokens: "{{ victorialogs.tokens + [victorialogs_token] }}"
+    victoriametrics_merged_tokens: "{{ victoria_tokens + [victoriametrics_token] }}"
+    victorialogs_merged_tokens: "{{ victorialogs_tokens + [victorialogs_token] }}"
 
 - name: Add VMAuth Template
   ansible.builtin.template:
