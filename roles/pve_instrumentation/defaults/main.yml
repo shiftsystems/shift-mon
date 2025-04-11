@@ -3,3 +3,4 @@ metrics_name: "shift-mon"
 metrics_port: 443
 metrics_protocol: "https"
 metrics_bucket: "proxmox"
+syslog_host: "{{ victorialogs_url }}"
