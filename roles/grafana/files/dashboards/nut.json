@@ -56,8 +56,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -85,8 +84,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "red",
-                      "value": null
+                      "color": "red"
                     },
                     {
                       "color": "green",
@@ -109,8 +107,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -159,8 +156,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "red",
-                      "value": null
+                      "color": "red"
                     },
                     {
                       "color": "green",
@@ -206,7 +202,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "editorMode": "code",
@@ -396,8 +392,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -437,7 +432,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -507,8 +502,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -548,7 +542,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -582,6 +576,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
+            "axisSoftMin": 0,
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
@@ -610,12 +605,12 @@
             }
           },
           "mappings": [],
+          "min": 5,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -647,7 +642,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -713,8 +708,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -746,7 +740,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -812,8 +806,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -845,7 +838,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -911,8 +904,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -944,7 +936,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -995,8 +987,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1008,7 +999,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 1
+            "y": 28
           },
           "id": 14,
           "options": {
@@ -1023,7 +1014,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "11.5.2",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -1106,7 +1097,7 @@
             "h": 15,
             "w": 24,
             "x": 0,
-            "y": 34
+            "y": 35
           },
           "id": 16,
           "options": {
@@ -1120,7 +1111,7 @@
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "11.5.2",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -1143,7 +1134,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
@@ -1213,6 +1204,5 @@
   "timezone": "",
   "title": "NUT/UPSD",
   "uid": "shiftmon-nut",
-  "version": 2,
-  "weekStart": ""
+  "version": 3
 }
