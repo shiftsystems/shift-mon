@@ -4,6 +4,26 @@ Shiftmon also wires together all the components needed to view alerts and alertm
 If you still want to use Grafana managed rules so rules can be created via a GUI this is supported and Loki is configured for managing alert state to help Grafana managed alerts scale.
 Shiftmon also configures Victoriametrics as the remotewrite destination for recording rules
 
+## Enabling Alertmanager to send notifications
+Shiftmon includes a template for configuring alertmanager to send notifications via an unauthenticated webhook and/or via email.
+
+### Configure SMTP
+
+
+### Configure a webhook
+
+
+### service that support alertmanager webhooks.
+
+Below is a list of services that work with alertmanager via a webhook.
+This is list is not complete, but it should be helpful
+
+* [ilert](https://docs.ilert.com/integrations/inbound-integrations/victoria-metrics)
+* [pagerduty](https://www.pagerduty.com/docs/guides/prometheus-integration-guide/)
+* ntfy
+
+If you want to configure alertmanager to fit your needs you can follow the [alertmanager configuration docs](https://prometheus.io/docs/alerting/latest/configuration/) and pass a valid alertmanager configuration to the varaiable `shiftmon_alertmanager_config`
+
 ## Enabling alerting rules maintained by shiftmon
 To avoid alert fatigue, Shiftmon does not have any alerting or recording rules enabled by default.
 Each of the variables below will enable a group of alerts related to a certain service if you wish to turn them off simply delete the key or set it to `false` and rerun the shiftmon.yml playbook
