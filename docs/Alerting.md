@@ -5,13 +5,41 @@ If you still want to use Grafana managed rules so rules can be created via a GUI
 Shiftmon also configures Victoriametrics as the remotewrite destination for recording rules
 
 ## Enabling Alertmanager to send notifications
-Shiftmon includes a template for configuring alertmanager to send notifications via an unauthenticated webhook and/or via email.
+Shiftmon includes a template for configuring alertmanager to send notifications via an webhook and/or via email. If both SMTP variables and webhook variables are defined alerts will be routed to both destinations.
 
-### Configure SMTP
+### Configuring SMTP
+To configure alertmanager to send emails via SMTP the  following will need to be added
 
+- a server and port in the format `<smtp_url:smtp_port>` (smtp_host)
+- a from email address where emails will appear to be sent from (smtp_auth_identity)
+- a username for authenticating to the SMTP server (smtp_username)
+- a password for authenticating to the SMTP server (smtp_password)
+- a email address to send the alerts to. (to_email)
+
+The following optional values can also be defined
+- disable verifying SSL certificates to the SMTP server (smtp_require_tls)
+
+```yaml
+alertmanager:
+  smtp_host: "mail.example.com:587"
+  smtp_username: "alerts@example.com"
+  smtp_password: "super_secure_password"
+  smtp_from_email: "alerts@example.com"
+  smtp_auth_identity: "alerts@example.com"
+  #smtp_require_tls: false
+```
 
 ### Configure a webhook
+To configure alertmanager to send a webhooks you only need to define a name and a URL for the webhook under the alertmanager object
 
+```yaml
+alertmanager:
+  webhook_name: 'alerty-alertface'
+  webhook_url: 'https://alerts.example.com/?api_key=1234567'
+```
+
+
+If you want to configure more complex polices like inhibitions or matchers, then you can override the defaulttemplate by defining `shiftmon_alertmanager_config` to a valid alertmanager configuration. Details about alertmanager configuration can be found in the [Prometheus alertmanager documentation documentation](https://prometheus.io/docs/alerting/latest/configuration/)
 
 ### service that support alertmanager webhooks.
 
@@ -20,7 +48,8 @@ This is list is not complete, but it should be helpful
 
 * [ilert](https://docs.ilert.com/integrations/inbound-integrations/victoria-metrics)
 * [pagerduty](https://www.pagerduty.com/docs/guides/prometheus-integration-guide/)
-* ntfy
+* [ntfy]()
+* [keep]()
 
 If you want to configure alertmanager to fit your needs you can follow the [alertmanager configuration docs](https://prometheus.io/docs/alerting/latest/configuration/) and pass a valid alertmanager configuration to the varaiable `shiftmon_alertmanager_config`
 
