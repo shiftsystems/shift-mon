@@ -38,20 +38,21 @@ alertmanager:
   webhook_url: 'https://alerts.example.com/?api_key=1234567'
 ```
 
-
-If you want to configure more complex polices like inhibitions or matchers, then you can override the defaulttemplate by defining `shiftmon_alertmanager_config` to a valid alertmanager configuration. Details about alertmanager configuration can be found in the [Prometheus alertmanager documentation documentation](https://prometheus.io/docs/alerting/latest/configuration/)
+If you want to configure more complex polices like inhibitions or matchers, then you can override the defaulttemplate by defining `shiftmon_alertmanager_config` to a valid alertmanager configuration. Details about alertmanager configuration can be found in the [Prometheus alertmanager documentation](https://prometheus.io/docs/alerting/latest/configuration/)
 
 ### service that support alertmanager webhooks.
 
 Below is a list of services that work with alertmanager via a webhook.
 This is list is not complete, but it should be helpful
 
-* [ilert](https://docs.ilert.com/integrations/inbound-integrations/victoria-metrics)
-* [pagerduty](https://www.pagerduty.com/docs/guides/prometheus-integration-guide/)
-* [ntfy]()
-* [keep]()
+- [ilert](https://docs.ilert.com/integrations/inbound-integrations/victoria-metrics)
+- [pagerduty](https://www.pagerduty.com/docs/guides/prometheus-integration-guide/)
+- [ntfy with formatting](https://docs.ntfy.sh/publish/#message-templating)
+- [ntfy with a community integration](https://docs.ntfy.sh/integrations/?h=alertmanager#projects-scripts)
+- [keep](https://docs.keephq.dev/providers/documentation/victoriametrics-provider)
+- [pagertree](https://pagertree.com/docs/integration-guides/prometheus)
 
-If you want to configure alertmanager to fit your needs you can follow the [alertmanager configuration docs](https://prometheus.io/docs/alerting/latest/configuration/) and pass a valid alertmanager configuration to the varaiable `shiftmon_alertmanager_config`
+If you want to configure alertmanager to fit your needs you can follow the [alertmanager configuration docs](https://prometheus.io/docs/alerting/latest/configuration/) and pass a valid alertmanager configuration to the variable `shiftmon_alertmanager_config`
 
 ## Enabling alerting rules maintained by shiftmon
 To avoid alert fatigue, Shiftmon does not have any alerting or recording rules enabled by default.
