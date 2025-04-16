@@ -138,25 +138,30 @@ groups:
     type: vlogs
     rules:
       - alert: Storage Offline
-        expr: 'tags.appname:pve AND ~"storage .* is not online" | stats by (hostname) count() as storage_online_errors | filter storage_online_errors:>0'
+        expr: 'tags.appname:pve AND ~"storage .* is not online" | rename tags.hostname as hostname | stats by (hostname) count() as storage_online_errors | filter storage_online_errors:>0'
         annotations:
-          summary: 'storage failed offline on {{ $labels.tags.hostname }}'
-          description: 'storage offline on {{ $labels.tags.hostname }}'
+          summary: 'storage failed offline on {{ $labels.hostname }}'
+          description: 'storage offline on {{ $labels.hostname }}'
       - alert: Storage Failed to activate
-        expr: 'tags.appname:pve AND "could not activate storage" | stats by (hostname) count() as storage_activation_errors | filter storage_activation_errors:>0'
+        expr: 'tags.appname:pve AND "could not activate storage" | rename tags.hostname as hostname | stats by (hostname) count() as storage_activation_errors | filter storage_activation_errors:>0'
         annotations:
-          summary: 'storage failed to activate on {{ $labels.tags.hostname }}'
-          description: 'storage failed to activate on {{ $labels.tags.hostname }}'
+          summary: 'storage failed to activate on {{ $labels.hostname }}'
+          description: 'storage failed to activate on {{ $labels.hostname }}'
       - alert: Failing Hard drive
-        expr: 'tags.appname:"smartd" AND "FAILED" | extract "Device: <block_device> <_>" | stats by (tags.hostname,block_device) count() as smart_errors | filter smart_errors:>0'
+        expr: 'tags.appname:"smartd" AND "FAILED" | rename tags.hostname as hostname | extract "Device: <block_device> <_>" | stats by (hostname,block_device) count() as smart_errors | filter smart_errors:>0'
         annotations:
-          summary: 'failing drive on node {{ $labels.tags.hostname }}'
-          description: 'device: {{ $labels.block_device }} is failing on {{ $labels.tags.hostname }}'
+          summary: 'failing drive on node {{ $labels.hostname }}'
+          description: 'device: {{ $labels.block_device }} is failing on {{ $labels.hostname }}'
       - alert: Failed PBS task
-        expr: '_time:1h tags.appname:pbs AND ~"fail|error" | extract "UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_id_4>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>" | stats by (tags.hostname,task_type) count() as failures | failures:>0'
+        expr: '_time:1h tags.appname:pbs AND ~"fail|error" | rename tags.hostname as hostname | extract "UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_id_4>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>" | stats by (hostname,task_type) count() as failures | failures:>0'
         annotations:
-          summary: 'task errors on {{ $labels.tags.hostname }}'
-          description: '{{ $labels.task_info }} occured on {{ $labels.tags.hostname }}'
+          summary: 'task errors on {{ $labels.hostname }}'
+          description: '{{ $labels.task_info }} occured on {{ $labels.hostname }}'
+      - alert: failedScrub
+        expr: 'tags.appname:zed AND "err" | unpack_logfmt | rename tags.hostname as hostname | stats by (hostname,pool,vdev) count()'
+        annotations:
+          summary: 'srub errors on {{ $labels.hostname }}'
+          description: 'scrub errors on {{ $labels.vdev }} in {{ $labels.pool }} on {{ $labels.hostname }}'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_freeipa_enabled %}
@@ -166,10 +171,10 @@ groups:
     type: vlogs
     rules:
       - alert: FreeIPA replication failure
-        expr: "tags.path:'/var/log/dirsrv/slapd' AND `Can't locate CSN` | stats by (tags.host) count() replication_errors | filter smart_errors:>0"
+        expr: "tags.path:'/var/log/dirsrv/slapd' AND `Can't locate CSN` | rename tags.host as host | stats by (host) count() replication_errors | filter smart_errors:>0"
         annotations:
-          summary: 'FreeIPA Replication failure on {{ $labels.tags.host }}'
-          description: 'FreeIPA Replication failure on {{ $labels.tags.host }}'
+          summary: 'FreeIPA Replication failure on {{ $labels.host }}'
+          description: 'FreeIPA Replication failure on {{ $labels.host }}'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_victorialogs_enabled %}
@@ -339,5 +344,21 @@ groups:
         expr: 'tags.path:querylog.json AND fields.Result_IsFiltered:"true" | stats by (tags.host) count()'
       - record: adguardhome:cached:request:rate5m
         expr: 'tags.path:querylog.json AND fields.Cached:"true" | stats by(tags.host) count()'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_log_rules %}
+{% raw %}
+# Rule to find number of logs per path
+  - name: Log count
+    limit: 0
+    eval_offset: 10s
+    interval: 2m
+    type: vlogs
+    rules:
+      - record: 'logs_per_path:2m'
+        expr: 'tags.path:!"" | stats by (tags.path,tags.host) count()'
+      - record: 'logs_per_appname:2m'
+        expr: 'tags.appname:!"" | stats by (tags.path,tags.host) count()'
+
 {% endraw %}
 {% endif %}
