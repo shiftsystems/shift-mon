@@ -85,3 +85,14 @@
     group: shiftmon
     force: true
   become: true
+
+- name: Upload alertmanager templates
+  ansible.builtin.template:
+    src: "{{ item.value }}"
+    dest: "/opt/shift-mon/alertmanager/config/templates/{{ item.key }}.tmpl"
+    mode: '770'
+    setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
+  become: true
+  loop: "{{ shiftmon_alertmanager_templates | dict2items }}"

@@ -46,7 +46,7 @@ groups:
           summary: 'High CPU utilization on {{ $labels.host }}'
           description: "{{ $labels.host }} is using {{ $value }}"
       - alert: High Disk usage
-        expr: 'disk_used_percent{device !~"devfs|efivarfs", db!="windows"} > 80'
+        expr: 'disk_used_percent{device !~"devfs|efivarfs"} > 80'
         for: 30m
         annotations:
           summary: 'Low disk space {{ $labels.host }}'

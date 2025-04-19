@@ -7,9 +7,13 @@ global:
   smtp_auth_username: "{{ alertmanager.smtp_username }}"
   smtp_auth_password: "{{ alertmanager.smtp_password }}"
   smtp_auth_identity: "{{ alertmanager.smtp_auth_identity }}"
-  smtp_require_tls: true
+  smtp_require_tls: {{ alertmanager.smtp_require_tls | default(true) }}
+{% if shiftmon_alertmanager_templates is defined %}
 templates:
-  - '/config/templates/email.tmpl'
+{% for template in shiftmon_alertmanager_templates.values() %}
+  - '/config/templates/{{ template }}.tmpl'
+{% endfor %}
+{% endif %}
 route:
   group_by:
     - 'alertname'
