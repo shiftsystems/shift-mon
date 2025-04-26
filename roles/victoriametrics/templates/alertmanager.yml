@@ -48,4 +48,30 @@ receivers:
       - to: "{{ alertmanager.to_email }}"
         send_resolved: false
 {% endif %}
+inhibit_rules:
+  - source_match:
+      alertname: 'HTTP Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
+  - source_match:
+      alertname: 'DNS Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
+  - source_match:
+      alertname: 'Net Response Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
+  - source_match:
+      alertname: 'Ping Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
 {% endif %}
+

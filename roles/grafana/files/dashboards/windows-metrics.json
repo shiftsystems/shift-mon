@@ -385,7 +385,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.host:$host AND name:=\"win_ver_Win32_OperatingSystem\"",
+          "expr": "tags.host:~$host AND name:=\"win_ver_Win32_OperatingSystem\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -1821,7 +1821,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "tags.Channel:=\"Microsoft-Windows-Sysmon/Operational\" AND tags.host:\"$host\"",
+          "expr": "tags.Channel:=\"Microsoft-Windows-Sysmon/Operational\" AND tags.host:~\"$host\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -1865,7 +1865,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "tags.Channel:\"Microsoft-Windows-Windows Defender.*\" AND tags.host:\"$host\"",
+          "expr": "tags.Channel:\"Microsoft-Windows-Windows Defender.*\" AND tags.host:~\"$host\"",
           "queryType": "range",
           "refId": "A"
         }

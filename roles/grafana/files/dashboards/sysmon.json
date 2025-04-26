@@ -114,7 +114,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText) count() events",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText) count() events",
           "queryType": "range",
           "refId": "A"
         }
@@ -252,7 +252,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText,_time:1m) count() \" \"",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText,_time:1m) count() \" \"",
           "legendFormat": "{{fields.TaskText}}",
           "queryType": "statsRange",
           "refId": "A"
@@ -335,7 +335,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational",
           "queryType": "range",
           "refId": "A"
         }
@@ -465,7 +465,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:13",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:13",
               "queryType": "range",
               "refId": "A"
             }
@@ -648,7 +648,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.TaskText,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.TaskText,_time:1m) count() \" \"",
               "legendFormat": "{{fields.TaskText}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -721,7 +721,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User) count() \" \"",
               "legendFormat": "{{fields.Data_User}}",
               "queryType": "stats",
               "refId": "A"
@@ -823,7 +823,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_User}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -896,7 +896,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image) count() \" \"",
               "legendFormat": "{{fields.Data_Image}}",
               "queryType": "stats",
               "refId": "A"
@@ -998,7 +998,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image,_time:1m) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1167,7 +1167,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)",
               "queryType": "range",
               "refId": "A"
             }
@@ -1352,7 +1352,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26) | stats by (fields.TaskText,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26) | stats by (fields.TaskText,_time:1m) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1459,7 +1459,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1566,7 +1566,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.TaskText) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.TaskText) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1673,7 +1673,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1809,7 +1809,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_Image}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -1911,7 +1911,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User,_time:1m) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -2032,7 +2032,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)",
               "queryType": "range",
               "refId": "A"
             }
@@ -2133,7 +2133,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.TaskText,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.TaskText,_time:1m) count() \" \"",
               "legendFormat": "{{fields.TaskText}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2206,7 +2206,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_User) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_User) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -2342,7 +2342,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_User,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_User,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_User}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2415,7 +2415,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_Image) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_Image) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -2551,7 +2551,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_Image,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_Image,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_Image}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2624,7 +2624,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_CurrentDirectory) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_CurrentDirectory) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -2760,7 +2760,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_CurrentDirectory,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_CurrentDirectory,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_CurrentDirectory}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2847,7 +2847,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(3)",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(3)",
               "queryType": "range",
               "refId": "A"
             }
@@ -2948,7 +2948,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.TaskText,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.TaskText,_time:1m) count() \" \"",
               "legendFormat": "{{tags.host}} - {{fields.TaskText}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -3050,7 +3050,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.Data_Image,_time:1m) count() \" \"",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.Data_Image,_time:1m) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -3157,7 +3157,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_User) count() events",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_User) count() events",
               "queryType": "range",
               "refId": "A"
             }
@@ -3264,7 +3264,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_DestinationPort) count() events",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_DestinationPort) count() events",
               "queryType": "range",
               "refId": "A"
             }
@@ -3371,7 +3371,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_Image) count() events",
+              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_Image) count() events",
               "queryType": "range",
               "refId": "A"
             }
@@ -3544,7 +3544,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22)",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22)",
           "queryType": "range",
           "refId": "A"
         }
@@ -3731,7 +3731,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (_time:1m,tags.host) count() \"Queries\"",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (_time:1m,tags.host) count() \"Queries\"",
           "legendFormat": "{{tags.host}}",
           "queryType": "statsRange",
           "refId": "A"
@@ -3833,7 +3833,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (fields.Data_QueryName,_time:1m) count() \" \"",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (fields.Data_QueryName,_time:1m) count() \" \"",
           "legendFormat": "{{fields.Data_QueryName}}",
           "queryType": "statsRange",
           "refId": "A"
@@ -3906,7 +3906,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_QueryName) count() \" \"",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_QueryName) count() \" \"",
           "queryType": "range",
           "refId": "A"
         }
@@ -4042,7 +4042,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22 | stats by (fields.Data_Image,_time:1m) count() \" \"",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22 | stats by (fields.Data_Image,_time:1m) count() \" \"",
           "queryType": "range",
           "refId": "A"
         }
@@ -4149,7 +4149,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_Image) count() \" \"",
+          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_Image) count() \" \"",
           "legendFormat": "{{fields.Data_Image}}",
           "queryType": "stats",
           "refId": "A"

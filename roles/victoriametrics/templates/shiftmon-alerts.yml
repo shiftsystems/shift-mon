@@ -5,7 +5,7 @@ groups:
     interval: 1m
     type: prometheus
     labels:
-      autoresovle: false
+      autoresolve: false
     rules:
       - alert: Host Down
         expr: 'lag(cpu_usage_idle[24h]) > 60'
@@ -107,7 +107,7 @@ groups:
         annotations:
           summary: '{{ $labels.server }} is not healthy'
           description: '{{ $labels.server }} is not reachable from {{ $labels.host }}'
-      - alert: ping Blackbox Failing
+      - alert: Ping Blackbox Failing
         expr: 'ping_result_code{check_type="normal"} > 0'
         for: 5m
         annotations:
@@ -136,6 +136,8 @@ groups:
   - name: Proxmox Log Alerts
     interval: 5m
     type: vlogs
+    labels:
+      autoresolve: false
     rules:
       - alert: Storage Offline
         expr: 'tags.appname:pve AND ~"storage .* is not online" | rename tags.hostname as hostname | stats by (hostname) count() as storage_online_errors | filter storage_online_errors:>0'
@@ -143,10 +145,11 @@ groups:
           summary: 'storage failed offline on {{ $labels.hostname }}'
           description: 'storage offline on {{ $labels.hostname }}'
       - alert: Storage Failed to activate
-        expr: 'tags.appname:pve AND "could not activate storage" | rename tags.hostname as hostname | stats by (hostname) count() as storage_activation_errors | filter storage_activation_errors:>0'
+        expr: |
+          tags.appname:pve AND "could not activate storage" | rename tags.hostname as hostname | rename fields.proxmox_host as proxmox_host | extract `<errored_task_id> could not activate storage '<storage_pool>':<error_msg>` from fields.log_message | stats by (proxmox_host,storage_pool) count() as storage_activation_errors | filter storage_activation_errors:>0
         annotations:
-          summary: 'storage failed to activate on {{ $labels.hostname }}'
-          description: 'storage failed to activate on {{ $labels.hostname }}'
+          summary: 'storage failed to activate on {{ $labels.proxmox_host }}'
+          description: 'storage failed to activate {{ $labels.storage_pool }} on {{ $labels.proxmox_host }}'
       - alert: Failing Hard drive
         expr: 'tags.appname:"smartd" AND "FAILED" | rename tags.hostname as hostname | extract "Device: <block_device> <_>" | stats by (hostname,block_device) count() as smart_errors | filter smart_errors:>0'
         annotations:
@@ -156,7 +159,7 @@ groups:
         expr: '_time:1h tags.appname:pbs AND ~"fail|error" | rename tags.hostname as hostname | extract "UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_id_4>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>" | stats by (hostname,task_type) count() as failures | failures:>0'
         annotations:
           summary: 'task errors on {{ $labels.hostname }}'
-          description: '{{ $labels.task_info }} occured on {{ $labels.hostname }}'
+          description: '{{ $labels.task_info }} occurred on {{ $labels.hostname }}'
       - alert: failedScrub
         expr: 'tags.appname:zed AND "err" | unpack_logfmt | rename tags.hostname as hostname | stats by (hostname,pool,vdev) count()'
         annotations:
