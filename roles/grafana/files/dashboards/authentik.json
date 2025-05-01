@@ -1072,7 +1072,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND tags.appname:authentik",
+          "expr": "tags.host:~$host AND tags.appname:authentik",
           "queryType": "instant",
           "refId": "A"
         }
