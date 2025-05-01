@@ -9,6 +9,7 @@ datasources:
       prometheusType: Prometheus
       prometheusVersion: 2.53.0
       disableRecordingRules: false
+      timeInterval: {{ interval }}
   - name: shift-logs
     type: loki
     url: 'http://loki:3100'
@@ -19,6 +20,7 @@ datasources:
     jsonData:
       httpmethod: POST
       vmuiUrl: 'https://{{victoria.domain }}/vmui'
+      timeInterval: {{ interval }}
   - name: shiftmon-victorialogs
     type: victoriametrics-logs-datasource
     url: http://victorialogs:9428
