@@ -37,250 +37,17 @@
   ],
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "min": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Percent Used"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "unit",
-                "value": "percentunit"
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 0.7
-                    },
-                    {
-                      "color": "red",
-                      "value": 0.8
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
+      "collapsed": false,
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 1,
+        "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 9,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "type"
-          }
-        ]
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "blockstat_used{host=~\"$host\"} ",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "blockstat_total{host=~\"$host\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "blockstat_used{host=~\"$host\"} / blockstat_total{host=~\"$host\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "blockstat_total{nodename=~\"$node\"} - blockstat_used{nodename=~\"$node\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "D"
-        }
-      ],
-      "title": "Node Storage",
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {
-            "byField": "host"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time 1": true,
-              "Time 2": true,
-              "Time 3": true,
-              "Time 4": true,
-              "__name__": true,
-              "__name__ 1": true,
-              "__name__ 2": true,
-              "datastore 1": true,
-              "datastore 2": true,
-              "datastore 3": true,
-              "nodename 1": true,
-              "nodename 2": true,
-              "nodename 3": true,
-              "nodename 4": true,
-              "object 1": true,
-              "object 2": true,
-              "object 3": true,
-              "object 4": true,
-              "type 2": true,
-              "type 3": true,
-              "type 4": true
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Time 1": 6,
-              "Time 2": 9,
-              "Time 3": 15,
-              "Time 4": 19,
-              "Value #A": 2,
-              "Value #B": 4,
-              "Value #C": 5,
-              "Value #D": 3,
-              "__name__ 1": 13,
-              "__name__ 2": 14,
-              "host": 0,
-              "nodename 1": 7,
-              "nodename 2": 10,
-              "nodename 3": 16,
-              "nodename 4": 20,
-              "object 1": 8,
-              "object 2": 11,
-              "object 3": 17,
-              "object 4": 21,
-              "type 1": 1,
-              "type 2": 12,
-              "type 3": 18,
-              "type 4": 22
-            },
-            "renameByName": {
-              "Percent": "",
-              "Time 1": "",
-              "Value #A": "Used",
-              "Value #B": "Total",
-              "Value #C": "Percent Used",
-              "Value #D": "Available",
-              "host": "Storage",
-              "type 1": "Type"
-            }
-          }
-        }
-      ],
-      "type": "table"
+      "id": 12,
+      "panels": [],
+      "title": "Host Metrics",
+      "type": "row"
     },
     {
       "datasource": {
@@ -305,8 +72,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -339,8 +105,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -377,8 +142,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -416,14 +180,38 @@
                 "value": "none"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Bytes Written"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Bytes Read"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
           }
         ]
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 0
+        "w": 24,
+        "x": 0,
+        "y": 1
       },
       "id": 3,
       "options": {
@@ -439,7 +227,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -514,6 +302,36 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "increase(blockstat_read_bytes{host=~\"$host\"}[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "increase(blockstat_write_bytes{host=~\"$host\"}[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "G"
         }
       ],
       "title": "Host Metrics",
@@ -534,15 +352,21 @@
               "Time 3": true,
               "Time 4": true,
               "Time 5": true,
+              "Time 6": true,
               "__name__ 1": true,
               "__name__ 2": true,
               "__name__ 3": true,
               "__name__ 4": true,
+              "__name__ 5": true,
+              "datastore": true,
+              "datastore 1": true,
+              "datastore 2": true,
               "object 1": true,
               "object 2": true,
               "object 3": true,
               "object 4": true,
-              "object 5": true
+              "object 5": true,
+              "object 6": true
             },
             "includeByName": {},
             "indexByName": {
@@ -575,7 +399,267 @@
               "Value #C": "memory usage",
               "Value #D": "memory",
               "Value #E": "CPUs",
+              "Value #F": "Bytes Read",
+              "Value #G": "Bytes Written",
               "__name__ 1": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Storage Metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "min": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Percent Used"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 0.7
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.8
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 9,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "type"
+          }
+        ]
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_used{host=~\"$host\"} ",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_total{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_used{host=~\"$host\"} / blockstat_total{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "blockstat_total{host=~\"$host\"} - blockstat_used{host=~\"$host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        }
+      ],
+      "title": "Node Storage",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "host"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time 1": true,
+              "Time 2": true,
+              "Time 3": true,
+              "Time 4": true,
+              "__name__": true,
+              "__name__ 1": true,
+              "__name__ 2": true,
+              "datastore 1": true,
+              "datastore 2": true,
+              "datastore 3": true,
+              "datastore 4": true,
+              "nodename 1": true,
+              "nodename 2": true,
+              "nodename 3": true,
+              "nodename 4": true,
+              "object 1": true,
+              "object 2": true,
+              "object 3": true,
+              "object 4": true,
+              "type 2": true,
+              "type 3": true,
+              "type 4": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time 1": 6,
+              "Time 2": 9,
+              "Time 3": 15,
+              "Time 4": 19,
+              "Value #A": 2,
+              "Value #B": 4,
+              "Value #C": 5,
+              "Value #D": 3,
+              "__name__ 1": 13,
+              "__name__ 2": 14,
+              "host": 0,
+              "nodename 1": 7,
+              "nodename 2": 10,
+              "nodename 3": 16,
+              "nodename 4": 20,
+              "object 1": 8,
+              "object 2": 11,
+              "object 3": 17,
+              "object 4": 21,
+              "type 1": 1,
+              "type 2": 12,
+              "type 3": 18,
+              "type 4": 22
+            },
+            "renameByName": {
+              "Percent": "",
+              "Time 1": "",
+              "Value #A": "Used",
+              "Value #B": "Total",
+              "Value #C": "Percent Used",
+              "Value #D": "Available",
+              "host": "Storage",
+              "type 1": "Type"
             }
           }
         }
@@ -630,8 +714,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -647,7 +730,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 17
       },
       "id": 5,
       "options": {
@@ -669,7 +752,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -735,8 +818,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -748,7 +830,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 8
+        "y": 17
       },
       "id": 6,
       "options": {
@@ -770,7 +852,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -849,8 +931,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -862,7 +943,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 8
+        "y": 17
       },
       "id": 7,
       "options": {
@@ -884,7 +965,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -916,6 +997,19 @@
       "type": "timeseries"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 11,
+      "panels": [],
+      "title": "Logs",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "loki",
         "uid": "${logs}"
@@ -938,8 +1032,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -991,7 +1084,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 26
       },
       "id": 1,
       "options": {
@@ -1012,7 +1105,7 @@
           }
         ]
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1020,7 +1113,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:\"pbs\" AND (tags.hostname:\"$host\")",
+          "expr": "tags.appname:\"pbs\" AND tags.hostname:~\"$host\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -1144,7 +1237,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 33
       },
       "id": 8,
       "options": {
@@ -1158,7 +1251,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1167,7 +1260,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "(tags.hostname:\"$host\")",
+          "expr": "tags.hostname:~\"$host\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -1177,7 +1270,7 @@
     }
   ],
   "preload": false,
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [
     "proxmox"
   ],
@@ -1246,6 +1339,5 @@
   "timezone": "browser",
   "title": "Proxmox Backup Server",
   "uid": "shiftmon-pbs",
-  "version": 1,
-  "weekStart": ""
+  "version": 4
 }
