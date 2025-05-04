@@ -90,36 +90,6 @@
   become: true
   notify: Restart Telegraf
 
-- name: Add secret store config
-  ansible.builtin.copy:
-    src: linux/shiftmon-secretstore.conf
-    dest: /etc/telegraf/telegraf.d/shiftmon-secretstore.conf
-    mode: "660"
-    owner: "{{ telegraf_user }}"
-    group: "telegraf"
-  when: telegraf_use_secrets
-  become: true
-
-- name: Set Shiftmon Telegraf secrets
-  ansible.builtin.command: |
-    runuser -u {{ telegraf_user }} -- telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'
-  with_dict: "{{ telegraf_secrets }}"
-  register: exec_return
-  become: true
-  no_log: true
-  changed_when: false
-  when: telegraf_use_secrets
-
-- name: Set user Telegraf secrets
-  ansible.builtin.command: |
-    runuser -u {{ telegraf_user }} -- telegraf --config /etc/telegraf/telegraf.d/shiftmon-secretstore.conf secrets set shiftmon {{ item.key }} '{{ item.value}}'
-  with_dict: "{{ telegraf_user_secrets }}"
-  become: true
-  register: exec_return
-  no_log: true
-  changed_when: false
-  when: telegraf_user_secrets is defined
-
 - name: Add Processor config
   ansible.builtin.template:
     src: processes.conf
@@ -133,6 +103,16 @@
 
 - name: Gather Systemd units
   ansible.builtin.service_facts:
+
+- name: Add Tetragon config when Tetragon is installed
+  ansible.builtin.template:
+    src: tetragon.conf
+    dest: /etc/telegraf/telegraf.d/tetragon.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: "'tetragon.service' in ansible_facts.services and 'tetragon' not in do_not_instrument"
 
 - name: Add Meshcentral Config if Meshcentral is installed
   ansible.builtin.copy:
@@ -256,7 +236,6 @@
   when: 
    - "'ipa.service' in ansible_facts.services"
    - "'ipa_server' not in do_not_instrument"
-   - "telegraf_root is defined and telegraf_root"
   notify: Restart Telegraf
 
 - name: Add IPVS config if Keepalived is installed
@@ -425,6 +404,17 @@
   when: "nut_enabled"
   notify: Restart Telegraf
 
+- name: Deploy Prometheus scraping config
+  ansible.builtin.template:
+    src: "prometheus.conf"
+    dest: /etc/telegraf/telegraf.d/prometheus.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: "shiftmon_prometheus_urls is defined"
+  notify: Restart Telegraf
+
 - name: Deploy Haproxy config
   ansible.builtin.template:
     src: "haproxy.conf"
@@ -468,7 +458,7 @@
     - ansible_facts['os_family'] == "RedHat"
 
 - name: Install Sensors on Debian based systems
-  ansible.builtin.dnf:
+  ansible.builtin.apt:
     name: lm-sensors
     state: latest
   become: true
@@ -549,6 +539,26 @@
   become: true
   when: blackbox_net_hosts is defined and blackbox_net_hosts
   notify: Restart Telegraf
+
+- name: Add Blocky DNS config
+  ansible.builtin.template:
+    src: blocky.conf
+    dest: /etc/telegraf/telegraf.d/blocky.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: "'blocky.service' in ansible_facts.services and 'blocky' not in do_not_instrument"
+
+- name: Add Tailscale config
+  ansible.builtin.template:
+    src: tailscale.conf
+    dest: /etc/telegraf/telegraf.d/tailscale.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: "'tailscaled.service' in ansible_facts.services and 'tailscaled' not in do_not_instrument"
 
 - name: Install Rsyslog
   ansible.builtin.package:

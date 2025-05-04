@@ -1,0 +1,77 @@
+{% if shiftmon_alertmanager_config is defined %}
+{{ shiftmon_alertmanager_config | to_nice_yaml(indent=2,sort_keys=false) }}
+{% else %}
+global:
+  smtp_smarthost: "{{ alertmanager.smtp_host }}"
+  smtp_from: "{{ alertmanager.smtp_from_email }}"
+  smtp_auth_username: "{{ alertmanager.smtp_username }}"
+  smtp_auth_password: "{{ alertmanager.smtp_password }}"
+  smtp_auth_identity: "{{ alertmanager.smtp_auth_identity }}"
+  smtp_require_tls: {{ alertmanager.smtp_require_tls | default(true) }}
+{% if shiftmon_alertmanager_templates is defined %}
+templates:
+{% for template in shiftmon_alertmanager_templates.values() %}
+  - '/config/templates/{{ template }}.tmpl'
+{% endfor %}
+{% endif %}
+route:
+  group_by:
+    - 'alertname'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: "Shiftmon Receiver"
+  routes:
+    - matchers:
+      - autoresolve="false"
+      receiver: "Shiftmon No Auto Resolve Receiver"
+receivers:
+  - name: "Shiftmon Receiver"
+{% if alertmanager.webhook_url is defined %}
+    webhook_configs:
+      - url: "{{ alertmanager.webhook_url }}"
+        send_resolved: true
+{% endif %}
+{% if alertmanager.to_email is defined %}
+    email_configs:
+      - to: "{{ alertmanager.to_email }}"
+        send_resolved: false
+{% endif %}
+  - name: "Shiftmon No Auto Resolve Receiver"
+{% if alertmanager.webhook_url is defined %}
+    webhook_configs:
+      - url: "{{ alertmanager.webhook_url }}"
+        send_resolved: false
+{% endif %}
+{% if alertmanager.to_email is defined %}
+    email_configs:
+      - to: "{{ alertmanager.to_email }}"
+        send_resolved: false
+{% endif %}
+inhibit_rules:
+  - source_match:
+      alertname: 'HTTP Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
+  - source_match:
+      alertname: 'DNS Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
+  - source_match:
+      alertname: 'Net Response Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
+  - source_match:
+      alertname: 'Ping Blackbox Failing'
+    target_match:
+      alertname: 'Missing Anomaly Score'
+    equal:
+      - 'server'
+{% endif %}
+

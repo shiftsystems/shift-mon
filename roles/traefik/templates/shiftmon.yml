@@ -1,39 +1,5 @@
 http:
-  middlewares:
-    basic-auth:
-      basicAuth:
-        usersfile: "/etc/traefik/htpasswd"
   routers:
-{% if uptime_kuma_enabled %}
-    uptime-kuma:
-      rule: Host(`{{ uptimekuma.domain }}`)
-      tls:
-        certResolver: dynamicResolver
-      service: uptime-kuma
-      entryPoints:
-        - websecure
-{% endif %}
-{% if victorialogs_enabled %}
-    victorialogs:
-      rule: Host(`{{ victorialogs.domain }}`)
-      tls:
-        certResolver: dynamicResolver
-      service: victorialogs
-      middlewares:
-        - basic-auth
-      entryPoints:
-        - websecure
-{% endif %}
-    grafana_metrics:
-      rule: Host(`{{ grafana.domain }}`) && Path(`/metrics`)
-      priority: 2
-      tls:
-        certResolver: dynamicResolver
-      service: grafana
-      middlewares:
-        - basic-auth
-      entryPoints:
-        - websecure
     grafana:
       rule: Host(`{{ grafana.domain }}`)
       priority: 1
@@ -42,37 +8,26 @@ http:
       service: grafana
       entryPoints:
         - websecure
-    loki:
-      rule: Host(`{{ loki.domain }}`)
+    victorialogs:
+      rule: Host(`{{ victorialogs.domain }}`)
       tls:
         certResolver: dynamicResolver
-      service: loki
-      middlewares:
-        - basic-auth
-      entryPoints:
-        - websecure
-    victoriametrics_metrics:
-      rule: Host(`{{ victoria.domain }}`) && Path(`/metrics`)
-      tls:
-        certResolver: dynamicResolver
-      service: victoriametrics
-      middlewares:
-        - basic-auth
+      service: vmauth
       entryPoints:
         - websecure
     victoriametrics:
       rule: Host(`{{ victoria.domain }}`)
       tls:
         certResolver: dynamicResolver
-      service: victoriametrics
+      service: vmauth
       entryPoints:
         - websecure
-{% if oncall_enabled %}
-    oncall:
-      rule: Host(`{{ oncall.domain }}`)
+{% if alertmanager.domain is defined %}
+    alertmanager:
+      rule: Host(`{{ alertmanager.domain }}`)
       tls:
         certResolver: dynamicResolver
-      service: oncall
+      service: vmauth
       entryPoints:
         - websecure
 {% endif %}
@@ -85,49 +40,22 @@ http:
           path: /api/health
           interval: "10s"
           timeout: "5s"
-    loki:
-      loadBalancer:
-        servers:
-          - url: http://loki:3100
-        healthCheck:
-          path: /ready
-          interval: "10s"
-          timeout: "5s"
-    victoriametrics:
+    vmauth:
       loadBalancer:
         servers:
           - url: http://vmauth:8427
         healthCheck:
+          port: 9999
           path: /health
           interval: "10s"
           timeout: "5s"
-{% if victorialogs_enabled %}
-    victorialogs:
+{% if alertmanager.domain is defined %}
+    alertmanager:
       loadBalancer:
         servers:
-          - url: http://victorialogs:9428
+          - url: http://alertmanager:9093
         healthCheck:
-          path: /health
-          interval: "10s"
-          timeout: "5s"
-{% endif %}
-{% if uptime_kuma_enabled %}
-    uptime-kuma:
-      loadBalancer:
-        servers:
-          - url: http://uptime-kuma:3001
-        healthCheck:
-          path: /
-          interval: "10s"
-          timeout: "5s"
-{% endif %}
-{% if oncall_enabled %}
-    oncall:
-      loadBalancer:
-        servers:
-          - url: http://engine:8080
-        healthCheck:
-          path: /
+          path: '/-/healthy'
           interval: "10s"
           timeout: "5s"
 {% endif %}

@@ -24,14 +24,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 202,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
-        "default": false,
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
+        "type": "victorialogs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -95,11 +94,14 @@
                 "min": 0
               }
             },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
             "location": {
-              "lookup": "country",
               "mode": "lookup"
             },
-            "name": "Layer 1",
+            "name": "GeoIP",
             "tooltip": true,
             "type": "heatmap"
           }
@@ -115,17 +117,16 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\".*crowdsec.log\",host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `",
-          "legendFormat": "{{country_code}}",
-          "queryType": "range",
+          "expr": "tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -134,7 +135,22 @@
         {
           "id": "extractFields",
           "options": {
+            "delimiter": ",",
+            "keepTime": false,
+            "replace": true,
             "source": "labels"
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "events"
+              }
+            ],
+            "fields": {}
           }
         }
       ],
@@ -143,8 +159,8 @@
     {
       "datasource": {
         "default": false,
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
+        "type": "victorialogs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -172,48 +188,80 @@
       "maxDataPoints": 1,
       "options": {
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
+            "value",
             "percent"
           ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": [],
           "fields": "",
-          "values": false
+          "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.4.3-54429",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~\".*crowdsec.log\",host=\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" `[$__interval])) by (behavior)",
-          "legendFormat": "{{behavior}}",
+          "expr": "(tags.host:~$host) AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (behavior) count() events",
           "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Behaviors",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "labels"
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "events"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
       "type": "piechart"
     },
     {
       "datasource": {
         "default": false,
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
+        "type": "victorialogs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -243,9 +291,15 @@
       "maxDataPoints": 1,
       "options": {
         "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
         "maxVizHeight": 300,
-        "minVizHeight": 10,
-        "minVizWidth": 0,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
@@ -259,28 +313,49 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~\".*crowdsec.log\",host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__range])) by (country)",
-          "legendFormat": "{{asn}}",
-          "queryType": "instant",
+          "expr": "(tags.host:~$host) AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
+          "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Top countries",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "replace": true,
+            "source": "labels"
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "events"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
       "type": "bargauge"
     },
     {
       "datasource": {
         "default": false,
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
+        "type": "victorialogs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -310,9 +385,15 @@
       "maxDataPoints": 1,
       "options": {
         "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
         "maxVizHeight": 300,
-        "minVizHeight": 10,
-        "minVizWidth": 0,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
@@ -326,28 +407,49 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({path=~\".*crowdsec.log\",host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>\" ` [$__interval])) by (asn)",
-          "legendFormat": "{{asn}}",
-          "queryType": "instant",
+          "expr": "tags.host:~$host AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (asn) count() events",
+          "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Top ISPs",
+      "title": "Top ISPs (ASNs)",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "replace": true,
+            "source": "labels"
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "events"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
       "type": "bargauge"
     },
     {
       "datasource": {
         "default": false,
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
+        "type": "victorialogs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -398,15 +500,15 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~`.*crowdsec.log`,host=~\"$host\"} |= `ban` | pattern `time=\"<_>\" level=\"<_>\" msg=\"(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <_>\" `",
+          "expr": "(tags.host:~$host) AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>`",
           "queryType": "range",
           "refId": "A"
         }
@@ -424,28 +526,35 @@
           "options": {
             "excludeByName": {
               "Line": true,
+              "Time": true,
               "__name": true,
+              "_stream_id": true,
+              "fields.level": true,
               "host": true,
               "id": true,
               "labels": true,
               "path": true,
+              "tags.path": true,
+              "time": false,
               "tsNs": true
             },
+            "includeByName": {},
             "indexByName": {
               "Line": 1,
-              "Time": 7,
-              "__name": 4,
+              "Time": 2,
+              "_stream_id": 3,
               "asn": 11,
               "ban_duration": 12,
               "ban_ip": 13,
               "behavior": 8,
               "country": 10,
-              "host": 5,
-              "id": 3,
+              "fields.level": 4,
+              "fields.time": 6,
               "ip": 9,
               "labels": 0,
-              "path": 6,
-              "tsNs": 2
+              "name": 14,
+              "tags.host": 7,
+              "tags.path": 5
             },
             "renameByName": {}
           }
@@ -454,71 +563,62 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": [
-            ""
-          ],
+          "text": "All",
           "value": [
-            ""
+            "$__all"
           ]
         },
         "datasource": {
-          "type": "loki",
-          "uid": "P53E94FA6B1E28789"
+          "type": "victorialogs-datasource",
+          "uid": "${logs}"
         },
-        "definition": "",
-        "hide": 0,
+        "definition": "tags.path:crowdsec.log",
         "includeAll": true,
         "multi": true,
         "name": "host",
         "options": [],
         "query": {
-          "label": "host",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{path=~\".*crowdsec.log\"}",
-          "type": 1
+          "field": "tags.host",
+          "limit": 25,
+          "query": "tags.path:crowdsec.log",
+          "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
+          "type": "fieldValue"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       }
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Crowdsec",
-  "uid": "j4KEK3L7k",
-  "version": 6,
+  "uid": "shiftmon-crowdsec",
+  "version": 1,
   "weekStart": ""
 }

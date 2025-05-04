@@ -4,8 +4,8 @@
     state: directory
     mode: '770'
     setype: container_file_t
-    owner: 1000
-    group: 1000
+    owner: shiftmon
+    group: shiftmon
   become: true
   with_items:
     - "/opt/shift-mon/vmanomaly-config"
@@ -15,8 +15,8 @@
   ansible.builtin.template:
     src: "{{ vmanomaly_config_path }}"
     dest: /opt/shift-mon/vmanomaly-config/config.yml
-    owner: 1000
-    group: 1000
+    owner: shiftmon
+    group: shiftmon
     mode: '770'
     setype: container_file_t
   become: true

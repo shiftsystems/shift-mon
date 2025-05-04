@@ -1,6 +1,6 @@
 syslog_port: "6666"
 metrics_name: "shift-mon"
-metrics_port: 8428
-metrics_protocol: "http"
+metrics_port: 443
+metrics_protocol: "https"
 metrics_bucket: "proxmox"
-metrics_url: "{{ metrics_protocol }}://{{ metrics_host }}:{{ metrics_port }}"
+syslog_host: "{{ victorialogs_url }}"

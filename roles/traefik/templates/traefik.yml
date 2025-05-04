@@ -18,14 +18,6 @@ tls:
     - certfile: /etc/traefik/certs/loki.crt
       keyfile: /etc/traefik/certs/loki.key
 {% endif %}
-{% if uptimekuma.cert_path is defined and uptimekuma.key_path is defined %}
-    - certfile: /etc/traefik/certs/uptime-kuma.crt
-      keyfile: /etc/traefik/certs/uptime-kuma.key
-{% endif %}
-{% if oncall.cert_path is defined and oncall.key_path is defined %}
-    - certfile: /etc/traefik/certs/oncall.crt
-      keyfile: /etc/traefik/certs/oncall.key
-{% endif %}
 {% if victorialogs.cert_path is defined and victorialogs.key_path is defined %}
     - certfile: /etc/traefik/certs/victorialogs.crt
       keyfile: /etc/traefik/certs/victorialogs.key
@@ -40,6 +32,7 @@ tls:
         - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
         - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
         - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+ping: {}
 entryPoints:
   web:
     address: ":80"
@@ -72,8 +65,11 @@ certificatesResolvers:
           - "1.0.0.1:53"
 {% endif %}
 accessLog:
-  filePath: '/etc/traefik/access.json'
   format: json
+  filters:
+    statusCodes:
+      - "400-499"
+      - "500-599"
 metrics:
   prometheus:
     entrypoint: metrics

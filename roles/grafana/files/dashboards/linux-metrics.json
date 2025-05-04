@@ -23,9 +23,9 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
+  "id": 204,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -63,8 +63,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -156,8 +155,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -193,7 +191,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -335,8 +333,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -368,7 +365,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -376,48 +373,66 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "count by(host, VERSION) (rate({__name=\"exec_os_release\",host=~\"$host\"} |~ `VERSION` | logfmt | pattern `Version=<Version>` [$__auto]))",
+          "expr": "name:exec_os_release AND (tags.host:~$host) | stats by (tags.host,fields.NAME,fields.VERSION) count()",
           "queryType": "instant",
           "refId": "A",
           "resolution": 1
-        },
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
-          },
-          "editorMode": "code",
-          "expr": "count by(host, NAME) (rate({__name=\"exec_os_release\",host=~\"$host\"} |~ `NAME` | logfmt | pattern `NAME=<OS>` [$__auto]))",
-          "hide": false,
-          "queryType": "instant",
-          "refId": "B"
         }
       ],
       "title": "OS Version",
       "transformations": [
         {
-          "id": "merge",
-          "options": {}
+          "id": "extractFields",
+          "options": {
+            "replace": true,
+            "source": "labels"
+          }
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
+              "Line": true,
               "Time": true,
-              "VERSION": false,
-              "Value #A": true,
-              "Value #B": true
+              "count(*)": false,
+              "fields.NAME": false,
+              "fields.VERSION": false,
+              "labels": true
             },
             "includeByName": {},
             "indexByName": {
-              "NAME": 1,
-              "Time": 3,
-              "VERSION": 2,
-              "Value #A": 4,
-              "Value #B": 5,
-              "host": 0
+              "Line": 1,
+              "Time": 0,
+              "count(*)": 3,
+              "fields.NAME": 5,
+              "fields.VERSION": 6,
+              "labels": 2,
+              "tags.host": 4
             },
             "renameByName": {}
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "fields.NAME": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "fields.VERSION": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "tags.host": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
           }
         }
       ],
@@ -445,8 +460,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -476,7 +490,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -612,8 +626,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -648,12 +661,13 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -723,8 +737,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -758,12 +771,13 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -800,8 +814,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -826,6 +839,12 @@
       "id": 6,
       "options": {
         "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
         "maxVizHeight": 300,
         "minVizHeight": 12,
         "minVizWidth": 0,
@@ -843,7 +862,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -911,8 +930,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -939,12 +957,13 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "8.0.5",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1012,8 +1031,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1040,12 +1058,13 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "8.0.5",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1114,8 +1133,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1143,12 +1161,13 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1239,7 +1258,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 55
+            "y": 24
           },
           "id": 73,
           "options": {
@@ -1260,7 +1279,7 @@
               }
             ]
           },
-          "pluginVersion": "11.0.0",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -1346,6 +1365,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -1391,7 +1411,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 64
+            "y": 33
           },
           "id": 74,
           "options": {
@@ -1408,11 +1428,13 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -1447,6 +1469,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -1493,7 +1516,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 64
+            "y": 33
           },
           "id": 75,
           "options": {
@@ -1510,11 +1533,13 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -1595,7 +1620,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 72
+            "y": 41
           },
           "id": 76,
           "options": {
@@ -1697,7 +1722,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 72
+            "y": 41
           },
           "id": 77,
           "options": {
@@ -1798,7 +1823,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 80
+            "y": 49
           },
           "id": 78,
           "options": {
@@ -1899,7 +1924,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 80
+            "y": 49
           },
           "id": 79,
           "options": {
@@ -2026,7 +2051,7 @@
             "h": 13,
             "w": 12,
             "x": 0,
-            "y": 111
+            "y": 443
           },
           "id": 63,
           "options": {
@@ -2201,7 +2226,7 @@
             "h": 13,
             "w": 12,
             "x": 12,
-            "y": 111
+            "y": 443
           },
           "id": 64,
           "options": {
@@ -2365,7 +2390,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 124
+            "y": 456
           },
           "id": 65,
           "options": {
@@ -2469,7 +2494,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 124
+            "y": 456
           },
           "id": 66,
           "options": {
@@ -2548,7 +2573,7 @@
             "h": 10,
             "w": 7,
             "x": 0,
-            "y": 26
+            "y": 125
           },
           "id": 26,
           "options": {
@@ -2629,7 +2654,7 @@
             "h": 10,
             "w": 7,
             "x": 7,
-            "y": 26
+            "y": 125
           },
           "id": 38,
           "options": {
@@ -2731,7 +2756,7 @@
             "h": 10,
             "w": 10,
             "x": 14,
-            "y": 26
+            "y": 125
           },
           "id": 39,
           "options": {
@@ -2847,7 +2872,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 27
+            "y": 126
           },
           "id": 51,
           "options": {
@@ -2866,6 +2891,7 @@
               "sort": "none"
             }
           },
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -2945,7 +2971,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 27
+            "y": 126
           },
           "id": 52,
           "options": {
@@ -2964,6 +2990,7 @@
               "sort": "none"
             }
           },
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -3044,7 +3071,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 35
+            "y": 351
           },
           "id": 53,
           "options": {
@@ -3063,6 +3090,7 @@
               "sort": "none"
             }
           },
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -3143,7 +3171,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 35
+            "y": 351
           },
           "id": 54,
           "options": {
@@ -3162,6 +3190,7 @@
               "sort": "none"
             }
           },
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -3261,7 +3290,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 44
+            "y": 127
           },
           "id": 46,
           "options": {
@@ -3282,6 +3311,7 @@
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -3359,7 +3389,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 44
+            "y": 127
           },
           "id": 48,
           "options": {
@@ -3379,6 +3409,7 @@
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -3456,7 +3487,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 52
+            "y": 328
           },
           "id": 47,
           "options": {
@@ -3553,7 +3584,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 52
+            "y": 328
           },
           "id": 49,
           "options": {
@@ -3649,7 +3680,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 60
+            "y": 336
           },
           "id": 60,
           "options": {
@@ -3745,7 +3776,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 60
+            "y": 336
           },
           "id": 61,
           "options": {
@@ -3856,8 +3887,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3869,7 +3899,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 29
+            "y": 128
           },
           "id": 56,
           "options": {
@@ -3884,12 +3914,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -3958,8 +3989,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3971,7 +4001,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 29
+            "y": 128
           },
           "id": 59,
           "options": {
@@ -3986,12 +4016,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4060,8 +4091,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -4073,7 +4103,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 39
+            "y": 138
           },
           "id": 57,
           "options": {
@@ -4091,12 +4121,13 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4165,8 +4196,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -4178,7 +4208,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 39
+            "y": 138
           },
           "id": 58,
           "options": {
@@ -4193,12 +4223,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4351,7 +4382,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 149
           },
           "id": 86,
           "options": {
@@ -4367,7 +4398,7 @@
             "frameIndex": 1,
             "showHeader": true
           },
-          "pluginVersion": "11.2.1",
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4564,7 +4595,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 36
+            "y": 155
           },
           "id": 87,
           "options": {
@@ -4579,11 +4610,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4678,7 +4711,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 36
+            "y": 155
           },
           "id": 85,
           "options": {
@@ -4693,11 +4726,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4781,7 +4816,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 43
+            "y": 162
           },
           "id": 82,
           "options": {
@@ -4796,11 +4831,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4884,7 +4921,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 43
+            "y": 162
           },
           "id": 83,
           "options": {
@@ -4899,11 +4936,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "multi",
               "sort": "desc"
             }
           },
+          "pluginVersion": "11.6.0",
           "targets": [
             {
               "datasource": {
@@ -4930,7 +4969,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4938,684 +4977,711 @@
         "y": 30
       },
       "id": 43,
-      "panels": [],
+      "panels": [
+        {
+          "datasource": {
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 14,
+            "x": 0,
+            "y": 171
+          },
+          "id": 67,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Time"
+              }
+            ]
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:~$host AND tags.appname:systemd | extract `<service_name>: <event> <status>.` | service_name:~\".*service$|.*timer$|.*mount$|.*socket$\"",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Service Events",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "source": "labels"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Line": true,
+                  "Time": false,
+                  "__name": true,
+                  "_stream_id": true,
+                  "appname": true,
+                  "facility": true,
+                  "facility_code": true,
+                  "fields.facility_code": true,
+                  "fields.order": true,
+                  "fields.procid": true,
+                  "fields.severity_code": true,
+                  "fields.timestamp": true,
+                  "fields.version": true,
+                  "host": false,
+                  "hostname": true,
+                  "id": true,
+                  "labels": true,
+                  "message": true,
+                  "name": true,
+                  "procid": true,
+                  "service_name": false,
+                  "severity": true,
+                  "severity_code": true,
+                  "source": true,
+                  "status": true,
+                  "tags.appname": true,
+                  "tags.facility": true,
+                  "tags.hostname": true,
+                  "tags.source": true,
+                  "tsNs": true,
+                  "version": true
+                },
+                "includeByName": {},
+                "indexByName": {
+                  "Line": 5,
+                  "Time": 0,
+                  "_stream_id": 7,
+                  "event": 3,
+                  "fields.facility_code": 8,
+                  "fields.procid": 9,
+                  "fields.severity_code": 10,
+                  "fields.timestamp": 11,
+                  "fields.version": 12,
+                  "labels": 4,
+                  "name": 13,
+                  "service_name": 2,
+                  "status": 6,
+                  "tags.appname": 14,
+                  "tags.facility": 15,
+                  "tags.host": 1,
+                  "tags.hostname": 16,
+                  "tags.severity": 17,
+                  "tags.source": 18
+                },
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Active Status"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "index": 0,
+                            "text": "active"
+                          },
+                          "1": {
+                            "index": 1,
+                            "text": "reloading"
+                          },
+                          "2": {
+                            "index": 2,
+                            "text": "incative"
+                          },
+                          "3": {
+                            "index": 3,
+                            "text": "failed"
+                          },
+                          "4": {
+                            "index": 4,
+                            "text": "activating"
+                          },
+                          "5": {
+                            "index": 5,
+                            "text": "deactivating"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Load Status"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "index": 0,
+                            "text": "loaded"
+                          },
+                          "1": {
+                            "index": 1,
+                            "text": "stub"
+                          },
+                          "2": {
+                            "index": 2,
+                            "text": "not-found"
+                          },
+                          "3": {
+                            "index": 3,
+                            "text": "bad-setting"
+                          },
+                          "4": {
+                            "index": 4,
+                            "text": "error"
+                          },
+                          "5": {
+                            "index": 5,
+                            "text": "merged"
+                          },
+                          "6": {
+                            "index": 6,
+                            "text": "masked"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Sub Status"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "index": 0,
+                            "text": "running"
+                          },
+                          "1": {
+                            "index": 1,
+                            "text": "dead"
+                          },
+                          "2": {
+                            "index": 2,
+                            "text": "start-pre"
+                          },
+                          "3": {
+                            "index": 3,
+                            "text": "start"
+                          },
+                          "4": {
+                            "index": 4,
+                            "text": "exited"
+                          },
+                          "5": {
+                            "index": 5,
+                            "text": "reload"
+                          },
+                          "6": {
+                            "index": 6,
+                            "text": "stop"
+                          },
+                          "7": {
+                            "index": 7,
+                            "text": "stop-watchdog"
+                          },
+                          "8": {
+                            "index": 8,
+                            "text": "stop-sigterm"
+                          },
+                          "9": {
+                            "index": 9,
+                            "text": "stop-sigkill"
+                          },
+                          "10": {
+                            "index": 10,
+                            "text": "stop-post"
+                          },
+                          "11": {
+                            "index": 11,
+                            "text": "final-sigterm"
+                          },
+                          "12": {
+                            "index": 12,
+                            "text": "failed"
+                          },
+                          "13": {
+                            "index": 13,
+                            "text": "auto-restart"
+                          },
+                          "14": {
+                            "index": 14,
+                            "text": "condition"
+                          },
+                          "15": {
+                            "index": 15,
+                            "text": "cleaning"
+                          },
+                          "16": {
+                            "index": 16,
+                            "text": "waiting"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 10,
+            "x": 14,
+            "y": 171
+          },
+          "id": 14,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "host"
+              }
+            ]
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P84D368831E8B3638"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "systemd_units_active_code{db=\"linux\",host=~\"$host\"}",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "systemd_units_load_code{db=\"linux\",host=~\"$host\"}",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "systemd_units_sub_code{db=\"linux\",host=~\"$host\"}",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "C"
+            }
+          ],
+          "title": "Services",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Value #A": {
+                    "aggregations": [
+                      "lastNotNull"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #B": {
+                    "aggregations": [
+                      "lastNotNull"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #C": {
+                    "aggregations": [
+                      "lastNotNull"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "host": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "includeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Value #A (lastNotNull)": "Active Status",
+                  "Value #B (lastNotNull)": "Load Status",
+                  "Value #C (lastNotNull)": "Sub Status",
+                  "host": "",
+                  "name": ""
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 14,
+            "w": 17,
+            "x": 0,
+            "y": 183
+          },
+          "id": 69,
+          "options": {
+            "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": false,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:~$host AND tags.appname:systemd",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Systemd Unit Logs",
+          "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 7,
+            "x": 17,
+            "y": 183
+          },
+          "id": 68,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "maxHeight": 600,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${metrics}"
+              },
+              "disableTextWrap": false,
+              "editorMode": "builder",
+              "expr": "systemd_units_active_code{host=~\"$host\", name=~\"$systemd_unit\"}",
+              "fullMetaSearch": false,
+              "includeNullMetadata": true,
+              "instant": false,
+              "legendFormat": "{{host}} - {{name}}",
+              "range": true,
+              "refId": "A",
+              "useBackend": false
+            }
+          ],
+          "title": "Unit Status Over Time",
+          "type": "timeseries"
+        },
+        {
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 7,
+            "x": 17,
+            "y": 190
+          },
+          "id": 70,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "0 - Active\n\n1 - Reloading\n\n2 - Inactive\n\n3 - Failed\n\n4 - Activating\n\n5 - Deactivating\n",
+            "mode": "markdown"
+          },
+          "pluginVersion": "11.6.0",
+          "title": "Status code mapping",
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 24,
+            "x": 0,
+            "y": 197
+          },
+          "id": 33,
+          "options": {
+            "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": false,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.severity:~\"crit|err|warning\" tags.host:$host",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "syslog warning and higher",
+          "type": "logs"
+        }
+      ],
       "title": "Syslog and Service",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 14,
-        "x": 0,
-        "y": 31
-      },
-      "id": 67,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time"
-          }
-        ]
-      },
-      "pluginVersion": "11.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
-          },
-          "editorMode": "code",
-          "expr": "{appname=\"systemd\",host=~\"$host\"} | pattern `<_>message=\"<service_name>: <event> <status>.\" <_>` | service_name=~\".*service|.*timer|.*mount|.*socket\"",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Service Events",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": false,
-              "__name": true,
-              "appname": true,
-              "facility": true,
-              "facility_code": true,
-              "host": false,
-              "hostname": true,
-              "id": true,
-              "labels": true,
-              "message": true,
-              "procid": true,
-              "severity": true,
-              "severity_code": true,
-              "source": true,
-              "status": true,
-              "tsNs": true,
-              "version": true
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Line": 5,
-              "Time": 0,
-              "__name": 8,
-              "appname": 9,
-              "event": 2,
-              "facility": 10,
-              "host": 4,
-              "hostname": 11,
-              "id": 7,
-              "labels": 3,
-              "service_name": 1,
-              "severity": 12,
-              "source": 13,
-              "status": 14,
-              "tsNs": 6
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Active Status"
-            },
-            "properties": [
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "0": {
-                        "index": 0,
-                        "text": "active"
-                      },
-                      "1": {
-                        "index": 1,
-                        "text": "reloading"
-                      },
-                      "2": {
-                        "index": 2,
-                        "text": "incative"
-                      },
-                      "3": {
-                        "index": 3,
-                        "text": "failed"
-                      },
-                      "4": {
-                        "index": 4,
-                        "text": "activating"
-                      },
-                      "5": {
-                        "index": 5,
-                        "text": "deactivating"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Load Status"
-            },
-            "properties": [
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "0": {
-                        "index": 0,
-                        "text": "loaded"
-                      },
-                      "1": {
-                        "index": 1,
-                        "text": "stub"
-                      },
-                      "2": {
-                        "index": 2,
-                        "text": "not-found"
-                      },
-                      "3": {
-                        "index": 3,
-                        "text": "bad-setting"
-                      },
-                      "4": {
-                        "index": 4,
-                        "text": "error"
-                      },
-                      "5": {
-                        "index": 5,
-                        "text": "merged"
-                      },
-                      "6": {
-                        "index": 6,
-                        "text": "masked"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Sub Status"
-            },
-            "properties": [
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "0": {
-                        "index": 0,
-                        "text": "running"
-                      },
-                      "1": {
-                        "index": 1,
-                        "text": "dead"
-                      },
-                      "2": {
-                        "index": 2,
-                        "text": "start-pre"
-                      },
-                      "3": {
-                        "index": 3,
-                        "text": "start"
-                      },
-                      "4": {
-                        "index": 4,
-                        "text": "exited"
-                      },
-                      "5": {
-                        "index": 5,
-                        "text": "reload"
-                      },
-                      "6": {
-                        "index": 6,
-                        "text": "stop"
-                      },
-                      "7": {
-                        "index": 7,
-                        "text": "stop-watchdog"
-                      },
-                      "8": {
-                        "index": 8,
-                        "text": "stop-sigterm"
-                      },
-                      "9": {
-                        "index": 9,
-                        "text": "stop-sigkill"
-                      },
-                      "10": {
-                        "index": 10,
-                        "text": "stop-post"
-                      },
-                      "11": {
-                        "index": 11,
-                        "text": "final-sigterm"
-                      },
-                      "12": {
-                        "index": 12,
-                        "text": "failed"
-                      },
-                      "13": {
-                        "index": 13,
-                        "text": "auto-restart"
-                      },
-                      "14": {
-                        "index": 14,
-                        "text": "condition"
-                      },
-                      "15": {
-                        "index": 15,
-                        "text": "cleaning"
-                      },
-                      "16": {
-                        "index": 16,
-                        "text": "waiting"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 10,
-        "x": 14,
-        "y": 31
-      },
-      "id": 14,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "host"
-          }
-        ]
-      },
-      "pluginVersion": "11.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "systemd_units_active_code{db=\"linux\",host=~\"$host\"}",
-          "format": "table",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "range": false,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "systemd_units_load_code{db=\"linux\",host=~\"$host\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "systemd_units_sub_code{db=\"linux\",host=~\"$host\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "C"
-        }
-      ],
-      "title": "Services",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "Value #A": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "Value #B": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "Value #C": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "host": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "name": {
-                "aggregations": [],
-                "operation": "groupby"
-              }
-            }
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Value #A (lastNotNull)": "Active Status",
-              "Value #B (lastNotNull)": "Load Status",
-              "Value #C (lastNotNull)": "Sub Status",
-              "host": "",
-              "name": ""
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 17,
-        "x": 0,
-        "y": 43
-      },
-      "id": 69,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "8.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
-          },
-          "editorMode": "code",
-          "expr": "{appname=\"systemd\",host=~\"$host\"} |~ \"$systemd_unit\" | logfmt",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Systemd Unit Logs",
-      "type": "logs"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 7,
-        "x": 17,
-        "y": 43
-      },
-      "id": 68,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "systemd_units_active_code{host=~\"$host\", name=~\"$systemd_unit\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{host}} - {{name}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "title": "Unit Status Over Time",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 7,
-        "x": 17,
-        "y": 50
-      },
-      "id": 70,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "0 - Active\n\n1 - Reloading\n\n2 - Inactive\n\n3 - Failed\n\n4 - Activating\n\n5 - Deactivating\n",
-        "mode": "markdown"
-      },
-      "pluginVersion": "11.2.2",
-      "title": "Status code mapping",
-      "type": "text"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P53E94FA6B1E28789"
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 24,
-        "x": 0,
-        "y": 57
-      },
-      "id": 33,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "8.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
-          },
-          "editorMode": "code",
-          "expr": "{severity=~\"crit|err|warning\",host=~\"$host\"} | logfmt",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "syslog warning and higher",
-      "type": "logs"
     }
   ],
+  "preload": false,
   "refresh": "30s",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [
     "Linux"
   ],
@@ -5623,43 +5689,32 @@
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-victoriametrics",
           "value": "P342DAF48C1D70AE5"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "victoriametrics-datasource",
-        "queryValue": "",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
-        "queryValue": "",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -5671,7 +5726,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(cpu_usage_idle{db=\"linux\"},host)",
-        "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "host",
@@ -5682,13 +5736,10 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "nvme0"
           ],
@@ -5701,7 +5752,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(smart_attribute_raw_value{host=~\"$host\"},device)",
-        "hide": 0,
         "includeAll": false,
         "label": "SMART Device",
         "multi": true,
@@ -5714,13 +5764,10 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
           "text": "NetworkManager.service",
           "value": "NetworkManager.service"
         },
@@ -5729,10 +5776,8 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(systemd_units_active_code{host=~\"$host\"},name)",
-        "hide": 0,
         "includeAll": false,
         "label": "Systemd Unit",
-        "multi": false,
         "name": "systemd_unit",
         "options": [],
         "query": {
@@ -5742,8 +5787,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -5754,8 +5797,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Linux Metrics",
-  "uid": "LqfSpKm7z",
-  "version": 27,
-  "weekStart": ""
+  "title": "Linux Host",
+  "uid": "shiftmon-linux-metrics",
+  "version": 1
 }

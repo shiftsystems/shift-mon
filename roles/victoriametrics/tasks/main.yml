@@ -2,8 +2,8 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    owner: root
-    group: telegraf
+    owner: shiftmon
+    group: shiftmon
     mode: '770'
     setype: container_file_t
   become: true
@@ -16,20 +16,36 @@
     state: directory
     mode: '770'
     setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
   become: true
   with_items:
     - /opt/shift-mon/victoriametrics
     - /opt/shift-mon/victoriametrics-storage
+    - /opt/shift-mon/victorialogs
     - /opt/shift-mon/vmalert/rules
+    - /opt/shift-mon/vmalert/templates
     - /opt/shift-mon/vmauth
+    - /opt/shift-mon/alertmanager/data
+    - /opt/shift-mon/alertmanager/config/templates
 
-- name: Upload Scrape Config
+- name: Upload Victoriametrics Configs
   ansible.builtin.template:
-    src: scrape-config.yml
-    dest: /opt/shift-mon/victoriametrics/scrape-config.yml
+    src: "{{ item }}"
+    dest: "/opt/shift-mon/victoriametrics/{{ item }}"
     mode: '770'
     setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
   become: true
+  with_items:
+    - scrape-config.yml
+    - relabel-config.yml
+
+- name: Append Telegraf tokens to token list
+  ansible.builtin.set_fact:
+    victoriametrics_merged_tokens: "{{ victoriametrics_tokens + [victoriametrics_token] }}"
+    victorialogs_merged_tokens: "{{ victorialogs_tokens + [victorialogs_token] }}"
 
 - name: Add VMAuth Template
   ansible.builtin.template:
@@ -37,13 +53,46 @@
     dest: /opt/shift-mon/vmauth/auth-config.yml
     mode: '770'
     setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
+  become: true
+
+- name: Upload Shiftmon rules
+  ansible.builtin.template:
+    src: "shiftmon-alerts.yml"
+    dest: "/opt/shift-mon/vmalert/rules/shiftmon.yml"
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Upload user provisioned rules
   ansible.builtin.copy:
     src: "{{ item.value }}"
     dest: "/opt/shift-mon/vmalert/rules"
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: victoria.rule_files is defined
   with_items: "{{victoria.rule_files | dict2items }}"
 
+- name: Upload alertmanager config
+  ansible.builtin.template:
+    src: "alertmanager.yml"
+    dest: "/opt/shift-mon/alertmanager/config/alertmanager.yml"
+    mode: '770'
+    setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
+    force: true
+  become: true
+
+- name: Upload alertmanager templates
+  ansible.builtin.template:
+    src: "{{ item.value }}"
+    dest: "/opt/shift-mon/alertmanager/config/templates/{{ item.key }}.tmpl"
+    mode: '770'
+    setype: container_file_t
+    owner: shiftmon
+    group: shiftmon
+  become: true
+  loop: "{{ shiftmon_alertmanager_templates | dict2items }}"

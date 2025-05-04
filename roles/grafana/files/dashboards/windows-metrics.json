@@ -18,29 +18,59 @@
           "type": "dashboard"
         },
         "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "P342DAF48C1D70AE5"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "red",
+        "name": "New annotation"
       }
     ]
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "links": [],
-  "liveNow": false,
+  "id": 141,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "windows"
+      ],
+      "targetBlank": true,
+      "title": "Dashboards",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
         "uid": "${metrics}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -59,245 +89,123 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uptime"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Usage"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IOWait"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 5
+                    },
+                    {
+                      "color": "red",
+                      "value": 7
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
+        "h": 10,
+        "w": 19,
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "id": 76,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
           "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "100 - cpu_usage_idle{host=~\"$host\",db=\"windows\"}",
-          "interval": "",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Mean CPU %",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 90
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 4,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "reducer": [
+            "sum"
           ],
-          "fields": "",
-          "values": false
+          "show": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "showHeader": true
       },
-      "pluginVersion": "11.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "mem_used_percent{db=\"windows\",host=~\"$host\"}",
-          "interval": "",
-          "legendFormat": "{{host}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Mean Memory %",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 8,
-        "y": 0
-      },
-      "id": 22,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "system_n_cpus{host=~\"$host\",db=\"windows\"}",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{host}}",
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Count",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 10,
-        "y": 0
-      },
-      "id": 24,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -306,86 +214,119 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "mem_total{host=~\"$host\",db=\"windows\"}",
+          "expr": "avg by (host) (100 - cpu_usage_idle{host=~\"$host\",db=\"windows\"}[$__range])",
+          "format": "table",
           "instant": true,
-          "interval": "",
-          "legendFormat": "{{host}}",
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "A"
-        }
-      ],
-      "title": "Memory",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 12,
-        "y": 0
-      },
-      "id": 20,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.2.2",
-      "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
-          "exemplar": true,
-          "expr": "(system_uptime{host=~\"$host\",db=\"windows\"}) / 86400",
-          "interval": "",
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
+          "exemplar": false,
+          "expr": "avg by (host) (mem_used_percent{db=\"windows\",host=~\"$host\"}[$__range])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (host) (cpu_usage_iowait{host=~\"$host\",db=\"windows\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (system_uptime{host=~\"$host\",db=\"windows\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (system_n_cpus{host=~\"$host\",db=\"windows\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (host) (mem_total{host=~\"$host\",db=\"windows\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
         }
       ],
-      "title": "uptime in days",
-      "type": "stat"
+      "title": "Host Summary",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "CPU Usage",
+              "Value #B": "Memory Usage",
+              "Value #C": "IOWait",
+              "Value #D": "Uptime",
+              "Value #E": "CPUs",
+              "Value #F": "Memory"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
-        "type": "loki",
+        "type": "victoriametrics-logs-datasource",
         "uid": "${logs}"
       },
       "fieldConfig": {
@@ -418,12 +359,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 8,
         "w": 5,
-        "x": 14,
+        "x": 19,
         "y": 0
       },
-      "id": 71,
+      "id": 77,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -434,26 +375,22 @@
           ],
           "show": false
         },
-        "frameIndex": 0,
-        "showHeader": false
+        "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{host=~\"$host\",__name=\"win_ver_Win32_OperatingSystem\"}| logfmt",
-          "hide": false,
-          "instant": false,
-          "queryType": "range",
-          "range": true,
+          "expr": "tags.host:~$host AND name:=\"win_ver_Win32_OperatingSystem\"",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
-      "title": "OS Version",
+      "title": "Version",
       "transformations": [
         {
           "id": "extractFields",
@@ -465,24 +402,13 @@
           "id": "groupBy",
           "options": {
             "fields": {
-              "Caption": {
+              "fields.Caption": {
                 "aggregations": [
                   "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
-              "Time ns": {
-                "aggregations": [
-                  "lastNotNull"
-                ]
-              },
-              "Version": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "host": {
+              "tags.host": {
                 "aggregations": [],
                 "operation": "groupby"
               }
@@ -492,16 +418,13 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {
-              "Caption (lastNotNull)": false
-            },
+            "excludeByName": {},
             "includeByName": {},
-            "indexByName": {
-              "Caption (lastNotNull)": 0,
-              "Version (lastNotNull)": 1,
-              "host": 2
-            },
-            "renameByName": {}
+            "indexByName": {},
+            "renameByName": {
+              "fields.Caption (lastNotNull)": "Version",
+              "tags.host": "host"
+            }
           }
         }
       ],
@@ -544,7 +467,7 @@
         "h": 5,
         "w": 5,
         "x": 19,
-        "y": 0
+        "y": 8
       },
       "id": 72,
       "options": {
@@ -560,7 +483,7 @@
         "frameIndex": 7,
         "showHeader": false
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "exemplar": true,
@@ -705,9 +628,9 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 8,
+        "w": 9,
         "x": 0,
-        "y": 5
+        "y": 10
       },
       "id": 36,
       "options": {
@@ -722,11 +645,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -814,9 +738,9 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 8,
-        "x": 8,
-        "y": 5
+        "w": 10,
+        "x": 9,
+        "y": 10
       },
       "id": 37,
       "options": {
@@ -831,11 +755,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -891,13 +816,19 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 8,
-        "x": 16,
-        "y": 5
+        "w": 5,
+        "x": 19,
+        "y": 13
       },
       "id": 6,
       "options": {
-        "displayMode": "gradient",
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
         "maxVizHeight": 300,
         "minVizHeight": 12,
         "minVizWidth": 0,
@@ -915,7 +846,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -987,7 +918,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 23
       },
       "id": 74,
       "options": {
@@ -1002,7 +933,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1104,7 +1035,7 @@
         "h": 7,
         "w": 7,
         "x": 0,
-        "y": 22
+        "y": 30
       },
       "id": 8,
       "options": {
@@ -1119,11 +1050,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.0.5",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1204,7 +1136,7 @@
         "h": 7,
         "w": 8,
         "x": 7,
-        "y": 22
+        "y": 30
       },
       "id": 10,
       "options": {
@@ -1219,11 +1151,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.0.5",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1305,7 +1238,7 @@
         "h": 7,
         "w": 9,
         "x": 15,
-        "y": 22
+        "y": 30
       },
       "id": 31,
       "options": {
@@ -1321,11 +1254,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1350,7 +1284,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 37
       },
       "id": 69,
       "panels": [],
@@ -1380,8 +1314,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1481,7 +1414,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 38
       },
       "id": 67,
       "options": {
@@ -1496,7 +1429,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1642,8 +1575,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1697,7 +1629,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 38
       },
       "id": 73,
       "options": {
@@ -1712,7 +1644,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1841,96 +1773,105 @@
       "type": "table"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 46
       },
       "id": 75,
-      "panels": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 24
-          },
-          "id": 70,
-          "options": {
-            "dedupStrategy": "none",
-            "enableLogDetails": true,
-            "prettifyLogMessage": false,
-            "showCommonLabels": false,
-            "showLabels": false,
-            "showTime": true,
-            "sortOrder": "Descending",
-            "wrapLogMessage": false
-          },
-          "pluginVersion": "8.1.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "P53E94FA6B1E28789"
-              },
-              "editorMode": "builder",
-              "expr": "{Channel=\"Microsoft-Windows-Sysmon/Operational\", host=~\"$host\"} | logfmt",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "Sysmon Logs",
-          "transformations": [],
-          "type": "logs"
-        },
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 24
-          },
-          "id": 68,
-          "options": {
-            "dedupStrategy": "none",
-            "enableLogDetails": true,
-            "prettifyLogMessage": false,
-            "showCommonLabels": false,
-            "showLabels": false,
-            "showTime": true,
-            "sortOrder": "Descending",
-            "wrapLogMessage": false
-          },
-          "pluginVersion": "8.1.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "P53E94FA6B1E28789"
-              },
-              "editorMode": "code",
-              "expr": "{Channel=~\"Microsoft-Windows-Windows Defender.*\",host=~\"$host\"} | logfmt",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "Defender Logs",
-          "transformations": [],
-          "type": "logs"
-        }
-      ],
+      "panels": [],
       "title": "Logs",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 47
+      },
+      "id": 70,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "tags.Channel:=\"Microsoft-Windows-Sysmon/Operational\" AND tags.host:~\"$host\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Sysmon Logs",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 47
+      },
+      "id": 68,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P53E94FA6B1E28789"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "tags.Channel:\"Microsoft-Windows-Windows Defender.*\" AND tags.host:~\"$host\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Defender Logs",
+      "type": "logs"
     },
     {
       "collapsed": true,
@@ -1938,7 +1879,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 55
       },
       "id": 41,
       "panels": [
@@ -2204,7 +2145,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 56
       },
       "id": 50,
       "panels": [
@@ -2256,8 +2197,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2355,8 +2295,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2454,8 +2393,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2471,7 +2409,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 49
+            "y": 57
           },
           "id": 53,
           "options": {
@@ -2555,8 +2493,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2572,7 +2509,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 49
+            "y": 57
           },
           "id": 54,
           "options": {
@@ -2617,7 +2554,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 57
       },
       "id": 45,
       "panels": [
@@ -2830,7 +2767,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 58
       },
       "id": 55,
       "panels": [
@@ -2884,8 +2821,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2985,8 +2921,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3086,8 +3021,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3099,7 +3033,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 53
+            "y": 61
           },
           "id": 57,
           "options": {
@@ -3187,8 +3121,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -3200,7 +3133,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 53
+            "y": 61
           },
           "id": 58,
           "options": {
@@ -3243,9 +3176,9 @@
       "type": "row"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [
     "windows"
   ],
@@ -3253,43 +3186,32 @@
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-victoriametrics",
           "value": "P342DAF48C1D70AE5"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "victoriametrics-datasource",
-        "queryValue": "",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
-        "queryValue": "",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
           "text": "All",
           "value": "$__all"
         },
@@ -3297,7 +3219,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(cpu_usage_idle{db=\"windows\"},host)",
-        "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "host",
@@ -3308,8 +3229,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -3320,8 +3239,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Windows Metrics",
-  "uid": "LqfSpKn7y",
-  "version": 8,
+  "title": "Windows Host",
+  "uid": "shiftmon-windows-host",
+  "version": 7,
   "weekStart": ""
 }

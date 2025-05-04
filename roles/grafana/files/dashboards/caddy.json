@@ -23,14 +23,14 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
+  "id": 165,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -44,6 +44,110 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile($percentile, sum(rate(caddy_http_request_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval])) by (le))",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Percentil response time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 85,
             "gradientMode": "hue",
@@ -87,12 +191,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 20,
-        "x": 0,
+        "h": 8,
+        "w": 13,
+        "x": 11,
         "y": 0
       },
-      "id": 2,
+      "id": 21,
       "options": {
         "legend": {
           "calcs": [
@@ -106,34 +210,23 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.6",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
           },
           "editorMode": "code",
-          "expr": "count_over_time({host=\"$host\",path=~\"/var/log/caddy/.*\"}[1m])",
-          "legendFormat": "All {{ path }}",
-          "queryType": "range",
+          "expr": "sum(rate(caddy_http_requests_total{host=~\"$host\"})) by (host)",
+          "legendFormat": "__auto",
+          "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
-          },
-          "editorMode": "code",
-          "expr": "count_over_time({host=\"$host\",path=~\"/var/log/caddy/.*\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [1m])",
-          "hide": false,
-          "legendFormat": "Error {{ path }}",
-          "queryType": "range",
-          "refId": "B"
         }
       ],
       "title": "Request Rate",
@@ -141,13 +234,176 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 0.1,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.05
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "dot.local.shiftsystems.net"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 11,
+        "x": 0,
+        "y": 8
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "rate(caddy_http_request_errors_total{host=~\"$host\"}) / rate(caddy_http_requests_total{host=~\"$host\"})",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Request Error Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 85,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -156,55 +412,87 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
-          },
-          "unit": "percentunit"
+          }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "dot.local.shiftsystems.net"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 7,
-        "w": 4,
-        "x": 20,
-        "y": 0
+        "w": 13,
+        "x": 11,
+        "y": 8
       },
-      "id": 7,
+      "id": 20,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
-            "lastNotNull"
+            "min",
+            "max",
+            "mean",
+            "sum"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "textMode": "auto",
-        "wideLayout": true
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
           },
           "editorMode": "code",
-          "expr": "count_over_time({path=\"$path\",host=\"$host\"} |~ `status=\"4\\d\\d\"|status=\"5\\d\\d\"` [$__range]) / count_over_time({path=~\"$path\",host=\"$host\"}[$__range])",
-          "queryType": "range",
+          "expr": "increase(caddy_http_request_errors_total{host=~\"$host\"})",
+          "legendFormat": "{{host}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Error Rate",
-      "type": "stat"
+      "title": "Errored Requests",
+      "type": "timeseries"
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
+        "type": "victoriametrics-logs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -226,7 +514,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 7
+        "y": 15
       },
       "id": 4,
       "options": {
@@ -249,58 +537,32 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.6",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\",host=\"$host\"}",
-          "queryType": "range",
+          "expr": "tags.appname:caddy and (tags.host:$host) AND fields.status:!=\"\" | stats by (fields.status) count()",
+          "legendFormat": "{{ fields.status }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "Reqeusts by Status Code",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "Line"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "request_uri": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "status": {
-                "aggregations": []
-              },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
       "type": "piechart"
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
+        "type": "victoriametrics-logs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -320,104 +582,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 4,
+        "w": 8,
         "x": 8,
-        "y": 7
-      },
-      "id": 3,
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.2.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
-          },
-          "editorMode": "code",
-          "expr": "{path=~\"$path\",host=\"$host\"}",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "reqeusts by status code",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "Line"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "request_uri": {
-                "aggregations": []
-              },
-              "status": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 12,
-        "y": 7
+        "y": 15
       },
       "id": 11,
       "options": {
@@ -439,64 +606,32 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.6",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\",host=\"$host\"}",
-          "queryType": "range",
+          "expr": "tags.appname:caddy and (tags.host:$host) AND fields.request_proto:!=\"\" | stats by (fields.request_proto) count()",
+          "legendFormat": "{{fields.request_proto}}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "Reqeusts by HTTP Version",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "Line"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "request_proto": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "request_tls_proto": {
-                "aggregations": []
-              },
-              "request_uri": {
-                "aggregations": []
-              },
-              "status": {
-                "aggregations": []
-              },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
       "type": "piechart"
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
+        "type": "victoriametrics-logs-datasource",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -516,9 +651,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 4,
+        "w": 8,
         "x": 16,
-        "y": 7
+        "y": 15
       },
       "id": 8,
       "options": {
@@ -537,24 +672,25 @@
             "lastNotNull"
           ],
           "fields": "",
-          "limit": 10,
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.6",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{path=~\"$path\",host=\"$host\"}",
-          "queryType": "range",
+          "expr": "tags.appname:caddy and (tags.host:$host) AND fields.request_remote_ip:!=\"\" | stats by (fields.request_remote_ip) count() | top 10",
+          "legendFormat": "{{ fields.request_remote_ip }}",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -567,538 +703,281 @@
           }
         },
         {
-          "id": "groupBy",
+          "id": "convertFieldType",
           "options": {
-            "fields": {
-              "request_headers_X-Forwarded-For_0": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "request_remote_ip": {
-                "aggregations": []
-              },
-              "request_uri": {
-                "aggregations": []
-              },
-              "status": {
-                "aggregations": []
-              },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "count(*)"
               }
-            }
+            ],
+            "fields": {}
           }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 20,
-        "y": 7
-      },
-      "id": 9,
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent",
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "limit": 10,
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.2.6",
-      "targets": [
         {
-          "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
-          },
-          "editorMode": "code",
-          "expr": "{path=~\"$path\",host=\"$host\"}",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "GeoIP",
-      "transformations": [
-        {
-          "id": "extractFields",
+          "id": "organize",
           "options": {
-            "source": "Line"
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "request_headers_Cf-Ipcountry_0": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "request_remote_ip": {
-                "aggregations": []
-              },
-              "request_uri": {
-                "aggregations": []
-              },
-              "status": {
-                "aggregations": []
-              },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 15
-      },
-      "id": 15,
-      "panels": [],
-      "title": "Origin Health",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+            "excludeByName": {
+              "Line": true,
+              "Time": true,
+              "count(*)": false,
+              "hits": true,
+              "labels": true
             },
-            "lineWidth": 0.7
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 19,
-        "x": 0,
-        "y": 16
-      },
-      "id": 13,
-      "options": {
-        "colWidth": 1,
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Metrics}"
-          },
-          "editorMode": "code",
-          "expr": "prometheus_caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
-          "legendFormat": "{{upstream}}",
-          "range": true,
-          "refId": "A"
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {}
+          }
         }
       ],
-      "title": "Health Checks",
-      "type": "status-history"
+      "type": "piechart"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 5,
-        "x": 19,
-        "y": 16
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.2.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Metrics}"
-          },
-          "editorMode": "code",
-          "expr": "prometheus_caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
-          "legendFormat": "{{upstream}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Health Checks",
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 23
       },
-      "id": 17,
-      "panels": [],
-      "title": "Geoip",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${Loki}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 24,
-        "x": 0,
-        "y": 24
-      },
-      "id": 10,
-      "options": {
-        "basemap": {
-          "config": {},
-          "name": "Layer 0",
-          "type": "default"
-        },
-        "controls": {
-          "mouseWheelZoom": true,
-          "showAttribution": true,
-          "showDebug": false,
-          "showMeasure": false,
-          "showScale": false,
-          "showZoom": true
-        },
-        "layers": [
-          {
-            "config": {
-              "blur": 17,
-              "radius": 21,
-              "weight": {
-                "field": "ts (count)",
-                "fixed": 1,
-                "max": 1,
-                "min": 0
-              }
-            },
-            "location": {
-              "lookup": "request_headers_Cf-Ipcountry_0",
-              "mode": "lookup"
-            },
-            "name": "Layer 1",
-            "opacity": 1,
-            "tooltip": true,
-            "type": "heatmap"
-          }
-        ],
-        "tooltip": {
-          "mode": "details"
-        },
-        "view": {
-          "allLayers": true,
-          "id": "zero",
-          "lat": 0,
-          "lon": 0,
-          "zoom": 1
-        }
-      },
-      "pluginVersion": "10.2.3",
-      "targets": [
+      "id": 15,
+      "panels": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${Loki}"
+            "type": "prometheus",
+            "uid": "${Metrics}"
           },
-          "editorMode": "code",
-          "expr": "{path=~\"$path\",host=\"$host\"}",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "GeoIP",
-      "transformations": [
-        {
-          "id": "extractFields",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "fillOpacity": 70,
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 0.7
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 19,
+            "x": 0,
+            "y": 16
+          },
+          "id": 13,
           "options": {
-            "source": "Line"
-          }
+            "colWidth": 1,
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "rowHeight": 0.9,
+            "showValue": "auto",
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
+              "legendFormat": "{{upstream}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Health Checks",
+          "type": "status-history"
         },
         {
-          "id": "groupBy",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 5,
+            "x": 19,
+            "y": 16
+          },
+          "id": 18,
           "options": {
-            "fields": {
-              "request_headers_Cf-Ipcountry_0": {
-                "aggregations": [],
-                "operation": "groupby"
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.5.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Metrics}"
               },
-              "request_remote_ip": {
-                "aggregations": []
-              },
-              "request_uri": {
-                "aggregations": []
-              },
-              "status": {
-                "aggregations": []
-              },
-              "ts": {
-                "aggregations": [
-                  "count"
-                ],
-                "operation": "aggregate"
-              }
+              "editorMode": "code",
+              "expr": "caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
+              "legendFormat": "{{upstream}}",
+              "range": true,
+              "refId": "A"
             }
-          }
+          ],
+          "title": "Health Checks",
+          "type": "stat"
         }
       ],
-      "type": "geomap"
+      "title": "Origin Health",
+      "type": "row"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-metrics",
           "value": "P84D368831E8B3638"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "Metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
-        "name": "Loki",
+        "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
+        "allowCustomValue": false,
         "current": {
-          "selected": true,
-          "text": "/var/log/caddy/eren-access.log",
-          "value": "/var/log/caddy/eren-access.log"
-        },
-        "datasource": {
-          "type": "loki",
-          "uid": "${Loki}"
-        },
-        "definition": "",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "path",
-        "options": [],
-        "query": {
-          "label": "path",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{path=~`/var/log/caddy/.*`,host=`$host`}",
-          "type": 1
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": true,
           "text": "rose.local.shiftsystems.net",
           "value": "rose.local.shiftsystems.net"
         },
         "datasource": {
-          "type": "loki",
-          "uid": "${Loki}"
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${Metrics}"
         },
-        "definition": "",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "definition": "label_values(caddy_admin_http_requests_total,host)",
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
-          "label": "host",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{path=~`/var/log/caddy/.*`}",
-          "type": 1
+          "qryType": 1,
+          "query": "label_values(caddy_admin_http_requests_total,host)",
+          "refId": "VariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
+      },
+      {
+        "current": {
+          "text": ".99",
+          "value": ".99"
+        },
+        "name": "percentile",
+        "options": [
+          {
+            "selected": false,
+            "text": ".50",
+            "value": ".50"
+          },
+          {
+            "selected": false,
+            "text": ".90",
+            "value": ".90"
+          },
+          {
+            "selected": false,
+            "text": ".95",
+            "value": ".95"
+          },
+          {
+            "selected": true,
+            "text": ".99",
+            "value": ".99"
+          }
+        ],
+        "query": ".50,.90,.95,.99",
+        "type": "custom"
       }
     ]
   },
@@ -1109,7 +988,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Caddy",
-  "uid": "kmrQlud4k",
-  "version": 14,
+  "uid": "shiftmon-caddy",
+  "version": 3,
   "weekStart": ""
 }

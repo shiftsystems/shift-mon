@@ -1,16 +1,12 @@
-# Set Loki as the default Logging Backend
-param($LoggingBackend='Loki')
-
 # Victoria Metrics Settings
-$victoria_url = "https://victoriametrics.example.com"
-$victoria_user = "telegraf"
-$victoria_password = "telegraf"
-$victoria_database = "windows"
+$victoriametrics_url = "https://metrics.local.shiftsystems.net"
+$victoriametrics_token = "windows-metrics"
+$database = "windows"
 
 # Loki Metrics Settings
-$loki_url = "https://loki.example.com"
-$loki_user = "loki"
-$loki_password = "loki"
+$victorialogs_url = "https://vl.local.shiftsystems.net"
+$victorialogs_token = "windows-logs"
+
 
 Write-Host "Creating Telegraf config folder"
 $path = "C:\Program Files\telegraf\telegraf.d\"
@@ -54,13 +50,7 @@ Else {
 
 
 # download and install telegraf config
-If ($LoggingBackend -eq "Loki") {
-$url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/telegraf.conf"
-}
-Else {
-$url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/telegraf-vl.conf"
-}
-
+$url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/telegraf.conf"
 $output = "C:\Program Files\telegraf\telegraf.conf"
 Invoke-WebRequest -Uri $url -OutFile $output
 Write-Host "Added Base Telegraf Config"
@@ -68,7 +58,7 @@ Write-Host "Added Base Telegraf Config"
 # Add Defender config if server 2016 or newer or windows 10
 [int]$build = (Get-Item "HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('CurrentBuild')
 if ($build -gt 10000) {
-    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/defender.conf"
+    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/defender.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\defender.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
         Write-Host "Added Defender config"
@@ -77,7 +67,7 @@ if ($build -gt 10000) {
 # ADD IIS config if IIS is present
 $service = Get-Service w3svc -ErrorAction SilentlyContinue
 if($service) {
-    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/iis.conf"
+    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/iis.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\iis.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
         Write-Host "Added IIS Config"
@@ -86,7 +76,7 @@ if($service) {
 # ADD Sysmon config if Sysmon is present
 $service =  @(Get-Service Sysmon*).Count -gt 0
 if($service) {
-    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/sysmon.conf"
+    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/sysmon.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\sysmon.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
         Write-Host "Added Sysmon Config"
@@ -101,7 +91,7 @@ if (!(Get-Service telegraf)) {
 
 # Create registry entries for telegraf
 Write-Host "Creating Registry Entry For Telegraf"
-$telegraf_env =("victoria_url=$victoria_url","victoria_user=$victoria_user","victoria_password=$victoria_password","victoria_database=$victoria_database","loki_url=$loki_url","loki_user=$loki_user","loki_password=$loki_password")
+$telegraf_env =("victoriametrics_url=$victoriametrics_url","victoriametrics_token=$victoriametrics_token","victoria_database=$database","victorialogs_url=$victorialogs_url","victorialogs_token=$victorialogs_token")
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\telegraf"-Name "Environment" -PropertyType MultiString -Value $telegraf_env -Force
 Write-Host "Created Registry Entry"
 

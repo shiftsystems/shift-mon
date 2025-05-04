@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 120,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -194,7 +194,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -349,7 +349,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 3,
+        "w": 6,
         "x": 14,
         "y": 1
       },
@@ -365,16 +365,16 @@
           "show": false
         },
         "frameIndex": 0,
-        "showHeader": false
+        "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "{host=\"$host\",__name=\"exec\"} |~ \"OPNsense\"",
+          "expr": "tags.host:$host AND name:\"exec_opnsense_version\"",
           "hide": false,
           "instant": false,
           "queryType": "range",
@@ -397,7 +397,7 @@
         {
           "id": "extractFields",
           "options": {
-            "source": "Line"
+            "source": "labels"
           }
         },
         {
@@ -406,12 +406,28 @@
             "excludeByName": {
               "Field": true,
               "Line": true,
+              "_stream_id": true,
               "id": true,
               "labels": true,
+              "name": true,
               "tsNs": true
             },
-            "indexByName": {},
-            "renameByName": {}
+            "includeByName": {},
+            "indexByName": {
+              "Line": 3,
+              "_stream_id": 5,
+              "fields.os": 1,
+              "fields.version": 2,
+              "labels": 4,
+              "name": 6,
+              "tags.host": 0
+            },
+            "renameByName": {
+              "fields.os": "OS",
+              "fields.version": "Version",
+              "name": "",
+              "tags.host": "Host"
+            }
           }
         }
       ],
@@ -447,8 +463,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 7,
-        "x": 17,
+        "w": 4,
+        "x": 20,
         "y": 1
       },
       "id": 44,
@@ -470,7 +486,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -478,7 +494,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "pf_state_limit{host=\"$host\",db=\"opnsense\"}",
+          "expr": "{__name__=\"pf_state-limit\",host=~\"$host\",db=\"opnsense\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -575,11 +591,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -587,7 +604,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "100 - cpu_usage_idle{host=\"$host\",db=\"opnsense\",cpu=\"cpu-total\"}",
+          "expr": "100 - cpu_usage_idle{host=~\"$host\",db=\"opnsense\",cpu=\"cpu-total\"}",
           "interval": "",
           "legendFormat": "{{host}}",
           "range": true,
@@ -683,11 +700,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -695,7 +713,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "mem_used_percent{db=\"opnsense\",host=\"$host\"}",
+          "expr": "mem_used_percent{db=\"opnsense\",host=~\"$host\"}",
           "interval": "",
           "legendFormat": "{{host}}",
           "range": true,
@@ -750,6 +768,12 @@
       "id": 51,
       "options": {
         "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
         "maxVizHeight": 300,
         "minVizHeight": 12,
         "minVizWidth": 0,
@@ -767,7 +791,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -835,7 +859,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -844,7 +868,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_free{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
+          "expr": "disk_free{host=~\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -947,11 +971,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.0.5",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -960,7 +985,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(net_bytes_recv{host=\"$host\",db=\"opnsense\"}[$__rate_interval]) * 8",
+          "expr": "rate(net_bytes_recv{host=~\"$host\",db=\"opnsense\"}[$__rate_interval]) * 8",
           "interval": "",
           "legendFormat": "{{host}} - {{interface}}",
           "range": true,
@@ -1051,11 +1076,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.0.5",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1064,7 +1090,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(net_bytes_sent{host=\"$host\",db=\"opnsense\"}[$__rate_interval]) * 8",
+          "expr": "rate(net_bytes_sent{host=~\"$host\",db=\"opnsense\"}[$__rate_interval]) * 8",
           "instant": false,
           "interval": "",
           "legendFormat": "{{ host }} - {{interface}}",
@@ -1155,10 +1181,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1166,7 +1194,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "pf_entries{host=\"$host\",db=\"opnsense\"}",
+          "expr": "pf_entries{host=~\"$host\",db=\"opnsense\"}",
           "legendFormat": "states",
           "range": true,
           "refId": "A"
@@ -1224,7 +1252,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -1233,7 +1261,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "disk_total{host=\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
+          "expr": "disk_total{host=~\"$host\",db=\"opnsense\",fstype!=\"devfs\",path!~`/var/.*|/usr/.*|/zroot|/tmp`}",
           "instant": true,
           "interval": "",
           "legendFormat": "{{path}}",
@@ -1292,18 +1320,19 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 8,
+        "w": 12,
         "x": 0,
         "y": 25
       },
       "id": 36,
       "options": {
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
-            "value"
+            "value",
+            "percent"
           ]
         },
         "pieType": "donut",
@@ -1312,26 +1341,64 @@
             "sum"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
+            "type": "victorialogs-datasource",
             "uid": "${logs}"
           },
-          "expr": "topk(20,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*out.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
-          "legendFormat": "{{ source_ip }}",
-          "refId": "A"
+          "editorMode": "code",
+          "expr": "tags.hostname:$host tags.appname:filterlog | extract `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,` | direction:out | top 20 by (source_ip)",
+          "hide": false,
+          "queryType": "range",
+          "refId": "B"
         }
       ],
-      "title": "top outbound talkers",
+      "title": "Top Outbound Talkers",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "hits"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "Time": true,
+              "hits": false,
+              "labels": false,
+              "source_ip": false
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
       "type": "piechart"
     },
     {
@@ -1358,18 +1425,19 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 8,
-        "x": 8,
+        "w": 12,
+        "x": 12,
         "y": 25
       },
-      "id": 40,
+      "id": 61,
       "options": {
         "legend": {
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
-            "value"
+            "value",
+            "percent"
           ]
         },
         "pieType": "donut",
@@ -1378,34 +1446,71 @@
             "sum"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
+            "type": "victorialogs-datasource",
             "uid": "${logs}"
           },
-          "expr": "topk(5,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*in.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,`[1m])) by (source_ip))",
-          "legendFormat": "{{ source_ip }}",
-          "refId": "A"
+          "editorMode": "code",
+          "expr": "tags.hostname:$host tags.appname:filterlog | extract `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,` | direction:in | top 20 by (source_ip)",
+          "hide": false,
+          "queryType": "range",
+          "refId": "B"
         }
       ],
-      "title": "inbound talkers",
+      "title": "Top Inbound Talkers",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "hits"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "Time": true,
+              "hits": false,
+              "labels": false,
+              "source_ip": false
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
       "type": "piechart"
     },
     {
       "datasource": {
-        "type": "loki",
+        "type": "victoriametrics-logs-datasource",
         "uid": "${logs}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1418,30 +1523,18 @@
               "viz": false
             }
           },
-          "mappings": [
-            {
-              "options": {
-                "pattern": "443",
-                "result": {
-                  "index": 1,
-                  "text": "HTTP"
-                }
-              },
-              "type": "regex"
-            }
-          ]
+          "mappings": []
         },
         "overrides": []
       },
       "gridPos": {
         "h": 9,
-        "w": 8,
-        "x": 16,
-        "y": 25
+        "w": 12,
+        "x": 0,
+        "y": 34
       },
-      "id": 41,
+      "id": 63,
       "options": {
-        "displayLabels": [],
         "legend": {
           "displayMode": "table",
           "placement": "right",
@@ -1454,28 +1547,101 @@
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "sum"
+            "lastNotNull"
           ],
           "fields": "",
-          "values": false
+          "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
+            "type": "victoriametrics-logs-datasource",
             "uid": "${logs}"
           },
-          "expr": "topk(15,sum(count_over_time({__name=\"syslog\",hostname=\"$host\",appname=\"filterlog\"} |~ \".*$interface.*out.*\" | pattern `<_>,,,<rule_id>,<interface>,<reason>,<action>,<direction>,<version>,<tos>,,<ttl>,<id>,<offset>,<ipflags>,<protonum>,<protocol>,<length>,<source_ip>,<dest_ip>,<source_port>,<dest_port>,`[1m])) by (dest_port))",
-          "legendFormat": "{{ dest_port }}",
+          "editorMode": "code",
+          "expr": "tags.hostname:$host AND tags.appname:filterlog | stats by(fields.src_port_name,fields.src_port) count() as hits",
+          "legendFormat": "{{ fields.src_port }}({{ fields.src_port_name }})",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
-      "title": "Dest ports",
+      "title": "Filter logs by Source Port",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-logs-datasource",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      "id": 64,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
+          },
+          "editorMode": "code",
+          "expr": "tags.hostname:$host AND tags.appname:filterlog | stats by(fields.dst_port_name,fields.dst_port) count() as hits",
+          "legendFormat": "{{ fields.dst_port }}({{ fields.dst_port_name }})",
+          "queryType": "stats",
+          "refId": "A"
+        }
+      ],
+      "title": "Filter logs by Destination Port",
       "type": "piechart"
     },
     {
@@ -1484,7 +1650,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 43
       },
       "id": 56,
       "panels": [
@@ -1561,7 +1727,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 25
+            "y": 35
           },
           "id": 57,
           "options": {
@@ -1581,7 +1747,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -1662,7 +1828,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 25
+            "y": 35
           },
           "id": 58,
           "options": {
@@ -1682,7 +1848,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -1763,7 +1929,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 35
+            "y": 45
           },
           "id": 59,
           "options": {
@@ -1786,7 +1952,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -1867,7 +2033,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 35
+            "y": 45
           },
           "id": 60,
           "options": {
@@ -1887,7 +2053,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "8.0.5",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -1916,7 +2082,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 44
       },
       "id": 53,
       "panels": [
@@ -1925,11 +2091,15 @@
             "type": "loki",
             "uid": "${logs}"
           },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
           "gridPos": {
             "h": 10,
             "w": 21,
             "x": 0,
-            "y": 33
+            "y": 56
           },
           "id": 29,
           "options": {
@@ -1942,14 +2112,16 @@
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "9.3.6",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "loki",
                 "uid": "P53E94FA6B1E28789"
               },
-              "expr": "{__name=\"suricata\",host=\"$host\"}| logfmt",
+              "editorMode": "code",
+              "expr": "tags.host:$host name:suricata",
+              "queryType": "range",
               "refId": "A"
             }
           ],
@@ -1982,7 +2154,7 @@
             "h": 10,
             "w": 3,
             "x": 21,
-            "y": 33
+            "y": 56
           },
           "id": 45,
           "options": {
@@ -2002,20 +2174,40 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.2.2",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "loki",
                 "uid": "P53E94FA6B1E28789"
               },
-              "editorMode": "builder",
-              "expr": "count(rate({__name=\"suricata\", host=\"$host\"} [$__range]))",
+              "editorMode": "code",
+              "expr": "tags.host:$host name:suricata | stats count()",
               "queryType": "range",
               "refId": "A"
             }
           ],
           "title": "Suricata alerts",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "source": "labels"
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": "count(*)"
+                  }
+                ],
+                "fields": {}
+              }
+            }
+          ],
           "type": "stat"
         }
       ],
@@ -2028,7 +2220,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 45
       },
       "id": 55,
       "panels": [
@@ -2057,7 +2249,7 @@
             "h": 9,
             "w": 5,
             "x": 0,
-            "y": 57
+            "y": 86
           },
           "id": 33,
           "options": {
@@ -2082,7 +2274,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "8.3.2",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -2158,7 +2350,7 @@
             "h": 9,
             "w": 7,
             "x": 5,
-            "y": 57
+            "y": 86
           },
           "id": 32,
           "options": {
@@ -2183,7 +2375,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "8.3.2",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -2270,7 +2462,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 57
+            "y": 86
           },
           "id": 31,
           "options": {
@@ -2285,7 +2477,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "11.2.2",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -2353,25 +2545,25 @@
       "type": "row"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "rose.local.shiftsystems.net",
-          "value": "rose.local.shiftsystems.net"
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "uid": "${metrics}"
         },
         "definition": "label_values(cpu_usage_idle{db=\"opnsense\"},host)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "name": "host",
         "options": [],
         "query": {
@@ -2380,48 +2572,36 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
           "text": "shift-victoriametrics",
           "value": "P342DAF48C1D70AE5"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "victoriametrics-datasource",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
-        "queryValue": "",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
           "text": "igc0",
           "value": "igc0"
         },
@@ -2429,20 +2609,17 @@
           "type": "prometheus",
           "uid": "${metrics}"
         },
-        "definition": "label_values(net_bytes_sent{db=\"opnsense\",host=\"$host\"},interface)",
-        "hide": 0,
+        "definition": "label_values(net_bytes_sent{db=\"opnsense\", host=~\"$host\"},interface)",
         "includeAll": false,
-        "multi": false,
         "name": "interface",
         "options": [],
         "query": {
-          "query": "label_values(net_bytes_sent{db=\"opnsense\",host=\"$host\"},interface)",
-          "refId": "StandardVariableQuery"
+          "qryType": 1,
+          "query": "label_values(net_bytes_sent{db=\"opnsense\", host=~\"$host\"},interface)",
+          "refId": "VariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -2453,8 +2630,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "OPNSense Metrics",
-  "uid": "CqBhDX77z",
-  "version": 15,
+  "title": "OPNSense",
+  "uid": "shiftmon-opnsense",
+  "version": 1,
   "weekStart": ""
 }

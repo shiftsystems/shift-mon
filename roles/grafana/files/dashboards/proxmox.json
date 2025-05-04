@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 150,
   "links": [
     {
       "asDropdown": true,
@@ -40,7 +41,6 @@
       "url": ""
     }
   ],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
@@ -65,8 +65,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -99,8 +98,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -137,8 +135,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -199,7 +196,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -366,8 +363,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -404,8 +400,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -448,7 +443,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -617,8 +612,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -650,8 +644,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -688,8 +681,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -768,7 +760,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1001,8 +993,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1031,10 +1022,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1115,8 +1108,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1148,10 +1140,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1217,8 +1211,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1251,10 +1244,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1302,6 +1297,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -1309,8 +1305,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1319,72 +1314,11 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 193
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "facility_code"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 101
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "severity_code"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 119
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "timestamp"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 197
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "procid"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 98
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 24
       },
@@ -1407,16 +1341,16 @@
           }
         ]
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
-          "editorMode": "builder",
-          "expr": "{appname=\"pvedaemon\", hostname=~\"$node\"} | logfmt",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "tags.appname:\"pve-tasks\" AND tags.hostname:~\"$node\"",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -1425,7 +1359,7 @@
         {
           "id": "extractFields",
           "options": {
-            "source": "Line"
+            "source": "labels"
           }
         },
         {
@@ -1433,205 +1367,72 @@
           "options": {
             "excludeByName": {
               "Line": true,
-              "id": true,
+              "_stream_id": true,
+              "fields.facility_code": true,
+              "fields.severity_code": true,
+              "fields.timestamp": true,
+              "fields.version": true,
               "labels": true,
-              "tsNs": true,
-              "version": true
+              "name": true,
+              "proxmox_host": false,
+              "tags.appname": true,
+              "tags.facility": true,
+              "tags.host": true,
+              "tags.hostname": true,
+              "tags.severity": true,
+              "tags.source": true,
+              "task_id": true,
+              "task_id_1": true,
+              "task_id_2": true,
+              "task_id_3": true
             },
             "includeByName": {},
             "indexByName": {
-              "Line": 8,
+              "Line": 2,
               "Time": 0,
-              "facility_code": 1,
-              "id": 10,
-              "labels": 7,
-              "message": 5,
-              "procid": 4,
-              "severity_code": 2,
-              "timestamp": 3,
-              "tsNs": 9,
-              "version": 6
+              "_stream_id": 4,
+              "fields.facility_code": 5,
+              "fields.log_message": 23,
+              "fields.proxmox_host": 15,
+              "fields.severity_code": 6,
+              "fields.task_id": 16,
+              "fields.task_id_1": 17,
+              "fields.task_id_2": 18,
+              "fields.task_id_3": 19,
+              "fields.task_path": 22,
+              "fields.task_type": 20,
+              "fields.task_user": 21,
+              "fields.timestamp": 7,
+              "fields.version": 8,
+              "labels": 3,
+              "name": 9,
+              "tags.appname": 1,
+              "tags.facility": 10,
+              "tags.host": 11,
+              "tags.hostname": 12,
+              "tags.severity": 13,
+              "tags.source": 14
             },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 193
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "facility_code"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 101
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "severity_code"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 119
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "timestamp"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 197
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "procid"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 98
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 24
-      },
-      "id": 24,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time"
-          }
-        ]
-      },
-      "pluginVersion": "11.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${logs}"
-          },
-          "editorMode": "builder",
-          "expr": "{appname=\"pveupdate\", hostname=~\"$node\"} | logfmt",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "PVE Updates",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "Line"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "id": true,
-              "labels": true,
-              "tsNs": true,
-              "version": true
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Line": 8,
-              "Time": 0,
-              "facility_code": 1,
-              "id": 10,
-              "labels": 7,
-              "message": 5,
-              "procid": 4,
-              "severity_code": 2,
-              "timestamp": 3,
-              "tsNs": 9,
-              "version": 6
-            },
-            "renameByName": {}
+            "renameByName": {
+              "fields.log_message": "message",
+              "fields.proxmox_host": "node",
+              "fields.task_id": "task_id",
+              "fields.task_id_1": "task_id_1",
+              "fields.task_id_2": "task_id_2",
+              "fields.task_id_3": "task_id_3",
+              "fields.task_path": "task path",
+              "fields.task_type": "task type",
+              "fields.task_user": "task user"
+            }
           }
         }
       ],
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [
     "proxmox"
   ],
@@ -1639,44 +1440,33 @@
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "shift-victoriametrics",
           "value": "P342DAF48C1D70AE5"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "victoriametrics-datasource",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1686,7 +1476,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(cpustat_idle{object=\"nodes\"},host)",
-        "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "node",
@@ -1697,16 +1486,11 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1716,7 +1500,6 @@
           "uid": "${metrics}"
         },
         "definition": "label_values(system_cpu{object=~\"lxc|qemu\", nodename=~\"$node\"},host)",
-        "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "guest",
@@ -1728,8 +1511,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -1740,8 +1521,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Proxmox metrics",
-  "uid": "CcDBg5Knk",
-  "version": 12,
-  "weekStart": ""
+  "title": "Proxmox",
+  "uid": "shiftmon-pve",
+  "version": 6
 }

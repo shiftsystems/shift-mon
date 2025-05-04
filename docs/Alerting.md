@@ -1,26 +1,140 @@
 # Alerting setup
-The grafana setup uses the new grafana managed alerting feature instead of panels.
-At the time of writing this you cannot provision alerts so they need to be configured manually. 
-Please make sure you have enabled SMTP alerts so you can receive emails from grafana
+The preferred method for Alerting in shiftmon is to use vmalert and alertmanager since the rules are simpler and easier to define.
+Shiftmon also wires together all the components needed to view alerts and alertmanager configuration in the UI as well as managed silences from Grafana as well as the alertmanager web interface.
+If you still want to use Grafana managed rules so rules can be created via a GUI this is supported and Loki is configured for managing alert state to help Grafana managed alerts scale.
+Shiftmon also configures Victoriametrics as the remotewrite destination for recording rules
 
-## Configure Contact Points
-1. signin to your grafana instance and go the alerting area
+## Enabling Alertmanager to send notifications
+Shiftmon includes a template for configuring alertmanager to send notifications via an webhook and/or via email. If both SMTP variables and webhook variables are defined alerts will be routed to both destinations.
+
+### Configuring SMTP
+To configure alertmanager to send emails via SMTP the  following will need to be added
+
+- a server and port in the format `<smtp_url:smtp_port>` (smtp_host)
+- a from email address where emails will appear to be sent from (smtp_auth_identity)
+- a username for authenticating to the SMTP server (smtp_username)
+- a password for authenticating to the SMTP server (smtp_password)
+- a email address to send the alerts to. (to_email)
+
+The following optional values can also be defined
+- disable verifying SSL certificates to the SMTP server (smtp_require_tls)
+
+```yaml
+alertmanager:
+  smtp_host: "mail.example.com:587"
+  smtp_username: "alerts@example.com"
+  smtp_password: "super_secure_password"
+  smtp_from_email: "alerts@example.com"
+  smtp_auth_identity: "alerts@example.com"
+  #smtp_require_tls: false
+```
+
+### Configure a webhook
+To configure alertmanager to send a webhooks you only need to define a name and a URL for the webhook under the alertmanager object
+
+```yaml
+alertmanager:
+  webhook_name: 'alerty-alertface'
+  webhook_url: 'https://alerts.example.com/?api_key=1234567'
+```
+
+If you want to configure more complex polices like inhibitions or matchers, then you can override the defaulttemplate by defining `shiftmon_alertmanager_config` to a valid alertmanager configuration. Details about alertmanager configuration can be found in the [Prometheus alertmanager documentation](https://prometheus.io/docs/alerting/latest/configuration/)
+
+### service that support alertmanager webhooks.
+
+Below is a list of services that work with alertmanager via a webhook.
+This is list is not complete, but it should be helpful
+
+- [ilert](https://docs.ilert.com/integrations/inbound-integrations/victoria-metrics)
+- [pagerduty](https://www.pagerduty.com/docs/guides/prometheus-integration-guide/)
+- [ntfy with formatting](https://docs.ntfy.sh/publish/#message-templating)
+- [ntfy with a community integration](https://docs.ntfy.sh/integrations/?h=alertmanager#projects-scripts)
+- [keep](https://docs.keephq.dev/providers/documentation/victoriametrics-provider)
+- [pagertree](https://pagertree.com/docs/integration-guides/prometheus)
+
+If you want to configure alertmanager to fit your needs you can follow the [alertmanager configuration docs](https://prometheus.io/docs/alerting/latest/configuration/) and pass a valid alertmanager configuration to the variable `shiftmon_alertmanager_config`
+
+## Enabling alerting rules maintained by shiftmon
+To avoid alert fatigue, Shiftmon does not have any alerting or recording rules enabled by default.
+Each of the variables below will enable a group of alerts related to a certain service if you wish to turn them off simply delete the key or set it to `false` and rerun the shiftmon.yml playbook
+
+```yaml
+# Deadman alerts for things like hosts not sending metrics, UPS units not sending metrics, missing metrics from vmanomaly
+shiftmon_alerts_deadman_enabled: true
+
+# Host metrics alerts like high resource utilization or low disk space
+shiftmon_alerts_infra_enabled: true
+
+# enables alerts for things like backbox health checks failing
+shiftmon_alerts_blackbox_enabled: true
+
+# Enables alerts for ProxmoxVE and Proxmox backup server
+shiftmon_alerts_proxmox_enabled: true
+
+# Enables alerts for FreeIPA
+shiftmon_alerts_freeipa_enabled: true
+
+# Enables alerts for victorialogs
+shiftmon_alerts_victorialogs_enabled: true
+
+# Enables alerts for vmauth
+shiftmon_alerts_vmauth_enabled: true
+
+# Enables alerts for alertmanager
+shiftmon_alerts_alertmanager_enabled: true
+
+# Enables alerts for Victoriametrics
+shiftmon_alerts_victoriametrics_enabled: true
+
+# Enables alerting and recording rules for Adguard home
+shiftmon_alerts_adguardhome_enabled: true
+
+# Enables recording rules for various logging services
+shiftmon_recording_logs: true
+```
+
+## Adding your alerting and recording rules to vmalert
+
+It is best practice to keep these rule files in git along with the rest of any other Infrastructure as code you maintain so any errors can be quickly reverted.
+
+
+1. create 1 or more files that contain a valid vmalert rule config.
+2. rules_files: subkey under the victoria key
+3. Add a subkey under the `rule_file` key that will be the name of the file on the shiftmon server and the value of that subkey should be the path to the file.
+
+Below is a snippet from a shiftmon inventory as an example
+```yaml
+  vars:
+    victoria:
+      rule_files:
+        pango: "{{ playbook_dir}}/rule-files/pango.yaml"
+        darules: "{{ playbook_dir}}/rule-files/darules.yaml"
+
+```
+
+
+## Configuring Alertmanager
+
+TODO
+
+## Configure Contact Points in Grafana managed Alerts
+1. Login to your grafana instance and go the alerting area
 2. click the contact point tab and click the pencil icon by the autogen-contact-point-default.
 3. type your email and any other contact emails you want to notify by separating them by a ; and click the save button
 
 ## Create Alert Rules
-1. Login and go t the alerting area
+1. Login and go the alerting area
 2. Click on the blue New alert rule button
-3. Name the rule, select the grafana managed alert, and place it in the shift-mon folder
-4. Select shift metrics from the data source
+3. Name the rule, select the Grafana managed alert, and place it in the shift-mon folder
+4. Select the correct data source
 5. Configure your own query or paste the query from the  our example ones below
 6. Configure your
 
-## Defining Alerts using Ansible
+## Define Grafana Managed rules via using Ansible
 You can define a set of alerts by adding key named `alert_path` to the Grafana dictionary in the shiftmon inventory.
 ```yaml
 grafana:
-  domain: grafana.local.shiftsystems.net
+  domain: grafana.example.com
   alert_path: "{{ playbook_dir }}/user-alerts.yml"
 ```
 
@@ -39,231 +153,11 @@ Grafana offers a way to edit provisioned alerts in the UI which is more conviene
 7. Copy the file to your user-alerts.yml file
 8. Run the shiftmon.yml playbook
 
-## Example Alerts
-Feel free to customize any of the numbers or use these as the basis for your own alerts
-
-
-### Host Down
-Query: ```lag(cpu_usage_idle{}[1h])```
-
-B: Reduce
-  * Function: Count
-  * Input: A
-  * Mode: Strict
-
-
-C: Threshold
-  * Input: B
-  * Condition: IS Above 
-  * Value 300 (the integer is the time seconds the host should be down before the alert fires 300 seconds is 5 minutes)
-
-
-Summary: `{{ $labels.host }} is down`\
-Description: `I say you {{ $labels.host }} dead`\
-for: 2m
-
-
-### High memory usage
-Query: ```mem_used_percent{}```
-
-B: Reduce
-* Function: Mean
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS ABOVE
-* 90
-
-for: 20m\
-Summary: `{{ $labels.host }} is using almost all its RAM`\
-Description: `{{ $labels.host }} is at {{ $values.B }}%`\
-
-
-### High CPU usage
-Query: ```100 - cpu_usage_idle{}```\
-B: Reduce
-* Function: Mean
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS ABOVE
-* 90
-
-for: 1h\
-Summary: `{{ $labels.host }} has been using alot of cpu for the past 10 minutes`\
-Description: `{{ $labels.host }} is at {{ $values.B }}%`\
-
-
-### Low Disk Space
-Query: ```disk_used_percent{device !="devfs"}```\
-B: Reduce
-  * Function: Mean
-  * Input: A
-  * Mode: Strict
-
-
-C: Threshold
-  * Input: B
-  * Condition: IS ABOVE
-  * Value: 92
-
-for: 1h\
-Summary: `{{ $labels.host }} is running out of disk space`\
-Description: `{{ $labels.host }} is at {{ $values.B }}% on disk {{ $labels.device }} Disk usage`\
-
-
-### Automation Failure
-Query: ```systemd_units_active_code{name=~`dnf-automatic-install.service|unattended-upgrades.service|certbot.service|apt-daily-upgrade.service|ansible.*`}  == 3```\
-B: Reduce
-  * Function: Mean
-  * Input: A
-  * Mode: Strict
-
-
-C: Threshold
-  * Input: B
-  * Condition: IS ABOVE
-  * Value: 2
-
-
-for: 1h\
-Summary: `{{ $labels.host }} has automatic service that failing`\
-Description: `{{ $labels.name }} on {{ $labels.host }} is failing`\
-
-
-### Unhealthy Smart data
-Query:
-Operation: Reduce\
-Function: Last\
-Input: A\
-Summary: `{{ $labels.host }} has a not OK SMART status on {{ $labels.device }}`\
-Description:
-
-
-```
-{{ $labels.device }} on {{ $labels.host }} is unhealthly
-model: {{ $labels.model }}
-serial number: {{ $labels.serial_no }}
-```
-for: 5m
-
-### High CPU IOWait
-Query: ```cpu_usage_iowait{}```\
-B: Reduce
-* Function: Mean
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS ABOVE
-* 6
-
-for: 10m\
-Summary: `{{ $labels.host }} has high iowait`\
-Description: `{{ $labels.host }} is at {{ $values.B }}% of iowait this could be causing issues with application responsiveness`\
-
-### HTTPS Failure
-Query: ```http_response_result_code{}```\
-B: Reduce
-* Function: LAST
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS ABOVE
-* 0
-
-for: 5m\
-Summary: `{{ $labels.server }} is not healthy`\
-Description: `{{ $labels.server }} is not healthy with issue {{ $labels.result }}`\
-
-### DNS Filtering Not working
-Query: ```dns_query_result_code{domain="malware.com"}```\
-B: Reduce
-* Function: LAST
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS Below
-* 2
-
-for: 5m\
-Summary: `{{ $labels.domain }} is resolvable on {{ $labels.server }}`\
-Description: `{{ $labels.domain }} is resolvable on {{ $labels.server }}`\
-
-### DNS Check Failing
-Query: ```lag(avg by (server,domain,record_type) (dns_query_query_time_ms{result="success"})[1h])```\
-B: Reduce
-* Function: LAST
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS ABOVE
-* 500
-
-for: 5m\
-Summary: `DNS lookups are not working on {{ $labels.server }}`\
-Description: `Users can  not lookup {{ $labels.domain }} on  {{ $labels.server }} with record {{ $labels.record_type }}`\
-
-### SSL cert is about to expire
-Query: ```lag(avg by (server,domain,record_type) (dns_query_query_time_ms{result="success"})[1h])```\
-B: Reduce
-* Function: LAST
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS Below
-* 7
-
-for: 5m\
-Summary: `{{ $labels.common_name }} will expire soon`\
-Description: `{{ $labels.common_name }} will expire soon please renew`\
-
-### Net Response (TCP/UDP) Failure
-Query: ```lag(avg by (server) (net_response_response_time{result="success"})[1h])```\
-B: Reduce
-* Function: LAST
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS ABOVE
-* 0
-
-for: 5m\
-Summary: `{{ $labels.server }} is not healthy`\
-Description: `{{ $labels.server }} is not healthy`\
-
-### Shiftmon Container Down
-Query: ```lag(docker_container_cpu_usage_percent{container_name=~`shift-mon.*-1`}[1h])```\
-B: Reduce
-* Function: LAST
-* Input A
-* Mode: Strict
-
-C: Threshold
-* Input: B
-* Condition: IS ABOVE
-* 200
-
-for: 5m\
-Summary: `{{ $labels.container_name }} is down`\
-Description: `{{ $labels.container_name }} is down on {{ $labels.host }}`\
 
 ## Related docs
 * [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
 * [Victoriametrics query Function](https://docs.victoriametrics.com/MetricsQL.html)
-* [Prometheus Query functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
+* [Why loki is used for alert state](https://grafana.com/blog/2023/07/10/how-we-improved-grafanas-alert-state-history-to-provide-better-insights-into-your-alerting-data/)
+* [vmalert docs](https://docs.victoriametrics.com/vmalert)
+* [alertmanager docs](https://prometheus.io/docs/alerting/latest/configuration/)
+

@@ -1,6 +1,0 @@
-redhat_packages:
-  - podman
-  - podman-compose
-debian_packages:
-  - podman
-  - podman-compose

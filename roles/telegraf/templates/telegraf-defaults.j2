@@ -1,30 +1,16 @@
-loki_url="{{ loki.url }}"
-victoria_url="{{ victoria.url }}"
-{% if not telegraf_use_secrets %}
-victoria_user="{{ victoria.user }}"
-victoria_password="{{ victoria.password }}"
-loki_user="{{ loki.user }}"
-loki_password="{{ loki.password }}"
-{% endif %}
-{% if metric_buffer_limit is defined %}
-metric_buffer_limit={{ metric_buffer_limit }}
+victoriametrics_url="{{ victoriametrics_url }}"
+victorialogs_url="{{ victorialogs_url }}"
+{% if victoriametrics_user is defined and victoriametrics_password is defined %}
+victoriametrics_user="{{ victoriametrics_user }}"
+victoriametrics_password="{{ victoriametrics_password }}"
 {% else %}
-metric_buffer_limit=10000
+victoriametrics_token = "{{ victoriametrics_token }}"
 {% endif %}
-{% if metric_batch_size is defined %}
-metric_batch_size={{ metric_batch_size }}
+{% if victorialogs_user is defined and victorialogs_password is defined %}
+victorialogs_user="{{ victorialogs_user }}"
+victorialogs_password="{{ victorialogs_password }}"
 {% else %}
-metric_batch_size=1000
-{% endif %}
-{% if interval is defined %}
-interval="{{ interval }}"
-{% else %}
-interval="10s"
-{% endif %}
-{% if flush_interval is defined %}
-flush_interval="{{ flush_interval }}"
-{% else %}
-flush_interval="10s"
+victorialogs_token = "{{ victorialogs_token }}"
 {% endif %}
 {% if vsphere_enabled is defined and vsphere_enabled %}
 vsphere_urls="{{ vsphere_urls }}"
@@ -45,3 +31,8 @@ nut_password="{{ nut.password }}"
 {% for name,secret in user_secrets.items() %}
 {{ name }}="{{ secret }}"
 {% endfor %}
+metric_buffer_limit={{ metric_buffer_limit }}
+metric_batch_size={{ metric_batch_size }}
+interval="{{ interval }}"
+flush_interval="{{ flush_interval }}"
+

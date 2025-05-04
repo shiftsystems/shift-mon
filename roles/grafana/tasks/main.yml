@@ -9,8 +9,8 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    owner: root
-    group: telegraf
+    owner: shiftmon
+    group: shiftmon
     mode: '770'
     setype: container_file_t
   become: true
@@ -22,6 +22,8 @@
     state: directory
     path: '{{ item }}'
     mode: '770'
+    owner: shiftmon
+    group: shiftmon
     setype: container_file_t
   become: true
   with_items:
@@ -32,25 +34,14 @@
     - /opt/shift-mon/grafana-config/provisioning/notifiers
     - /opt/shift-mon/grafana/victoriametrics-dashboards
     - /opt/shift-mon/grafana
-    - /opt/shift-mon/keydb
-
-- name: Create Grafana Oncall directories
-  ansible.builtin.file:
-    state: directory
-    path: '{{ item }}'
-    mode: '770'
-    owner: 1000
-    group: 2000
-    setype: container_file_t
-  become: true
-  when: oncall is defined and oncall
-  with_items:
-    - /opt/shift-mon/oncall
+    - /opt/shift-mon/valkey
 
 - name: Copy Dashboards
   ansible.builtin.copy:
     src: dashboards
     dest: /opt/shift-mon/grafana
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Download Victoriametrics Dashboards
@@ -58,48 +49,64 @@
     url: 'https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/master/dashboards/vm/{{ item }}'
     dest: '/opt/shift-mon/grafana/victoriametrics-dashboards/{{ item }}'
     mode: '770'
+    owner: shiftmon
+    group: shiftmon
   become: true
   with_items:
     - victoriametrics.json
     - vmalert.json
     - vmauth.json
+    - victorialogs.json
+
+- name: Download Dashbaords from Grafana.com
+  ansible.builtin.get_url:
+    url: https://grafana.com/api/dashboards/{{ item.id }}/revisions/{{ item.revision }}/download
+    dest: '/opt/shift-mon/grafana/dashboards/{{ item.name }}.json'
+    mode: '770'
+    owner: shiftmon
+    group: shiftmon
+  become: true
+  with_items:
+    - name: alertmanager
+      id: 20715
+      revision: 1
+    - name: vmanomaly-self-monitoring
+      id: 22337
+      revision: 7
+    - name: vmanomaly-stats
+      id: 22922
+      revision: 1
 
 - name: Configure Dashboard Provisioning 
   ansible.builtin.template:
     src: dashboards.yml
     dest: /opt/shift-mon/grafana-config/provisioning/dashboards/shift-dashboards.yml
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Configure Datasource Provisioning
   ansible.builtin.template:
+    owner: shiftmon
+    group: shiftmon
     src: datasources.yml
     dest: /opt/shift-mon/grafana-config/provisioning/datasources/shift-datasources.yml
   become: true
-
-- name: Get Latest Version of VictoriaMetrics Datasource
-  ansible.builtin.uri:
-    url: https://api.github.com/repos/VictoriaMetrics/grafana-datasource/releases/latest
-    return_content: true
-    body_format: json
-  register: vm_datasource_release
-
-- name: Get Latest Version of Victorialogs Datasource
-  ansible.builtin.uri:
-    url: https://api.github.com/repos/VictoriaMetrics/victorialogs-datasource/releases/latest
-    return_content: true
-    body_format: json
-  register: vl_datasource_release
 
 - name: Copy Grafana config
   ansible.builtin.template:
     src: grafana.ini
     dest: /opt/shift-mon/grafana-config/grafana.ini
+    owner: shiftmon
+    group: shiftmon
   become: true
 
 - name: Copy LDAP config
   ansible.builtin.template:
     src: ldap.toml
     dest: /opt/shift-mon/grafana-config/ldap.toml
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: ldap_host is defined
 
@@ -107,6 +114,8 @@
   ansible.builtin.copy:
     src: "{{ grafana.alert_path }}"
     dest: /opt/shift-mon/grafana-config/provisioning/alerting/user-alerts.yml
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: grafana.alert_path is defined
 
@@ -114,6 +123,8 @@
   ansible.builtin.copy:
     src: "{{ item.value }}"
     dest: "/opt/shift-mon/grafana"
+    owner: shiftmon
+    group: shiftmon
   become: true
   when: grafana.dashboard_paths is defined
   with_items: "{{ grafana.dashboard_paths | dict2items }}"

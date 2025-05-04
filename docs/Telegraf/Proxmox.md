@@ -17,6 +17,7 @@ all:
   vars:
     syslog_host: "logs.example.com"
     metrics_host: "metrics.example.com"
+    metrics_token: "muh-token"
     ansible_user: "root"
 ```
 
@@ -26,7 +27,7 @@ Create a playbook named `instrument-pve.yml` with following content
 - hosts: all
   tasks:
     - ansible.builtin.include_role:
-        name: shiftsystems.shift_mon.pve_instrumentation
+        name: pve_instrumentation
 ```
 
 ### Running the play
@@ -43,12 +44,12 @@ Due to how Proxmox sends metrics, and how shiftmon handles authentication curren
 3. click on the Metric Server submenu
 4. Click add -> influxdb and fill out the settings below
   * Name: shiftmon
-  * Server: the hostname of your influxdb server
-  * Protocol: HTTP
-  * Port: 8428
+  * Server: the fqdn of the Victoriametrics server
+  * Protocol: HTTPS
+  * Port: 443
   * Organization: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the organization field
   * bucket: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the bucket field
-  * token: Leave blank for Unauthenticated metrics.listed in your shift-mon inventory. 
+  * token: set to a valid token for your Victoriametrics instance.
 5. hit create or ok.
 
 ## Add Metrics Manually in Proxmox Backup Server (PBS)
@@ -57,10 +58,10 @@ Due to how Proxmox sends metrics, and how shiftmon handles authentication curren
 3. click on the Metric Server submenu
 4. Click add -> InfluxDB (HTTP) and fill out the settings below
   * Name: shiftmon
-  * URL: http://<yourmetricsserverurl>:8428
+  * URL: `https://<your_victoriametrics_url>`
   * Organization: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the organization field
   * bucket: set it to `proxmox`, but this field is not used since we are using the InfluxDBv1 endpoint in Victoriametrics which ignores the bucket field
-  * token: Leave blank for Unauthenticated metrics. or set to the value of in the list of victoria.tokens 
+  * token: Set to a valid token for your Victoriametrics instance.
 5. hit create or ok.
 
 ## Adding Syslog to Proxmox Manually
@@ -105,3 +106,4 @@ input(type="imfile" File="/var/log/proxmox-backup/tasks/active" Tag="pbs-active"
 
 3. Restart rsyslog `systemctl restart rsyslog`
 4. Confirm that logs are flowing by checking out the Proxmox Dashboard in your shiftmon instance.
+

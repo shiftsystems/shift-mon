@@ -1,13 +1,41 @@
 users:
-{% for user, password in users.items() %}
-  - username: "{{ user }}"
-    password: "{{ password }}"
-    url_prefix: "http://victoriametrics:8428"
-{%endfor %}
-{% if victoria.tokens is defined %}
-{% for token in victoria.tokens %}
-  - bearer_token: "{{ token }}"
-    url_prefix: "http://victoriametrics:8428"
+{% for token in victoriametrics_merged_tokens %}
+  - bearer_token: '{{ token }}'
+    url_prefix: 'http://victoriametrics:8428'
+{% endfor %}
+{% for token in victorialogs_merged_tokens %}
+  - bearer_token: '{{ token }}'
+    url_prefix: 'http://victorialogs:9428'
+{% endfor %}
+{% if victoriametrics_users is defined %}
+{% for user in victoriametrics_users %}
+  - username: '{{ user.user }}'
+    password: '{{ user.password }}'
+    url_prefix: 'http://victoriametrics:8428'
 {% endfor %}
 {% endif %}
+{% if victorialogs_users is defined %}
+{% for user in victorialogs_users %}
+  - username: '{{ user.user }}'
+    password: '{{ user.password }}'
+    url_prefix: 'http://victorialogs:9428'
+{% endfor %}
+{% endif %}
+{% if alertmanager_users is defined %}
+{% for user in alertmanager_users %}
+  - username: '{{ user.user }}'
+    password: '{{ user.password }}'
+    url_prefix: 'http://alertmanager:9093'
+{% endfor %}
+{% endif %}
+  - bearer_token: '{{ vmalert_token }}'
+    url_map:
+      - src_paths:
+        - "/api/v1/query.*"
+        - "/api/v1/query"
+        url_prefix: "http://victoriametrics:8428"
+      - src_paths:
+        - "/select/logsql/.*"
+        - "/select/logsql"
+        url_prefix: "http://victorialogs:9428"
 

@@ -1,14 +1,16 @@
 apiVersion: 1
 
 providers:
-  - name: shift-mon    # A uniquely identifiable name for the provider
-    folder: shift-mon # The folder where to place the dashboards
+  - name: shiftmon    # A uniquely identifiable name for the provider
+    folder: shiftmon # The folder where to place the dashboards
     type: file
+    disableDeletion: false
     options:
       path: /var/lib/grafana/dashboards
   - name: victoriametrics
     folder: victoriametrics
     type: file
+    disableDeletion: false
     options:
       path: /var/lib/grafana/victoriametrics-dashboards
 {% if grafana.dashboard_paths is defined %}
@@ -16,6 +18,7 @@ providers:
   - name: {{ name }}
     folder: {{ name }}
     type: file
+    disableDeletion: false
     options:
       path: /var/lib/grafana/{{ name }}
 {% endfor %}

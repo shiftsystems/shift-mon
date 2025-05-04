@@ -1,0 +1,367 @@
+groups:
+{% if shiftmon_alerts_deadman_enabled %}
+{% raw %}
+  - name: DeadMan
+    interval: 1m
+    type: prometheus
+    labels:
+      autoresolve: false
+    rules:
+      - alert: Host Down
+        expr: 'lag(cpu_usage_idle[24h]) > 60'
+        for: 5m
+        annotations:
+          summary: '{{ $labels.host }} is not sending metrics'
+          description: '{{ $labels.host }} has not sent metrics in {{ $value }} seconds'
+      - alert: Missing Grafana Metrics
+        expr: 'lag(grafana_alerting_state_history_writes_bytes_total[24h]) > 120'
+        for: 10m
+        annotations:
+          summary: 'No metrics from Grafana'
+          description: '{{ $labels.host }} has not sent Grafana Metrics in {{ $value }} seconds'
+      - alert: Missing UPS Metrics
+        expr: 'lag(upsd_battery_charge_percent{ups_status="OL"}[24h]) > 120'
+        for: 10m
+        annotations:
+          summary: '{{ $labels.ups_name }} is not sending metrics'
+          description: 'no metrics from {{ $labels.ups_name }} on {{ $labels.host }}'
+      - alert: Missing Anomaly Score
+        expr: 'lag(anomaly_score[24h]) > 60'
+        for: 5m
+        annotations:
+          summary: '{{ $labels.instance }} is not reporting anomaly scores'
+          description: '{{ $labels.instance }} has not sent metrics in {{ $value }} seconds'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_infra_enabled %}
+{% raw %}
+  - name: InfraAlerts
+    interval: 5m
+    type: prometheus
+    rules:
+      - alert: high_cpu_usage
+        expr: '100 - cpu_usage_idle{host!="sasha.local.shiftsystems.net"} > 95'
+        for: 20m
+        annotations:
+          summary: 'High CPU utilization on {{ $labels.host }}'
+          description: "{{ $labels.host }} is using {{ $value }}"
+      - alert: High Disk usage
+        expr: 'disk_used_percent{device !~"devfs|efivarfs"} > 80'
+        for: 30m
+        annotations:
+          summary: 'Low disk space {{ $labels.host }}'
+          description: '{{ $labels.device }} on {{ $labels.host }} is {{ $value }} percent full'
+      - alert: SMART failure
+        expr: 'smart_device_health_ok{} != 1'
+        for: 10m
+        annotations:
+          summary: 'SMART Errors on {{ $labels.device }} on {{ $labels.host }}'
+          description: '{{ $labels.device }} on {{ $labels.host }} is unhealthly model: {{ $labels.model }} serial number: {{ $labels.serial_no }}'
+      - alert: Automation issue
+        expr: 'systemd_units_active_code{name=~`dnf-automatic-install.service|unattended-upgrades.service|certbot.service|apt-daily-upgrade.service|ansible.*|borg.*|db-backup.*`} == 3'
+        for: 10h
+        annotations:
+          summary: '{{ $labels.name }} on {{ $labels.host }} is failing'
+          description: '{{ $labels.name }} on {{ $labels.host }} is failing'
+      - alert: High iowait
+        expr: 'cpu_usage_iowait{} > 7'
+        for: 10m
+        annotations:
+          summary: 'High iowait on {{ $labels.host }}'
+          description: "{{ $labels.host }} is spending {{ $value }}% of the time on iowait"
+      - alert: Shiftmon Container Down
+        expr: 'lag(group by (host,container_name) (docker_container_cpu_usage_percent{container_name=~`shift-mon-crowdsec-.*|shift-mon-celery-.*|shift-mon-engine-.*|shift-mon-grafana-.*|shift-mon-loki-.*|shift-mon-redis-.*|shift-mon-traefik-.*|shift-mon-uptime-kuma-.*|shift-mon-victoriametrics-.*|shift-mon-vmalert-.*|imageofthehour.*`})[1h]) > 100'
+        for: 10m
+        annotations:
+          summary: '{{ $labels.container_name }} is down'
+          description: '{{ $labels.container_name }} is down on {{ $labels.host }}'
+      - alert: Container Down
+        expr: 'docker_container_health_health_status > 0'
+        for: 10m
+        annotations:
+          summary: '{{ $labels.container_name }} is not healthy'
+          description: '{{ $labels.container_name }} is down on {{ $labels.host }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_blackbox_enabled %}
+{% raw %}
+  - name: Blackbox Alerts
+    interval: 1m
+    type: prometheus
+    rules:
+      - alert: HTTP Blackbox Failing
+        expr: 'http_response_result_code{check_type="normal"} > 0'
+        for: 10m
+        annotations:
+          summary: '{{ $labels.server }} is not healthy'
+          description: '{{ $labels.server }} is not responding properly from {{ $labels.host }}'
+      - alert: DNS Blackbox Failing
+        expr: 'dns_query_result_code{check_type="normal"} > 0'
+        for: 5m
+        annotations:
+          summary: 'DNS lookups are not working on {{ $labels.server }}'
+          description: 'Users can  not lookup {{ $labels.domain }} on {{ $labels.server }} with record {{ $labels.record_type }}'
+      - alert: Net Response Blackbox Failing
+        expr: 'net_response_result_code{check_type="normal"} > 0'
+        for: 5m
+        annotations:
+          summary: '{{ $labels.server }} is not healthy'
+          description: '{{ $labels.server }} is not reachable from {{ $labels.host }}'
+      - alert: Ping Blackbox Failing
+        expr: 'ping_result_code{check_type="normal"} > 0'
+        for: 5m
+        annotations:
+          summary: 'ping is not working on working on {{ $labels.url }}'
+          description: 'ping is not working on {{ $labels.url }} from {{ $labels.host }}'
+      - alert: TLS certificate expiring
+        expr: '((x509_cert_enddate{} - time()) / 86400) < 14'
+        for: 10m
+        annotations:
+          summary: '{{ $labels.common_name }} will expire soon please renew'
+          description: '{{ $labels.common_name }} will expire in {{ $value }} seconds according to {{ $labels.host }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_proxmox_enabled %}
+{% raw %}
+  - name: Proxmox metric alerts
+    interval: 5m
+    type: prometheus
+    rules:
+      - alert: PVE high IOWait
+        expr: 'cpustat_wait > 6'
+        for: 20m
+        annotations:
+          summary: 'High iowait on PVE node {{ $labels.host }}'
+          description: 'PVE node{{ $labels.host }} has an iowait of {{ $value }}'
+  - name: Proxmox Log Alerts
+    interval: 5m
+    type: vlogs
+    labels:
+      autoresolve: false
+    rules:
+      - alert: Storage Offline
+        expr: 'tags.appname:pve AND ~"storage .* is not online" | rename tags.hostname as hostname | stats by (hostname) count() as storage_online_errors | filter storage_online_errors:>0'
+        annotations:
+          summary: 'storage failed offline on {{ $labels.hostname }}'
+          description: 'storage offline on {{ $labels.hostname }}'
+      - alert: Storage Failed to activate
+        expr: |
+          tags.appname:pve AND "could not activate storage" | rename tags.hostname as hostname | rename fields.proxmox_host as proxmox_host | extract `<errored_task_id> could not activate storage '<storage_pool>':<error_msg>` from fields.log_message | stats by (proxmox_host,storage_pool) count() as storage_activation_errors | filter storage_activation_errors:>0
+        annotations:
+          summary: 'storage failed to activate on {{ $labels.proxmox_host }}'
+          description: 'storage failed to activate {{ $labels.storage_pool }} on {{ $labels.proxmox_host }}'
+      - alert: Failing Hard drive
+        expr: 'tags.appname:"smartd" AND "FAILED" | rename tags.hostname as hostname | extract "Device: <block_device> <_>" | stats by (hostname,block_device) count() as smart_errors | filter smart_errors:>0'
+        annotations:
+          summary: 'failing drive on node {{ $labels.hostname }}'
+          description: 'device: {{ $labels.block_device }} is failing on {{ $labels.hostname }}'
+      - alert: Failed PBS task
+        expr: '_time:1h tags.appname:pbs AND ~"fail|error" | rename tags.hostname as hostname | extract "UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_id_4>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>" | stats by (hostname,task_type) count() as failures | failures:>0'
+        annotations:
+          summary: 'task errors on {{ $labels.hostname }}'
+          description: '{{ $labels.task_info }} occurred on {{ $labels.hostname }}'
+      - alert: failedScrub
+        expr: 'tags.appname:zed AND "err" | unpack_logfmt | rename tags.hostname as hostname | stats by (hostname,pool,vdev) count()'
+        annotations:
+          summary: 'srub errors on {{ $labels.hostname }}'
+          description: 'scrub errors on {{ $labels.vdev }} in {{ $labels.pool }} on {{ $labels.hostname }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_freeipa_enabled %}
+{% raw %}
+  - name: FreeIPA log Alerts
+    interval: 5m
+    type: vlogs
+    rules:
+      - alert: FreeIPA replication failure
+        expr: "tags.path:'/var/log/dirsrv/slapd' AND `Can't locate CSN` | rename tags.host as host | stats by (host) count() replication_errors | filter smart_errors:>0"
+        annotations:
+          summary: 'FreeIPA Replication failure on {{ $labels.host }}'
+          description: 'FreeIPA Replication failure on {{ $labels.host }}'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_victorialogs_enabled %}
+{% raw %}
+  - name: Victorialogs Alerts
+    interval: 5m
+    type: prometheus
+    rules:
+      - alert: RequestErrorsToAPI
+        expr: increase(vl_http_errors_total[5m]) > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Too many errors served for path {{ $labels.path }} (instance {{ $labels.instance }})"
+          description: "Requests to path {{ $labels.path }} are receiving errors.
+            Please verify if clients are sending correct requests."
+      - alert: RowsRejectedOnIngestion
+        expr: rate(vl_rows_dropped_total[5m]) > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Some rows are rejected on \"{{ $labels.instance }}\" on ingestion attempt"
+          description: "VictoriaLogs is rejecting to ingest rows on \"{{ $labels.instance }}\" due to the
+            following reason: \"{{ $labels.reason }}\""
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_vmauth_enabled %}
+{% raw %}
+  - name: vmauth
+    interval: 30s
+    type: prometheus
+    rules:
+      - alert: ConcurrentRequestsLimitReached
+        expr: sum(increase(vmauth_concurrent_requests_limit_reached_total[1m])) by (instance) > 0
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "vmauth ({{ $labels.instance }}) reached concurrent requests limit"
+          description: "Possible solutions: increase the limit with flag: -maxConcurrentRequests, deploy additional vmauth replicas, check requests latency at backend service. See more details at https://docs.victoriametrics.com/vmauth/#concurrency-limiting"
+      - alert: UserConcurrentRequestsLimitReached
+        expr: sum(increase(vmauth_user_concurrent_requests_limit_reached_total[1m])) by (username) > 0
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "vmauth has reached concurrent requests limit for username {{ $labels.username }}"
+          description: "Possible solutions: increase limit with flag: -maxConcurrentPerUserRequests, deploy additional vmauth replicas, check requests latency at backend service."
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_victoriametrics_enabled %}
+{% raw %}
+  - name: vm-health
+    type: prometheus
+    rules:
+      - alert: TooManyRestarts
+        expr: changes(process_start_time_seconds{}[15m]) > 2
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.job }} too many restarts (instance {{ $labels.instance }})"
+          description: >
+            Job {{ $labels.job }} (instance {{ $labels.instance }}) has restarted more than twice in the last 15 minutes.
+            It might be crashlooping.
+      - alert: Failed Scrape Jobs
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down on {{ $labels.instance }}"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes."
+      - alert: TooHighGoroutineSchedulingLatency
+        expr: histogram_quantile(0.99, sum(rate(go_sched_latencies_seconds_bucket[5m])) by (le, job, instance)) > 0.1
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "\"{{ $labels.job }}\"(\"{{ $labels.instance }}\") has insufficient CPU resources for >15m"
+          description: >
+            Go runtime is unable to schedule goroutines execution in acceptable time. This is usually a sign of
+            insufficient CPU resources or CPU throttling. Verify that service has enough CPU resources. Otherwise,
+            the service could work unreliably with delays in processing.
+      - alert: TooManyLogs
+        expr: sum(increase(vm_log_messages_total{level="error"}[5m])) without (app_version, location) > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Too many logs printed for job \"{{ $labels.job }}\" ({{ $labels.instance }})"
+          description: >
+            Logging rate for job \"{{ $labels.job }}\" ({{ $labels.instance }}) is {{ $value }} for last 15m.
+            Worth to check logs for specific error messages.
+      - alert: TooManyTSIDMisses
+        expr: rate(vm_missing_tsids_for_metric_id_total[5m]) > 0
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Too many TSID misses for job \"{{ $labels.job }}\" ({{ $labels.instance }})"
+          description: |
+            The rate of TSID misses during query lookups is too high for \"{{ $labels.job }}\" ({{ $labels.instance }}).
+            Make sure you're running VictoriaMetrics of v1.85.3 or higher.
+            Related issue https://github.com/VictoriaMetrics/VictoriaMetrics/issues/3502
+      - alert: ConcurrentInsertsHitTheLimit
+        expr: avg_over_time(vm_concurrent_insert_current[1m]) >= vm_concurrent_insert_capacity
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.job }} on instance {{ $labels.instance }} is constantly hitting concurrent inserts limit"
+          description: |
+            The limit of concurrent inserts on instance {{ $labels.instance }} depends on the number of CPUs.
+            Usually, when component constantly hits the limit it is likely the component is overloaded and requires more CPU.
+            In some cases for components like vmagent or vminsert the alert might trigger if there are too many clients
+            making write attempts. If vmagent's or vminsert's CPU usage and network saturation are at normal level, then
+            it might be worth adjusting `-maxConcurrentInserts` cmd-line flag.
+      - alert: IndexDBRecordsDrop
+        expr: increase(vm_indexdb_items_dropped_total[5m]) > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "IndexDB skipped registering items during data ingestion with reason={{ $labels.reason }}."
+          description: |
+            VictoriaMetrics could skip registering new timeseries during ingestion if they fail the validation process.
+            For example, `reason=too_long_item` means that time series cannot exceed 64KB. Please, reduce the number
+            of labels or label values for such series. Or enforce these limits via `-maxLabelsPerTimeseries` and
+            `-maxLabelValueLen` command-line flags.
+      - alert: RowsRejectedOnIngestion
+        expr: rate(vm_rows_ignored_total[5m]) > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Some rows are rejected on \"{{ $labels.instance }}\" on ingestion attempt"
+          description: "Ingested rows on instance \"{{ $labels.instance }}\" are rejected due to the
+            following reason: \"{{ $labels.reason }}\""
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_alertmanager_enabled %}
+{% raw %}
+  - name: Alertmanager
+    type: prometheus
+    rules:
+      - alert: AlertmanagerErrors
+        expr: increase(vmalert_alerts_send_errors_total[5m]) > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "vmalert instance {{ $labels.instance }} is failing to send notifications to Alertmanager"
+          description: "vmalert instance {{ $labels.instance }} is failing to send alert notifications to \"{{ $labels.addr }}\".
+            Check vmalert's logs for detailed error message."
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_adguardhome_enabled %}
+{% raw %}
+  - name: AdGuardHome
+    interval: 5m
+    type: vlogs
+    rules:
+      - record: adguardhome:request:rate5m
+        expr: 'tags.path:querylog.json | stats by (tags.host) count()'
+      - record: adguardhome:blocked:request:rate5m
+        expr: 'tags.path:querylog.json AND fields.Result_IsFiltered:"true" | stats by (tags.host) count()'
+      - record: adguardhome:cached:request:rate5m
+        expr: 'tags.path:querylog.json AND fields.Cached:"true" | stats by(tags.host) count()'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_log_rules %}
+{% raw %}
+# Rule to find number of logs per path
+  - name: Log count
+    limit: 0
+    eval_offset: 10s
+    interval: 2m
+    type: vlogs
+    rules:
+      - record: 'logs_per_path:2m'
+        expr: 'tags.path:!"" | stats by (tags.path,tags.host) count()'
+      - record: 'logs_per_appname:2m'
+        expr: 'tags.appname:!"" | stats by (tags.path,tags.host) count()'
+
+{% endraw %}
+{% endif %}

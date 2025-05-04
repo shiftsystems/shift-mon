@@ -17,7 +17,8 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
+  "id": 143,
   "links": [
     {
       "asDropdown": false,
@@ -48,7 +49,6 @@
       "url": ""
     }
   ],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -110,7 +110,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -181,7 +181,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -320,7 +320,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
@@ -338,13 +338,14 @@
           "options": {
             "keepTime": false,
             "replace": true,
-            "source": "Line"
+            "source": "labels"
           }
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
+              "_stream_id": true,
               "kw_acme": true,
               "kw_ca": true,
               "kw_cert_id": true,
@@ -385,6 +386,7 @@
               "kw_type": true,
               "uuid": false
             },
+            "includeByName": {},
             "indexByName": {
               "check": 0,
               "duration": 4,
@@ -444,6 +446,10 @@
         "type": "loki",
         "uid": "${logs}"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -453,6 +459,7 @@
       "id": 3,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -461,16 +468,16 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
-          "editorMode": "builder",
-          "expr": "{host=~\"$host\", __name=\"freeipa_healthcheck\"} | logfmt",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "(tags.host:$host) AND name:=\"freeipa_healthcheck\"",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -482,6 +489,10 @@
         "type": "loki",
         "uid": "${logs}"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -491,6 +502,7 @@
       "id": 4,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -499,16 +511,16 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
-          "editorMode": "builder",
-          "expr": "{host=~\"$host\", __name=\"freeipa_healthcheck\"} | logfmt | result != `SUCCESS`",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "(tags.host:$host) AND name:=\"freeipa_healthcheck\" AND fields.result:!=\"SUCCESS\"",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -533,6 +545,10 @@
         "type": "loki",
         "uid": "${logs}"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 10,
         "w": 24,
@@ -542,6 +558,7 @@
       "id": 12,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -550,14 +567,15 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P53E94FA6B1E28789"
           },
-          "editorMode": "builder",
-          "expr": "{path=\"/var/log/krb5kdc.log\", host=~\"$host\"} | logfmt",
+          "editorMode": "code",
+          "expr": "tags.path:=\"/var/log/krb5kdc.log\" AND (tag.host:$host)",
           "queryType": "range",
           "refId": "A"
         }
@@ -583,6 +601,10 @@
         "type": "loki",
         "uid": "${logs}"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -592,6 +614,7 @@
       "id": 9,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -600,16 +623,16 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
-          "editorMode": "builder",
-          "expr": "{path=~\"/var/log/dirsrv/slapd-.*/access\", host=~\"$host\"} | logfmt",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\" AND (tags.host:$host)",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -621,6 +644,10 @@
         "type": "loki",
         "uid": "${logs}"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -630,6 +657,7 @@
       "id": 10,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -638,16 +666,16 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "11.5.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "${logs}"
           },
-          "editorMode": "builder",
-          "expr": "{path=~\"/var/log/dirsrv/slapd-.*/errors\", host=~\"$host\"} | logfmt",
-          "queryType": "range",
+          "editorMode": "code",
+          "expr": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\" AND (tags.host:$host)",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -655,48 +683,40 @@
       "type": "logs"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
           "text": "All",
           "value": "$__all"
         },
@@ -704,34 +724,32 @@
           "type": "loki",
           "uid": "${logs}"
         },
-        "definition": "",
-        "hide": 0,
+        "definition": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\"",
         "includeAll": true,
         "multi": true,
         "name": "host",
         "options": [],
         "query": {
-          "label": "host",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{__name=\"freeipa_healthcheck\"}",
-          "type": 1
+          "field": "tags.host",
+          "limit": 25,
+          "query": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\"",
+          "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
+          "type": "fieldValue"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "FreeIPA",
-  "uid": "c139adf6-f70a-4ebe-af92-ee893076be50",
-  "version": 10,
+  "title": "Shiftmon FreeIPA",
+  "uid": "shiftmon-freeipa",
+  "version": 7,
   "weekStart": ""
 }
