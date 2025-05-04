@@ -126,7 +126,7 @@ oauth:
 
 ### Google OAuth
 
-google
+google:
   client_id: Google ID from the google application
   client_secret: Client secret from the google application
   allowed_domains: Space separated list of domains allowed to authenticate to Grafana ex "shiftsystems.net mathiasp.me" would allow mathias@shiftsystems.net but not mathias@example.com to access Grafana
@@ -143,6 +143,7 @@ oauth:
   * set it to anything besides rsyslog if you plan to configure log forwarding to `udp://localhost:6666` yourself.
   * comment out if you don't want syslog messages forwarded.
 * remote_syslog weather or not to listen to remote syslog RFC5424 on UDP port 6666 for things like forwarding syslog from a firewall.
+* shiftmon_prometheus_urls: a list of prometheus endpoints that should be scraped from Telegraf
 
 ## Loki
 * retention_period: how long to store data before deletion use d for day and y for years
@@ -161,5 +162,4 @@ oauth:
 * tls.email: email address to use for sending letsencrypt certificates
 * providers the list of DNS providers that traefik can use to obtain certs via DNS verification, this is optional. By default traefik will attempt to use http verification. See the [Traefik Docs](https://doc.traefik.io/traefik/https/acme/#providers) for provider specific information
 * acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
-
  
