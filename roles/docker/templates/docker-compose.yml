@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: docker.io/grafana/grafana-oss:11.6.1
+    image: docker.io/grafana/grafana-oss:12.0.0
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: unless-stopped
     volumes:
