@@ -191,7 +191,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -365,7 +365,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -490,7 +490,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -667,7 +667,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -777,7 +777,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -862,7 +862,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -963,7 +963,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1064,7 +1064,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1167,7 +1167,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "datasource": {
@@ -1411,7 +1411,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 33
+            "y": 80
           },
           "id": 74,
           "options": {
@@ -1516,7 +1516,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 33
+            "y": 80
           },
           "id": 75,
           "options": {
@@ -1620,7 +1620,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 41
+            "y": 88
           },
           "id": 76,
           "options": {
@@ -1722,7 +1722,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 41
+            "y": 88
           },
           "id": 77,
           "options": {
@@ -1823,7 +1823,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 49
+            "y": 96
           },
           "id": 78,
           "options": {
@@ -1924,7 +1924,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 49
+            "y": 96
           },
           "id": 79,
           "options": {
@@ -2012,31 +2012,41 @@
               {
                 "matcher": {
                   "id": "byName",
-                  "options": "smart_device_health_ok"
+                  "options": "Status"
                 },
                 "properties": [
                   {
-                    "id": "unit",
-                    "value": "bool_yes_no"
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "color": "red",
+                            "index": 1,
+                            "text": "Unhealthy"
+                          },
+                          "1": {
+                            "color": "green",
+                            "index": 0,
+                            "text": "Healthy"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background"
+                    }
                   }
                 ]
               },
               {
                 "matcher": {
                   "id": "byName",
-                  "options": "capacity"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "bytes"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "smart_device_temp_c"
+                  "options": "Temp"
                 },
                 "properties": [
                   {
@@ -2048,10 +2058,10 @@
             ]
           },
           "gridPos": {
-            "h": 13,
-            "w": 12,
+            "h": 8,
+            "w": 24,
             "x": 0,
-            "y": 443
+            "y": 25
           },
           "id": 63,
           "options": {
@@ -2064,6 +2074,7 @@
               ],
               "show": false
             },
+            "frameIndex": 0,
             "showHeader": true,
             "sortBy": [
               {
@@ -2072,7 +2083,7 @@
               }
             ]
           },
-          "pluginVersion": "10.4.2",
+          "pluginVersion": "11.6.1",
           "targets": [
             {
               "datasource": {
@@ -2080,9 +2091,10 @@
                 "uid": "${metrics}"
               },
               "disableTextWrap": false,
-              "editorMode": "builder",
+              "editorMode": "code",
               "exemplar": false,
-              "expr": "smart_device_health_ok{host=~\"$host\"}",
+              "expr": "label_del(smart_device_health_ok{host=~\"$host\"},\"__name__\")",
+              "format": "table",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": true,
@@ -2096,9 +2108,10 @@
                 "uid": "${metrics}"
               },
               "disableTextWrap": false,
-              "editorMode": "builder",
+              "editorMode": "code",
               "exemplar": false,
-              "expr": "smart_device_temp_c{host=~\"$host\"}",
+              "expr": "label_del(smart_device_temp_c{host=~\"$host\"},\"__name__\")",
+              "format": "table",
               "fullMetaSearch": false,
               "hide": false,
               "includeNullMetadata": true,
@@ -2111,15 +2124,14 @@
           "title": "Device Overview",
           "transformations": [
             {
-              "id": "joinByLabels",
-              "options": {
-                "value": "__name__"
-              }
+              "id": "merge",
+              "options": {}
             },
             {
               "id": "organize",
               "options": {
                 "excludeByName": {
+                  "Time": true,
                   "db": true,
                   "enabled": true,
                   "host": false,
@@ -2129,19 +2141,18 @@
                 },
                 "includeByName": {},
                 "indexByName": {
-                  "capacity": 5,
+                  "Time": 7,
+                  "Value #A": 5,
+                  "Value #B": 6,
                   "db": 0,
-                  "device": 3,
-                  "enabled": 1,
-                  "host": 10,
-                  "model": 4,
-                  "power": 7,
-                  "serial_no": 6,
-                  "smart_device_health_ok": 8,
-                  "smart_device_temp_c": 9,
-                  "wwn": 2
+                  "device": 2,
+                  "host": 1,
+                  "model": 3,
+                  "serial_no": 4
                 },
                 "renameByName": {
+                  "Value #A": "Status",
+                  "Value #B": "Temp",
                   "smart_device_end_to_end_error": "End to End Errors",
                   "smart_device_health_ok": "Drive Healthy",
                   "smart_device_media_wearout_indicator": "Wearout Indicator",
@@ -2183,50 +2194,13 @@
                 ]
               }
             },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "smart_device_health_ok"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "bool_yes_no"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "capacity"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "bytes"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "smart_device_temp_c"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "celsius"
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 13,
-            "w": 12,
-            "x": 12,
-            "y": 443
+            "w": 24,
+            "x": 0,
+            "y": 33
           },
           "id": 64,
           "options": {
@@ -2242,7 +2216,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "10.4.2",
+          "pluginVersion": "11.6.1",
           "repeat": "smart_device",
           "repeatDirection": "v",
           "targets": [
@@ -2252,9 +2226,10 @@
                 "uid": "${metrics}"
               },
               "disableTextWrap": false,
-              "editorMode": "builder",
+              "editorMode": "code",
               "exemplar": false,
-              "expr": "smart_attribute_raw_value{host=~\"$host\", device=~\"$smart_device\"}",
+              "expr": "label_del(smart_attribute_raw_value{host=~\"$host\", device=~\"$smart_device\"},\"__name__\")",
+              "format": "table",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": true,
@@ -2268,9 +2243,10 @@
                 "uid": "${metrics}"
               },
               "disableTextWrap": false,
-              "editorMode": "builder",
+              "editorMode": "code",
               "exemplar": false,
-              "expr": "smart_attribute_threshold{host=~\"$host\", device=~\"$smart_device\"}",
+              "expr": "label_del(smart_attribute_threshold{host=~\"$host\", device=~\"$smart_device\"},\"__name__\")",
+              "format": "table",
               "fullMetaSearch": false,
               "hide": false,
               "includeNullMetadata": true,
@@ -2283,15 +2259,14 @@
           "title": "Smart Attributes",
           "transformations": [
             {
-              "id": "joinByLabels",
-              "options": {
-                "value": "__name__"
-              }
+              "id": "merge",
+              "options": {}
             },
             {
               "id": "organize",
               "options": {
                 "excludeByName": {
+                  "Time": true,
                   "capacity": true,
                   "db": true,
                   "device": false,
@@ -2315,6 +2290,8 @@
                   "smart_attribute_raw_value": 7
                 },
                 "renameByName": {
+                  "Value #A": "Value",
+                  "Value #B": "Threshold",
                   "smart_attribute_raw_value": "Value",
                   "smart_attribute_threshold": "Threshold",
                   "smart_device_end_to_end_error": "End to End Errors",
@@ -2345,6 +2322,7 @@
                 "axisPlacement": "auto",
                 "axisSoftMin": 0,
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2390,7 +2368,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 456
+            "y": 46
           },
           "id": 65,
           "options": {
@@ -2405,11 +2383,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "single",
               "sort": "none"
             }
           },
+          "pluginVersion": "11.6.1",
           "targets": [
             {
               "datasource": {
@@ -2449,6 +2429,7 @@
                 "axisPlacement": "auto",
                 "axisSoftMin": 0,
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -2478,6 +2459,7 @@
                 }
               },
               "mappings": [],
+              "noValue": "No Errors :)",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -2494,7 +2476,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 456
+            "y": 46
           },
           "id": 66,
           "options": {
@@ -2509,11 +2491,13 @@
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "maxHeight": 600,
               "mode": "single",
               "sort": "none"
             }
           },
+          "pluginVersion": "11.6.1",
           "targets": [
             {
               "datasource": {
@@ -2573,7 +2557,7 @@
             "h": 10,
             "w": 7,
             "x": 0,
-            "y": 125
+            "y": 172
           },
           "id": 26,
           "options": {
@@ -2654,7 +2638,7 @@
             "h": 10,
             "w": 7,
             "x": 7,
-            "y": 125
+            "y": 172
           },
           "id": 38,
           "options": {
@@ -2756,7 +2740,7 @@
             "h": 10,
             "w": 10,
             "x": 14,
-            "y": 125
+            "y": 172
           },
           "id": 39,
           "options": {
@@ -2872,7 +2856,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 126
+            "y": 173
           },
           "id": 51,
           "options": {
@@ -2971,7 +2955,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 126
+            "y": 173
           },
           "id": 52,
           "options": {
@@ -3071,7 +3055,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 351
+            "y": 398
           },
           "id": 53,
           "options": {
@@ -3171,7 +3155,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 351
+            "y": 398
           },
           "id": 54,
           "options": {
@@ -3290,7 +3274,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 127
+            "y": 174
           },
           "id": 46,
           "options": {
@@ -3389,7 +3373,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 127
+            "y": 174
           },
           "id": 48,
           "options": {
@@ -3487,7 +3471,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 328
+            "y": 375
           },
           "id": 47,
           "options": {
@@ -3584,7 +3568,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 328
+            "y": 375
           },
           "id": 49,
           "options": {
@@ -3680,7 +3664,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 336
+            "y": 383
           },
           "id": 60,
           "options": {
@@ -3776,7 +3760,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 336
+            "y": 383
           },
           "id": 61,
           "options": {
@@ -3899,7 +3883,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 128
+            "y": 175
           },
           "id": 56,
           "options": {
@@ -4001,7 +3985,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 128
+            "y": 175
           },
           "id": 59,
           "options": {
@@ -4103,7 +4087,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 138
+            "y": 185
           },
           "id": 57,
           "options": {
@@ -4208,7 +4192,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 138
+            "y": 185
           },
           "id": 58,
           "options": {
@@ -4382,7 +4366,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 149
+            "y": 196
           },
           "id": 86,
           "options": {
@@ -4595,7 +4579,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 155
+            "y": 202
           },
           "id": 87,
           "options": {
@@ -4711,7 +4695,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 155
+            "y": 202
           },
           "id": 85,
           "options": {
@@ -4816,7 +4800,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 162
+            "y": 209
           },
           "id": 82,
           "options": {
@@ -4921,7 +4905,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 162
+            "y": 209
           },
           "id": 83,
           "options": {
@@ -5016,7 +5000,7 @@
             "h": 12,
             "w": 14,
             "x": 0,
-            "y": 171
+            "y": 218
           },
           "id": 67,
           "options": {
@@ -5335,7 +5319,7 @@
             "h": 12,
             "w": 10,
             "x": 14,
-            "y": 171
+            "y": 218
           },
           "id": 14,
           "options": {
@@ -5474,7 +5458,7 @@
             "h": 14,
             "w": 17,
             "x": 0,
-            "y": 183
+            "y": 230
           },
           "id": 69,
           "options": {
@@ -5567,7 +5551,7 @@
             "h": 7,
             "w": 7,
             "x": 17,
-            "y": 183
+            "y": 230
           },
           "id": 68,
           "options": {
@@ -5615,7 +5599,7 @@
             "h": 7,
             "w": 7,
             "x": 17,
-            "y": 190
+            "y": 237
           },
           "id": 70,
           "options": {
@@ -5644,7 +5628,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 197
+            "y": 244
           },
           "id": 33,
           "options": {
@@ -5799,5 +5783,5 @@
   "timezone": "",
   "title": "Linux Host",
   "uid": "shiftmon-linux-metrics",
-  "version": 1
+  "version": 2
 }

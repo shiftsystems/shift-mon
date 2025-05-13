@@ -415,6 +415,18 @@
   when: "shiftmon_prometheus_urls is defined"
   notify: Restart Telegraf
 
+- name: Deploy SNMP Interfaces config
+  ansible.builtin.template:
+    src: "snmp.conf"
+    dest: /etc/telegraf/telegraf.d/snmp.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: "shiftmon_snmp_if_agents is defined"
+  notify: Restart Telegraf
+
+
 - name: Deploy Haproxy config
   ansible.builtin.template:
     src: "haproxy.conf"
