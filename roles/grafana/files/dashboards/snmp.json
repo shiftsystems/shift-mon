@@ -211,7 +211,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "transparent"
                   },
                   {
                     "color": "red",
@@ -254,6 +254,39 @@
                   {
                     "id": "unit",
                     "value": "decbytes"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Device Status"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "1": {
+                            "color": "green",
+                            "index": 0,
+                            "text": "Up"
+                          },
+                          "2": {
+                            "index": 1,
+                            "text": "Down"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background"
+                    }
                   }
                 ]
               }
@@ -344,6 +377,21 @@
               "legendFormat": "__auto",
               "range": false,
               "refId": "D"
+            },
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "label_del(ifTable_ifOperStatus{agent_host=~\"$device\"},\"__name__\")",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "E"
             }
           ],
           "title": "Interface Overview",
@@ -371,6 +419,7 @@
                   "Value #B": "Interface Speed",
                   "Value #C": "Bandwidth",
                   "Value #D": "Total Bandwidth",
+                  "Value #E": "Device Status",
                   "ifDescr": "",
                   "ifIndex": ""
                 }
@@ -473,11 +522,25 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "rate(ifTable_ifInOctets{agent_host=~\"$device\"}[5m]) + rate(ifTable_ifOutOctets{agent_host=~\"$device\"}[5m])",
+              "expr": "rate(ifTable_ifOutOctets{agent_host=~\"$device\"}[5m]) != 0",
+              "hide": false,
               "interval": "1m",
-              "legendFormat": "{{ifDescr}}",
+              "legendFormat": "{{ifDescr}} - OUT",
               "range": true,
               "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "expr": "rate(ifTable_ifInOctets{agent_host=~\"$device\"}[5m]) * -1 != 0",
+              "hide": false,
+              "interval": "1m",
+              "legendFormat": "{{ifDescr}} - IN",
+              "range": true,
+              "refId": "B"
             }
           ],
           "title": "Bandwidth Per Interface",
@@ -577,11 +640,24 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "rate(ifTable_ifInUcastPkts{agent_host=~\"$device\"}[5m]) + rate(ifTable_ifOutUcastPkts{agent_host=~\"$device\"}[5m])",
+              "expr": "rate(ifTable_ifOutUcastPkts{agent_host=~\"$device\"}[5m]) != 0",
               "interval": "1m",
-              "legendFormat": "{{ifDescr}}",
+              "legendFormat": "{{ifDescr}} - OUT",
               "range": true,
               "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "expr": "(rate(ifTable_ifInUcastPkts{agent_host=~\"$device\"}[5m]) * -1) != 0",
+              "hide": false,
+              "interval": "1m",
+              "legendFormat": "{{ifDescr}} - IN",
+              "range": true,
+              "refId": "B"
             }
           ],
           "title": "Unicast Packets Per second",
@@ -642,5 +718,5 @@
   "timezone": "browser",
   "title": "SNMP",
   "uid": "shiftmon-snmp",
-  "version": 1
+  "version": 2
 }
