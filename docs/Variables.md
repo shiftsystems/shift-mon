@@ -144,7 +144,8 @@ oauth:
   * comment out if you don't want syslog messages forwarded.
 * remote_syslog weather or not to listen to remote syslog RFC5424 on UDP port 6666 for things like forwarding syslog from a firewall.
 * shiftmon_prometheus_urls: a list of prometheus endpoints that should be scraped from Telegraf
-
+* shiftmon_snmp_if_agents: list of devices to collect interface metrics for via snmp formatted like `udp://<ip>:<port>`
+* shiftmon_snmp_community: community string fr
 ## Loki
 * retention_period: how long to store data before deletion use d for day and y for years
 * tsdb_date: Date formated YYYY-MM-DD that states when to store logs in TSDB format instead of boltdb format this optional but should be set
