@@ -426,6 +426,23 @@
   when: "shiftmon_snmp_if_agents is defined"
   notify: Restart Telegraf
 
+- name: Install snmp tools on Redhat based systems
+  ansible.builtin.dnf:
+    name: net-snmp-utils
+    state: present
+  become: true
+  when:
+    - shiftmon_snmp_if_agents
+    - ansible_facts['os_family'] in ["RedHat","AlmaLinux"]
+
+- name: Install snmp tools on Debian based systems
+  ansible.builtin.apt:
+    name: snmp
+    state: present
+  become: true
+  when:
+    - shiftmon_snmp_if_agents
+    - ansible_facts['os_family'] == "Debian"
 
 - name: Deploy Haproxy config
   ansible.builtin.template:
