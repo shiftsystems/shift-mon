@@ -432,7 +432,7 @@
     state: present
   become: true
   when:
-    - shiftmon_snmp_if_agents
+    - shiftmon_snmp_if_agents is defined
     - ansible_facts['os_family'] in ["RedHat","AlmaLinux"]
 
 - name: Install snmp tools on Debian based systems
@@ -441,7 +441,7 @@
     state: present
   become: true
   when:
-    - shiftmon_snmp_if_agents
+    - shiftmon_snmp_if_agents is defined
     - ansible_facts['os_family'] == "Debian"
 
 - name: Deploy Haproxy config
