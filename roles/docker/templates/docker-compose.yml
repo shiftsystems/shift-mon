@@ -147,9 +147,9 @@ services:
   vmauth:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: docker.io/victoriametrics/vmauth:v1.117.1-enterprise
+    image: quay.io/victoriametrics/vmauth:v1.117.1-enterprise
 {% else %}
-    image: docker.io/victoriametrics/vmauth:v1.117.1
+    image: quay.io/victoriametrics/vmauth:v1.117.1
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
@@ -172,7 +172,7 @@ services:
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: quay.io/victoriametrics/vmanomaly:v1.22.0-experimental
+    image: quay.io/victoriametrics/vmanomaly:v1.22.1
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
