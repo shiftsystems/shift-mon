@@ -96,3 +96,4 @@
     group: shiftmon
   become: true
   loop: "{{ shiftmon_alertmanager_templates | dict2items }}"
+  when: shiftmon_alertmanager_templates is defined
