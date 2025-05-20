@@ -28,6 +28,7 @@ services:
       - '--config.file=/config/alertmanager.yml'
 {% if shiftmon_alertmanager_url is defined %}
       - '--web.external-url={{ shiftmon_alertmanager_url }}'
+      - '--web.route-prefix=/'
 {% endif %}
       - '--storage.path=/data'
       - '--log.level=debug'
