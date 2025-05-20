@@ -1,9 +1,7 @@
 docker_users:
   - root
   - telegraf
-uptime_kuma_enabled: false
 victorialogs_enabled: false
-oncall_enabled: false
 vmanomaly_enabled: false
 vmanomaly_log_level: "INFO"
 victoriametrics_disable_daily_index: true

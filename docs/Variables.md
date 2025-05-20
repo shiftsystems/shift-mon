@@ -51,7 +51,7 @@ alertmanager:
   domain: optional domain to use if you want to expose alertmanager this should not be needed in most cases since most of alertmanager's features are exposed via the Grafana datasource that is configured by default.
   cert_path:  absolute path to SSL certificate for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
   key_path:  absolute path to SSL key for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
-
+shiftmon_alertmanager_url: string to that alertmanager will point at to show alerts
 
 ### vmanomaly
 These features require a valid Victoriametrics license defined in `victoria.license`
