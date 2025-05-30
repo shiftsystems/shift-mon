@@ -223,7 +223,7 @@ services:
       retries: 10
   victorialogs:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-    image: docker.io/victoriametrics/victoria-logs:v1.23.0-victorialogs
+    image: docker.io/victoriametrics/victoria-logs:v1.23.2-victorialogs
     restart: unless-stopped
     volumes:
       - type: bind
