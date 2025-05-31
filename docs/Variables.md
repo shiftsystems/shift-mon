@@ -143,9 +143,16 @@ oauth:
   * set it to anything besides rsyslog if you plan to configure log forwarding to `udp://localhost:6666` yourself.
   * comment out if you don't want syslog messages forwarded.
 * remote_syslog weather or not to listen to remote syslog RFC5424 on UDP port 6666 for things like forwarding syslog from a firewall.
+* shiftmon_postgres_hosts: a list of connection strings for collecting metrics see the [Telegraf docs](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/postgresql) for details
 * shiftmon_prometheus_urls: a list of prometheus endpoints that should be scraped from Telegraf
 * shiftmon_snmp_if_agents: list of devices to collect interface metrics for via snmp formatted like `udp://<ip>:<port>`
-* shiftmon_snmp_community: community string fr
+* shiftmon_snmp_community: community string for snmpv2
+* shiftmon_snmp_version: snmp version for connectiong to snmp devices defaults to 2
+* shiftmon_snmp_user: username for connecting to snmp devices using snmpv3
+* shiftmon_snmp_password: password for connecting to snmp devices using snmpv3
+* shiftmon_snmp_auth_protocol: encryption cipher to use for authenticating for snmpv3 devices defautls to `MD5`
+* shiftmon_snmp_auth_priv: authentication privacy to use for snmpv3 defaults to `authNoPriv`
+
 ## Loki
 * retention_period: how long to store data before deletion use d for day and y for years
 * tsdb_date: Date formated YYYY-MM-DD that states when to store logs in TSDB format instead of boltdb format this optional but should be set
