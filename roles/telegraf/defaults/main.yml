@@ -1,3 +1,6 @@
+shiftmon_snmp_version: '2'
+shiftmon_snmp_auth_protocol: 'MD5'
+shiftmon_snmp_auth_priv: 'authNoPriv'
 telegraf_traefik_log_file_path: /opt/shift-mon/traefik/access.json
 traefik_container_name: shift-mon_traefik_1
 user_secrets: {}
