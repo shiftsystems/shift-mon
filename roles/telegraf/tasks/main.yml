@@ -308,6 +308,17 @@
   when: "'mysqld.service' or 'mysql.service' in ansible_facts.services and 'mysql' not in do_not_instrument"
   notify: Restart Telegraf
 
+- name: Deploy Postgres config
+  ansible.builtin.template:
+    src: "postgres.conf"
+    dest: "/etc/telegraf/telegraf.d/postgres.conf"
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: shiftmon_postgres_hosts is defined
+  notify: Restart Telegraf
+
 - name: Fleet config when Fleet is installed
   ansible.builtin.copy:
     src: "linux/fleet.conf"
