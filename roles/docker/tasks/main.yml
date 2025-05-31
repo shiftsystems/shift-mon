@@ -1,6 +1,6 @@
 - name: Install Docker
   ansible.builtin.include_role:
-    name: ansible-role-docker
+    name: geerlingguy.docker
     public: true
     apply:
       become: true
