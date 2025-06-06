@@ -175,7 +175,7 @@ services:
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: quay.io/victoriametrics/vmanomaly:v1.22.1
+    image: quay.io/victoriametrics/vmanomaly:v1.23.0
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
@@ -223,7 +223,7 @@ services:
       retries: 10
   victorialogs:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-    image: docker.io/victoriametrics/victoria-logs:v1.23.2-victorialogs
+    image: quay.io/victoriametrics/victoria-logs:v1.23.3-victorialogs
     restart: unless-stopped
     volumes:
       - type: bind
