@@ -118,7 +118,7 @@
           }
         ]
       },
-      "pluginVersion": "12.0.0",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -148,6 +148,36 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (agent_host) (snmp_sysServices{agent_host=~\"$device\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (agent_host)({__name__=\"snmp_TCP-MIB::tcpActiveOpens\",agent_host=~\"$device\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
         }
       ],
       "title": "Device Overview",
@@ -166,11 +196,23 @@
               "host": true
             },
             "includeByName": {},
-            "indexByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value #A": 5,
+              "Value #B": 6,
+              "Value #C": 7,
+              "Value #D": 8,
+              "__name__": 1,
+              "agent_host": 2,
+              "db": 3,
+              "host": 4
+            },
             "renameByName": {
               "Value": "Uptime",
               "Value #A": "Uptime",
               "Value #B": "Total Bandwidth",
+              "Value #C": "Services",
+              "Value #D": "TCP connections",
               "agent_host": "Switch"
             }
           }
@@ -289,6 +331,18 @@
                     }
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Last Changed"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dtdurationms"
+                  }
+                ]
               }
             ]
           },
@@ -296,7 +350,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 11
+            "y": 20
           },
           "id": 3,
           "options": {
@@ -317,7 +371,7 @@
               }
             ]
           },
-          "pluginVersion": "12.0.0",
+          "pluginVersion": "12.0.1",
           "targets": [
             {
               "datasource": {
@@ -326,7 +380,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "rate(ifTable_ifInErrors{agent_host=~\"$device\"})",
+              "expr": "increase(ifTable_ifOutErrors{agent_host=~\"$device\"}[$__range]) + increase(ifTable_ifOutErrors{agent_host=~\"$device\"}[$__range])",
               "format": "table",
               "instant": true,
               "legendFormat": "__auto",
@@ -392,6 +446,21 @@
               "legendFormat": "__auto",
               "range": false,
               "refId": "E"
+            },
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(ifTable_ifLastChange{agent_host=~\"$device\"}) without(__name__)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "F"
             }
           ],
           "title": "Interface Overview",
@@ -413,13 +482,28 @@
                   "ifTable_ifSpeed{agent_host=\"10.0.0.64\", db=\"linux\", host=\"kenny.local.shiftsystems.net\", ifDescr=\"Vlan-interface1\", ifIndex=\"1\", ifPhysAddress=\"f0:09:0d:c8:50:24\"}": false
                 },
                 "includeByName": {},
-                "indexByName": {},
+                "indexByName": {
+                  "Time": 0,
+                  "Value #A": 7,
+                  "Value #B": 8,
+                  "Value #C": 9,
+                  "Value #D": 10,
+                  "Value #E": 12,
+                  "Value #F": 11,
+                  "agent_host": 1,
+                  "db": 2,
+                  "host": 3,
+                  "ifDescr": 4,
+                  "ifIndex": 5,
+                  "ifPhysAddress": 6
+                },
                 "renameByName": {
                   "Value #A": "Errors",
                   "Value #B": "Interface Speed",
                   "Value #C": "Bandwidth",
                   "Value #D": "Total Bandwidth",
                   "Value #E": "Device Status",
+                  "Value #F": "Last Changed",
                   "ifDescr": "",
                   "ifIndex": ""
                 }
@@ -492,7 +576,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 20
+            "y": 65
           },
           "id": 5,
           "options": {
@@ -514,7 +598,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "12.0.0",
+          "pluginVersion": "12.0.1",
           "targets": [
             {
               "datasource": {
@@ -610,7 +694,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 20
+            "y": 65
           },
           "id": 6,
           "options": {
@@ -632,7 +716,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "12.0.0",
+          "pluginVersion": "12.0.1",
           "targets": [
             {
               "datasource": {
@@ -661,6 +745,426 @@
             }
           ],
           "title": "Unicast Packets Per second",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 1,
+                "barWidthFactor": 0.6,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "No Drop Events :)",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 74
+          },
+          "id": 7,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "expr": "ifTable_etherStatsDropEvents{agent_host=~\"$device\"} > 0",
+              "hide": false,
+              "interval": "1m",
+              "legendFormat": "{{ifDescr}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Drop Events",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 1,
+                "barWidthFactor": 0.6,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "No Fragmented Packets :)",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 74
+          },
+          "id": 8,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "expr": "increase(ifTable_etherStatsFragments{agent_host=~\"$device\"}) > 0",
+              "hide": false,
+              "interval": "1m",
+              "legendFormat": "{{ifDescr}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Drop Events",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 1,
+                "barWidthFactor": 0.6,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "No Queued Packets :)",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 83
+          },
+          "id": 9,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "expr": "ifTable_ifOutQLen{agent_host=~\"$device\"} > 0",
+              "hide": false,
+              "interval": "1m",
+              "legendFormat": "{{ifDescr}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Drop Events",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 1,
+                "barWidthFactor": 0.6,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "No Packets Collisions :)",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 83
+          },
+          "id": 10,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Datasource}"
+              },
+              "editorMode": "code",
+              "expr": "increase(ifTable_etherStatsCollisions{agent_host=~\"$device\"}) > 0",
+              "hide": false,
+              "interval": "1m",
+              "legendFormat": "{{ifDescr}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Drop Events",
           "type": "timeseries"
         }
       ],
@@ -718,5 +1222,5 @@
   "timezone": "browser",
   "title": "SNMP",
   "uid": "shiftmon-snmp",
-  "version": 2
+  "version": 5
 }
