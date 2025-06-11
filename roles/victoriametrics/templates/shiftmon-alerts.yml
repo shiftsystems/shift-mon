@@ -7,12 +7,20 @@ groups:
     labels:
       autoresolve: false
     rules:
-      - alert: Host Down
-        expr: 'lag(cpu_usage_idle[24h]) > 60'
+      - alert: Linux Host Down
+        expr: 'lag(cpu_usage_idle{db="linux"}[24h]) > 60'
         for: 5m
         annotations:
           summary: '{{ $labels.host }} is not sending metrics'
           description: '{{ $labels.host }} has not sent metrics in {{ $value }} seconds'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
+      - alert: Windows Host Down
+        expr: 'lag(cpu_usage_idle{db="windows"}[24h]) > 60'
+        for: 5m
+        annotations:
+          summary: '{{ $labels.host }} is not sending metrics'
+          description: '{{ $labels.host }} has not sent metrics in {{ $value }} seconds'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-windows-host/windows-host'
       - alert: Missing Grafana Metrics
         expr: 'lag(grafana_alerting_state_history_writes_bytes_total[24h]) > 120'
         for: 10m
@@ -25,12 +33,14 @@ groups:
         annotations:
           summary: '{{ $labels.ups_name }} is not sending metrics'
           description: 'no metrics from {{ $labels.ups_name }} on {{ $labels.host }}'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-nut/nut-upsd'
       - alert: Missing Anomaly Score
         expr: 'lag(anomaly_score[24h]) > 60'
         for: 5m
         annotations:
           summary: '{{ $labels.instance }} is not reporting anomaly scores'
           description: '{{ $labels.instance }} has not sent metrics in {{ $value }} seconds'
+          dashboard: 'https://{{ $externalURL }}/d/vmanomaly/victoriametrics-vmanomaly-self-monitoring'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_infra_enabled %}
@@ -40,47 +50,54 @@ groups:
     type: prometheus
     rules:
       - alert: high_cpu_usage
-        expr: '100 - cpu_usage_idle{host!="sasha.local.shiftsystems.net"} > 95'
+        expr: '100 - cpu_usage_idle > 95'
         for: 20m
         annotations:
           summary: 'High CPU utilization on {{ $labels.host }}'
           description: "{{ $labels.host }} is using {{ $value }}"
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
       - alert: High Disk usage
         expr: 'disk_used_percent{device !~"devfs|efivarfs"} > 80'
         for: 30m
         annotations:
           summary: 'Low disk space {{ $labels.host }}'
           description: '{{ $labels.device }} on {{ $labels.host }} is {{ $value }} percent full'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
       - alert: SMART failure
         expr: 'smart_device_health_ok{} != 1'
         for: 10m
         annotations:
           summary: 'SMART Errors on {{ $labels.device }} on {{ $labels.host }}'
           description: '{{ $labels.device }} on {{ $labels.host }} is unhealthly model: {{ $labels.model }} serial number: {{ $labels.serial_no }}'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
       - alert: Automation issue
         expr: 'systemd_units_active_code{name=~`dnf-automatic-install.service|unattended-upgrades.service|certbot.service|apt-daily-upgrade.service|ansible.*|borg.*|db-backup.*`} == 3'
         for: 10h
         annotations:
           summary: '{{ $labels.name }} on {{ $labels.host }} is failing'
           description: '{{ $labels.name }} on {{ $labels.host }} is failing'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
       - alert: High iowait
         expr: 'cpu_usage_iowait{} > 7'
         for: 10m
         annotations:
           summary: 'High iowait on {{ $labels.host }}'
           description: "{{ $labels.host }} is spending {{ $value }}% of the time on iowait"
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
       - alert: Shiftmon Container Down
         expr: 'lag(group by (host,container_name) (docker_container_cpu_usage_percent{container_name=~`shift-mon-crowdsec-.*|shift-mon-celery-.*|shift-mon-engine-.*|shift-mon-grafana-.*|shift-mon-loki-.*|shift-mon-redis-.*|shift-mon-traefik-.*|shift-mon-uptime-kuma-.*|shift-mon-victoriametrics-.*|shift-mon-vmalert-.*|imageofthehour.*`})[1h]) > 100'
         for: 10m
         annotations:
           summary: '{{ $labels.container_name }} is down'
           description: '{{ $labels.container_name }} is down on {{ $labels.host }}'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-docker/docker'
       - alert: Container Down
         expr: 'docker_container_health_health_status > 0'
         for: 10m
         annotations:
           summary: '{{ $labels.container_name }} is not healthy'
           description: '{{ $labels.container_name }} is down on {{ $labels.host }}'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-docker/docker'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_blackbox_enabled %}
@@ -91,34 +108,39 @@ groups:
     rules:
       - alert: HTTP Blackbox Failing
         expr: 'http_response_result_code{check_type="normal"} > 0'
-        for: 10m
+        for: 5m
         annotations:
           summary: '{{ $labels.server }} is not healthy'
           description: '{{ $labels.server }} is not responding properly from {{ $labels.host }}'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
       - alert: DNS Blackbox Failing
         expr: 'dns_query_result_code{check_type="normal"} > 0'
         for: 5m
         annotations:
           summary: 'DNS lookups are not working on {{ $labels.server }}'
           description: 'Users can  not lookup {{ $labels.domain }} on {{ $labels.server }} with record {{ $labels.record_type }}'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
       - alert: Net Response Blackbox Failing
         expr: 'net_response_result_code{check_type="normal"} > 0'
         for: 5m
         annotations:
           summary: '{{ $labels.server }} is not healthy'
           description: '{{ $labels.server }} is not reachable from {{ $labels.host }}'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
       - alert: Ping Blackbox Failing
         expr: 'ping_result_code{check_type="normal"} > 0'
         for: 5m
         annotations:
           summary: 'ping is not working on working on {{ $labels.url }}'
           description: 'ping is not working on {{ $labels.url }} from {{ $labels.host }}'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
       - alert: TLS certificate expiring
         expr: '((x509_cert_enddate{} - time()) / 86400) < 14'
         for: 10m
         annotations:
           summary: '{{ $labels.common_name }} will expire soon please renew'
           description: '{{ $labels.common_name }} will expire in {{ $value }} seconds according to {{ $labels.host }}'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_proxmox_enabled %}
@@ -133,6 +155,7 @@ groups:
         annotations:
           summary: 'High iowait on PVE node {{ $labels.host }}'
           description: 'PVE node{{ $labels.host }} has an iowait of {{ $value }}'
+          dashboard: '{{ $externalURL }}/d/shiftmon-pve/proxmox'
   - name: Proxmox Log Alerts
     interval: 5m
     type: vlogs
@@ -144,27 +167,32 @@ groups:
         annotations:
           summary: 'storage failed offline on {{ $labels.hostname }}'
           description: 'storage offline on {{ $labels.hostname }}'
+          dashboard: '{{ $externalURL }}/d/shiftmon-pve/proxmox'
       - alert: Storage Failed to activate
         expr: |
           tags.appname:pve AND "could not activate storage" | rename tags.hostname as hostname | rename fields.proxmox_host as proxmox_host | extract `<errored_task_id> could not activate storage '<storage_pool>':<error_msg>` from fields.log_message | stats by (proxmox_host,storage_pool) count() as storage_activation_errors | filter storage_activation_errors:>0
         annotations:
           summary: 'storage failed to activate on {{ $labels.proxmox_host }}'
           description: 'storage failed to activate {{ $labels.storage_pool }} on {{ $labels.proxmox_host }}'
+          dashboard: '{{ $externalURL }}/d/shiftmon-pve/proxmox'
       - alert: Failing Hard drive
         expr: 'tags.appname:"smartd" AND "FAILED" | rename tags.hostname as hostname | extract "Device: <block_device> <_>" | stats by (hostname,block_device) count() as smart_errors | filter smart_errors:>0'
         annotations:
           summary: 'failing drive on node {{ $labels.hostname }}'
           description: 'device: {{ $labels.block_device }} is failing on {{ $labels.hostname }}'
+          dashboard: '{{ $externalURL }}/d/shiftmon-pve/proxmox'
       - alert: Failed PBS task
         expr: '_time:1h tags.appname:pbs AND ~"fail|error" | rename tags.hostname as hostname | extract "UPID:<proxmox_host>:<task_id_1>:<task_id_2>:<task_id_3>:<task_id_4>:<task_type>:<task_path>:<task_user>: <task_id> <log_message>" | stats by (hostname,task_type) count() as failures | failures:>0'
         annotations:
           summary: 'task errors on {{ $labels.hostname }}'
           description: '{{ $labels.task_info }} occurred on {{ $labels.hostname }}'
+          dashboard: '{{ $externalURL }}/d/shiftmon-pve/proxmox'
       - alert: failedScrub
         expr: 'tags.appname:zed AND "err" | unpack_logfmt | rename tags.hostname as hostname | stats by (hostname,pool,vdev) count()'
         annotations:
           summary: 'srub errors on {{ $labels.hostname }}'
           description: 'scrub errors on {{ $labels.vdev }} in {{ $labels.pool }} on {{ $labels.hostname }}'
+          dashboard: '{{ $externalURL }}/d/shiftmon-pve/proxmox'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_freeipa_enabled %}
@@ -178,6 +206,7 @@ groups:
         annotations:
           summary: 'FreeIPA Replication failure on {{ $labels.host }}'
           description: 'FreeIPA Replication failure on {{ $labels.host }}'
+          dashboard: '{{ $externalURL }}/d/c139adf6-f70a-4ebe-af92-ee893076be50' 
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_victorialogs_enabled %}
