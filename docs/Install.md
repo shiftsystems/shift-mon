@@ -46,17 +46,11 @@ all:
 ```
 
 
-### Install Ansible dependancies
-Shiftmon requires some extrnal ansible dependancies to run to make sure you have these dependancies installed add the following to `requirements.yml
+### Install Ansible dependencies
+Shiftmon requires some external Ansible dependencies to run to make sure you have these dependencies installed add the following to `requirements.yml`
 
-```yaml
-collections:
-  - community.general
-  - ansible.posix
-  - shiftsystems.shift_mon
-roles:
-  - src: https://github.com/tiny-pangolin/ansible-role-docker.git
-    scm: git
+```bash
+ansible-galaxy  install -r requirements.yml --force
 ```
 
 3. Create a file called `shift-mon.yml` with the following Template
