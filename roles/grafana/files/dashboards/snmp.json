@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 227,
+  "id": 39,
   "links": [],
   "panels": [
     {
@@ -271,7 +271,7 @@
                 "properties": [
                   {
                     "id": "unit",
-                    "value": "Bps"
+                    "value": "MBs"
                   }
                 ]
               },
@@ -350,7 +350,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 20
+            "y": 11
           },
           "id": 3,
           "options": {
@@ -380,8 +380,9 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "increase(ifTable_ifOutErrors{agent_host=~\"$device\"}[$__range]) + increase(ifTable_ifOutErrors{agent_host=~\"$device\"}[$__range])",
+              "expr": "increase(ifTable_ifOutErrors{agent_host=~\"$device\",ifDescr=~\"$interface\"}[$__range]) + increase(ifTable_ifOutErrors{agent_host=~\"$device\"}[$__range])",
               "format": "table",
+              "hide": false,
               "instant": true,
               "legendFormat": "__auto",
               "range": false,
@@ -394,7 +395,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum (ifTable_ifSpeed{agent_host=~\"$device\"}) without (name)",
+              "expr": "sum (ifTable_ifHighSpeed{agent_host=~\"$device\",ifDescr=~\"$interface\"}) without (name)",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -409,7 +410,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "rate(ifTable_ifInOctets{agent_host=~\"$device\"}) + rate(ifTable_ifOutOctets{agent_host=~\"$device\"})",
+              "expr": "rate(ifTable_ifInOctets{agent_host=~\"$device\",ifDescr=~\"$interface\"}) + rate(ifTable_ifOutOctets{agent_host=~\"$device\"})",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -424,7 +425,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum_over_time(rate(ifTable_ifInOctets{agent_host=~\"$device\"})[$__range]) + sum_over_time(rate(ifTable_ifOutOctets{agent_host=~\"$device\"})[$__range])",
+              "expr": "sum_over_time(rate(ifTable_ifInOctets{agent_host=~\"$device\",ifDescr=~\"$interface\"})[$__range]) + sum_over_time(rate(ifTable_ifOutOctets{agent_host=~\"$device\"})[$__range])",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -439,7 +440,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "label_del(ifTable_ifOperStatus{agent_host=~\"$device\"},\"__name__\")",
+              "expr": "label_del(ifTable_ifOperStatus{agent_host=~\"$device\",ifDescr=~\"$interface\"},\"__name__\")",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -454,7 +455,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(ifTable_ifLastChange{agent_host=~\"$device\"}) without(__name__)",
+              "expr": "sum(ifTable_ifLastChange{agent_host=~\"$device\",ifDescr=\"$interface\"}) without(__name__)",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -576,7 +577,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 65
+            "y": 20
           },
           "id": 5,
           "options": {
@@ -606,7 +607,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "rate(ifTable_ifOutOctets{agent_host=~\"$device\"}[5m]) != 0",
+              "expr": "rate(ifTable_ifOutOctets{agent_host=~\"$device\",ifDescr=~\"$interface\"}[5m]) != 0",
               "hide": false,
               "interval": "1m",
               "legendFormat": "{{ifDescr}} - OUT",
@@ -619,7 +620,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "rate(ifTable_ifInOctets{agent_host=~\"$device\"}[5m]) * -1 != 0",
+              "expr": "rate(ifTable_ifInOctets{agent_host=~\"$device\",ifDescr=~\"$interface\"}[5m]) * -1 != 0",
               "hide": false,
               "interval": "1m",
               "legendFormat": "{{ifDescr}} - IN",
@@ -694,7 +695,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 65
+            "y": 20
           },
           "id": 6,
           "options": {
@@ -724,7 +725,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "rate(ifTable_ifOutUcastPkts{agent_host=~\"$device\"}[5m]) != 0",
+              "expr": "rate(ifTable_ifOutUcastPkts{agent_host=~\"$device\",ifDescr=~\"$interface\"}[5m]) != 0",
               "interval": "1m",
               "legendFormat": "{{ifDescr}} - OUT",
               "range": true,
@@ -736,7 +737,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "(rate(ifTable_ifInUcastPkts{agent_host=~\"$device\"}[5m]) * -1) != 0",
+              "expr": "(rate(ifTable_ifInUcastPkts{agent_host=~\"$device\",ifDescr=\"$interface\"}[5m]) * -1) != 0",
               "hide": false,
               "interval": "1m",
               "legendFormat": "{{ifDescr}} - IN",
@@ -811,7 +812,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 74
+            "y": 29
           },
           "id": 7,
           "options": {
@@ -841,7 +842,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "ifTable_etherStatsDropEvents{agent_host=~\"$device\"} > 0",
+              "expr": "ifTable_etherStatsDropEvents{agent_host=~\"$device\",ifDescr=~\"$interface\"} > 0",
               "hide": false,
               "interval": "1m",
               "legendFormat": "{{ifDescr}}",
@@ -916,7 +917,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 74
+            "y": 29
           },
           "id": 8,
           "options": {
@@ -946,7 +947,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "increase(ifTable_etherStatsFragments{agent_host=~\"$device\"}) > 0",
+              "expr": "increase(ifTable_etherStatsFragments{agent_host=~\"$device\",ifDescr=~\"$interface\"}) > 0",
               "hide": false,
               "interval": "1m",
               "legendFormat": "{{ifDescr}}",
@@ -1021,7 +1022,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 83
+            "y": 38
           },
           "id": 9,
           "options": {
@@ -1051,7 +1052,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "ifTable_ifOutQLen{agent_host=~\"$device\"} > 0",
+              "expr": "ifTable_ifOutQLen{agent_host=~\"$device\",ifDescr=~\"$interface\"} > 0",
               "hide": false,
               "interval": "1m",
               "legendFormat": "{{ifDescr}}",
@@ -1126,7 +1127,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 83
+            "y": 38
           },
           "id": 10,
           "options": {
@@ -1156,7 +1157,7 @@
                 "uid": "${Datasource}"
               },
               "editorMode": "code",
-              "expr": "increase(ifTable_etherStatsCollisions{agent_host=~\"$device\"}) > 0",
+              "expr": "increase(ifTable_etherStatsCollisions{agent_host=~\"$device\",ifDescr=~\"$interface\"}) > 0",
               "hide": false,
               "interval": "1m",
               "legendFormat": "{{ifDescr}}",
@@ -1193,7 +1194,9 @@
       {
         "allowCustomValue": true,
         "current": {
-          "text": "All",
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -1211,6 +1214,27 @@
         "refresh": 1,
         "regex": "",
         "type": "query"
+      },
+      {
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "definition": "label_values(ifTable_ifHighSpeed{agent_host=~\"$device\"},ifDescr)",
+        "includeAll": true,
+        "multi": true,
+        "name": "interface",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(ifTable_ifHighSpeed{agent_host=~\"$device\"},ifDescr)",
+          "refId": "VariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
@@ -1222,5 +1246,5 @@
   "timezone": "browser",
   "title": "SNMP",
   "uid": "shiftmon-snmp",
-  "version": 5
+  "version": 4
 }
