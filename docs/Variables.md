@@ -165,9 +165,23 @@ oauth:
 * key_path:  absolute path to SSL key for victoriametrics should be pem encoded this is optional
 * insecure: weather or not to expose plain http metrics for victoriametrics outside of the container this is for things like proxmox that can be picky about basic auth and SSL please avoid using if possible
 
-
 ### This section is for SSL/TLS and the only required value is an email address all other values are for certs that don't use letsencrypt with HTTP verification
 * tls.email: email address to use for sending letsencrypt certificates
 * providers the list of DNS providers that traefik can use to obtain certs via DNS verification, this is optional. By default traefik will attempt to use http verification. See the [Traefik Docs](https://doc.traefik.io/traefik/https/acme/#providers) for provider specific information
 * acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
  
+
+## vmanomaly
+- vmanomaly_log_level: How verbose vmanomaly logs should be defaults to `INFO` supports `DEBUG`,`INFO`, `WARNING`, and `ERROR`
+vmanomaly will use a configuration that will detect slow response times for dns and http endpoints by default, but you can specify a valid vmanomaly template by specifying the `vmanomaly_config_path` path variable that points to the path of a jinja template that will be rendered to a YAML file.
+
+### Default Template Variables
+- detections: list of queries to use with the median absolute deviation model it defaults to the values below
+  - dns_blackbox: 'avg by (server) (dns_query_query_time_ms[5m])'
+  - http_blackbox: 'avg by (server) (http_response_response_time[5m]) * 1000'
+- min_deviation_value: float that lists how far outside of the expected range values need to be to generate an anomaly score > 1 aka an anomalous sample defaults to 50 (50 milliseconds)
+- vmanomaly_fit_window: duration that specifies how often models are fit in the default vmanomaly template. Defaults to 24h
+- vmanomaly_fit_every: '365d'
+- vmanomaly_infer_every: duration that specifies how often vmanomaly generates expected values and anomaly scores defaults to '1m'
+- vmanoamly_workers: number of to vmanomaly workers vmanomaly will use. Defaults to 2
+
