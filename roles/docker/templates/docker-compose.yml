@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: grafana/grafana:12.0.1-security-01
+    image: grafana/grafana:12.0.2
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: unless-stopped
     volumes:
@@ -175,7 +175,7 @@ services:
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: quay.io/victoriametrics/vmanomaly:v1.23.0
+    image: quay.io/victoriametrics/vmanomaly:v1.24.0
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
@@ -193,13 +193,16 @@ services:
       - type: bind
         source: /opt/shift-mon/vmanomaly-models
         target: /models
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-data
+        target: /data
     command:
       - "/config/config.yml"
       - "--license={{ victoria.license }}"
       - "--loggerLevel={{ vmanomaly_log_level }}"
-
     environment:
       VMANOMALY_MODEL_DUMPS_DIR: /models
+      VMANOMALY_DATA_DUMPS_DIR: /data
 {% endif %}
   valkey:
     image: docker.io/valkey/valkey:8-alpine

@@ -6,3 +6,4 @@ vmanomaly_config_path: 'config.yml.j2'
 vmanomaly_fit_window: '24h'
 vmanomaly_fit_every: '365d'
 vmanomaly_infer_every: '1m'
+vmanoamly_workers: 2

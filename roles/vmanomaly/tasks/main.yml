@@ -10,6 +10,7 @@
   with_items:
     - "/opt/shift-mon/vmanomaly-config"
     - "/opt/shift-mon/vmanomaly-models"
+    - "/opt/shift-mon/vmanomaly-data"
 
 - name: Add config file
   ansible.builtin.template:
