@@ -70,6 +70,7 @@ services:
     image: quay.io/victoriametrics/victoria-metrics:v1.120.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
+    env_file: /opt/shift-mon/shiftmon.env
     volumes:
       - type: bind
         source: /opt/shift-mon/victoriametrics
@@ -93,7 +94,7 @@ services:
       - "-disablePerDayIndex"
 {% endif %}
 {% if victoria.license is defined %}
-      - "-license={{ victoria.license }}"
+      - "-license=%{VICTORIAMETRICS_LICENSE}"
 {% endif %}
 {% if victoria.license is defined and victoria.slow_query_threshold is defined %}
       - "-search.logSlowQueryStats={{ victoria.slow_query_threshold }}"
@@ -117,6 +118,7 @@ services:
     image: quay.io/victoriametrics/vmalert:v1.120.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
+    env_file: /opt/shift-mon/shiftmon.env
     volumes:
       - type: bind
         source: /opt/shift-mon/vmalert/rules
@@ -140,7 +142,7 @@ services:
       - -external.alert.source=explore?left={"datasource":"shift-victoriametrics","queries":[{"expr":{{ .Expr|jsonEscape|queryEscape }},"refId":"A"}],"range":{"from":"{{ .ActiveAt.UnixMilli }}","to":"now"}}
 {% endraw %}
 {% if victoria.license is defined %}
-      - "-license={{ victoria.license }}"
+      - "-license=%{VICTORIAMETRICS_LICENSE}"
 {% endif %}
     healthcheck:
       test: "wget -qO- http://127.0.0.1:8880/-/healthy"
@@ -155,6 +157,7 @@ services:
     image: quay.io/victoriametrics/vmauth:v1.120.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
+    env_file: /opt/shift-mon/shiftmon.env
     volumes:
       - type: bind
         source: /opt/shift-mon/vmauth
@@ -164,7 +167,7 @@ services:
       - "-httpListenAddr=0.0.0.0:8427"
       - "-httpInternalListenAddr=0.0.0.0:9999"
 {% if victoria.license is defined %}
-      - "-license={{ victoria.license }}"
+      - "-license=%{VICTORIAMETRICS_LICENSE}"
 {% endif %}
     healthcheck:
       test: "wget -qO- http://127.0.0.1:9999/-/healthy"
@@ -196,9 +199,12 @@ services:
       - type: bind
         source: /opt/shift-mon/vmanomaly-data
         target: /data
+      - type: bind
+        source: /opt/shift-mon/victoriametricslicense
+        target: /victoriametricslicense
     command:
       - "/config/config.yml"
-      - "--license={{ victoria.license }}"
+      - "--licenseFile=/victoriametricslicense"
       - "--loggerLevel={{ vmanomaly_log_level }}"
     environment:
       VMANOMALY_MODEL_DUMPS_DIR: /models

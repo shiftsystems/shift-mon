@@ -17,6 +17,24 @@
   changed_when: false
   become: true
 
+- name: Generate env file
+  ansible.builtin.template:
+    src: "shiftmon.env"
+    dest: /opt/shift-mon/shiftmon.env
+    mode: "660"
+    owner: shiftmon
+    group: shiftmon
+  become: true
+
+- name: Generate env file
+  ansible.builtin.template:
+    src: "victoriametricslicense"
+    dest: /opt/shift-mon/victoriametricslicense
+    mode: "660"
+    owner: shiftmon
+    group: shiftmon
+  become: true
+
 - name: Generate compose File
   ansible.builtin.template:
     src: "docker-compose.yml"

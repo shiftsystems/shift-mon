@@ -8,7 +8,7 @@ namespace: shiftsystems
 name: shift_mon
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 1.20.0
+version: 1.21.0
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -16,7 +16,7 @@ readme: README.md
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
 authors:
-  - tiny <mathias@shiftsystems.com>
+  - tiny <mathias@shiftsystems.com> (https://links.shiftsystems.net)
 
 
 ### OPTIONAL but strongly recommended
