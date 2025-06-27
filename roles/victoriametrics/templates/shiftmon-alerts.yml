@@ -391,6 +391,26 @@ groups:
         expr: 'tags.path:!"" | stats by (tags.path,tags.host) count()'
       - record: 'logs_per_appname:2m'
         expr: 'tags.appname:!"" | stats by (tags.path,tags.host) count()'
-
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_empty_rule_rules %}
+{% raw %}
+  - name: EmptyAlerts
+    limit: 0
+    interval: 5m
+    type: prometheus
+    rules:
+      - alert: Empty Alert Rules found
+        expr: 'max(vmalert_alerting_rules_last_evaluation_series_fetched) by(group, alertname) == 0'
+        annotations: 
+          summary: empty alerting rules found
+          description: "{{ $labels.alertname }} in {{ $labels.groupname }} are not matching any series"
+          dashboard: 'https://{{ $externalURL }}/d/LzldHAVnz_vm/victoriametrics-vmalert-vm'
+      - alert: Empty Recording Rules found
+        expr: 'max(vmalert_recording_rules_last_evaluation_samples) by(group, recording) ==0'
+        annotations: 
+          summary: empty alerting rules found
+          description: "{{ $labels.recording }} in {{ $labels.groupname }} are not matching any series"
+          dashboard: 'https://{{ $externalURL }}/d/LzldHAVnz_vm/victoriametrics-vmalert-vm'
 {% endraw %}
 {% endif %}

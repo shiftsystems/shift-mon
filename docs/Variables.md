@@ -35,6 +35,7 @@ shiftmon_alerts_alertmanager_enabled: enables alerts for issues with alertmanage
 shiftmon_alerts_victoriametrics_enabled: enables alerts for issues with Victoriametrics
 shiftmon_alerts_adguardhome_enabled: enables recording rules for 
 shiftmon_alerts_log_rules: enables recording rules for tracking the number of logs per path and appname. These rules can increase the IO in the system since they frequently query a majority of the logs on the system.
+shiftmon_alerts_empty_rule_rules: enables alerting rules that will fire if there recording and alerting rules that are not matching any timeseries
 
 telegraf_victoriametrics_config: true
 
