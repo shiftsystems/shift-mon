@@ -50,7 +50,7 @@ Else {
 
 
 # download and install telegraf config
-$url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/telegraf.conf"
+$url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/telegraf.conf"
 $output = "C:\Program Files\telegraf\telegraf.conf"
 Invoke-WebRequest -Uri $url -OutFile $output
 Write-Host "Added Base Telegraf Config"
@@ -58,7 +58,7 @@ Write-Host "Added Base Telegraf Config"
 # Add Defender config if server 2016 or newer or windows 10
 [int]$build = (Get-Item "HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('CurrentBuild')
 if ($build -gt 10000) {
-    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/defender.conf"
+    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/defender.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\defender.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
         Write-Host "Added Defender config"
@@ -67,7 +67,7 @@ if ($build -gt 10000) {
 # ADD IIS config if IIS is present
 $service = Get-Service w3svc -ErrorAction SilentlyContinue
 if($service) {
-    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/iis.conf"
+    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/iis.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\iis.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
         Write-Host "Added IIS Config"
@@ -76,7 +76,7 @@ if($service) {
 # ADD Sysmon config if Sysmon is present
 $service =  @(Get-Service Sysmon*).Count -gt 0
 if($service) {
-    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/shiftmon-1/telegraf-configs/windows/sysmon.conf"
+    $url = "https://gitlab.com/shiftsystems/shiftmon/-/raw/main/telegraf-configs/windows/sysmon.conf"
     $output = "C:\Program Files\telegraf\telegraf.d\sysmon.conf"
     Invoke-WebRequest -Uri $url -OutFile $output
         Write-Host "Added Sysmon Config"

@@ -7,12 +7,6 @@
 
 ## Installation
 
-### CHECKOUT THE CORRECT BRANCH
-make sure you are on the `shiftmon-1` branch
-
-```bash
-git checkout shiftmon-1
-```
 
 ### Setup Ansible on your machine
 
