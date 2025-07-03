@@ -13,14 +13,14 @@ groups:
         annotations:
           summary: '{{ $labels.host }} is not sending metrics'
           description: '{{ $labels.host }} has not sent metrics in {{ $value }} seconds'
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host?var-host={{ $labels.host }}'
       - alert: Windows Host Down
         expr: 'lag(cpu_usage_idle{db="windows"}[24h]) > 60'
         for: 5m
         annotations:
           summary: '{{ $labels.host }} is not sending metrics'
           description: '{{ $labels.host }} has not sent metrics in {{ $value }} seconds'
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-windows-host/windows-host'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-windows-host/windows-host?var-host={{ $labels.host }}'
       - alert: Missing Grafana Metrics
         expr: 'lag(grafana_alerting_state_history_writes_bytes_total[24h]) > 120'
         for: 10m
@@ -55,28 +55,28 @@ groups:
         annotations:
           summary: 'High CPU utilization on {{ $labels.host }}'
           description: "{{ $labels.host }} is using {{ $value }}"
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host?var-host={{ $labels.host }}'
       - alert: High Disk usage
         expr: 'disk_used_percent{device !~"devfs|efivarfs"} > 80'
         for: 30m
         annotations:
           summary: 'Low disk space {{ $labels.host }}'
           description: '{{ $labels.device }} on {{ $labels.host }} is {{ $value }} percent full'
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host?var-host={{ $labels.host }}'
       - alert: SMART failure
         expr: 'smart_device_health_ok{} != 1'
         for: 10m
         annotations:
           summary: 'SMART Errors on {{ $labels.device }} on {{ $labels.host }}'
-          description: '{{ $labels.device }} on {{ $labels.host }} is unhealthly model: {{ $labels.model }} serial number: {{ $labels.serial_no }}'
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
+          description: '{{ $labels.device }} on {{ $labels.host }} is unhealthy model: {{ $labels.model }} serial number: {{ $labels.serial_no }}'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host?var-host={{ $labels.host }}'
       - alert: Automation issue
         expr: 'systemd_units_active_code{name=~`dnf-automatic-install.service|unattended-upgrades.service|certbot.service|apt-daily-upgrade.service|ansible.*|borg.*|db-backup.*`} == 3'
         for: 10h
         annotations:
           summary: '{{ $labels.name }} on {{ $labels.host }} is failing'
           description: '{{ $labels.name }} on {{ $labels.host }} is failing'
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-linux-metrics/linux-host?var-host={{ $labels.host }}'
       - alert: High iowait
         expr: 'cpu_usage_iowait{} > 7'
         for: 10m
@@ -90,14 +90,14 @@ groups:
         annotations:
           summary: '{{ $labels.container_name }} is down'
           description: '{{ $labels.container_name }} is down on {{ $labels.host }}'
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-docker/docker'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-docker/docker?var-host={{ $labels.host }}'
       - alert: Container Down
         expr: 'docker_container_health_health_status > 0'
         for: 10m
         annotations:
           summary: '{{ $labels.container_name }} is not healthy'
           description: '{{ $labels.container_name }} is down on {{ $labels.host }}'
-          dashboard: 'https://{{ $externalURL }}/d/shiftmon-docker/docker'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-docker/docker?var-host={{ $labels.host }}'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_blackbox_enabled %}
@@ -112,35 +112,35 @@ groups:
         annotations:
           summary: '{{ $labels.server }} is not healthy'
           description: '{{ $labels.server }} is not responding properly from {{ $labels.host }}'
-          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox?var-host={{ $labels.host }}'
       - alert: DNS Blackbox Failing
         expr: 'dns_query_result_code{check_type="normal"} > 0'
         for: 5m
         annotations:
           summary: 'DNS lookups are not working on {{ $labels.server }}'
           description: 'Users can  not lookup {{ $labels.domain }} on {{ $labels.server }} with record {{ $labels.record_type }}'
-          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox?var-host={{ $labels.host }}'
       - alert: Net Response Blackbox Failing
         expr: 'net_response_result_code{check_type="normal"} > 0'
         for: 5m
         annotations:
           summary: '{{ $labels.server }} is not healthy'
           description: '{{ $labels.server }} is not reachable from {{ $labels.host }}'
-          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox?var-host={{ $labels.host }}'
       - alert: Ping Blackbox Failing
         expr: 'ping_result_code{check_type="normal"} > 0'
         for: 5m
         annotations:
           summary: 'ping is not working on working on {{ $labels.url }}'
           description: 'ping is not working on {{ $labels.url }} from {{ $labels.host }}'
-          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox?var-host={{ $labels.host }}'
       - alert: TLS certificate expiring
         expr: '((x509_cert_enddate{} - time()) / 86400) < 14'
         for: 10m
         annotations:
           summary: '{{ $labels.common_name }} will expire soon please renew'
           description: '{{ $labels.common_name }} will expire in {{ $value }} seconds according to {{ $labels.host }}'
-          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox'
+          dashboard: '{{ $externalURL }}/d/AF-zl-Y4j/blackbox?var-host={{ $labels.host }}'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_proxmox_enabled %}
@@ -206,7 +206,7 @@ groups:
         annotations:
           summary: 'FreeIPA Replication failure on {{ $labels.host }}'
           description: 'FreeIPA Replication failure on {{ $labels.host }}'
-          dashboard: '{{ $externalURL }}/d/c139adf6-f70a-4ebe-af92-ee893076be50' 
+          dashboard: '{{ $externalURL }}/d/c139adf6-f70a-4ebe-af92-ee893076be50?var-host={{ $labels.host }}'
 {% endraw %}
 {% endif %}
 {% if shiftmon_alerts_victorialogs_enabled %}
