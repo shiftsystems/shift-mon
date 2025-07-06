@@ -80,3 +80,9 @@ metrics:
       - 5.0
     addRoutersLabels: true
     addServicesLabels: true
+{% if shiftmon_tracing_endpoint is defined %}
+tracing:
+  otlp:
+    grpc:
+      endpoint: {{ shiftmon_tracing_endpoint }}
+{% endif %}

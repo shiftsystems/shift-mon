@@ -172,6 +172,9 @@ oauth:
 * acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
  
 
+## Tracing
+- shiftmon_tracing_endpoint: gRPC endpoint for sending otel traces from Traefik and Grafana
+
 ## vmanomaly
 - vmanomaly_log_level: How verbose vmanomaly logs should be defaults to `INFO` supports `DEBUG`,`INFO`, `WARNING`, and `ERROR`
 vmanomaly will use a configuration that will detect slow response times for dns and http endpoints by default, but you can specify a valid vmanomaly template by specifying the `vmanomaly_config_path` path variable that points to the path of a jinja template that will be rendered to a YAML file.
