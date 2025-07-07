@@ -65,9 +65,9 @@ services:
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: quay.io/victoriametrics/victoria-metrics:v1.120.0-enterprise
+    image: quay.io/victoriametrics/victoria-metrics:v1.121.0-enterprise
 {% else %}
-    image: quay.io/victoriametrics/victoria-metrics:v1.120.0
+    image: quay.io/victoriametrics/victoria-metrics:v1.121.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     env_file: /opt/shift-mon/shiftmon.env
@@ -113,9 +113,9 @@ services:
   vmalert:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: quay.io/victoriametrics/vmalert:v1.120.0-enterprise
+    image: quay.io/victoriametrics/vmalert:v1.121.0-enterprise
 {% else %}
-    image: quay.io/victoriametrics/vmalert:v1.120.0
+    image: quay.io/victoriametrics/vmalert:v1.121.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     env_file: /opt/shift-mon/shiftmon.env
@@ -152,9 +152,9 @@ services:
   vmauth:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: quay.io/victoriametrics/vmauth:v1.120.0-enterprise
+    image: quay.io/victoriametrics/vmauth:v1.121.0-enterprise
 {% else %}
-    image: quay.io/victoriametrics/vmauth:v1.120.0
+    image: quay.io/victoriametrics/vmauth:v1.121.0
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     env_file: /opt/shift-mon/shiftmon.env
