@@ -1,0 +1,1761 @@
+{
+"annotations": {
+  "list": [
+    {
+      "builtIn": 1,
+      "datasource": {
+        "type": "grafana",
+        "uid": "-- Grafana --"
+      },
+      "enable": true,
+      "hide": true,
+      "iconColor": "rgba(0, 211, 255, 1)",
+      "name": "Annotations & Alerts",
+      "type": "dashboard"
+    }
+  ]
+},
+"editable": true,
+"fiscalYearStartMonth": 0,
+"graphTooltip": 0,
+"id": 241,
+"links": [],
+"panels": [
+  {
+    "collapsed": false,
+    "gridPos": {
+      "h": 1,
+      "w": 24,
+      "x": 0,
+      "y": 0
+    },
+    "id": 6,
+    "panels": [],
+    "title": "vmalert",
+    "type": "row"
+  },
+  {
+    "datasource": {
+      "type": "victoriametrics-metrics-datasource",
+      "uid": "${metrics}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "custom": {
+          "axisPlacement": "auto",
+          "fillOpacity": 70,
+          "hideFrom": {
+            "legend": false,
+            "tooltip": false,
+            "viz": false
+          },
+          "insertNulls": false,
+          "lineWidth": 0,
+          "spanNulls": false
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green"
+            },
+            {
+              "color": "yellow",
+              "value": 1
+            },
+            {
+              "color": "orange",
+              "value": 2
+            },
+            {
+              "color": "red",
+              "value": 3
+            },
+            {
+              "color": "dark-red",
+              "value": 5
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 12,
+      "w": 24,
+      "x": 0,
+      "y": 1
+    },
+    "id": 7,
+    "options": {
+      "alignValue": "center",
+      "legend": {
+        "displayMode": "list",
+        "placement": "bottom",
+        "showLegend": false
+      },
+      "mergeValues": true,
+      "rowHeight": 0.9,
+      "showValue": "never",
+      "tooltip": {
+        "hideZeros": false,
+        "mode": "single",
+        "sort": "none"
+      }
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
+        },
+        "editorMode": "code",
+        "exemplar": false,
+        "expr": "sort_desc(topk_max($topk, sum(vmalert_alerts_firing{group=~\"$group\"}) by (alertname)))",
+        "format": "time_series",
+        "instant": false,
+        "legendFormat": "__auto",
+        "range": true,
+        "refId": "A"
+      }
+    ],
+    "title": "Firing state of alerting rules on timeline",
+    "type": "state-timeline"
+  },
+  {
+    "datasource": {
+      "type": "victoriametrics-metrics-datasource",
+      "uid": "${metrics}"
+    },
+    "description": "Shows the total number of loaded alerting rules across selected instances and groups.",
+    "fieldConfig": {
+      "defaults": {
+        "mappings": [],
+        "min": 0,
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green"
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 5,
+      "w": 12,
+      "x": 0,
+      "y": 13
+    },
+    "id": 10,
+    "options": {
+      "colorMode": "value",
+      "graphMode": "area",
+      "justifyMode": "auto",
+      "orientation": "auto",
+      "percentChangeColorMode": "standard",
+      "reduceOptions": {
+        "calcs": [
+          "last"
+        ],
+        "fields": "",
+        "values": false
+      },
+      "showPercentChange": false,
+      "text": {
+        "valueSize": 80
+      },
+      "textMode": "auto",
+      "wideLayout": true
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
+        },
+        "editorMode": "code",
+        "exemplar": false,
+        "expr": "count(count(vmalert_alerting_rules_errors_total{group=~\"$group\"}) by (group))",
+        "interval": "",
+        "legendFormat": "",
+        "range": true,
+        "refId": "A"
+      }
+    ],
+    "title": "Alerting groups",
+    "type": "stat"
+  },
+  {
+    "datasource": {
+      "type": "victoriametrics-metrics-datasource",
+      "uid": "${metrics}"
+    },
+    "description": "",
+    "fieldConfig": {
+      "defaults": {
+        "mappings": [],
+        "min": 0,
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green"
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 5,
+      "w": 12,
+      "x": 12,
+      "y": 13
+    },
+    "id": 11,
+    "options": {
+      "colorMode": "value",
+      "graphMode": "area",
+      "justifyMode": "auto",
+      "orientation": "auto",
+      "percentChangeColorMode": "standard",
+      "reduceOptions": {
+        "calcs": [
+          "last"
+        ],
+        "fields": "",
+        "values": false
+      },
+      "showPercentChange": false,
+      "text": {
+        "valueSize": 80
+      },
+      "textMode": "auto",
+      "wideLayout": true
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
+        },
+        "editorMode": "code",
+        "exemplar": false,
+        "expr": "count(vmalert_alerting_rules_errors_total{group=~\"$group\"})",
+        "instant": false,
+        "interval": "",
+        "legendFormat": "",
+        "range": true,
+        "refId": "A"
+      }
+    ],
+    "title": "Alerting rules",
+    "type": "stat"
+  },
+  {
+    "datasource": {
+      "type": "victoriametrics-metrics-datasource",
+      "uid": "${metrics}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "custom": {
+          "align": "auto",
+          "cellOptions": {
+            "type": "auto"
+          },
+          "inspect": false
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green"
+            },
+            {
+              "color": "red",
+              "value": 80
+            }
+          ]
+        }
+      },
+      "overrides": [
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Count (sum)"
+          },
+          "properties": [
+            {
+              "id": "custom.width",
+              "value": 100
+            }
+          ]
+        }
+      ]
+    },
+    "gridPos": {
+      "h": 12,
+      "w": 12,
+      "x": 0,
+      "y": 18
+    },
+    "id": 8,
+    "options": {
+      "cellHeight": "sm",
+      "footer": {
+        "countRows": false,
+        "fields": "",
+        "reducer": [
+          "sum"
+        ],
+        "show": false
+      },
+      "frameIndex": 1,
+      "showHeader": true,
+      "sortBy": [
+        {
+          "desc": true,
+          "displayName": "Count (sum)"
+        }
+      ]
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
+        },
+        "editorMode": "code",
+        "exemplar": false,
+        "expr": "topk_max(100, sum(increases_over_time(vmalert_alerts_firing{group=~\"$group\"}[$__range])) by(group, alertname) > 0)",
+        "format": "table",
+        "instant": true,
+        "key": "Q-3934f0fb-8ad6-4519-a98d-c26d0fc6b312-0",
+        "legendFormat": "__auto",
+        "range": false,
+        "refId": "A"
+      }
+    ],
+    "title": "FIRING over time by group",
+    "transformations": [
+      {
+        "id": "organize",
+        "options": {
+          "excludeByName": {
+            "Time": true,
+            "alertname": false
+          },
+          "indexByName": {
+            "Time": 0,
+            "Value": 3,
+            "alertname": 2,
+            "group": 1
+          },
+          "renameByName": {
+            "Value": "Count",
+            "alertname": "Alert",
+            "group": "Group"
+          }
+        }
+      },
+      {
+        "id": "groupBy",
+        "options": {
+          "fields": {
+            "Count": {
+              "aggregations": [
+                "sum"
+              ],
+              "operation": "aggregate"
+            },
+            "Group": {
+              "aggregations": [],
+              "operation": "groupby"
+            }
+          }
+        }
+      }
+    ],
+    "type": "table"
+  },
+  {
+    "datasource": {
+      "type": "victoriametrics-metrics-datasource",
+      "uid": "${metrics}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "custom": {
+          "align": "auto",
+          "cellOptions": {
+            "type": "auto"
+          },
+          "inspect": false
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green"
+            },
+            {
+              "color": "red",
+              "value": 80
+            }
+          ]
+        }
+      },
+      "overrides": [
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Count"
+          },
+          "properties": [
+            {
+              "id": "custom.width",
+              "value": 100
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Group"
+          },
+          "properties": [
+            {
+              "id": "custom.width",
+              "value": 200
+            }
+          ]
+        }
+      ]
+    },
+    "gridPos": {
+      "h": 12,
+      "w": 12,
+      "x": 12,
+      "y": 18
+    },
+    "id": 9,
+    "options": {
+      "cellHeight": "sm",
+      "footer": {
+        "countRows": false,
+        "fields": "",
+        "reducer": [
+          "sum"
+        ],
+        "show": false
+      },
+      "frameIndex": 1,
+      "showHeader": true
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
+        },
+        "editorMode": "code",
+        "exemplar": false,
+        "expr": "topk_max($topk, sum(increases_over_time(vmalert_alerts_firing{group=~\"$group\"}[$__range])) by (group, alertname) > 0)",
+        "format": "table",
+        "instant": true,
+        "key": "Q-3934f0fb-8ad6-4519-a98d-c26d0fc6b312-0",
+        "legendFormat": "__auto",
+        "range": false,
+        "refId": "A"
+      }
+    ],
+    "title": "FIRING over time by rule",
+    "transformations": [
+      {
+        "id": "organize",
+        "options": {
+          "excludeByName": {
+            "Time": true
+          },
+          "indexByName": {
+            "Time": 0,
+            "Value": 3,
+            "alertname": 2,
+            "group": 1
+          },
+          "renameByName": {
+            "Time": "",
+            "Value": "Count",
+            "alertname": "Alert",
+            "group": "Group",
+            "range": ""
+          }
+        }
+      }
+    ],
+    "type": "table"
+  },
+  {
+    "collapsed": false,
+    "gridPos": {
+      "h": 1,
+      "w": 24,
+      "x": 0,
+      "y": 30
+    },
+    "id": 5,
+    "panels": [],
+    "title": "alertmanager",
+    "type": "row"
+  },
+  {
+    "datasource": {
+      "type": "camptocamp-prometheus-alertmanager-datasource",
+      "uid": "${alertmanager}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "red"
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 8,
+      "w": 8,
+      "x": 0,
+      "y": 31
+    },
+    "id": 2,
+    "options": {
+      "colorMode": "background",
+      "graphMode": "none",
+      "justifyMode": "auto",
+      "orientation": "auto",
+      "percentChangeColorMode": "standard",
+      "reduceOptions": {
+        "calcs": [
+          "count"
+        ],
+        "fields": "",
+        "values": false
+      },
+      "showPercentChange": false,
+      "textMode": "auto",
+      "wideLayout": true
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "active": true,
+        "datasource": {
+          "type": "camptocamp-prometheus-alertmanager-datasource",
+          "uid": "${alertmanager}"
+        },
+        "refId": "A",
+        "silenced": false
+      }
+    ],
+    "title": "Firing",
+    "type": "stat"
+  },
+  {
+    "datasource": {
+      "type": "camptocamp-prometheus-alertmanager-datasource",
+      "uid": "${alertmanager}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "yellow"
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 8,
+      "w": 8,
+      "x": 8,
+      "y": 31
+    },
+    "id": 3,
+    "options": {
+      "colorMode": "background",
+      "graphMode": "none",
+      "justifyMode": "auto",
+      "orientation": "auto",
+      "percentChangeColorMode": "standard",
+      "reduceOptions": {
+        "calcs": [
+          "count"
+        ],
+        "fields": "",
+        "values": false
+      },
+      "showPercentChange": false,
+      "textMode": "auto",
+      "wideLayout": true
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "active": false,
+        "datasource": {
+          "type": "camptocamp-prometheus-alertmanager-datasource",
+          "uid": "${alertmanager}"
+        },
+        "refId": "A",
+        "silenced": true
+      }
+    ],
+    "title": "Silenced",
+    "type": "stat"
+  },
+  {
+    "datasource": {
+      "type": "camptocamp-prometheus-alertmanager-datasource",
+      "uid": "${alertmanager}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green"
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 8,
+      "w": 8,
+      "x": 16,
+      "y": 31
+    },
+    "id": 4,
+    "options": {
+      "colorMode": "background",
+      "graphMode": "none",
+      "justifyMode": "auto",
+      "orientation": "auto",
+      "percentChangeColorMode": "standard",
+      "reduceOptions": {
+        "calcs": [
+          "count"
+        ],
+        "fields": "",
+        "values": false
+      },
+      "showPercentChange": false,
+      "textMode": "auto",
+      "wideLayout": true
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "active": false,
+        "datasource": {
+          "type": "camptocamp-prometheus-alertmanager-datasource",
+          "uid": "${alertmanager}"
+        },
+        "inhibited": true,
+        "refId": "A",
+        "silenced": false
+      }
+    ],
+    "title": "Inhibited",
+    "type": "stat"
+  },
+  {
+    "datasource": {
+      "type": "camptocamp-prometheus-alertmanager-datasource",
+      "uid": "${alertmanager}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "custom": {
+          "align": "auto",
+          "cellOptions": {
+            "type": "auto"
+          },
+          "filterable": true,
+          "inspect": false
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green"
+            },
+            {
+              "color": "red",
+              "value": 80
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 13,
+      "w": 24,
+      "x": 0,
+      "y": 39
+    },
+    "id": 1,
+    "options": {
+      "cellHeight": "sm",
+      "footer": {
+        "countRows": false,
+        "fields": "",
+        "reducer": [
+          "sum"
+        ],
+        "show": false
+      },
+      "showHeader": true
+    },
+    "pluginVersion": "12.0.2",
+    "targets": [
+      {
+        "datasource": {
+          "type": "camptocamp-prometheus-alertmanager-datasource",
+          "uid": "${alertmanager}"
+        },
+        "refId": "A"
+      }
+    ],
+    "title": "Alerts",
+    "type": "table"
+  }
+],
+"preload": false,
+"schemaVersion": 41,
+"tags": [],
+"templating": {
+  "list": [
+    {
+      "allowCustomValue": false,
+      "current": {
+        "text": "shiftmon-alertmanager-stats",
+        "value": "PF8B1C6E6685A53DF"
+      },
+      "name": "alertmanager",
+      "options": [],
+      "query": "camptocamp-prometheus-alertmanager-datasource",
+      "refresh": 1,
+      "regex": "",
+      "type": "datasource"
+    },
+    {
+      "allowCustomValue": false,
+      "current": {
+        "text": "shift-victoriametrics",
+        "value": "P342DAF48C1D70AE5"
+      },
+      "name": "metrics",
+      "options": [],
+      "query": "victoriametrics-metrics-datasource",
+      "refresh": 1,
+      "regex": "",
+      "type": "datasource"
+    },
+    {
+      "allowCustomValue": false,
+      "current": {
+        "text": "All",
+        "value": [
+          "$__all"
+        ]
+      },
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "definition": "label_values(vmalert_alerts_firing,group)",
+      "includeAll": true,
+      "multi": true,
+      "name": "group",
+      "options": [],
+      "query": {
+        "qryType": 1,
+        "query": "label_values(vmalert_alerts_firing,group)",
+        "refId": "VariableQueryEditor-VariableQuery"
+      },
+      "refresh": 1,
+      "regex": "",
+      "type": "query"
+    },
+    {
+      "current": {
+        "text": "30",
+        "value": "30"
+      },
+      "name": "topk",
+      "options": [
+        {
+          "selected": false,
+          "text": "5",
+          "value": "5"
+        },
+        {
+          "selected": false,
+          "text": "10",
+          "value": "10"
+        },
+        {
+          "selected": false,
+          "text": "20",
+          "value": "20"
+        },
+        {
+          "selected": true,
+          "text": "30",
+          "value": "30"
+        },
+        {
+          "selected": false,
+          "text": "50",
+          "value": "50"
+        }
+      ],
+      "query": "5, 10, 20, 30, 50",
+      "type": "custom"
+    }
+  ]
+},
+"time": {
+  "from": "now-7d",
+  "to": "now"
+},
+"timepicker": {},
+"timezone": "browser",
+"title": "Alerting Overview",
+"uid": "b09e0005-da38-4296-b345-bd76b07a878b",
+"version": 4
+}{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 241,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "panels": [],
+      "title": "vmalert",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisPlacement": "auto",
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "orange",
+                "value": 2
+              },
+              {
+                "color": "red",
+                "value": 3
+              },
+              {
+                "color": "dark-red",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 7,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "never",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sort_desc(topk_max($topk, sum(vmalert_alerts_firing{group=~\"$group\"}) by (alertname)))",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Firing state of alerting rules on timeline",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "description": "Shows the total number of loaded alerting rules across selected instances and groups.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 13
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(count(vmalert_alerting_rules_errors_total{group=~\"$group\"}) by (group))",
+          "interval": "",
+          "legendFormat": "",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Alerting groups",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 13
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(vmalert_alerting_rules_errors_total{group=~\"$group\"})",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Alerting rules",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Count (sum)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Count (sum)"
+          }
+        ]
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "topk_max(100, sum(increases_over_time(vmalert_alerts_firing{group=~\"$group\"}[$__range])) by(group, alertname) > 0)",
+          "format": "table",
+          "instant": true,
+          "key": "Q-3934f0fb-8ad6-4519-a98d-c26d0fc6b312-0",
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "FIRING over time by group",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "alertname": false
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 3,
+              "alertname": 2,
+              "group": 1
+            },
+            "renameByName": {
+              "Value": "Count",
+              "alertname": "Alert",
+              "group": "Group"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Count": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Group": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Count"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Group"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 200
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 9,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "topk_max($topk, sum(increases_over_time(vmalert_alerts_firing{group=~\"$group\"}[$__range])) by (group, alertname) > 0)",
+          "format": "table",
+          "instant": true,
+          "key": "Q-3934f0fb-8ad6-4519-a98d-c26d0fc6b312-0",
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "FIRING over time by rule",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 3,
+              "alertname": 2,
+              "group": 1
+            },
+            "renameByName": {
+              "Time": "",
+              "Value": "Count",
+              "alertname": "Alert",
+              "group": "Group",
+              "range": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 5,
+      "panels": [],
+      "title": "alertmanager",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "camptocamp-prometheus-alertmanager-datasource",
+        "uid": "${alertmanager}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 31
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "active": true,
+          "datasource": {
+            "type": "camptocamp-prometheus-alertmanager-datasource",
+            "uid": "${alertmanager}"
+          },
+          "refId": "A",
+          "silenced": false
+        }
+      ],
+      "title": "Firing",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "camptocamp-prometheus-alertmanager-datasource",
+        "uid": "${alertmanager}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 31
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "active": false,
+          "datasource": {
+            "type": "camptocamp-prometheus-alertmanager-datasource",
+            "uid": "${alertmanager}"
+          },
+          "refId": "A",
+          "silenced": true
+        }
+      ],
+      "title": "Silenced",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "camptocamp-prometheus-alertmanager-datasource",
+        "uid": "${alertmanager}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 31
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "active": false,
+          "datasource": {
+            "type": "camptocamp-prometheus-alertmanager-datasource",
+            "uid": "${alertmanager}"
+          },
+          "inhibited": true,
+          "refId": "A",
+          "silenced": false
+        }
+      ],
+      "title": "Inhibited",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "camptocamp-prometheus-alertmanager-datasource",
+        "uid": "${alertmanager}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "camptocamp-prometheus-alertmanager-datasource",
+            "uid": "${alertmanager}"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Alerts",
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "shiftmon-alertmanager-stats",
+          "value": "PF8B1C6E6685A53DF"
+        },
+        "name": "alertmanager",
+        "options": [],
+        "query": "camptocamp-prometheus-alertmanager-datasource",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
+        },
+        "name": "metrics",
+        "options": [],
+        "query": "victoriametrics-metrics-datasource",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
+        },
+        "definition": "label_values(vmalert_alerts_firing,group)",
+        "includeAll": true,
+        "multi": true,
+        "name": "group",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(vmalert_alerts_firing,group)",
+          "refId": "VariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "30",
+          "value": "30"
+        },
+        "name": "topk",
+        "options": [
+          {
+            "selected": false,
+            "text": "5",
+            "value": "5"
+          },
+          {
+            "selected": false,
+            "text": "10",
+            "value": "10"
+          },
+          {
+            "selected": false,
+            "text": "20",
+            "value": "20"
+          },
+          {
+            "selected": true,
+            "text": "30",
+            "value": "30"
+          },
+          {
+            "selected": false,
+            "text": "50",
+            "value": "50"
+          }
+        ],
+        "query": "5, 10, 20, 30, 50",
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Alerting Overview",
+  "uid": "shiftmon-alerting-overview",
+  "version": 4
+}

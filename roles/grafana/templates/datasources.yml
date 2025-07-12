@@ -31,3 +31,7 @@ datasources:
     jsonData:
       implementation: prometheus
       handleGrafanaManagedAlerts: false
+  - name: shiftmon-alertmanager-stats
+    type: camptocamp-prometheus-alertmanager-datasource 
+    url: http://alertmanager:9093
+
