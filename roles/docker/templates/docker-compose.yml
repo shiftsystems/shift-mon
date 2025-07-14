@@ -45,7 +45,7 @@ services:
       timeout: '10s'
       retries: 5
   loki:
-    image: docker.io/grafana/loki:3.5.1
+    image: docker.io/grafana/loki:3.5.2
     restart: unless-stopped
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
