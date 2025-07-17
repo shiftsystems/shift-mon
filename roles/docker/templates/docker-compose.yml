@@ -178,7 +178,7 @@ services:
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: quay.io/victoriametrics/vmanomaly:v1.24.1
+    image: quay.io/victoriametrics/vmanomaly:v1.25.0
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
