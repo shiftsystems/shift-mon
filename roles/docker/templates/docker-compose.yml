@@ -232,7 +232,7 @@ services:
       retries: 10
   victorialogs:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-    image: quay.io/victoriametrics/victoria-logs:v1.24.0-victorialogs
+    image: quay.io/victoriametrics/victoria-logs:v1.25.1
     restart: unless-stopped
     volumes:
       - type: bind
