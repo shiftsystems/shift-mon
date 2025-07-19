@@ -172,6 +172,19 @@ oauth:
 * acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
  
 
+## Version variables
+These variables will change which version of each container you will be running please note that some features will not work by downgrading versions.
+The assumption of shiftmon is that each container will be running the latest version of the software
+
+- shiftmon_alertmanager_version: Version of alertmanager Shiftmon will use
+- shiftmon_grafana_version: Version of Grafana shiftmon will use
+- shiftmon_victoriametrics_version: Version of Victoriametrics Shiftmon will use this covers victoriametrics, vmalert, and vmauth
+- shiftmon_victorialogs_version: Version of Victorialogs Shiftmon will use
+- shiftmon_vmanomaly_version: Version of vmanomaly shiftmon will use
+- shiftmon_valkey_version: Version of Valkey Shiftmon will use
+- shiftmon_traefik_version: Version of Traefik Shiftmon will use defaults to latest
+- shiftmon_loki_version: Version of Loki Shiftmon will use
+
 ## Tracing
 - shiftmon_tracing_endpoint: gRPC endpoint for sending otel traces from Traefik and Grafana
 

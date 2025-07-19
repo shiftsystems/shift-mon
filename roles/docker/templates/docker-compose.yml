@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: grafana/grafana:12.0.2
+    image: grafana/grafana:{{ shiftmon_grafana_version }}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: unless-stopped
     volumes:
@@ -21,7 +21,7 @@ services:
     environment:
       GF_INSTALL_PLUGINS: victoriametrics-metrics-datasource,victoriametrics-logs-datasource,camptocamp-prometheus-alertmanager-datasource
   alertmanager:
-    image: quay.io/prometheus/alertmanager:v0.28.1
+    image: quay.io/prometheus/alertmanager:{{ shiftmon_alertmanager_version }}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: unless-stopped
     command:
@@ -45,7 +45,7 @@ services:
       timeout: '10s'
       retries: 5
   loki:
-    image: docker.io/grafana/loki:3.5.2
+    image: docker.io/grafana/loki:{{ shiftmon_loki_version }}
     restart: unless-stopped
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     volumes:
@@ -65,9 +65,9 @@ services:
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: quay.io/victoriametrics/victoria-metrics:v1.121.0-enterprise
+    image: quay.io/victoriametrics/victoria-metrics:{{ shiftmon_victoriametrics_version }}-enterprise
 {% else %}
-    image: quay.io/victoriametrics/victoria-metrics:v1.121.0
+    image: quay.io/victoriametrics/victoria-metrics:{{ shiftmon_victoriametrics_version }}
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     env_file: /opt/shift-mon/shiftmon.env
@@ -113,9 +113,9 @@ services:
   vmalert:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: quay.io/victoriametrics/vmalert:v1.121.0-enterprise
+    image: quay.io/victoriametrics/vmalert:{{ shiftmon_victoriametrics_version }}-enterprise
 {% else %}
-    image: quay.io/victoriametrics/vmalert:v1.121.0
+    image: quay.io/victoriametrics/vmalert:{{ shiftmon_victoriametrics_version }}
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     env_file: /opt/shift-mon/shiftmon.env
@@ -152,9 +152,9 @@ services:
   vmauth:
     restart: unless-stopped
 {% if victoria.license is defined %}
-    image: quay.io/victoriametrics/vmauth:v1.121.0-enterprise
+    image: quay.io/victoriametrics/vmauth:{{ shiftmon_victoriametrics_version }}-enterprise
 {% else %}
-    image: quay.io/victoriametrics/vmauth:v1.121.0
+    image: quay.io/victoriametrics/vmauth:{{ shiftmon_victoriametrics_version }}
 {% endif %}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     env_file: /opt/shift-mon/shiftmon.env
@@ -178,7 +178,7 @@ services:
      - "127.0.0.1:8427:8427"
 {% if vmanomaly_enabled and victoria.license is defined %}
   vmanomaly:
-    image: quay.io/victoriametrics/vmanomaly:v1.25.0
+    image: quay.io/victoriametrics/vmanomaly:{{ shiftmon_vmanomaly_version }}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
@@ -211,7 +211,7 @@ services:
       VMANOMALY_DATA_DUMPS_DIR: /data
 {% endif %}
   valkey:
-    image: docker.io/valkey/valkey:8-alpine
+    image: docker.io/valkey/valkey:{{ shiftmon_valkey_version }}
     restart: always
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     expose:
@@ -232,7 +232,7 @@ services:
       retries: 10
   victorialogs:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-    image: quay.io/victoriametrics/victoria-logs:v1.25.1
+    image: quay.io/victoriametrics/victoria-logs:{{ shiftmon_victorialogs_version }}
     restart: unless-stopped
     volumes:
       - type: bind
@@ -248,7 +248,7 @@ services:
       retries: 10
   traefik:
     restart: unless-stopped
-    image: docker.io/traefik:latest
+    image: docker.io/traefik:{{ shiftmon_traefik_version }}
     user: root
     volumes:
       - type: bind

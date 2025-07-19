@@ -1,7 +1,6 @@
 docker_users:
   - root
   - telegraf
-victorialogs_enabled: false
 vmanomaly_enabled: false
 vmanomaly_log_level: "INFO"
 victoriametrics_disable_daily_index: true
@@ -11,4 +10,11 @@ docker_daemon_options:
     syslog-address: 'udp://localhost:6667'
     syslog-format: rfc5424
     tag: "{% raw %}{{.Name}}{% endraw %}"
-
+shiftmon_alertmanager_version: 'v0.28.1'
+shiftmon_grafana_version: '12.0.2-security-01'
+shiftmon_victoriametrics_version: 'v1.121.0'
+shiftmon_victorialogs_version: 'v1.26.0'
+shiftmon_vmanomaly_version: 'v1.25.0'
+shiftmon_valkey_version: '8-alpine'
+shiftmon_traefik_version: 'latest'
+shiftmon_loki_version: '3.5.2'
