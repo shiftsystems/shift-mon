@@ -203,9 +203,10 @@ services:
         source: /opt/shift-mon/victoriametricslicense
         target: /victoriametricslicense
     command:
-      - "/config/config.yml"
+      - "/config"
       - "--licenseFile=/victoriametricslicense"
       - "--loggerLevel={{ vmanomaly_log_level }}"
+      - "--watch"
     environment:
       VMANOMALY_MODEL_DUMPS_DIR: /models
       VMANOMALY_DATA_DUMPS_DIR: /data
