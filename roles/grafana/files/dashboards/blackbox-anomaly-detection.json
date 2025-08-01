@@ -27,7 +27,7 @@
             1
           ]
         },
-        "hide": true,
+        "hide": false,
         "iconColor": "red",
         "name": "HTTP Anomaly",
         "textFormat": "",
@@ -96,7 +96,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -141,7 +142,7 @@
           }
         ]
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -281,7 +282,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -313,7 +315,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -391,7 +393,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -465,7 +468,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -572,7 +575,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -609,7 +613,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -689,7 +693,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -763,7 +768,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -869,7 +874,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -906,7 +912,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1031,5 +1037,5 @@
   "timezone": "browser",
   "title": "Blackbox Anomaly Detection",
   "uid": "shiftmon-blackbox-anomaly-detection",
-  "version": 16
+  "version": 17
 }
