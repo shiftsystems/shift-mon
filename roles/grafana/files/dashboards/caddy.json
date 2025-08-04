@@ -24,9 +24,243 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 165,
+  "id": 194,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 23,
+      "panels": [],
+      "title": "Overview",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last Restart"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dtdurations"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Config Updates"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Alloc Bytes"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 24,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(now() - caddy_config_last_reload_success_timestamp_seconds{host=~\"$host\"}) by (host)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(changes(caddy_config_last_reload_success_timestamp_seconds{host=~\"$host\"}[$__range])) by (host)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(process_resident_memory_bytes{host=~\"$host\",url=\"http://localhost:2019/metrics\"}[$__range]) by (host)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(process_cpu_seconds_total{host=~\"$host\",url=\"http://localhost:2019/metrics\"})) by (host)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        }
+      ],
+      "title": "Overview",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value #A": 2,
+              "Value #B": 3,
+              "Value #C": 5,
+              "Value #D": 4,
+              "host": 1
+            },
+            "renameByName": {
+              "Value #A": "Last Restart",
+              "Value #B": "Config Updates",
+              "Value #C": "Alloc Bytes",
+              "Value #D": "CPU Usage"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 22,
+      "panels": [],
+      "title": "Requests Over Time",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "victoriametrics-metrics-datasource",
@@ -76,7 +310,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -92,7 +326,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 0
+        "y": 9
       },
       "id": 2,
       "options": {
@@ -108,12 +342,12 @@
           "showLegend": true
         },
         "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
+          "hideZeros": true,
+          "mode": "multi",
+          "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -121,7 +355,7 @@
             "uid": "${Metrics}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile($percentile, sum(rate(caddy_http_request_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile($percentile, sum(rate(caddy_http_request_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval])) by (le,host))",
           "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
@@ -179,7 +413,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -194,7 +428,7 @@
         "h": 8,
         "w": 13,
         "x": 11,
-        "y": 0
+        "y": 9
       },
       "id": 21,
       "options": {
@@ -210,12 +444,12 @@
           "showLegend": true
         },
         "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
+          "hideZeros": true,
+          "mode": "multi",
+          "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -284,7 +518,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -302,7 +536,7 @@
               "options": {
                 "mode": "exclude",
                 "names": [
-                  "dot.local.shiftsystems.net"
+                  "rose.local.shiftsystems.net"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -325,7 +559,7 @@
         "h": 7,
         "w": 11,
         "x": 0,
-        "y": 8
+        "y": 17
       },
       "id": 19,
       "options": {
@@ -340,12 +574,12 @@
           "showLegend": true
         },
         "tooltip": {
-          "hideZeros": false,
+          "hideZeros": true,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -411,7 +645,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -428,7 +662,7 @@
               "options": {
                 "mode": "exclude",
                 "names": [
-                  "dot.local.shiftsystems.net"
+                  "rose.local.shiftsystems.net"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -451,7 +685,7 @@
         "h": 7,
         "w": 13,
         "x": 11,
-        "y": 8
+        "y": 17
       },
       "id": 20,
       "options": {
@@ -467,12 +701,12 @@
           "showLegend": true
         },
         "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
+          "hideZeros": true,
+          "mode": "multi",
+          "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -514,7 +748,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 15
+        "y": 24
       },
       "id": 4,
       "options": {
@@ -542,7 +776,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -550,7 +784,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:caddy and (tags.host:$host) AND fields.status:!=\"\" | stats by (fields.status) count()",
+          "expr": "tags.appname:caddy AND tags.host:~\"$host\" AND fields.status:!=\"\" | stats by (fields.status) count()",
           "legendFormat": "{{ fields.status }}",
           "queryType": "stats",
           "refId": "A"
@@ -584,7 +818,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 15
+        "y": 24
       },
       "id": 11,
       "options": {
@@ -603,6 +837,7 @@
             "lastNotNull"
           ],
           "fields": "",
+          "limit": 10,
           "values": true
         },
         "tooltip": {
@@ -611,7 +846,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -619,7 +854,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:caddy and (tags.host:$host) AND fields.request_proto:!=\"\" | stats by (fields.request_proto) count()",
+          "expr": "tags.appname:caddy AND tags.host:~\"$host\" AND fields.request_proto:!=\"\" | stats by (fields.request_proto) count()",
           "legendFormat": "{{fields.request_proto}}",
           "queryType": "stats",
           "refId": "A"
@@ -653,7 +888,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 15
+        "y": 24
       },
       "id": 8,
       "options": {
@@ -672,6 +907,7 @@
             "lastNotNull"
           ],
           "fields": "",
+          "limit": 10,
           "values": true
         },
         "tooltip": {
@@ -680,7 +916,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -688,7 +924,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:caddy and (tags.host:$host) AND fields.request_remote_ip:!=\"\" | stats by (fields.request_remote_ip) count() | top 10",
+          "expr": "tags.appname:caddy AND tags.host:~\"$host\" AND fields.request_remote_ip:!=\"\" | stats by (fields.request_remote_ip) count()",
           "legendFormat": "{{ fields.request_remote_ip }}",
           "queryType": "instant",
           "refId": "A"
@@ -733,12 +969,194 @@
       "type": "piechart"
     },
     {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      "id": 28,
+      "options": {
+        "calculate": true,
+        "calculation": {
+          "xBuckets": {
+            "mode": "size"
+          },
+          "yBuckets": {
+            "mode": "count"
+          }
+        },
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "requests"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "RdYlGn",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto"
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "showColorScale": false,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (le) (rate(caddy_http_request_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Request Duration",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      "id": 29,
+      "options": {
+        "calculate": true,
+        "calculation": {
+          "xBuckets": {
+            "mode": "size"
+          },
+          "yBuckets": {
+            "mode": "count"
+          }
+        },
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "requests"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "RdYlGn",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto"
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "showColorScale": false,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (le) (rate(caddy_http_response_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Response Duration",
+      "type": "heatmap"
+    },
+    {
       "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 40
       },
       "id": 15,
       "panels": [
@@ -753,6 +1171,7 @@
                 "mode": "thresholds"
               },
               "custom": {
+                "axisPlacement": "auto",
                 "fillOpacity": 70,
                 "hideFrom": {
                   "legend": false,
@@ -767,7 +1186,7 @@
                 "steps": [
                   {
                     "color": "red",
-                    "value": null
+                    "value": 0
                   },
                   {
                     "color": "green",
@@ -783,7 +1202,7 @@
             "h": 7,
             "w": 19,
             "x": 0,
-            "y": 16
+            "y": 85
           },
           "id": 13,
           "options": {
@@ -801,7 +1220,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -809,7 +1228,7 @@
                 "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "expr": "caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
+              "expr": "caddy_reverse_proxy_upstreams_healthy{host=~\"$host\"}",
               "legendFormat": "{{upstream}}",
               "range": true,
               "refId": "A"
@@ -834,7 +1253,7 @@
                 "steps": [
                   {
                     "color": "red",
-                    "value": null
+                    "value": 0
                   },
                   {
                     "color": "green",
@@ -850,7 +1269,7 @@
             "h": 7,
             "w": 5,
             "x": 19,
-            "y": 16
+            "y": 85
           },
           "id": 18,
           "options": {
@@ -870,7 +1289,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -878,7 +1297,7 @@
                 "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "expr": "caddy_reverse_proxy_upstreams_healthy{host=\"$host\"}",
+              "expr": "caddy_reverse_proxy_upstreams_healthy{host=~\"$host\"}",
               "legendFormat": "{{upstream}}",
               "range": true,
               "refId": "A"
@@ -890,11 +1309,233 @@
       ],
       "title": "Origin Health",
       "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 25,
+      "panels": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "hue",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 34
+          },
+          "id": 26,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": true,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(process_cpu_seconds_total{host=~\"$host\",url=\"http://localhost:2019/metrics\"})) by (host)",
+              "legendFormat": "{{host}} - used",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Process CPU usage",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${Metrics}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "hue",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 34
+          },
+          "id": 27,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": true,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "process_resident_memory_bytes{url=\"http://localhost:2019/metrics\",host=~\"$host\"}",
+              "legendFormat": "{{host}} - used",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "process_virtual_memory_bytes{url=\"http://localhost:2019/metrics\",host=~\"$host\"}",
+              "hide": false,
+              "legendFormat": "{{host}} - available",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Memory Usage",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Resource Usage",
+      "type": "row"
     }
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
@@ -989,6 +1630,5 @@
   "timezone": "",
   "title": "Caddy",
   "uid": "shiftmon-caddy",
-  "version": 3,
-  "weekStart": ""
+  "version": 2
 }
