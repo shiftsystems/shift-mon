@@ -24,9 +24,22 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 162,
+  "id": 190,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Requests",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -76,7 +89,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -88,7 +101,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 15,
       "options": {
@@ -110,7 +123,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -176,7 +189,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -188,7 +201,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 0
+        "y": 1
       },
       "id": 16,
       "options": {
@@ -210,7 +223,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -278,7 +291,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -290,7 +303,7 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 0
+        "y": 1
       },
       "id": 17,
       "options": {
@@ -312,7 +325,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -335,7 +348,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 11
       },
       "id": 21,
       "panels": [
@@ -489,7 +502,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 12
       },
       "id": 23,
       "panels": [],
@@ -521,7 +534,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 12
+        "y": 13
       },
       "id": 2,
       "options": {
@@ -548,7 +561,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -590,7 +603,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 12
+        "y": 13
       },
       "id": 25,
       "options": {
@@ -609,6 +622,7 @@
             "sum"
           ],
           "fields": "",
+          "limit": 20,
           "values": true
         },
         "tooltip": {
@@ -617,7 +631,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -625,7 +639,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "_time:$__range AND tags.appname:traefik AND (tags.host:$host) | stats by(fields.ClientHost) count() | top 20",
+          "expr": "_time:$__range AND tags.appname:traefik AND tags.host:~$host | stats by(fields.ClientHost) count()",
           "legendFormat": "{{ fields.ClientHost }}",
           "queryType": "instant",
           "refId": "A"
@@ -694,7 +708,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 12
+        "y": 13
       },
       "id": 7,
       "options": {
@@ -721,7 +735,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -787,7 +801,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -803,7 +817,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 21
       },
       "id": 5,
       "options": {
@@ -823,7 +837,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -918,7 +932,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -934,7 +948,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 21
       },
       "id": 6,
       "options": {
@@ -954,7 +968,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -984,7 +998,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 31
       },
       "id": 9,
       "options": {
@@ -998,7 +1012,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1027,7 +1041,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 31
       },
       "id": 10,
       "options": {
@@ -1041,7 +1055,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1060,7 +1074,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
@@ -1072,7 +1086,7 @@
         "includeAll": false,
         "name": "metrics",
         "options": [],
-        "query": "prometheus",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
         "type": "datasource"
@@ -1125,6 +1139,5 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "shiftmon-traefik",
-  "version": 1,
-  "weekStart": ""
+  "version": 1
 }
