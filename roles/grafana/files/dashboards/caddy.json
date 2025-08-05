@@ -1543,8 +1543,8 @@
     "list": [
       {
         "current": {
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "includeAll": false,
         "name": "Metrics",
@@ -1570,8 +1570,12 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "rose.local.shiftsystems.net",
-          "value": "rose.local.shiftsystems.net"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "victoriametrics-metrics-datasource",
@@ -1632,5 +1636,5 @@
   "timezone": "",
   "title": "Caddy",
   "uid": "shiftmon-caddy",
-  "version": 2
+  "version": 3
 }
