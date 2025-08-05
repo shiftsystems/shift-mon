@@ -57,7 +57,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -87,7 +87,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -138,7 +138,7 @@
       "type": "table"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -146,320 +146,319 @@
         "y": 7
       },
       "id": 11,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 15,
-            "x": 0,
-            "y": 8
-          },
-          "id": 2,
-          "options": {
-            "calculate": true,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "count"
-              }
-            },
-            "cellGap": 1,
-            "cellValues": {
-              "unit": ""
-            },
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "maxHeight": 600,
-              "mode": "single",
-              "showColorScale": false,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "11.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P84D368831E8B3638"
-              },
-              "editorMode": "code",
-              "expr": "sum by (le) (rate(authentik_system_tasks_time_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Task time",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 15,
-            "y": 8
-          },
-          "id": 16,
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "percent",
-                "value"
-              ]
-            },
-            "pieType": "donut",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "maxHeight": 600,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "11.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "sum by (status) (increase(authentik_system_tasks_status{}))",
-              "instant": true,
-              "legendFormat": "__auto",
-              "range": false,
-              "refId": "A"
-            }
-          ],
-          "title": "Task status",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 15,
-            "x": 0,
-            "y": 51
-          },
-          "id": 15,
-          "options": {
-            "displayMode": "lcd",
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "maxVizHeight": 300,
-            "minVizHeight": 16,
-            "minVizWidth": 8,
-            "namePlacement": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": true
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "11.5.1",
-          "targets": [
-            {
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "avg by (task_name) (authentik_system_tasks{host=~\"$host\"})",
-              "instant": true,
-              "legendFormat": "__auto",
-              "range": false,
-              "refId": "A"
-            }
-          ],
-          "title": "Average Task Duration",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 15,
-            "y": 51
-          },
-          "id": 17,
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "percent",
-                "value"
-              ]
-            },
-            "pieType": "donut",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "maxHeight": 600,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "11.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "count by (task_name) (authentik_system_tasks{host=~\"$host\"})",
-              "instant": true,
-              "legendFormat": "__auto",
-              "range": false,
-              "refId": "A"
-            }
-          ],
-          "title": "Task Count",
-          "type": "piechart"
-        }
-      ],
+      "panels": [],
       "title": "Task Info",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 15,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "calculate": true,
+        "calculation": {
+          "xBuckets": {
+            "mode": "size"
+          },
+          "yBuckets": {
+            "mode": "count"
+          }
+        },
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "requests"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "RdYlGn",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto"
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "showColorScale": false,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false,
+          "unit": "s"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P84D368831E8B3638"
+          },
+          "editorMode": "code",
+          "expr": "sum by (le) (rate(authentik_system_tasks_time_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Task time",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 9,
+        "x": 15,
+        "y": 8
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (status) (increase(authentik_system_tasks_status{}))",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Task status",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "P342DAF48C1D70AE5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 15,
+        "x": 0,
+        "y": 19
+      },
+      "id": 15,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (task_name) (authentik_system_tasks{host=~\"$host\"})",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Average Task Duration",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 9,
+        "x": 15,
+        "y": 19
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count by (task_name) (authentik_system_tasks{host=~\"$host\"})",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Task Count",
+      "type": "piechart"
     },
     {
       "collapsed": true,
@@ -467,7 +466,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 30
       },
       "id": 14,
       "panels": [
@@ -495,7 +494,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 9
+            "y": 119
           },
           "id": 6,
           "options": {
@@ -510,7 +509,7 @@
             },
             "cellGap": 1,
             "cellValues": {
-              "unit": "ms"
+              "unit": "requests"
             },
             "color": {
               "exponent": 0.5,
@@ -541,10 +540,11 @@
             },
             "yAxis": {
               "axisPlacement": "left",
-              "reverse": false
+              "reverse": false,
+              "unit": "s"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -586,7 +586,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 9
+            "y": 119
           },
           "id": 5,
           "options": {
@@ -601,7 +601,7 @@
             },
             "cellGap": 1,
             "cellValues": {
-              "unit": "ms"
+              "unit": "requests"
             },
             "color": {
               "exponent": 0.5,
@@ -632,10 +632,11 @@
             },
             "yAxis": {
               "axisPlacement": "left",
-              "reverse": false
+              "reverse": false,
+              "unit": "s"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -677,7 +678,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 25
+            "y": 127
           },
           "id": 7,
           "options": {
@@ -692,7 +693,7 @@
             },
             "cellGap": 1,
             "cellValues": {
-              "unit": ""
+              "unit": "requests"
             },
             "color": {
               "exponent": 0.5,
@@ -727,7 +728,7 @@
               "unit": "s"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -769,7 +770,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 25
+            "y": 127
           },
           "id": 8,
           "options": {
@@ -784,7 +785,7 @@
             },
             "cellGap": 1,
             "cellValues": {
-              "unit": "ms"
+              "unit": "requests"
             },
             "color": {
               "exponent": 0.5,
@@ -815,10 +816,11 @@
             },
             "yAxis": {
               "axisPlacement": "left",
-              "reverse": false
+              "reverse": false,
+              "unit": "s"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -860,7 +862,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 33
+            "y": 135
           },
           "id": 9,
           "options": {
@@ -875,7 +877,7 @@
             },
             "cellGap": 1,
             "cellValues": {
-              "unit": ""
+              "unit": "requests"
             },
             "color": {
               "exponent": 0.5,
@@ -910,7 +912,7 @@
               "unit": "s"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -952,7 +954,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 33
+            "y": 135
           },
           "id": 10,
           "options": {
@@ -967,7 +969,7 @@
             },
             "cellGap": 1,
             "cellValues": {
-              "unit": ""
+              "unit": "requests"
             },
             "color": {
               "exponent": 0.5,
@@ -1002,7 +1004,7 @@
               "unit": "s"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -1030,7 +1032,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 31
       },
       "id": 13,
       "panels": [],
@@ -1050,7 +1052,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 32
       },
       "id": 3,
       "options": {
@@ -1064,7 +1066,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1083,7 +1085,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [
     "linux"
   ],
@@ -1148,6 +1150,5 @@
   "timezone": "browser",
   "title": "Authentik",
   "uid": "shiftmon-authentik",
-  "version": 1,
-  "weekStart": ""
+  "version": 3
 }

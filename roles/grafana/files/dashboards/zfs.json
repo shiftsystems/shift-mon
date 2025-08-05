@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 207,
+  "id": 210,
   "links": [],
   "panels": [
     {
@@ -64,7 +64,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -93,7 +93,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "yellow",
@@ -139,7 +139,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "red",
@@ -173,7 +173,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "red",
@@ -205,7 +205,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "editorMode": "code",
@@ -373,7 +373,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -401,7 +401,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -483,7 +483,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -514,7 +514,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -595,7 +595,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -627,7 +627,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -681,7 +681,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -696,7 +697,7 @@
             "h": 6,
             "w": 3,
             "x": 0,
-            "y": 16
+            "y": 21
           },
           "id": 28,
           "options": {
@@ -704,6 +705,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -711,9 +713,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -745,7 +749,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -760,7 +765,7 @@
             "h": 6,
             "w": 3,
             "x": 3,
-            "y": 16
+            "y": 21
           },
           "id": 30,
           "options": {
@@ -768,6 +773,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -775,9 +781,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -809,7 +817,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -825,7 +834,7 @@
             "h": 6,
             "w": 3,
             "x": 6,
-            "y": 16
+            "y": 21
           },
           "id": 31,
           "options": {
@@ -833,6 +842,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -840,9 +850,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -874,7 +886,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -889,7 +902,7 @@
             "h": 6,
             "w": 3,
             "x": 9,
-            "y": 16
+            "y": 21
           },
           "id": 29,
           "options": {
@@ -897,6 +910,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -904,9 +918,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -938,7 +954,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -953,7 +970,7 @@
             "h": 6,
             "w": 3,
             "x": 12,
-            "y": 16
+            "y": 21
           },
           "id": 41,
           "options": {
@@ -961,6 +978,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -968,9 +986,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -1002,7 +1022,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -1017,7 +1038,7 @@
             "h": 6,
             "w": 3,
             "x": 0,
-            "y": 22
+            "y": 27
           },
           "id": 40,
           "options": {
@@ -1025,6 +1046,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1032,9 +1054,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -1066,7 +1090,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -1081,7 +1106,7 @@
             "h": 6,
             "w": 3,
             "x": 3,
-            "y": 22
+            "y": 27
           },
           "id": 42,
           "options": {
@@ -1089,6 +1114,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1096,9 +1122,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -1130,7 +1158,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -1145,7 +1174,7 @@
             "h": 6,
             "w": 3,
             "x": 6,
-            "y": 22
+            "y": 27
           },
           "id": 43,
           "options": {
@@ -1153,6 +1182,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1160,9 +1190,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -1245,7 +1277,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1280,7 +1312,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1417,8 +1449,8 @@
       "panels": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
           "fieldConfig": {
             "defaults": {
@@ -1437,14 +1469,25 @@
           },
           "gridPos": {
             "h": 8,
-            "w": 6,
+            "w": 12,
             "x": 0,
-            "y": 30
+            "y": 35
           },
-          "id": 39,
+          "id": 65,
           "options": {
-            "calculate": false,
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
             "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
             "color": {
               "exponent": 0.5,
               "fill": "dark-orange",
@@ -1467,7 +1510,9 @@
               "layout": "auto"
             },
             "tooltip": {
-              "show": true,
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
               "yHistogram": false
             },
             "yAxis": {
@@ -1476,33 +1521,19 @@
               "unit": "bytes"
             }
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_io_size_sync_read_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
+              "expr": "sum(increase(zpool_io_size_sync_read_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[$__rate_interval])) by (le)",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "sum(zpool_io_size_trim_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
-              "hide": true,
-              "legendFormat": "Independent Trim/Unmap Writes",
-              "range": true,
-              "refId": "F"
             }
           ],
           "title": "Sync Read Size",
@@ -1510,8 +1541,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
           "fieldConfig": {
             "defaults": {
@@ -1530,176 +1561,25 @@
           },
           "gridPos": {
             "h": 8,
-            "w": 6,
-            "x": 6,
-            "y": 30
-          },
-          "id": 56,
-          "options": {
-            "calculate": false,
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "bytes"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_io_size_sync_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Sync Write Size",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
+            "w": 12,
             "x": 12,
-            "y": 30
+            "y": 35
           },
-          "id": 60,
+          "id": 66,
           "options": {
-            "calculate": false,
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "bytes"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
               },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_io_size_sync_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Sync Write Size",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
+              "yBuckets": {
+                "mode": "count"
               }
             },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 18,
-            "y": 30
-          },
-          "id": 58,
-          "options": {
-            "calculate": false,
             "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
             "color": {
               "exponent": 0.5,
               "fill": "dark-orange",
@@ -1722,7 +1602,9 @@
               "layout": "auto"
             },
             "tooltip": {
-              "show": true,
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
               "yHistogram": false
             },
             "yAxis": {
@@ -1731,30 +1613,28 @@
               "unit": "bytes"
             }
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_io_size_async_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
+              "expr": "sum(increase(zpool_io_size_sync_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[$__rate_interval])) by (le)",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Async Write Size",
+          "title": "Sync Writes",
           "type": "heatmap"
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
           "fieldConfig": {
             "defaults": {
@@ -1775,12 +1655,23 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 38
+            "y": 75
           },
-          "id": 59,
+          "id": 68,
           "options": {
-            "calculate": false,
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
             "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
             "color": {
               "exponent": 0.5,
               "fill": "dark-orange",
@@ -1803,7 +1694,9 @@
               "layout": "auto"
             },
             "tooltip": {
-              "show": true,
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
               "yHistogram": false
             },
             "yAxis": {
@@ -1812,30 +1705,28 @@
               "unit": "bytes"
             }
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_io_size_scrub_read_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
+              "expr": "sum(increase(zpool_io_size_async_read_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[$__rate_interval])) by (le)",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Scrub IO Size",
+          "title": "Async Writes",
           "type": "heatmap"
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
           "fieldConfig": {
             "defaults": {
@@ -1856,12 +1747,23 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 38
+            "y": 75
           },
-          "id": 57,
+          "id": 67,
           "options": {
-            "calculate": false,
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
             "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
             "color": {
               "exponent": 0.5,
               "fill": "dark-orange",
@@ -1884,7 +1786,9 @@
               "layout": "auto"
             },
             "tooltip": {
-              "show": true,
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
               "yHistogram": false
             },
             "yAxis": {
@@ -1893,24 +1797,206 @@
               "unit": "bytes"
             }
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_io_size_trim_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
+              "expr": "sum(increase(zpool_io_size_async_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[$__rate_interval])) by (le)",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Trim IO Size",
+          "title": "Async Writes",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 83
+          },
+          "id": 69,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "bytes"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(increase(zpool_io_size_scrub_read_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[$__rate_interval])) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Scrub Reads",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 83
+          },
+          "id": 70,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "bytes"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(increase(zpool_io_size_trim_write_ind{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}[$__rate_interval])) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Trim Writes",
           "type": "heatmap"
         }
       ],
@@ -1929,750 +2015,9 @@
       "panels": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 0,
-            "y": 19
-          },
-          "id": 37,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_latency_total_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "sum(zpool_latency_scrub{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
-              "hide": true,
-              "legendFormat": "Scrub",
-              "range": true,
-              "refId": "I"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "sum(zpool_latency_trim{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})",
-              "hide": true,
-              "legendFormat": "Trim",
-              "range": true,
-              "refId": "J"
-            }
-          ],
-          "title": "ZFS Total Read Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 6,
-            "y": 19
-          },
-          "id": 48,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "zpool_latency_total_write{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "ZFS Total Write Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 12,
-            "y": 19
-          },
-          "id": 47,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "zpool_latency_disk_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "ZFS Disk Read Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 18,
-            "y": 19
-          },
-          "id": 49,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "zpool_latency_disk_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "ZFS Disk Read Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 0,
-            "y": 27
-          },
-          "id": 44,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "zpool_latency_sync_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "ZFS Sync Read Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 6,
-            "y": 27
-          },
-          "id": 53,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "zpool_latency_sync_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "ZFS Sync Write Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 12,
-            "y": 27
-          },
-          "id": 51,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "zpool_latency_async_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "ZFS Async Read Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 18,
-            "y": 27
-          },
-          "id": 52,
-          "options": {
-            "calculate": false,
-            "calculation": {
-              "xBuckets": {
-                "mode": "size"
-              },
-              "yBuckets": {
-                "mode": "size"
-              }
-            },
-            "cellGap": 1,
-            "color": {
-              "exponent": 0.5,
-              "fill": "dark-orange",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "RdYlGn",
-              "steps": 64
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
-            }
-          },
-          "pluginVersion": "9.5.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "zpool_latency_async_write{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "ZFS Async Write Latency",
-          "type": "heatmap"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "description": "",
           "fieldConfig": {
             "defaults": {
               "custom": {
@@ -2692,20 +2037,23 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 35
+            "y": 36
           },
-          "id": 50,
+          "id": 71,
           "options": {
-            "calculate": false,
+            "calculate": true,
             "calculation": {
               "xBuckets": {
                 "mode": "size"
               },
               "yBuckets": {
-                "mode": "size"
+                "mode": "count"
               }
             },
             "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
             "color": {
               "exponent": 0.5,
               "fill": "dark-orange",
@@ -2728,40 +2076,40 @@
               "layout": "auto"
             },
             "tooltip": {
-              "show": true,
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
               "yHistogram": false
             },
             "yAxis": {
               "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
+              "reverse": false,
+              "unit": "ms"
             }
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_trim{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
+              "expr": "sum(rate(zpool_latency_disk_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
               "legendFormat": "__auto",
               "range": true,
-              "refId": "B"
+              "refId": "A"
             }
           ],
-          "title": "ZFS Trim Latency",
+          "title": "Read Latency",
           "type": "heatmap"
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
           },
-          "description": "",
           "fieldConfig": {
             "defaults": {
               "custom": {
@@ -2781,20 +2129,23 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 35
+            "y": 36
           },
-          "id": 54,
+          "id": 72,
           "options": {
-            "calculate": false,
+            "calculate": true,
             "calculation": {
               "xBuckets": {
                 "mode": "size"
               },
               "yBuckets": {
-                "mode": "size"
+                "mode": "count"
               }
             },
             "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
             "color": {
               "exponent": 0.5,
               "fill": "dark-orange",
@@ -2817,32 +2168,585 @@
               "layout": "auto"
             },
             "tooltip": {
-              "show": true,
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
               "yHistogram": false
             },
             "yAxis": {
               "axisPlacement": "left",
-              "reverse": true,
-              "unit": "s"
+              "reverse": false,
+              "unit": "ms"
             }
           },
-          "pluginVersion": "9.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
               },
               "editorMode": "code",
-              "expr": "zpool_latency_scrub{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"}",
-              "format": "heatmap",
-              "hide": false,
+              "expr": "sum(rate(zpool_latency_disk_write{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
               "legendFormat": "__auto",
               "range": true,
-              "refId": "B"
+              "refId": "A"
             }
           ],
-          "title": "ZFS Scrub Latency",
+          "title": "Read Latency",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 44
+          },
+          "id": 74,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "ms"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(zpool_latency_trim{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Trim Latency",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 44
+          },
+          "id": 73,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "ms"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(zpool_latency_scrub{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Scrub Latency",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 52
+          },
+          "id": 75,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "ms"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(zpool_latency_sync_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Sync Read Latency",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 52
+          },
+          "id": 76,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "ms"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(zpool_latency_sync_write{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Sync Write Latency",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 60
+          },
+          "id": 77,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "ms"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(zpool_latency_async_read{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Async Read Latency",
+          "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "P342DAF48C1D70AE5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 60
+          },
+          "id": 78,
+          "options": {
+            "calculate": true,
+            "calculation": {
+              "xBuckets": {
+                "mode": "size"
+              },
+              "yBuckets": {
+                "mode": "count"
+              }
+            },
+            "cellGap": 1,
+            "cellValues": {
+              "unit": "requests"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "mode": "scheme",
+              "reverse": false,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 64
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "ms"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${Metrics}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(zpool_latency_async_write{host=~\"$host\",name=~\"$zpool\",vdev=~\"$vdev\"})) by (le)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Async Write Latency",
           "type": "heatmap"
         }
       ],
@@ -2852,14 +2756,14 @@
   ],
   "preload": false,
   "refresh": "5s",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "text": "shift-metrics",
-          "value": "shift-metrics"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "includeAll": false,
         "name": "metrics",
@@ -2871,8 +2775,8 @@
       },
       {
         "current": {
-          "text": "shift-logs",
-          "value": "shift-logs"
+          "text": "shiftmon-victorialogs",
+          "value": "P4463C362D59DE675"
         },
         "includeAll": false,
         "name": "logs",
@@ -2885,8 +2789,10 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "rose.local.shiftsystems.net",
-          "value": "rose.local.shiftsystems.net"
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -2908,8 +2814,10 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "zroot",
-          "value": "zroot"
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -2931,8 +2839,10 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "root",
-          "value": "root"
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -2954,13 +2864,12 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "ZFS",
   "uid": "shiftmon-zfs",
-  "version": 3,
-  "weekStart": ""
+  "version": 3
 }

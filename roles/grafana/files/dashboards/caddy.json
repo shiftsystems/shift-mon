@@ -1038,7 +1038,8 @@
         },
         "yAxis": {
           "axisPlacement": "left",
-          "reverse": false
+          "reverse": false,
+          "unit": "s"
         }
       },
       "pluginVersion": "12.1.0",
@@ -1129,7 +1130,8 @@
         },
         "yAxis": {
           "axisPlacement": "left",
-          "reverse": false
+          "reverse": false,
+          "unit": "s"
         }
       },
       "pluginVersion": "12.1.0",

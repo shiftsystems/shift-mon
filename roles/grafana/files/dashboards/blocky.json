@@ -50,7 +50,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -84,7 +85,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "red"
+                      "color": "red",
+                      "value": 0
                     },
                     {
                       "color": "green",
@@ -150,7 +152,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -509,7 +511,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -517,894 +519,895 @@
         "y": 9
       },
       "id": 66,
-      "panels": [],
-      "title": "Query Totals",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "P4463C362D59DE675"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 10
-      },
-      "id": 70,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
+      "panels": [
         {
           "datasource": {
+            "default": false,
             "type": "victorialogs-datasource",
             "uid": "P4463C362D59DE675"
           },
-          "editorMode": "code",
-          "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | stats by (client_ip) count() requests | limit 10",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Top Clients",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": "requests"
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": false,
-              "client_ip": false,
-              "labels": false,
-              "requests": false
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
             },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "P4463C362D59DE675"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 10
+          },
+          "id": 70,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 10
-      },
-      "id": 73,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "P4463C362D59DE675"
+              },
+              "editorMode": "code",
+              "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | stats by (client_ip) count() requests | limit 10",
+              "queryType": "range",
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Top Clients",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "source": "labels"
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": "requests"
+                  }
+                ],
+                "fields": {}
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Line": true,
+                  "Time": false,
+                  "client_ip": false,
+                  "labels": false,
+                  "requests": false
+                },
+                "includeByName": {},
+                "indexByName": {},
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victorialogs-datasource",
             "uid": "P4463C362D59DE675"
           },
-          "editorMode": "code",
-          "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | stats by (question_name) count() requests | limit 10",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Top Domains",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": "requests"
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": false,
-              "client_ip": false,
-              "labels": false,
-              "requests": false
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": []
             },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "P4463C362D59DE675"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 10
+          },
+          "id": 73,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 18
-      },
-      "id": 74,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "P4463C362D59DE675"
+              },
+              "editorMode": "code",
+              "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | stats by (question_name) count() requests | limit 10",
+              "queryType": "range",
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Top Domains",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "source": "labels"
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": "requests"
+                  }
+                ],
+                "fields": {}
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Line": true,
+                  "Time": false,
+                  "client_ip": false,
+                  "labels": false,
+                  "requests": false
+                },
+                "includeByName": {},
+                "indexByName": {},
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victorialogs-datasource",
             "uid": "P4463C362D59DE675"
           },
-          "editorMode": "code",
-          "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | response_reason:BLOCKED | stats by (client_ip) count() requests | limit 10",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Most Blocked Clients",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": "requests"
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": false,
-              "client_ip": false,
-              "labels": false,
-              "requests": false
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
             },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "P4463C362D59DE675"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 18
+          },
+          "id": 74,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 18
-      },
-      "id": 75,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "P4463C362D59DE675"
+              },
+              "editorMode": "code",
+              "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | response_reason:BLOCKED | stats by (client_ip) count() requests | limit 10",
+              "queryType": "range",
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Most Blocked Clients",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "source": "labels"
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": "requests"
+                  }
+                ],
+                "fields": {}
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Line": true,
+                  "Time": false,
+                  "client_ip": false,
+                  "labels": false,
+                  "requests": false
+                },
+                "includeByName": {},
+                "indexByName": {},
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victorialogs-datasource",
             "uid": "P4463C362D59DE675"
           },
-          "editorMode": "code",
-          "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | response_reason:BLOCKED | stats by (question_name) count() requests | limit 10",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Most Blocks Domains",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": "requests"
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": false,
-              "client_ip": false,
-              "labels": false,
-              "requests": false
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
             },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victoriametrics-datasource",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 18
+          },
+          "id": 75,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 26
-      },
-      "id": 69,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "P4463C362D59DE675"
+              },
+              "editorMode": "code",
+              "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt | response_reason:BLOCKED | stats by (question_name) count() requests | limit 10",
+              "queryType": "range",
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Most Blocks Domains",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "source": "labels"
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": "requests"
+                  }
+                ],
+                "fields": {}
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Line": true,
+                  "Time": false,
+                  "client_ip": false,
+                  "labels": false,
+                  "requests": false
+                },
+                "includeByName": {},
+                "indexByName": {},
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sort_desc(sum by (type) (ceil(increase(blocky_query_total{host=~\"$host\"}[$__range]))))",
-          "instant": true,
-          "legendFormat": "{{type}}",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Query by type",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victoriametrics-datasource",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 26
+          },
+          "id": 69,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 26
-      },
-      "id": 8,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-datasource",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sort_desc(sum by (type) (ceil(increase(blocky_query_total{host=~\"$host\"}[$__range]))))",
+              "instant": true,
+              "legendFormat": "{{type}}",
+              "range": false,
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Query by type",
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sort_desc(sum by (client) (ceil(increase(blocky_query_total{host=~\"$host\"}[$__range]))))",
-          "instant": true,
-          "legendFormat": "{{client}}",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Query per Client",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "P84D368831E8B3638"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 26
+          },
+          "id": 8,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-datasource",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sort_desc(sum by (client) (ceil(increase(blocky_query_total{host=~\"$host\"}[$__range]))))",
+              "instant": true,
+              "legendFormat": "{{client}}",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Query per Client",
+          "type": "piechart"
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 34
-      },
-      "id": 32,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "prometheus",
             "uid": "P84D368831E8B3638"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum(blocky_denylist_cache_entries{host=~\"$host\"}) by (group,host)",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{ host }} - {{ group }}",
-          "refId": "A"
-        }
-      ],
-      "title": "Denylist by group",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victoriametrics-datasource",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 34
+          },
+          "id": 32,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 34
-      },
-      "id": 14,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P84D368831E8B3638"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(blocky_denylist_cache_entries{host=~\"$host\"}) by (group,host)",
+              "format": "time_series",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "{{ host }} - {{ group }}",
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Denylist by group",
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sort_desc(sum by (reason) (ceil(increase(blocky_response_total{host=~\"$host\"}[$__range]))))",
-          "instant": true,
-          "legendFormat": "{{reason}}",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Response Reasons",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victoriametrics-datasource",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 34
+          },
+          "id": 14,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 42
-      },
-      "id": 38,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-datasource",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sort_desc(sum by (reason) (ceil(increase(blocky_response_total{host=~\"$host\"}[$__range]))))",
+              "instant": true,
+              "legendFormat": "{{reason}}",
+              "range": false,
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Response Reasons",
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sort_desc(sum by (response_type) (ceil(increase(blocky_response_total{host=~\"$host\"}[$__range]))))",
-          "instant": true,
-          "legendFormat": "{{response_type}}",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Response Type",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victoriametrics-datasource",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 42
+          },
+          "id": 38,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 42
-      },
-      "id": 12,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-datasource",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sort_desc(sum by (response_type) (ceil(increase(blocky_response_total{host=~\"$host\"}[$__range]))))",
+              "instant": true,
+              "legendFormat": "{{response_type}}",
+              "range": false,
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": true
+          "title": "Response Type",
+          "type": "piechart"
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
         {
           "datasource": {
+            "default": false,
             "type": "victoriametrics-datasource",
             "uid": "${metrics}"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sort_desc(sum by (response_code) (ceil(increase(blocky_response_total{host=~\"$host\"}[$__range]))))",
-          "instant": true,
-          "legendFormat": "{{response_code}}",
-          "range": false,
-          "refId": "A"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 42
+          },
+          "id": 12,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-datasource",
+                "uid": "${metrics}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sort_desc(sum by (response_code) (ceil(increase(blocky_response_total{host=~\"$host\"}[$__range]))))",
+              "instant": true,
+              "legendFormat": "{{response_code}}",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Response status",
+          "type": "piechart"
         }
       ],
-      "title": "Response status",
-      "type": "piechart"
+      "title": "Query Totals",
+      "type": "row"
     },
     {
       "collapsed": false,
@@ -1412,7 +1415,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 10
       },
       "id": 68,
       "panels": [],
@@ -1479,7 +1482,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1495,7 +1499,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 11
       },
       "id": 24,
       "maxDataPoints": 100,
@@ -1518,7 +1522,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1597,7 +1601,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1613,7 +1618,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 11
       },
       "id": 10,
       "options": {
@@ -1634,7 +1639,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1703,7 +1708,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1719,7 +1725,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 60
+        "y": 20
       },
       "id": 61,
       "options": {
@@ -1739,7 +1745,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1806,7 +1812,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1822,7 +1829,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 60
+        "y": 20
       },
       "id": 60,
       "options": {
@@ -1843,7 +1850,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -1910,7 +1917,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -1921,7 +1929,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 69
+        "y": 29
       },
       "id": 45,
       "options": {
@@ -1937,11 +1945,11 @@
         },
         "tooltip": {
           "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -2008,7 +2016,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -2024,7 +2033,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 69
+        "y": 29
       },
       "id": 52,
       "options": {
@@ -2041,12 +2050,12 @@
           "sortDesc": true
         },
         "tooltip": {
-          "hideZeros": false,
+          "hideZeros": true,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -2088,7 +2097,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 78
+        "y": 38
       },
       "id": 22,
       "options": {
@@ -2129,7 +2138,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -2137,7 +2146,7 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "sum(increase(blocky_request_duration_seconds_bucket{response_type=\"RESOLVED\",host=~\"$host\"}[$__range])) by (le)",
+          "expr": "sum(increase(blocky_request_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval])) by (le)",
           "legendFormat": "{{le}}",
           "range": true,
           "refId": "A"
@@ -2207,7 +2216,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46"
+                "color": "#299c46",
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -2226,7 +2236,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 78
+        "y": 38
       },
       "id": 36,
       "maxDataPoints": 100,
@@ -2247,7 +2257,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -2270,7 +2280,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 88
+        "y": 48
       },
       "id": 67,
       "panels": [
@@ -2324,7 +2334,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   }
                 ]
               }
@@ -2355,7 +2366,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -2424,7 +2435,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   }
                 ]
               },
@@ -2452,11 +2464,11 @@
             },
             "tooltip": {
               "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
+              "mode": "multi",
+              "sort": "desc"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -2523,7 +2535,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   }
                 ]
               }
@@ -2550,11 +2563,11 @@
             },
             "tooltip": {
               "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
+              "mode": "multi",
+              "sort": "desc"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -2621,7 +2634,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -2652,11 +2666,11 @@
             },
             "tooltip": {
               "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
+              "mode": "multi",
+              "sort": "desc"
             }
           },
-          "pluginVersion": "11.5.1",
+          "pluginVersion": "12.1.0",
           "targets": [
             {
               "datasource": {
@@ -2743,5 +2757,5 @@
   "timezone": "",
   "title": "Blocky",
   "uid": "shiftmon-blocky",
-  "version": 1
+  "version": 2
 }
