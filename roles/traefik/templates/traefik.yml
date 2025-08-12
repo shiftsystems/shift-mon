@@ -43,6 +43,7 @@ entryPoints:
   websecure:
     address: ":443"
     http2:
+    http3:
   metrics:
     address: ":8082"
 certificatesResolvers:
