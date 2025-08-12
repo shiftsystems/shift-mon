@@ -44,6 +44,7 @@ entryPoints:
     address: ":443"
     http2:
     http3:
+      advertisedPort: 443
   metrics:
     address: ":8082"
 certificatesResolvers:
