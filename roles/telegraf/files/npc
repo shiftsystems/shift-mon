@@ -1,0 +1,2 @@
+#!/bin/bash
+nft -j list counters | jq -r "del(.nftables.[0]) | .nftables.[].counter | [.name,.table,.packets,.bytes] | @csv" | tr -d '"'

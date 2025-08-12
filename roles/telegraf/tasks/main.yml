@@ -600,6 +600,33 @@
   become: true
   when: "'tailscaled.service' in ansible_facts.services and 'tailscaled' not in do_not_instrument"
 
+- name: Install nftables tools for instrumentation
+  ansible.builtin.package:
+    name: jq
+    state: present
+  become: true
+  when: "'nftables' not in do_not_instrument"
+
+- name: Add npc nftables counter utility
+  ansible.builtin.copy:
+    src: npc
+    dest: /usr/local/bin/npc
+    mode: '755'
+    owner: root
+    group: root
+  become: true
+  when: "'nftables' not in do_not_instrument"
+
+- name: Add Nftables Telegraf config
+  ansible.builtin.template:
+    src: 'nftables.conf'
+    dest: '/etc/telegraf/telegraf.d/nftables.conf'
+    mode: '660'
+    owner: '{{ telegraf_user }}'
+    group: 'telegraf'
+  become: true
+  when: "'nftables' not in do_not_instrument"
+
 - name: Install Rsyslog
   ansible.builtin.package:
     name: rsyslog
