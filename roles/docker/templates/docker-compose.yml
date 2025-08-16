@@ -263,6 +263,7 @@ services:
     ports:
      - "80:80"
      - "443:443"
+     - "443:443/udp"
      - "127.0.0.1:8082:8082"
 {% if dns.provider is defined and dns.auth_values is defined %}
     environment:

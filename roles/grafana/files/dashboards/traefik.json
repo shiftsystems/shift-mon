@@ -807,12 +807,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
+        "h": 10,
+        "w": 12,
         "x": 0,
         "y": 22
       },
-      "id": 2,
+      "id": 31,
       "options": {
         "legend": {
           "displayMode": "table",
@@ -845,13 +845,82 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "_time:$__range AND tags.appname:traefik AND (tags.host:$host) | stats by(fields.RequestPath) count()",
-          "legendFormat": "{{  fields.RequestPath }}",
+          "expr": "_time:$__range AND tags.appname:traefik AND fields.RequestProtocol:!=\"\" AND (tags.host:$host) | stats by(fields.RequestProtocol) count()",
+          "legendFormat": "{{  fields.RequestProtocol }}",
           "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "Top 20 Endpoints",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 22
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (code) (traefik_router_requests_total_counter{host=~\"$host\"})",
+          "legendFormat": "{{code}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Status Codes",
       "type": "piechart"
     },
     {
@@ -876,10 +945,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 22
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 32
       },
       "id": 25,
       "options": {
@@ -961,8 +1030,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
+        "type": "loki",
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -981,29 +1050,30 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 22
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 32
       },
-      "id": 7,
+      "id": 2,
       "options": {
         "legend": {
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
           "values": [
-            "percent",
-            "value"
+            "value",
+            "percent"
           ]
         },
         "pieType": "donut",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "sum"
           ],
           "fields": "",
-          "values": false
+          "limit": 20,
+          "values": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -1015,17 +1085,17 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+            "type": "loki",
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "sum by (code) (traefik_router_requests_total_counter{host=~\"$host\"})",
-          "legendFormat": "{{code}}",
-          "range": true,
+          "expr": "_time:$__range AND tags.appname:traefik AND (tags.host:$host) | stats by(fields.RequestPath) count()",
+          "legendFormat": "{{  fields.RequestPath }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
-      "title": "Status Codes",
+      "title": "Top 20 Endpoints",
       "type": "piechart"
     },
     {
@@ -1093,7 +1163,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 42
       },
       "id": 5,
       "options": {
@@ -1224,7 +1294,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 42
       },
       "id": 6,
       "options": {
@@ -1274,7 +1344,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 52
       },
       "id": 9,
       "options": {
@@ -1317,7 +1387,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 52
       },
       "id": 10,
       "options": {
@@ -1356,8 +1426,8 @@
     "list": [
       {
         "current": {
-          "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "text": "shift-victoriametrics",
+          "value": "P342DAF48C1D70AE5"
         },
         "includeAll": false,
         "name": "metrics",
@@ -1382,7 +1452,9 @@
       },
       {
         "current": {
-          "text": "All",
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -1415,5 +1487,5 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "shiftmon-traefik",
-  "version": 2
+  "version": 4
 }
