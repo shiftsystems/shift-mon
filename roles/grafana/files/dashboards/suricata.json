@@ -342,6 +342,7 @@
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
               "hideZeros": false,
               "mode": "single",
@@ -518,6 +519,7 @@
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
               "hideZeros": false,
               "mode": "single",
@@ -695,6 +697,7 @@
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
               "hideZeros": false,
               "mode": "single",
@@ -871,6 +874,7 @@
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
               "hideZeros": false,
               "mode": "single",
@@ -1004,7 +1008,7 @@
             "value": "dest_port"
           }
         ],
-        "query": "fields.app_proto,fields.proto,src_ip,src_port,dest_ip,dest_port",
+        "query": "fields.app_proto,fields.proto,fields.src_ip,fields.src_port,fields.dest_ip,fields.dest_port",
         "type": "custom"
       }
     ]
@@ -1016,6 +1020,6 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Suricata",
-  "uid": "4d021b65-8e40-41dd-8630-0ec1ee3897bb",
-  "version": 6
+  "uid": "shiftmon-suricata",
+  "version": 8
 }
