@@ -11,16 +11,16 @@ victoria:
   downsampling_period: downsampling policy to apply to metrics requires defining `victoria.license`
   retention_filter: retention filter to be applied to data stored in Victoriametrics this requires `victoria.license` to be defined
   tokens: a list of tokens that have Read write access to the Victoriametrics in addition to the `victorialogs_token` variable
-  cert_path:  absolute path to SSL certificate for Victoriametrics should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
-  key_path:  absolute path to SSL key for Victoriametrics should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
+  cert_path:  absolute path to TLS certificate for Victoriametrics should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
+  key_path:  absolute path to TLS key for Victoriametrics should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
   slow_query_threshold: Duration when queries should be logged for troubleshooting and if a license is defined it will log stats for all queries longer than this threshold. Slow queries will be logged if they take longer than 5s if not defined and query stats will not be gathered unless this is defined
 ## Victorialogs
   domain: Fully Qualified Domain Name to use for accessing Victorialogs
   url: URL Telegraf uses for sending logs
   retention_period: How long Victorialogs should retain logs for.
   tokens: a list of tokens that have Read write access to the Victorialogs in addition to the `victorialogs_token` variable
-  cert_path:  absolute path to SSL certificate for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
-  key_path:  absolute path to SSL key for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
+  cert_path:  absolute path to TLS certificate for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
+  key_path:  absolute path to TLS key for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
 
 ### Alerting rules
 These will all default to false to avoid alert fatigue
@@ -50,8 +50,8 @@ smtp_auth_identity: Who the emails appear to be sent from when sent from alertma
 smtp_require_tls: weather or not to validate the certificate of the SMTP server
 alertmanager:
   domain: optional domain to use if you want to expose alertmanager this should not be needed in most cases since most of alertmanager's features are exposed via the Grafana datasource that is configured by default.
-  cert_path:  absolute path to SSL certificate for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
-  key_path:  absolute path to SSL key for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
+  cert_path:  absolute path to TLS certificate for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
+  key_path:  absolute path to TLS key for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
 shiftmon_alertmanager_url: string to that alertmanager will point at to show alerts
 
 ### vmanomaly
@@ -88,8 +88,8 @@ victoriametrics_users:
 
 ## Grafana
 * domain: Fully qualified domain name of the grafana server
-* cert_path:  absolute path to SSL certificate for Grafana should be pem encoded this is optional
-* key_path:  absolute path to SSL key for Grafana should be pem encoded this is optional
+* cert_path:  absolute path to TLS certificate for Grafana should be pem encoded this is optional
+* key_path:  absolute path to TLS key for Grafana should be pem encoded this is optional
 
 ### Email this is optional
 * email
@@ -102,8 +102,8 @@ victoriametrics_users:
   * port: port that your mailserver is using
 
 ### These variables will enable LDAP authentication for Grafana
-* ldap_host: hostname of the ldap server to this is optional
-* ldap_port: port to use for ldap communication usually 389 for plaintext(please don't use plain text LDAP) or starttls or 636 for SSL/TLS
+* ldap_host: hostname of the LDAP server to this is optional
+* ldap_port: port to use for LDAP communication usually 389 for plaintext(please don't use plain text LDAP) or starttls or 636 for SSL/TLS
 * bind_dn: bind user string for LDAP authentication
 * base_dn: base domain LDAP string
 * bind_password: password for the ldap_bind account
@@ -148,28 +148,28 @@ oauth:
 * shiftmon_prometheus_urls: a list of prometheus endpoints that should be scraped from Telegraf
 * shiftmon_snmp_if_agents: list of devices to collect interface metrics for via snmp formatted like `udp://<ip>:<port>`
 * shiftmon_snmp_community: community string for snmpv2
-* shiftmon_snmp_version: snmp version for connectiong to snmp devices defaults to 2
+* shiftmon_snmp_version: snmp version for connectiing to snmp devices defaults to 2
 * shiftmon_snmp_user: username for connecting to snmp devices using snmpv3
 * shiftmon_snmp_password: password for connecting to snmp devices using snmpv3
-* shiftmon_snmp_auth_protocol: encryption cipher to use for authenticating for snmpv3 devices defautls to `MD5`
+* shiftmon_snmp_auth_protocol: encryption cipher to use for authenticating for snmpv3 devices defaults to `MD5`
 * shiftmon_snmp_auth_priv: authentication privacy to use for snmpv3 defaults to `authNoPriv`
-
+* do_not_instrument: a list of services that shiftmon Should not instrument. The default value is `['nftables']`
 ## Loki
 * retention_period: how long to store data before deletion use d for day and y for years
-* tsdb_date: Date formated YYYY-MM-DD that states when to store logs in TSDB format instead of boltdb format this optional but should be set
+* tsdb_date: Date formatted YYYY-MM-DD that states when to store logs in TSDB format instead of boltdb format this optional but should be set
 
 ## Victoriametrics:
-* url: url that telegraf should send metrics to
+* url: URL that telegraf should send metrics to
 * domain: Fully qualified domain name (fqdn) for the victoriametrics server
 * retention_period: how long to store data before deletion use d for day and y for years
-* cert_path:  absolute path to SSL certificate for victoriametrics should be pem encoded this is optional
-* key_path:  absolute path to SSL key for victoriametrics should be pem encoded this is optional
-* insecure: weather or not to expose plain http metrics for victoriametrics outside of the container this is for things like proxmox that can be picky about basic auth and SSL please avoid using if possible
+* cert_path:  absolute path to TLS certificate for victoriametrics should be pem encoded this is optional
+* key_path:  absolute path to TLS key for victoriametrics should be pem encoded this is optional
+* insecure: weather or not to expose plain http metrics for victoriametrics outside of the container this is for things like proxmox that can be picky about basic auth and TLS please avoid using if possible
 
-### This section is for SSL/TLS and the only required value is an email address all other values are for certs that don't use letsencrypt with HTTP verification
+### This section is for TLS and the only required value is an email address all other values are for certs that don't use letsencrypt with HTTP verification
 * tls.email: email address to use for sending letsencrypt certificates
 * providers the list of DNS providers that traefik can use to obtain certs via DNS verification, this is optional. By default traefik will attempt to use http verification. See the [Traefik Docs](https://doc.traefik.io/traefik/https/acme/#providers) for provider specific information
-* acme_url is a custom acme url to use if you want to use your own acme provider like zero SSL. The acme url must have a valid ssl certificate otherwise it will not obtain a cert
+* acme_url is a custom acme url to use if you want to use your own acme provider like Zero SSL. The acme URL must have a valid TLS certificate otherwise it will not obtain a cert
  
 
 ## Version variables
@@ -190,7 +190,7 @@ The assumption of shiftmon is that each container will be running the latest ver
 
 ## vmanomaly
 - vmanomaly_log_level: How verbose vmanomaly logs should be defaults to `INFO` supports `DEBUG`,`INFO`, `WARNING`, and `ERROR`
-vmanomaly will use a configuration that will detect slow response times for dns and http endpoints by default, but you can specify a valid vmanomaly template by specifying the `vmanomaly_config_path` path variable that points to the path of a jinja template that will be rendered to a YAML file.
+vmanomaly will use a configuration that will detect slow response times for DNS and HTTP endpoints by default, but you can specify a valid vmanomaly template by specifying the `vmanomaly_config_path` path variable that points to the path of a jinja template that will be rendered to a YAML file.
 
 ### Default Template Variables
 - detections: list of queries to use with the median absolute deviation model it defaults to the values below
