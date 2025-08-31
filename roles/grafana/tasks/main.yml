@@ -44,46 +44,14 @@
     group: shiftmon
   become: true
 
-- name: Download Victoriametrics Dashboards
-  ansible.builtin.get_url:
-    url: 'https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/master/dashboards/vm/{{ item }}'
-    dest: '/opt/shift-mon/grafana/victoriametrics-dashboards/{{ item }}'
+- name: Copy Victoriametrics Dashboards
+  ansible.builtin.copy:
+    src: 'victoriametrics-dashboards/'
+    dest: '/opt/shift-mon/grafana/victoriametrics-dashboards/'
     mode: '770'
     owner: shiftmon
     group: shiftmon
   become: true
-  with_items:
-    - victoriametrics.json
-    - vmalert.json
-    - vmauth.json
-
-- name: Download Victorialogs Dashboard
-  ansible.builtin.get_url:
-    url: 'https://raw.githubusercontent.com/VictoriaMetrics/VictoriaLogs/refs/heads/master/dashboards/victorialogs.json'
-    dest: /opt/shift-mon/grafana/victoriametrics-dashboards/victorialogs.json
-    mode: '770'
-    owner: shiftmon
-    group: shiftmon
-  become: true
-
-- name: Download dashboards from Grafana.com
-  ansible.builtin.get_url:
-    url: https://grafana.com/api/dashboards/{{ item.id }}/revisions/{{ item.revision }}/download
-    dest: '/opt/shift-mon/grafana/dashboards/{{ item.name }}.json'
-    mode: '770'
-    owner: shiftmon
-    group: shiftmon
-  become: true
-  with_items:
-    - name: alertmanager
-      id: 20715
-      revision: 1
-    - name: vmanomaly-self-monitoring
-      id: 22337
-      revision: 7
-    - name: vmanomaly-stats
-      id: 22922
-      revision: 1
 
 - name: Configure Dashboard Provisioning 
   ansible.builtin.template:
