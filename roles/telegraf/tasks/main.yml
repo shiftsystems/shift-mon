@@ -636,8 +636,8 @@
   notify: Restart Syslog
 
 - name: Place Rsyslog config is installed when syslog is enabled
-  ansible.builtin.copy:
-    src: "linux/50-telegraf.conf"
+  ansible.builtin.template:
+    src: "50-telegraf.conf"
     dest: /etc/rsyslog.d/50-telegraf.conf
   become: true
   when: syslog is defined and syslog == "rsyslog"
@@ -650,6 +650,16 @@
     enabled: true
   become: true
   when: syslog is defined and syslog == "rsyslog"
+
+- name: Merge json apps list
+  ansible.builtin.set_fact:
+    shiftmon_json_apps: "{{ shiftmon_json_apps + shiftmon_user_json_apps }}"
+  when: shiftmon_user_json_apps is defined
+
+- name: Merge logfmt apps list
+  ansible.builtin.set_fact:
+    shiftmon_logfmt_apps: "{{ shiftmon_logfmt_apps.extend(shiftmon_user_logfmt_apps) }}"
+  when: shiftmon_user_logfmt_apps is defined
 
 - name: Add Telegraf config for syslog
   ansible.builtin.template:

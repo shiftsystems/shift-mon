@@ -4,6 +4,23 @@ shiftmon_snmp_auth_priv: 'authNoPriv'
 shiftmon_local_syslog_endpoint: "udp://:6667"
 shiftmon_remote_syslog_endpoint: "udp://0.0.0.0:6666"
 telegraf_traefik_log_file_path: /opt/shift-mon/traefik/access.json
+shiftmon_json_apps:
+  - 'caddy'
+  - 'Nextcloud'
+  - '*suricata*'
+  - '*loki*'
+  - '*grafana*'
+  - '*traefik*'
+  - '*authentik-server*'
+  - '*authentik-worker*'
+  - '*falco*'
+  - '*mirotalk*'
+  - 'blocky'
+shiftmon_logfmt_apps:
+  - '*alertmanager*'
+  - '*dendrite-monolith*'
+  - '*watchtower*'
+  - '*dockerd*'
 traefik_container_name: shift-mon_traefik_1
 user_secrets: {}
 global_telegraf_tags: {}
