@@ -155,6 +155,11 @@ oauth:
 * shiftmon_snmp_auth_priv: authentication privacy to use for snmpv3 defaults to `authNoPriv`
 * shiftmon_local_syslog_endpoint: protocol address and port local syslog listens on defaults to `udp://:6667`
 * shiftmon_remote_syslog_endpoint: protocol address and port remote syslog server should listen on `udp://0.0.0.0:6666`
+* shiftmon_json_apps: apps that Telegraf will parse as JSON by default. Overriding this variable will break rules and dashboards included with shiftmon
+* shiftmon_logfmt_apps: apps that Telegraf will parse as JSON by default. Overriding this variable will break rules and dashboards included with shiftmon
+* shiftmon_user_json_apps: a list of patterns that telegraf will try to parse as JSON in addition to the apps in `shiftmon_json_apps` is empty by default
+* shiftmon_user_logfmt_apps: a list of patterns that telegraf will try to parse as logfmt in addition to the patterns in `shiftmon_logfmt_apps` is empty by default
+
 * do_not_instrument: a list of services that shiftmon Should not instrument. The default value is `['nftables']`
 ## Loki
 * retention_period: how long to store data before deletion use d for day and y for years
