@@ -57,7 +57,8 @@ shiftmon_alertmanager_url: string to that alertmanager will point at to show ale
 ### vmanomaly
 These features require a valid Victoriametrics license defined in `victoria.license`
 vmanomaly_enabled: false
-vmanomaly_config_path: path to vmanomaly config file
+vmanomaly_config_path: path to vmanomaly metrics config file
+vmanomaly_logs_config_path: path to vmanomaly logs config file
 
 ### Tokens and Users
 

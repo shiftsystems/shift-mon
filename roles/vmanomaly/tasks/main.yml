@@ -11,6 +11,9 @@
     - "/opt/shift-mon/vmanomaly-config"
     - "/opt/shift-mon/vmanomaly-models"
     - "/opt/shift-mon/vmanomaly-data"
+    - "/opt/shift-mon/vmanomaly-logs-config"
+    - "/opt/shift-mon/vmanomaly-logs-models"
+    - "/opt/shift-mon/vmanomaly-logs-data"
 
 - name: Remove legacy vmanomaly config
   ansible.builtin.file:
@@ -18,10 +21,20 @@
     state: absent
   become: true
 
-- name: Add config file
+- name: Add vmanomaly metrics config file
   ansible.builtin.template:
     src: "{{ vmanomaly_config_path }}"
     dest: /opt/shift-mon/vmanomaly-config/config.yaml
+    owner: shiftmon
+    group: shiftmon
+    mode: '770'
+    setype: container_file_t
+  become: true
+
+- name: Add vmanomaly logs config file
+  ansible.builtin.copy:
+    src: "{{ vmanomaly_logs_config_path }}"
+    dest: /opt/shift-mon/vmanomaly-logs-config/config.yaml
     owner: shiftmon
     group: shiftmon
     mode: '770'

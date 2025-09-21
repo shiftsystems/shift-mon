@@ -210,6 +210,39 @@ services:
     environment:
       VMANOMALY_MODEL_DUMPS_DIR: /models
       VMANOMALY_DATA_DUMPS_DIR: /data
+  vmanomaly-logs:
+    image: quay.io/victoriametrics/vmanomaly:{{ shiftmon_vmanomaly_version }}
+    user: "2070:100"
+    restart: always
+    healthcheck:
+      test: ["CMD","curl","http://127.0.0.1:8490/health"]
+      interval: "30s"
+      timeout: "10s"
+      retries: 5
+    depends_on:
+      victoriametrics:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-logs-config
+        target: /config
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-logs-models
+        target: /models
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-logs-data
+        target: /data
+      - type: bind
+        source: /opt/shift-mon/victoriametricslicense
+        target: /victoriametricslicense
+    command:
+      - "/config"
+      - "--licenseFile=/victoriametricslicense"
+      - "--loggerLevel=INFO"
+      - "--watch"
+    environment:
+      VMANOMALY_MODEL_DUMPS_DIR: /models
+      VMANOMALY_DATA_DUMPS_DIR: /data
 {% endif %}
   valkey:
     image: docker.io/valkey/valkey:{{ shiftmon_valkey_version }}

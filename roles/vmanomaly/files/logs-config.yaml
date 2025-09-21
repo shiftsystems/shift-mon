@@ -1,0 +1,28 @@
+schedulers:
+  periodic_1:
+    class: 'periodic'
+    fit_every: '24h'
+    fit_window: '3d'
+    infer_every: '1m'
+
+models:
+  zscore_online:
+    class: zscore_online
+    decay: 0.99
+    z_threshold: 3.5
+
+reader:
+  class: "vlogs"
+  datasource_url: "http://victorialogs:9428/"
+  tenant_id: "0:0"
+  max_points_per_query: 5000
+  queries:
+    suricata_app_proto:
+      expr: 'tags.appname:suricata AND fields.app_proto:!="" | stats by (tags.host,fields.app_proto) rate_sum(fields.flow_bytes_toclient)'
+  sampling_period: '1m'
+  query_from_last_seen_timestamp: False
+  verify_tls: False
+
+writer:
+  class: "vm"
+  datasource_url: "http://victoriametrics:8428"
