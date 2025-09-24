@@ -16,6 +16,9 @@ shiftmon_json_apps:
   - '*falco*'
   - '*mirotalk*'
   - 'blocky'
+  - 'shift-mon-vmauth*'
+  - 'shift-mon-vmalert*'
+  - 'shift-mon-victoria*'
 shiftmon_logfmt_apps:
   - '*alertmanager*'
   - '*dendrite-monolith*'
