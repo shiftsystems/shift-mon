@@ -36,7 +36,8 @@ shiftmon_alerts_victoriametrics_enabled: enables alerts for issues with Victoria
 shiftmon_alerts_adguardhome_enabled: enables recording rules for 
 shiftmon_alerts_log_rules: enables recording rules for tracking the number of logs per path and appname. These rules can increase the IO in the system since they frequently query a majority of the logs on the system.
 shiftmon_alerts_empty_rule_rules: enables alerting rules that will fire if there recording and alerting rules that are not matching any timeseries
-
+shiftmon_alerts_watchtower_enabled: enables alerting rules for watchtower
+shiftmon_watchtower_duration: Golang duration for setting the alerting lookback and dashboard duration for watchtower
 telegraf_victoriametrics_config: true
 
 ### Alertmanager

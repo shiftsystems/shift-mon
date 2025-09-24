@@ -53,6 +53,16 @@
     group: shiftmon
   become: true
 
+- name: Copy Templated Dashboards
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /opt/shift-mon/grafana/dashboards
+    owner: shiftmon
+    group: shiftmon
+  become: true
+  with_items:
+    - watchtower.json
+
 - name: Configure Dashboard Provisioning 
   ansible.builtin.template:
     src: dashboards.yml

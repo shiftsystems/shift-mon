@@ -407,10 +407,32 @@ groups:
           description: "{{ $labels.alertname }} in {{ $labels.groupname }} are not matching any series"
           dashboard: 'https://{{ $externalURL }}/d/LzldHAVnz_vm/victoriametrics-vmalert-vm'
       - alert: Empty Recording Rules found
-        expr: 'max(vmalert_recording_rules_last_evaluation_samples) by(group, recording) ==0'
+        expr: 'max(vmalert_recording_rules_last_evaluation_samples) by(group, recording) == 0'
         annotations: 
           summary: empty alerting rules found
           description: "{{ $labels.recording }} in {{ $labels.groupname }} are not matching any series"
           dashboard: 'https://{{ $externalURL }}/d/LzldHAVnz_vm/victoriametrics-vmalert-vm'
+{% endraw %}
+{% endif %}
+{% if shiftmon_alerts_watchtower_enabled %}
+{% raw %}
+  - name: Watchtower
+    interval: 1h
+    type: prometheus
+    rules:
+      - alert: Watchtower no containers scanned
+        expr: 'max_over_time(watchtower_containers_scanned[24h]) == 0'
+        for: 2h
+        annotations:
+          summary: 'watchtower on {{ $labels.host }} is not watching any containers'
+          description: '{{ $labels.host }} has not sent metrics in {{ $value }} seconds'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-watchtower/watchtower?var-host={{ $labels.host }}'
+      - alert: Watchtower No Containers Scanned
+        expr: 'min_over_time(watchtower_containers_failed[24h]) > 0'
+        for: 2h
+        annotations:
+          summary: 'watchtower on {{ $labels.host }} is failing to upgrade containers'
+          description: 'watchtower on {{ $labels.host }} is unable to upgrade {{ $value }} containers'
+          dashboard: 'https://{{ $externalURL }}/d/shiftmon-watchtower/watchtower?var-host={{ $labels.host }}'
 {% endraw %}
 {% endif %}

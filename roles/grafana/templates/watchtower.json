@@ -1,3 +1,4 @@
+{% raw -%}
 {
   "annotations": {
     "list": [
@@ -12,26 +13,13 @@
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
-      },
-      {
-        "datasource": {
-          "type": "victoriametrics-metrics-datasource",
-          "uid": "P342DAF48C1D70AE5"
-        },
-        "enable": true,
-        "expr": "sum(changes(upsd_ups_power_nominal{host=~\"$host\",ups_name=~\"$ups\"}[$__interval])) by (host,ups_name,model,ups_status)",
-        "hide": false,
-        "iconColor": "yellow",
-        "name": "State changes",
-        "textFormat": "{{ups_name}} on {{host}} is now {{ ups_status }}",
-        "titleFormat": ""
       }
     ]
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 1,
-  "id": 11,
+  "graphTooltip": 0,
+  "id": 48,
   "links": [],
   "panels": [
     {
@@ -42,7 +30,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 20,
+      "id": 2,
       "panels": [],
       "title": "Overview",
       "type": "row"
@@ -50,7 +38,7 @@
     {
       "datasource": {
         "type": "victoriametrics-metrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -74,6 +62,10 @@
               {
                 "color": "green",
                 "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -82,85 +74,21 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Time Available"
+              "options": "Failed Upgrades"
             },
             "properties": [
-              {
-                "id": "unit",
-                "value": "ns"
-              },
               {
                 "id": "custom.cellOptions",
                 "value": {
                   "type": "color-background"
                 }
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": 0
-                    },
-                    {
-                      "color": "green",
-                      "value": 300000000000
-                    }
-                  ]
-                }
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Utilization"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 50
-                    },
-                    {
-                      "color": "red",
-                      "value": 75
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Capacity"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "voltamp"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Charge"
+              "options": "Scanned Containers"
             },
             "properties": [
               {
@@ -180,23 +108,9 @@
                     },
                     {
                       "color": "green",
-                      "value": 80
+                      "value": 1
                     }
                   ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Utilization"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
                 }
               }
             ]
@@ -209,7 +123,7 @@
         "x": 0,
         "y": 1
       },
-      "id": 19,
+      "id": 1,
       "options": {
         "cellHeight": "sm",
         "showHeader": true
@@ -217,9 +131,13 @@
       "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (host,ups_name,ups_status) (upsd_load_percent{host=~\"$host\",ups_name=~\"$ups\"})",
+          "expr": "sum(watchtower_containers_failed{host=~\"$host\"}) by (host)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -229,11 +147,11 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (host,ups_name,ups_status) (upsd_time_left_ns{host=~\"$host\",ups_name=~\"$ups\"})",
+          "expr": "sum(watchtower_containers_scanned{host=~\"$host\"}) by (host)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -244,11 +162,11 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (host,ups_name,ups_status) (upsd_ups_power_nominal{host=~\"$host\",ups_name=~\"$ups\"})",
+          "expr": "sum(watchtower_containers_updated{host=~\"$host\"}) by (host)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -259,50 +177,20 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (host,ups_name,ups_status) (upsd_battery_charge_percent{host=~\"$host\",ups_name=~\"$ups\"})",
+          "expr": "sum(increase(watchtower_scans_total{host=~\"$host\"}[$__range])) by (host)",
           "format": "table",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
           "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (host,ups_name,ups_status) (upsd_input_frequency{host=~\"$host\",ups_name=~\"$ups\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (host,ups_name,ups_status) (upsd_input_voltage{host=~\"$host\",ups_name=~\"$ups\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "F"
         }
       ],
-      "title": "UPS Overview",
+      "title": "Overview",
       "transformations": [
         {
           "id": "merge",
@@ -315,26 +203,18 @@
             "includeByName": {},
             "indexByName": {
               "Time": 0,
-              "Value #A": 5,
-              "Value #B": 6,
-              "Value #C": 4,
-              "Value #D": 7,
-              "Value #E": 8,
-              "Value #F": 9,
-              "host": 1,
-              "ups_name": 2,
-              "ups_status": 3
+              "Value #A": 2,
+              "Value #B": 3,
+              "host": 1
             },
             "renameByName": {
-              "Value #A": "Utilization",
-              "Value #B": "Time Available",
-              "Value #C": "Capacity",
-              "Value #D": "Charge",
-              "Value #E": "Input Frequency",
-              "Value #F": "Input Voltage",
-              "host": "Host",
-              "ups_name": "Name",
-              "ups_status": "Status"
+              "Value #A": "Failed Upgrades",
+              "Value #B": "Scanned Containers",
+              "Value #C": "Updated Containers",
+              "Value #D": "Total Updates",
+              "Value #E": "Time Since Boot",
+              "Value #F": "In Bytes",
+              "Value #G": "Out Bytes"
             }
           }
         }
@@ -349,129 +229,20 @@
         "x": 0,
         "y": 11
       },
-      "id": 17,
+      "id": 10,
       "panels": [],
-      "title": "UPS Metrics",
+      "title": "Metrics",
       "type": "row"
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "P84D368831E8B3638"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 50,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed+area"
-            }
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "#EAB839",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 70
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 12
-      },
-      "id": 1,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0-17932099756",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
-          },
-          "editorMode": "code",
-          "expr": "upsd_load_percent{}",
-          "legendFormat": "{{host}} {{ups_name}} {{model}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Utilization Percent Over Time",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics-metrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": false,
@@ -481,7 +252,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
-            "drawStyle": "line",
+            "drawStyle": "bars",
             "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
@@ -490,11 +261,8 @@
               "viz": false
             },
             "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 10,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
@@ -504,41 +272,234 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
-              "mode": "dashed+area"
+              "mode": "off"
             }
           },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "green",
                 "value": 0
               },
               {
-                "color": "#EAB839",
-                "value": 50
-              },
-              {
-                "color": "green",
+                "color": "red",
                 "value": 80
               }
             ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": true,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0-17932099756",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
-          "unit": "percent"
+          "editorMode": "code",
+          "expr": "sum(increase(watchtower_containers_updated{host=~\"$host\"})) by (host)",
+          "format": "time_series",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Updated Containers",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 10,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "No failed updates",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 12
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": true,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0-17932099756",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum(watchtower_containers_failed{host=~\"$host\"}) by (host)",
+          "format": "time_series",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Failed Updates",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 10,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "No failed updates",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 22
       },
       "id": 12,
       "options": {
@@ -546,15 +507,15 @@
           "calcs": [
             "min",
             "max",
-            "lastNotNull"
+            "sum"
           ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
+          "hideZeros": true,
+          "mode": "multi",
           "sort": "none"
         }
       },
@@ -562,23 +523,23 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics-metrics-datasource",
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "upsd_battery_charge_percent{host=~\"$host\",ups_name=~\"$ups\"}",
-          "instant": false,
-          "legendFormat": "{{host}} {{ups_name}} {{model}}",
+          "expr": "sum(increase(watchtower_scans_total{host=~\"$host\"})) by (host)",
+          "format": "time_series",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Battery Charged Percent",
+      "title": "Container Scans",
       "type": "timeseries"
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics-metrics-datasource",
         "uid": "${metrics}"
       },
       "fieldConfig": {
@@ -592,11 +553,10 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "axisSoftMin": 0,
             "barAlignment": 0,
             "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 50,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -604,8 +564,8 @@
               "viz": false
             },
             "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 10,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
@@ -615,48 +575,152 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
           "mappings": [],
-          "min": 5,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
-          },
-          "unit": "ns"
+          }
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 12
+        "w": 12,
+        "x": 0,
+        "y": 30
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": true,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0-17932099756",
+      "targets": [
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "sum(watchtower_containers_scanned{host=~\"$host\"}) by (host)",
+          "format": "time_series",
+          "legendFormat": "{{host}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Scanned Containers",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 10,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 30
       },
       "id": 11,
       "options": {
         "legend": {
           "calcs": [
             "min",
-            "max",
-            "lastNotNull"
+            "max"
           ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
+          "hideZeros": true,
+          "mode": "multi",
           "sort": "none"
         }
       },
@@ -664,434 +728,19 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics-metrics-datasource",
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "upsd_time_left_ns{host=~\"$host\",ups_name=~\"$ups\"}",
-          "instant": false,
-          "legendFormat": "{{host}} {{ups_name}} {{model}}",
+          "expr": "sum(watchtower_scans_skipped{host=~\"$host\"}) by (host)",
+          "format": "time_series",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Battery Time Available",
+      "title": "Skipped Scans",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 50,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "rothz"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 0,
-        "y": 20
-      },
-      "id": 3,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0-17932099756",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "upsd_input_frequency{host=~\"$host\",ups_name=~\"$ups\"}",
-          "instant": false,
-          "legendFormat": "{{host}} {{ups_name}} {{model}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Input Power Frequency",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 50,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 20
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0-17932099756",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "upsd_input_voltage{host=~\"$host\",ups_name=~\"$ups\"}",
-          "instant": false,
-          "legendFormat": "{{host}} {{ups_name}} {{model}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Input Voltage",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 50,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 20
-      },
-      "id": 8,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0-17932099756",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "expr": "upsd_output_voltage{host=~\"$host\",ups_name=~\"$ups\"}",
-          "instant": false,
-          "legendFormat": "{{host}} {{ups_name}} {{model}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Output Voltage",
-      "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 27
-      },
-      "id": 21,
-      "panels": [],
-      "title": "Specs",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${metrics}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "footer": {
-              "reducers": []
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "voltamp"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 28
-      },
-      "id": 14,
-      "options": {
-        "cellHeight": "sm",
-        "showHeader": true
-      },
-      "pluginVersion": "12.3.0-17932099756",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "last_over_time(upsd_ups_power_nominal{host=~\"$host\",ups_name=~\"$ups\"}[$__range])",
-          "format": "table",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "title": "UPS Details",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": false,
-              "Value": true,
-              "__name__": true,
-              "db": true
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Time": 0,
-              "Value": 14,
-              "__name__": 1,
-              "battery_type": 5,
-              "db": 2,
-              "device_mfr": 6,
-              "device_type": 7,
-              "host": 3,
-              "model": 8,
-              "serial": 9,
-              "ups_mfr": 10,
-              "ups_model": 11,
-              "ups_name": 4,
-              "ups_status": 12,
-              "ups_vendorid": 13
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
     },
     {
       "collapsed": true,
@@ -1099,10 +748,142 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 38
       },
-      "id": 18,
+      "id": 6,
       "panels": [
+        {
+          "datasource": {
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "footer": {
+                  "reducers": []
+                },
+                "inspect": false,
+                "minWidth": 50
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Failed"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 91
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Scanned"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 107
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Updated"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 101
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 39
+          },
+          "id": 7,
+          "options": {
+            "cellHeight": "sm",
+            "showHeader": true
+          },
+          "pluginVersion": "12.3.0-17900959199",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.appname:watchtower tags.host:~\"$host\"",
+              "queryType": "instant",
+              "refId": "A"
+            }
+          ],
+          "title": "Logs",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "delimiter": ",",
+                "source": "Line"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Failed": false,
+                  "Line": true,
+                  "Scanned": false,
+                  "Updated": false,
+                  "labels": true,
+                  "level": true,
+                  "level 2": true,
+                  "notify": false,
+                  "time": true
+                },
+                "includeByName": {},
+                "indexByName": {},
+                "orderByMode": "manual",
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "table"
+        },
         {
           "datasource": {
             "type": "victoriametrics-logs-datasource",
@@ -1113,12 +894,12 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 15,
+            "h": 8,
             "w": 24,
             "x": 0,
-            "y": 41
+            "y": 47
           },
-          "id": 16,
+          "id": 8,
           "options": {
             "dedupStrategy": "none",
             "enableInfiniteScrolling": false,
@@ -1130,7 +911,7 @@
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "11.6.0",
+          "pluginVersion": "12.3.0-17900959199",
           "targets": [
             {
               "datasource": {
@@ -1138,31 +919,31 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "(tags.host:$host) AND (tags.appname:~\"ups.*|nut.*\")",
+              "expr": "tags.appname:watchtower tags.host:~\"$host\"",
               "queryType": "instant",
               "refId": "A"
             }
           ],
-          "title": "UPSD/NUT Logs",
+          "title": "Raw Logs",
           "type": "logs"
         }
       ],
-      "title": "UPS Logs",
+      "title": "Logs",
       "type": "row"
     }
   ],
   "preload": false,
-  "refresh": "",
   "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
       {
+        "allowCustomValue": false,
         "current": {
           "text": "shift-victoriametrics",
           "value": "P342DAF48C1D70AE5"
         },
-        "includeAll": false,
+        "description": "",
         "name": "metrics",
         "options": [],
         "query": "victoriametrics-metrics-datasource",
@@ -1171,11 +952,11 @@
         "type": "datasource"
       },
       {
+        "allowCustomValue": false,
         "current": {
           "text": "shiftmon-victorialogs",
           "value": "P4463C362D59DE675"
         },
-        "includeAll": false,
         "name": "logs",
         "options": [],
         "query": "victoriametrics-logs-datasource",
@@ -1184,49 +965,23 @@
         "type": "datasource"
       },
       {
+        "allowCustomValue": true,
         "current": {
           "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "value": "$__all"
         },
         "datasource": {
-          "type": "prometheus",
+          "type": "victoriametrics-metrics-datasource",
           "uid": "${metrics}"
         },
-        "definition": "label_values(upsd_load_percent,host)",
+        "definition": "label_values(watchtower_containers_failed,host)",
         "includeAll": true,
         "multi": true,
         "name": "host",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(upsd_load_percent,host)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "current": {
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${metrics}"
-        },
-        "definition": "label_values(upsd_load_percent{host=~\"$host\"},ups_name)",
-        "includeAll": true,
-        "multi": true,
-        "name": "ups",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(upsd_load_percent{host=~\"$host\"},ups_name)",
+          "query": "label_values(watchtower_containers_failed,host)",
           "refId": "VariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -1235,13 +990,14 @@
       }
     ]
   },
+{%- endraw %}
   "time": {
-    "from": "now-24h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
-  "title": "NUT/UPSD",
-  "uid": "shiftmon-nut",
-  "version": 2
+  "timezone": "browser",
+  "title": "WatchTower",
+  "uid": "shiftmon-watchtower",
+  "version": 1
 }
