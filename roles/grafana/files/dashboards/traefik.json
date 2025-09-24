@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 190,
+  "id": 6,
   "links": [],
   "panels": [
     {
@@ -74,6 +74,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -123,7 +124,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -174,6 +175,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -223,7 +225,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -274,6 +276,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -325,7 +328,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -416,7 +419,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -508,7 +511,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -600,7 +603,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -831,13 +834,14 @@
           "fields": "",
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -900,13 +904,14 @@
           "fields": "",
           "values": false
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -970,13 +975,14 @@
           "limit": 20,
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -1075,13 +1081,14 @@
           "limit": 20,
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -1132,6 +1139,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1183,7 +1191,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -1263,6 +1271,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1314,7 +1323,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -1358,7 +1367,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -1401,7 +1410,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.3.0-17932099756",
       "targets": [
         {
           "datasource": {
@@ -1409,8 +1418,8 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:traefik (tags.host:$host) |  fields.DownstreamStatus:~`4.*|5.*`",
-          "queryType": "range",
+          "expr": "tags.appname:traefik AND tags.host:~\"$host\" fields.DownstreamStatus:~`4.*|5.*`",
+          "queryType": "instant",
           "refId": "A"
         }
       ],
@@ -1420,7 +1429,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -1487,5 +1496,5 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "shiftmon-traefik",
-  "version": 4
+  "version": 1
 }
