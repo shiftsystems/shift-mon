@@ -11,10 +11,10 @@ docker_daemon_options:
     syslog-format: rfc5424
     tag: "{% raw %}{{.Name}}{% endraw %}"
 shiftmon_alertmanager_version: 'v0.28.1'
-shiftmon_grafana_version: '12.1.1'
+shiftmon_grafana_version: '12.2.0'
 shiftmon_victoriametrics_version: 'v1.126.0'
-shiftmon_victorialogs_version: 'v1.34.0'
-shiftmon_vmanomaly_version: 'v1.26.0-alpha0'
+shiftmon_victorialogs_version: 'v1.35.0'
+shiftmon_vmanomaly_version: 'v1.26.0'
 shiftmon_valkey_version: '8-alpine'
 shiftmon_traefik_version: 'latest'
 shiftmon_loki_version: '3.5.5'
