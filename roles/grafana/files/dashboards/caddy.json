@@ -936,50 +936,11 @@
           "editorMode": "code",
           "expr": "tags.appname:caddy AND tags.host:~\"$host\" AND fields.request_remote_ip:!=\"\" | stats by (fields.request_remote_ip) count()",
           "legendFormat": "{{ fields.request_remote_ip }}",
-          "queryType": "instant",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "Top IP",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "delimiter": ",",
-            "replace": true,
-            "source": "Line"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": "count(*)"
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": true,
-              "count(*)": false,
-              "hits": true,
-              "labels": true
-            },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "fields.request_remote_ip": ""
-            }
-          }
-        }
-      ],
       "type": "piechart"
     },
     {
@@ -1709,5 +1670,5 @@
   "timezone": "",
   "title": "Caddy",
   "uid": "shiftmon-caddy",
-  "version": 1
+  "version": 2
 }
