@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 194,
+  "id": 33,
   "links": [],
   "panels": [
     {
@@ -54,6 +54,9 @@
             "align": "auto",
             "cellOptions": {
               "type": "auto"
+            },
+            "footer": {
+              "reducers": []
             },
             "inspect": false
           },
@@ -146,17 +149,9 @@
       "id": 24,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -295,6 +290,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -347,7 +343,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -398,6 +394,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -449,7 +446,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -502,6 +499,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -547,7 +545,7 @@
                 "id": "custom.hideFrom",
                 "value": {
                   "legend": false,
-                  "tooltip": false,
+                  "tooltip": true,
                   "viz": true
                 }
               }
@@ -579,7 +577,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -630,6 +628,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -673,7 +672,7 @@
                 "id": "custom.hideFrom",
                 "value": {
                   "legend": false,
-                  "tooltip": false,
+                  "tooltip": true,
                   "viz": true
                 }
               }
@@ -706,7 +705,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -770,13 +769,14 @@
           "limit": 10,
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -840,13 +840,14 @@
           "limit": 10,
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -882,7 +883,15 @@
           },
           "mappings": []
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fields.request_remote_ip"
+            },
+            "properties": []
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -910,13 +919,14 @@
           "limit": 10,
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -935,6 +945,8 @@
         {
           "id": "extractFields",
           "options": {
+            "delimiter": ",",
+            "replace": true,
             "source": "Line"
           }
         },
@@ -962,7 +974,9 @@
             },
             "includeByName": {},
             "indexByName": {},
-            "renameByName": {}
+            "renameByName": {
+              "fields.request_remote_ip": ""
+            }
           }
         }
       ],
@@ -1042,7 +1056,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -1134,7 +1148,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "datasource": {
@@ -1159,6 +1173,63 @@
         "w": 24,
         "x": 0,
         "y": 40
+      },
+      "id": 31,
+      "panels": [
+        {
+          "datasource": {
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 41
+          },
+          "id": 30,
+          "options": {
+            "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": false,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:~\"$host\" AND tags.appname:caddy",
+              "queryType": "instant",
+              "refId": "A"
+            }
+          ],
+          "title": "Logs",
+          "type": "logs"
+        }
+      ],
+      "title": "logs",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
       },
       "id": 15,
       "panels": [
@@ -1204,7 +1275,7 @@
             "h": 7,
             "w": 19,
             "x": 0,
-            "y": 85
+            "y": 58
           },
           "id": 13,
           "options": {
@@ -1222,7 +1293,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.0",
+          "pluginVersion": "12.2.0",
           "targets": [
             {
               "datasource": {
@@ -1271,7 +1342,7 @@
             "h": 7,
             "w": 5,
             "x": 19,
-            "y": 85
+            "y": 58
           },
           "id": 18,
           "options": {
@@ -1291,7 +1362,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "12.1.0",
+          "pluginVersion": "12.2.0",
           "targets": [
             {
               "datasource": {
@@ -1318,7 +1389,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 42
       },
       "id": 25,
       "panels": [
@@ -1356,6 +1427,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -1383,7 +1455,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 34
+            "y": 43
           },
           "id": 26,
           "options": {
@@ -1403,7 +1475,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "12.1.0",
+          "pluginVersion": "12.2.0",
           "targets": [
             {
               "datasource": {
@@ -1454,6 +1526,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -1481,7 +1554,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 34
+            "y": 43
           },
           "id": 27,
           "options": {
@@ -1501,7 +1574,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "12.1.0",
+          "pluginVersion": "12.2.0",
           "targets": [
             {
               "datasource": {
@@ -1537,7 +1610,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -1636,5 +1709,5 @@
   "timezone": "",
   "title": "Caddy",
   "uid": "shiftmon-caddy",
-  "version": 3
+  "version": 1
 }
