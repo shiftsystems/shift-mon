@@ -28,6 +28,14 @@ users:
     url_prefix: 'http://alertmanager:9093'
 {% endfor %}
 {% endif %}
+{% if vmanomaly_users is defined %}
+{% for user in vmanomaly_users %}
+  - username: '{{ user.user }}'
+    password: '{{ user.password }}'
+    url_prefix: 'http://vmanomaly:8490'
+    keep_original_host: true
+{% endfor %}
+{% endif %}
   - bearer_token: '{{ vmalert_token }}'
     url_map:
       - src_paths:
