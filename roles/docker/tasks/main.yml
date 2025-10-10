@@ -26,7 +26,7 @@
     group: shiftmon
   become: true
 
-- name: Generate env file
+- name: Generate vmanomaly env file
   ansible.builtin.template:
     src: "victoriametricslicense"
     dest: /opt/shift-mon/victoriametricslicense
