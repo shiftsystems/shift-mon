@@ -23,6 +23,7 @@
     - /opt/shift-mon/victoriametrics
     - /opt/shift-mon/victoriametrics-storage
     - /opt/shift-mon/victorialogs
+    - /opt/shift-mon/victoriatraces
     - /opt/shift-mon/vmalert/rules
     - /opt/shift-mon/vmalert/templates
     - /opt/shift-mon/vmauth

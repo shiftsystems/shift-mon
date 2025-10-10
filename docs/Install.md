@@ -144,6 +144,9 @@ Install them by running `ansible-galaxy collection install -r requirements.yml -
         victorialogs:
           domain: logs.example.com
           retention_period: '30d'
+        victoriatraces:
+          domain: traces.example.com
+          retention_period: '30d'
         vmanomaly_enabled: true
         email:
           enabled: true
