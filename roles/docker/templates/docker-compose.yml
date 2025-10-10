@@ -285,7 +285,7 @@ services:
       timeout: 5s
       retries: 10
 
-victoriatraces:
+  victoriatraces:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
 # {% if victoria.license is defined %} # Enterprise isn't available yet.
 #     image: quay.io/victoriametrics/victoria-traces:{{ shiftmon_victoriatraces_version }}-enterprise
