@@ -22,6 +22,15 @@ http:
       service: vmauth
       entryPoints:
         - websecure
+{% if shiftmon_vmanomaly_domain is defined %}
+    vmanomaly:
+      rule: Host(`{{ shiftmon_vmanomaly_domain }}`)
+      tls:
+        certResolver: dynamicResolver
+      service: vmauth
+      entryPoints:
+        - websecure
+{% endif %}
 {% if alertmanager.domain is defined %}
     alertmanager:
       rule: Host(`{{ alertmanager.domain }}`)
