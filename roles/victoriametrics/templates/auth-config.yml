@@ -28,10 +28,10 @@ users:
   - bearer_token: 'shiftmon'
     url_map:
       - src_hosts:
-        - "metrics.local.shiftsystems.net"
+        - "{{ victoria.domain }}"
         url_prefix: "http://victoriametrics:8428"
       - src_hosts:
-        - "vl.local.shiftsystems.net"
+        - "{{ victorialogs.domain }}"
         url_prefix: "http://victorialogs:9428"
         keep_original_host: true
 {% if alertmanager.domain is defined %}
