@@ -46,4 +46,7 @@ users:
         - "/select/logsql/.*"
         - "/select/logsql"
         url_prefix: "http://victorialogs:9428"
-
+      - src_paths:
+        - "/select/jaeger/api/traces"
+        - "/select/jaeger/api/traces.*"
+        url_prefix: "http://victorialogs:10428"
