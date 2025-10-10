@@ -287,11 +287,7 @@ services:
 
   victoriatraces:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-{% if victoria.license is defined %} # Enterprise isn't available yet.
-    image: quay.io/victoriametrics/victoria-traces:{{ shiftmon_victoriatraces_version }}#-enterprise
-{% else %}
     image: quay.io/victoriametrics/victoria-traces:{{ shiftmon_victoriatraces_version }}
-{% endif %}
     restart: unless-stopped
     volumes:
       - type: bind
@@ -301,9 +297,6 @@ services:
       - -storageDataPath=/victoriatraces
       - -retentionPeriod={{ victoriatraces.retention_period }}
       - "-loggerFormat=json"
-{% if victoria.license is defined %}
-      - "-license=%{VICTORIAMETRICS_LICENSE}"
-{% endif %}
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:10428/health"]
       interval: 5s
