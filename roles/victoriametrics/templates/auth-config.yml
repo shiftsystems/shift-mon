@@ -50,10 +50,6 @@ users:
   - bearer_token: '{{ token }}'
     url_prefix: 'http://victoriametrics:8428'
 {% endfor %}
-{% for token in victorialogs_merged_tokens %}
-  - bearer_token: '{{ token }}'
-    url_prefix: 'http://victorialogs:9428'
-{% endfor %}
 {% if victoriametrics_users is defined %}
 {% for user in victoriametrics_users %}
   - username: '{{ user.user }}'
@@ -61,6 +57,11 @@ users:
     url_prefix: 'http://victoriametrics:8428'
 {% endfor %}
 {% endif %}
+
+{% for token in victorialogs_merged_tokens %}
+  - bearer_token: '{{ token }}'
+    url_prefix: 'http://victorialogs:9428'
+{% endfor %}
 {% if victorialogs_users is defined %}
 {% for user in victorialogs_users %}
   - username: '{{ user.user }}'
@@ -68,13 +69,20 @@ users:
     url_prefix: 'http://victorialogs:9428'
 {% endfor %}
 {% endif %}
-{% if alertmanager_users is defined %}
-{% for user in alertmanager_users %}
+
+
+{% for token in victoriatraces_merged_tokens %}
+  - bearer_token: '{{ token }}'
+    url_prefix: 'http://victoriatraces:10428'
+{% endfor %}
+{% if victoriatraces_users is defined %}
+{% for user in victoriatraces_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
-    url_prefix: 'http://alertmanager:9093'
+    url_prefix: 'http://victoriatraces:10428'
 {% endfor %}
 {% endif %}
+
 {% if vmanomaly_users is defined %}
 {% for user in vmanomaly_users %}
   - username: '{{ user.user }}'
@@ -104,4 +112,4 @@ users:
       - src_paths:
         - "/select/jaeger/api/traces"
         - "/select/jaeger/api/traces.*"
-        url_prefix: "http://victorialogs:10428"
+        url_prefix: "http://victoriatraces:10428"
