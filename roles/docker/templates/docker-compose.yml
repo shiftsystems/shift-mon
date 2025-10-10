@@ -269,7 +269,11 @@ services:
       retries: 10
   victorialogs:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
+{% if victoria.license is defined %}
+    image: quay.io/victoriametrics/victoria-logs:{{ shiftmon_victorialogs_version }}-enterprise
+{% else %}
     image: quay.io/victoriametrics/victoria-logs:{{ shiftmon_victorialogs_version }}
+{% endif %}
     restart: unless-stopped
     volumes:
       - type: bind
@@ -279,6 +283,9 @@ services:
       - -storageDataPath=/victorialogs
       - -retentionPeriod={{ victorialogs.retention_period }}
       - "-loggerFormat=json"
+{% if victoria.license is defined %}
+      - "-license=%{VICTORIAMETRICS_LICENSE}"
+{% endif %}
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9428/health"]
       interval: 5s
