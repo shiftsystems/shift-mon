@@ -1,7 +1,58 @@
 users:
+{% if shiftmon_users is defined %}
+{% for user in shiftmon_users %}
+  - username: '{{ user.user }}'
+    password: '{{ user.password }}'
+    url_map:
+      - src_hosts:
+        - "{{ victoria.domain }}"
+        url_prefix: "http://victoriametrics:8428"
+      - src_hosts:
+        - "{{ victorialogs.domain }}"
+        url_prefix: "http://victorialogs:9428"
+{% if alertmanager.domain is defined %}
+      - src_hosts:
+        - "{{ alertmanager.domain }}"
+        url_prefix: "http://alertmanager:9093"
+{% endif %}
+{% if shiftmon_vmanomaly_domain is defined %}
+      - src_hosts:
+        - "{{ shiftmon_vmanomaly_domain }}"
+        url_prefix: "http://vmanomaly:8490"
+        keep_original_host: true
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if shiftmon_tokens is defined %}
+{% for tokens in shiftmon_tokens %}
+  - bearer_token: 'shiftmon'
+    url_map:
+      - src_hosts:
+        - "{{ victoria.domain }}"
+        url_prefix: "http://victoriametrics:8428"
+      - src_hosts:
+        - "{{ victorialogs.domain }}"
+        url_prefix: "http://victorialogs:9428"
+        keep_original_host: true
+{% if alertmanager.domain is defined %}
+      - src_hosts:
+        - "{{ alertmanager.domain }}"
+        url_prefix: "http://alertmanager:9093"
+{% endif %}
+{% if shiftmon_vmanomaly_domain is defined %}
+      - src_hosts:
+        - "{{ shiftmon_vmanomaly_domain }}"
+        url_prefix: http://vmanomaly:8490
+{% endif %}
+{% endfor %}
+{% endif %}
 {% for token in victoriametrics_merged_tokens %}
   - bearer_token: '{{ token }}'
     url_prefix: 'http://victoriametrics:8428'
+{% endfor %}
+{% for token in victorialogs_merged_tokens %}
+  - bearer_token: '{{ token }}'
+    url_prefix: 'http://victorialogs:9428'
 {% endfor %}
 {% if victoriametrics_users is defined %}
 {% for user in victoriametrics_users %}
@@ -10,11 +61,6 @@ users:
     url_prefix: 'http://victoriametrics:8428'
 {% endfor %}
 {% endif %}
-
-{% for token in victorialogs_merged_tokens %}
-  - bearer_token: '{{ token }}'
-    url_prefix: 'http://victorialogs:9428'
-{% endfor %}
 {% if victorialogs_users is defined %}
 {% for user in victorialogs_users %}
   - username: '{{ user.user }}'
@@ -22,20 +68,13 @@ users:
     url_prefix: 'http://victorialogs:9428'
 {% endfor %}
 {% endif %}
-
-
-{% for token in victoriatraces_merged_tokens %}
-  - bearer_token: '{{ token }}'
-    url_prefix: 'http://victoriatraces:10428'
-{% endfor %}
-{% if victoriatraces_users is defined %}
-{% for user in victoriatraces_users %}
+{% if alertmanager_users is defined %}
+{% for user in alertmanager_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
-    url_prefix: 'http://victoriatraces:10428'
+    url_prefix: 'http://alertmanager:9093'
 {% endfor %}
 {% endif %}
-
 {% if vmanomaly_users is defined %}
 {% for user in vmanomaly_users %}
   - username: '{{ user.user }}'
@@ -44,17 +83,14 @@ users:
     keep_original_host: true
 {% endfor %}
 {% endif %}
-
-## Alerting
-{% if alertmanager_users is defined %}
-{% for user in alertmanager_users %}
+{% if vmanomaly_logs_users is defined %}
+{% for user in vmanomaly_logs_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
-    url_prefix: 'http://alertmanager:9093'
+    url_prefix: 'http://vmanomaly-logs:8490'
+    keep_original_host: true
 {% endfor %}
 {% endif %}
-
-### VMalert paths
   - bearer_token: '{{ vmalert_token }}'
     url_map:
       - src_paths:
@@ -65,7 +101,4 @@ users:
         - "/select/logsql/.*"
         - "/select/logsql"
         url_prefix: "http://victorialogs:9428"
-      - src_paths:
-        - "/select/jaeger/api/traces"
-        - "/select/jaeger/api/traces.*"
-        url_prefix: "http://victoriatraces:10428"
+
