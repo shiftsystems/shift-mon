@@ -287,11 +287,11 @@ services:
 
   victoriatraces:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
-# {% if victoria.license is defined %} # Enterprise isn't available yet.
-#     image: quay.io/victoriametrics/victoria-traces:{{ shiftmon_victoriatraces_version }}-enterprise
-# {% else %}
+{% if victoria.license is defined %} # Enterprise isn't available yet.
+    image: quay.io/victoriametrics/victoria-traces:{{ shiftmon_victoriatraces_version }}#-enterprise
+{% else %}
     image: quay.io/victoriametrics/victoria-traces:{{ shiftmon_victoriatraces_version }}
-# {% endif %}
+{% endif %}
     restart: unless-stopped
     volumes:
       - type: bind
