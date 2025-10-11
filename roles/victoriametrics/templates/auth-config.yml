@@ -24,8 +24,8 @@ users:
 {% endfor %}
 {% endif %}
 {% if shiftmon_tokens is defined %}
-{% for tokens in shiftmon_tokens %}
-  - bearer_token: 'shiftmon'
+{% for token in shiftmon_tokens %}
+  - bearer_token: '{{ token }}'
     url_map:
       - src_hosts:
         - "{{ victoria.domain }}"
