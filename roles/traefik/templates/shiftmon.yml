@@ -31,6 +31,15 @@ http:
       entryPoints:
         - websecure
 {% endif %}
+{% if victoriatraces.domain is defined %}
+    victoriatraces:
+      rule: Host(`{{ victoriatraces.domain }}`)
+      tls:
+        certResolver: dynamicResolver
+      service: vmauth
+      entryPoints:
+        - websecure
+{% endif %}
 {% if alertmanager.domain is defined %}
     alertmanager:
       rule: Host(`{{ alertmanager.domain }}`)
