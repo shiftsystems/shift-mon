@@ -22,5 +22,8 @@ scrape_configs:
 {% if vmanomaly_enabled and victoria.license is defined %}
       - 'http://vmanomaly:8490'
 {% endif %}
+{% if victoriatraces is defined %}
+      - 'http://victoriatraces:10428'
+{% endif %}
       labels:
         host: {{ ansible_nodename }}
