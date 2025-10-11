@@ -284,6 +284,25 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  victoriatraces:
+    user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
+    image: quay.io/victoriametrics/victoria-traces:{{ shiftmon_victoriatraces_version }}
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /opt/shift-mon/victoriatraces
+        target: /victoriatraces
+    command:
+      - -storageDataPath=/victoriatraces
+      - -retentionPeriod={{ victoriatraces.retention_period }}
+      - "-loggerFormat=json"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:10428/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   traefik:
     restart: unless-stopped
     image: docker.io/traefik:{{ shiftmon_traefik_version }}
