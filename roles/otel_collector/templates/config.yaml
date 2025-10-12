@@ -26,6 +26,13 @@ receivers:
       memory:
       network:
       paging:
+      process:
+        include:
+          match_type: 'regexp'
+          names:
+{% for process in shiftmon_otel_processes %}
+            - {{ process }}
+{% endfor %}
       processes:
       system:
   prometheus:
@@ -50,6 +57,11 @@ receivers:
         parse_from: body
 processors:
   batch:
+  attributes/metrics:
+    actions:
+      - key: device
+        action: delete
+        pattern: 'veth.*'
   resourcedetection/system:
     detectors:
       - "system"
@@ -57,10 +69,6 @@ processors:
       hostname_sources:
         - "os"
         - "dns"
-  attributes:
-    actions:
-      - key: instance.id # Name of the attribute to delete
-        action: delete
   transform/parse_pbs_tasks:
     error_mode: ignore
     log_statements:
@@ -91,9 +99,9 @@ exporters:
 service:
   pipelines:
     traces:
-      receivers: 
+      receivers:
         - otlp
-      processors: 
+      processors:
         - batch
         - resourcedetection/system
       exporters:
@@ -105,7 +113,7 @@ service:
         - prometheus
       processors:
         - batch
-        - attributes
+        - attributes/metrics
         - resourcedetection/system
       exporters: 
         - otlphttp/metrics
