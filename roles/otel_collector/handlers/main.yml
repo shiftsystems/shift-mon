@@ -1,0 +1,6 @@
+- name: Restart otel collector
+  ansible.builtin.systemd:
+    name: otelcol-contrib.service
+    state: restarted
+    enabled: true
+  become: true

@@ -1,0 +1,4 @@
+shiftmon_otlp_metrics_endpoint: "{{ victoriametrics_url }}/opentelemetry/v1/metrics"
+shiftmon_otlp_logs_endpoint: "{{ victorialogs_url }}/insert/opentelemetry/v1/logs"
+shiftmon_otlp_traces_endpoint: "{{ victoriatraces_url }}/insert/opentelemetry/v1/traces"
+shiftmon_otel_collector_version: 'v0.137.0'
