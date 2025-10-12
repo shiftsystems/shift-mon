@@ -1,6 +1,6 @@
 - name: Install Otel Collector on Redhat based systems
   ansible.builtin.dnf:
-    name: 'https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.137.0/otelcol-contrib_0.137.0_linux_amd64.rpm'
+    name: 'https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v{{ shiftmon_otel_collector_version }}/otelcol-contrib_{{ shiftmon_otel_collector_version }}_linux_amd64.rpm'
     state: present
     disable_gpg_check: true
   become: true

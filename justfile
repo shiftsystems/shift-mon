@@ -6,4 +6,6 @@ shiftmon:
   ansible-playbook -i $INVENTORY -l {{ limit }} {{ extra-args }} shiftmon.yml 
 telegraf:
   ansible-playbook -i $INVENTORY -l {{ limit }} {{ extra-args }} telegraf.yml 
+otelcol:
+  ansible-playbook -i $INVENTORY -l {{ limit }} {{ extra-args }} otelcol.yml 
 
