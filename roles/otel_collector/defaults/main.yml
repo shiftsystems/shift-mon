@@ -2,3 +2,5 @@ shiftmon_otlp_metrics_endpoint: "{{ victoriametrics_url }}/opentelemetry/v1/metr
 shiftmon_otlp_logs_endpoint: "{{ victorialogs_url }}/insert/opentelemetry/v1/logs"
 shiftmon_otlp_traces_endpoint: "{{ victoriatraces_url }}/insert/opentelemetry/v1/traces"
 shiftmon_otel_collector_version: '0.137.0'
+shiftmon_syslog_listen_address: '0.0.0.0'
+shiftmon_syslog_port: '6667'

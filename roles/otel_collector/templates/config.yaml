@@ -36,6 +36,10 @@ receivers:
         static_configs:
         - targets:
             - '0.0.0.0:8888'
+  syslog:
+    udp:
+      listen_address: "{{ shiftmon_syslog_listen_address }}:{{ shiftmon_syslog_port }}"
+    protocol: rfc5424
   journald:
     directory: /var/log/journal
   filelog:
@@ -53,6 +57,18 @@ processors:
       hostname_sources:
         - "os"
         - "dns"
+  attributes:
+    actions:
+      - key: instance.id # Name of the attribute to delete
+        action: delete
+  transform/parse_pbs_tasks:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        conditions:
+          - IsMatch(body,"pbs.*")
+        statements:
+          - merge_maps(log.attributes, ExtractGrokPatterns(log.attributes["message"], "UPID:%{DATA:pbs_host}:%{DATA:task_id_1}:%{DATA:task_id_2}:%{DATA:task_id_3}:%{DATA:task_id_4}:%{DATA:cmd}:%{DATA:task_path}:%{DATA:user}:%{GREEDYDATA:log_message}", true, ["WOOHOO=%{ELB_URI} otel"]), "insert")
 exporters:
   otlphttp/metrics:
     metrics_endpoint: '{{ shiftmon_otlp_metrics_endpoint }}'
@@ -66,6 +82,7 @@ exporters:
     encoding: proto
     headers:
       VL-Msg-Field: 'MESSAGE'
+      VL-Stream-Fields: 'host.name,log.file.name,_SYSTEMD_UNIT,_MACHINE_ID'
     auth:
       authenticator: bearertokenauth
   otlphttp/traces:
@@ -88,6 +105,7 @@ service:
         - prometheus
       processors:
         - batch
+        - attributes
         - resourcedetection/system
       exporters: 
         - otlphttp/metrics
@@ -96,9 +114,11 @@ service:
         - otlp
         - journald
         - filelog
+        - syslog
       processors:
         - batch
         - resourcedetection/system
+        - transform/parse_pbs_tasks
       exporters:
         - otlphttp/logs
   extensions:

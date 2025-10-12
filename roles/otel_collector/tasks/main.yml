@@ -1,9 +1,23 @@
+- name: Set processor Architecture
+  ansible.builtin.set_fact:
+    shiftmon_otel_architecture: "{% if ansible_userspace_architecture == 'x86_64' %}amd64{% endif %}"
+
 - name: Install Otel Collector on Redhat based systems
   ansible.builtin.dnf:
-    name: 'https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v{{ shiftmon_otel_collector_version }}/otelcol-contrib_{{ shiftmon_otel_collector_version }}_linux_amd64.rpm'
+    name: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v{{ shiftmon_otel_collector_version }}/otelcol-contrib_{{ shiftmon_otel_collector_version }}_linux_{{ shiftmon_otel_architecture }}.rpm"
     state: present
     disable_gpg_check: true
   become: true
+  when: ansible_facts['os_family'] == "RedHat"
+  notify: Restart otel collector
+
+- name: Install Otel Collector on Debian based systems
+  ansible.builtin.apt:
+    deb: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v{{ shiftmon_otel_collector_version }}/otelcol-contrib_{{ shiftmon_otel_collector_version }}_linux_{{ shiftmon_otel_architecture }}.deb"
+    state: present
+    disable_gpg_check: true
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
   notify: Restart otel collector
 
 - name: Ensure Otel collector config
