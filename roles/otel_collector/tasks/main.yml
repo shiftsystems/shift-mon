@@ -1,3 +1,34 @@
+- name: Install Rsyslog
+  ansible.builtin.package:
+    name: rsyslog
+    state: latest
+  become: true
+  when: syslog is defined and syslog == "rsyslog"
+  notify: Restart Syslog
+
+- name: Remove Telegraf config
+  ansible.builtin.file:
+    path: /etc/rsyslog.d/50-telegraf.conf
+    state: absent
+  become: true
+  notify: Restart Syslog
+
+- name: Place Rsyslog config is installed when syslog is enabled
+  ansible.builtin.template:
+    src: "50-otelcol-contrib.conf"
+    dest: /etc/rsyslog.d/50-otelcol-contrib.conf
+  become: true
+  when: syslog is defined and syslog == "rsyslog"
+  notify: Restart Syslog
+
+- name: Start and enable Rsyslog service
+  ansible.builtin.systemd:
+    name: rsyslog
+    state: started
+    enabled: true
+  become: true
+  when: syslog is defined and syslog == "rsyslog"
+
 - name: Set processor Architecture
   ansible.builtin.set_fact:
     shiftmon_otel_architecture: "{% if ansible_userspace_architecture == 'x86_64' %}amd64{% endif %}"
@@ -18,6 +49,19 @@
     disable_gpg_check: true
   become: true
   when: ansible_facts['os_family'] == "Debian"
+  notify: Restart otel collector
+
+- name: Ensure override directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/otelcol-contrib.service.d
+    state: directory
+  become: true
+
+- name: Set Otel Collector
+  ansible.builtin.template:
+    src: override.conf
+    dest: /etc/systemd/system/otelcol-contrib.service.d/override.conf
+  become: true
   notify: Restart otel collector
 
 - name: Ensure Otel collector config

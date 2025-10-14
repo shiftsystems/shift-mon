@@ -4,3 +4,10 @@
     state: restarted
     enabled: true
   become: true
+
+- name: Restart Syslog
+  ansible.builtin.systemd:
+    name: rsyslog
+    state: restarted
+    enabled: true
+  become: true

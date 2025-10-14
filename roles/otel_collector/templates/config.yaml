@@ -44,7 +44,7 @@ receivers:
         - targets:
             - '0.0.0.0:8888'
   syslog:
-    udp:
+    {{ shiftmon_syslog_proto }}:
       listen_address: "{{ shiftmon_syslog_listen_address }}:{{ shiftmon_syslog_port }}"
     protocol: rfc5424
   journald:

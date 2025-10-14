@@ -1,9 +1,12 @@
 shiftmon_otlp_metrics_endpoint: "{{ victoriametrics_url }}/opentelemetry/v1/metrics"
 shiftmon_otlp_logs_endpoint: "{{ victorialogs_url }}/insert/opentelemetry/v1/logs"
 shiftmon_otlp_traces_endpoint: "{{ victoriatraces_url }}/insert/opentelemetry/v1/traces"
+shiftmon_otel_collector_user: root
 shiftmon_otel_processes:
   - otelcol-contrib
   - tetragon
 shiftmon_otel_collector_version: '0.137.0'
 shiftmon_syslog_listen_address: '0.0.0.0'
+shiftmon_syslog_address: '127.0.0.1'
+shiftmon_syslog_proto: 'udp'
 shiftmon_syslog_port: '6667'
