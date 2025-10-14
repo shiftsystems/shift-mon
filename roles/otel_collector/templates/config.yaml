@@ -89,8 +89,8 @@ exporters:
     compression: gzip
     encoding: proto
     headers:
-      VL-Msg-Field: 'MESSAGE'
-      VL-Stream-Fields: 'host.name,log.file.name,_SYSTEMD_UNIT,_MACHINE_ID'
+      VL-Msg-Field: 'message,MESSAGE'
+      VL-Stream-Fields: 'host.name,appname,log.file.name,_SYSTEMD_UNIT,_MACHINE_ID'
     auth:
       authenticator: bearertokenauth
   otlphttp/traces:
