@@ -34,14 +34,14 @@ datasources:
   - name: shiftmon-alertmanager-stats
     type: camptocamp-prometheus-alertmanager-datasource 
     url: http://alertmanager:9093
-  - name: shift-traces
+  - name: shift-victoriatraces
     type: jaeger
     url: http://victoriatraces:10428/select/jaeger
     readOnly: false
     isDefault: false
     jsonData:
       tracesToLogsV2:
-        datasourceUid: 'test-logs'
+        datasourceUid: 'shiftmon-victorialogs'
         filterByTraceID: false
         filterBySpanID: false
         customQuery: true
