@@ -1,4 +1,61 @@
 users:
+{% if shiftmon_users is defined %}
+{% for user in shiftmon_users %}
+  - username: '{{ user.user }}'
+    password: '{{ user.password }}'
+    url_map:
+      - src_hosts:
+        - "{{ victoria.domain }}"
+        url_prefix: "http://victoriametrics:8428"
+      - src_hosts:
+        - "{{ victorialogs.domain }}"
+        url_prefix: "http://victorialogs:9428"
+{% if alertmanager.domain is defined %}
+      - src_hosts:
+        - "{{ alertmanager.domain }}"
+        url_prefix: "http://alertmanager:9093"
+{% endif %}
+{% if victoriatraces.domain is defined %}
+      - src_hosts:
+        - "{{ victoriatraces.domain }}"
+        url_prefix: http://victoriatraces:10428
+{% endif %}
+{% if shiftmon_vmanomaly_domain is defined %}
+      - src_hosts:
+        - "{{ shiftmon_vmanomaly_domain }}"
+        url_prefix: "http://vmanomaly:8490"
+        keep_original_host: true
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if shiftmon_tokens is defined %}
+{% for token in shiftmon_tokens %}
+  - bearer_token: '{{ token }}'
+    url_map:
+      - src_hosts:
+        - "{{ victoria.domain }}"
+        url_prefix: "http://victoriametrics:8428"
+      - src_hosts:
+        - "{{ victorialogs.domain }}"
+        url_prefix: "http://victorialogs:9428"
+        keep_original_host: true
+{% if alertmanager.domain is defined %}
+      - src_hosts:
+        - "{{ alertmanager.domain }}"
+        url_prefix: "http://alertmanager:9093"
+{% endif %}
+{% if victoriatraces.domain is defined %}
+      - src_hosts:
+        - "{{ victoriatraces.domain }}"
+        url_prefix: http://victoriatraces:10428
+{% endif %}
+{% if shiftmon_vmanomaly_domain is defined %}
+      - src_hosts:
+        - "{{ shiftmon_vmanomaly_domain }}"
+        url_prefix: http://vmanomaly:8490
+{% endif %}
+{% endfor %}
+{% endif %}
 {% for token in victoriametrics_merged_tokens %}
   - bearer_token: '{{ token }}'
     url_prefix: 'http://victoriametrics:8428'
@@ -33,6 +90,14 @@ users:
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
     url_prefix: 'http://vmanomaly:8490'
+    keep_original_host: true
+{% endfor %}
+{% endif %}
+{% if vmanomaly_logs_users is defined %}
+{% for user in vmanomaly_logs_users %}
+  - username: '{{ user.user }}'
+    password: '{{ user.password }}'
+    url_prefix: 'http://vmanomaly-logs:8490'
     keep_original_host: true
 {% endfor %}
 {% endif %}

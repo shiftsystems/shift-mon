@@ -1,0 +1,9 @@
+- name: Create Victoriatraces Folders
+  ansible.builtin.file:
+    path: /opt/shift-mon/victoriatraces
+    state: directory
+    owner: shiftmon
+    group: shiftmon
+    mode: '770'
+    setype: container_file_t
+  become: true

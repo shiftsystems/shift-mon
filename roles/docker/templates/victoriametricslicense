@@ -1,1 +1,3 @@
+{% if victoria.license is defined %}
 {{ victoria.license }}
+{% endif %}

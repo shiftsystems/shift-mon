@@ -22,6 +22,11 @@ victoria:
   cert_path:  absolute path to TLS certificate for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
   key_path:  absolute path to TLS key for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
 
+## Victoriatraces (Optional)
+victoriatraces:
+  domain: domain to use for adding Victoriatraces
+  retention_period: duration to keep traces stored by Victoriatraces
+
 ### Alerting rules
 These will all default to false to avoid alert fatigue
 shiftmon_alerts_deadman_enabled: enables alerts that fire if telemetry is not sending from a given resource
@@ -60,6 +65,8 @@ These features require a valid Victoriametrics license defined in `victoria.lice
 vmanomaly_enabled: false
 vmanomaly_config_path: path to vmanomaly metrics config file
 vmanomaly_logs_config_path: path to vmanomaly logs config file
+vmanomaly_workers: number of worker processes vmanomaly should spawn defaults to 2
+shiftmon_vmanomaly_domain: domain to use for vmanomaly requests
 
 ### Tokens and Users
 
@@ -87,6 +94,33 @@ victoriametrics_users:
   - username: victoriametrics
     password: victoriametrics
 ```
+
+vmanomaly_users: List of users that have access to the vmanomaly API and user interface
+```yaml
+vmanomaly_users:
+  - username: vmanomaly
+    password: vmanomaly
+```
+
+vmanomaly_logs_users: List of users that have access to the vmanomaly API and user interface
+```yaml
+vmanomaly_logs_users:
+  - username: vmanomaly-logs
+    password: vmanomaly-logs
+```
+shiftmon_users: list of usernames and passwords to access victoriametrics, victorialogs, victoriatraces, vmanomaly, and alertmanager over http basic auth.
+```yaml
+shiftmon_users:
+  - username: shiftmon
+    password: shiftmon
+```
+
+shiftmon_tokens: list of tokens to access victoriametrics, victorialogs, victoriatraces, vmanomaly, and alertmanager using a bearer token.
+```yaml
+shiftmon_tokens:
+  - shiftmon
+```
+
 
 ## Grafana
 * domain: Fully qualified domain name of the grafana server
