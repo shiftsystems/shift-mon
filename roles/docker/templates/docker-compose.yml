@@ -294,8 +294,8 @@ services:
         source: /opt/shift-mon/victoriatraces
         target: /victoriatraces
     command:
-      - -storageDataPath=/victoriatraces
-      - -retentionPeriod={{ victoriatraces.retention_period }}
+      - "-storageDataPath=/victoriatraces"
+      - "-retentionPeriod={{ victoriatraces.retention_period }}"
       - "-loggerFormat=json"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:10428/health"]
