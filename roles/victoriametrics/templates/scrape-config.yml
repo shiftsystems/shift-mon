@@ -7,25 +7,86 @@ scrape_configs:
     password: '{{ grafana.basic_auth_password }}'
   static_configs:
     - targets:
-      - 'http://grafana:3000'
+        - 'http://grafana:3000'
+      labels:
+        host: {{ ansible_nodename }}
 - job_name: shiftmon_victoriametrics
   scrape_interval: 30s
   scrape_timeout: 20s
   static_configs:
-    - targets:
-      - 'http://victoriametrics:8428'
-      - 'http://vmalert:8880'
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
+        - 'http://victoriametrics:8428'
+- job_name: shiftmon_vmalert
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
+        - 'http://vmalert:8880'
+- job_name: shiftmon_vmauth
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
       - 'http://vmauth:9999'
-      - 'http://victorialogs:9428'
-      - 'http://alertmanager:9093'
+- job_name: shiftmon_victorialogs
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
+        - 'http://victorialogs:9428'
+- job_name: shiftmon_alertmanager
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
+        - 'http://alertmanager:9093'
 {% if shiftmon_loki_enabled %}
-      - 'http://loki:3100'
+- job_name: shiftmon_loki
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
+        - 'http://loki:3100'
 {% endif %}
 {% if vmanomaly_enabled and victoria.license is defined %}
-      - 'http://vmanomaly:8490'
+- job_name: shiftmon_vmanomaly
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
+        - 'http://vmanomaly:8490'
+{% endif %}
+{% if vmanomaly_logs_config_path is defined and victoria.license is defined %}
+- job_name: shiftmon_vmanomaly_logs
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
+        host: {{ ansible_nodename }}
+      targets:
+        - 'http://vmanomaly-logs:8490'
 {% endif %}
 {% if victoriatraces is defined %}
-      - 'http://victoriatraces:10428'
-{% endif %}
-      labels:
+- job_name: shiftmon_victoriatraces
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  static_configs:
+    - labels:
         host: {{ ansible_nodename }}
+      targets:
+        - 'http://victoriatraces:10428'
+{% endif %}
