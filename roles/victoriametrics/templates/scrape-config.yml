@@ -16,9 +16,11 @@ scrape_configs:
       - 'http://victoriametrics:8428'
       - 'http://vmalert:8880'
       - 'http://vmauth:9999'
-      - 'http://loki:3100'
       - 'http://victorialogs:9428'
       - 'http://alertmanager:9093'
+{% if shiftmon_loki_enabled %}
+      - 'http://loki:3100'
+{% endif %}
 {% if vmanomaly_enabled and victoria.license is defined %}
       - 'http://vmanomaly:8490'
 {% endif %}

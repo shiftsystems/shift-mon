@@ -10,6 +10,7 @@ datasources:
       prometheusVersion: 2.53.0
       disableRecordingRules: false
       timeInterval: {{ interval }}
+{% if shiftmon_loki_enabled %}
   - name: shift-logs
     type: loki
     url: 'http://loki:3100'
@@ -21,6 +22,7 @@ datasources:
       httpmethod: POST
       vmuiUrl: 'https://{{victoria.domain }}/vmui'
       timeInterval: {{ interval }}
+{% endif %}
   - name: shiftmon-victorialogs
     type: victoriametrics-logs-datasource
     url: http://victorialogs:9428

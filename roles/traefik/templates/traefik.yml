@@ -14,10 +14,6 @@ tls:
     - certfile: /etc/traefik/certs/victoria.crt
       keyfile: /etc/traefik/certs/victoria.key
 {% endif %}
-{% if loki.cert_path is defined and loki.key_path is defined %}
-    - certfile: /etc/traefik/certs/loki.crt
-      keyfile: /etc/traefik/certs/loki.key
-{% endif %}
 {% if victorialogs.cert_path is defined and victorialogs.key_path is defined %}
     - certfile: /etc/traefik/certs/victorialogs.crt
       keyfile: /etc/traefik/certs/victorialogs.key

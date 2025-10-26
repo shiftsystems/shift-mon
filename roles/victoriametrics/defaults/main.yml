@@ -12,6 +12,7 @@ shiftmon_alerts_log_rules: false
 shiftmon_alerts_watchtower_enabled: false
 shiftmon_alerts_empty_rule_rules: false
 telegraf_victoriametrics_config: true
+shiftmon_loki_enabled: true
 alertmanager_from_email: "{{ alertmanager_smtp_username }}"
 alertmanger_smtp_auth_identity: "{{ alertmanager_smtp_username }}"
 vmanomaly_enabled: false
