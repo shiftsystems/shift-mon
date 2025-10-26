@@ -34,12 +34,12 @@ groups:
           summary: '{{ $labels.ups_name }} is not sending metrics'
           description: 'no metrics from {{ $labels.ups_name }} on {{ $labels.host }}'
           dashboard: 'https://{{ $externalURL }}/d/shiftmon-nut/nut-upsd'
-      - alert: Missing Anomaly Score
-        expr: 'lag(anomaly_score[24h]) > 60'
+      - alert: Missing Anomaly Scores
+        expr: '(sum(count(anomaly_score) by (scheduler_alias)) by(scheduler_alias) default 0) == 0'
         for: 5m
         annotations:
-          summary: '{{ $labels.instance }} is not reporting anomaly scores'
-          description: '{{ $labels.instance }} has not sent metrics in {{ $value }} seconds'
+          summary: '{{ $labels.scheduler_alias }} is not reporting anomaly scores'
+          description: '{{ $labels.scheduler_alias }} has not sent metrics in {{ $value }} seconds'
           dashboard: 'https://{{ $externalURL }}/d/vmanomaly/victoriametrics-vmanomaly-self-monitoring'
 {% endraw %}
 {% endif %}
