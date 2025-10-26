@@ -44,6 +44,7 @@ services:
       interval: '30s'
       timeout: '10s'
       retries: 5
+{% if shiftmon_loki_enabled %}
   loki:
     image: docker.io/grafana/loki:{{ shiftmon_loki_version }}
     restart: unless-stopped
@@ -62,6 +63,7 @@ services:
       interval: "30s"
       timeout: "10s"
       retries: 5
+{% endif %}
   victoriametrics:
     restart: unless-stopped
 {% if victoria.license is defined %}
