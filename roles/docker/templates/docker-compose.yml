@@ -21,7 +21,7 @@ services:
     environment:
       GF_INSTALL_PLUGINS: victoriametrics-metrics-datasource,victoriametrics-logs-datasource,camptocamp-prometheus-alertmanager-datasource
   alertmanager:
-    image: quay.io/prometheus/alertmanager:{{ shiftmon_alertmanager_version }}
+    image: docker.io/prom/alertmanager:{{ shiftmon_alertmanager_version }}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: unless-stopped
     command:
