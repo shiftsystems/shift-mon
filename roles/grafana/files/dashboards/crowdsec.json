@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 202,
+  "id": 14,
   "links": [],
   "panels": [
     {
@@ -62,7 +62,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -126,10 +127,11 @@
           "id": "zero",
           "lat": 0,
           "lon": 0,
+          "noRepeat": false,
           "zoom": 1
         }
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -137,7 +139,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
+          "expr": "tags.host:~\"$host\" AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
           "queryType": "instant",
           "refId": "A"
         }
@@ -214,13 +216,14 @@
           "fields": "",
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -285,7 +288,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -324,7 +328,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -378,7 +382,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -417,7 +422,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -483,6 +488,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -490,7 +498,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -535,18 +544,10 @@
       "id": 12,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -569,7 +570,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (host,version) (cs_info)",
+          "expr": "sum by (host,version) (cs_info{host=~\"$host\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -584,7 +585,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_move(sum by (host,version) (go_info{url=\"http://127.0.0.1:6060/metrics\"}),\"version\",\"go_version\")",
+          "expr": "label_move(sum by (host,version) (go_info{url=\"http://127.0.0.1:6060/metrics\",host=~\"$host\"}),\"version\",\"go_version\")",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -693,6 +694,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -707,7 +709,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -745,7 +748,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -796,6 +799,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -810,7 +814,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -848,7 +853,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -899,6 +904,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -913,7 +919,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -950,7 +957,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -1001,6 +1008,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1015,7 +1023,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1053,7 +1062,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.0+security-01",
+      "pluginVersion": "12.3.0-19055320022",
       "targets": [
         {
           "datasource": {
@@ -1062,7 +1071,8 @@
           },
           "editorMode": "code",
           "expr": "rate(cs_parser_hits_ko_total{host=~\"$host\"})",
-          "legendFormat": "{{host }}",
+          "format": "time_series",
+          "legendFormat": "{{host }} - {{ source }}",
           "range": true,
           "refId": "A"
         }
@@ -1071,7 +1081,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1079,131 +1089,126 @@
         "y": 43
       },
       "id": 9,
-      "panels": [
+      "panels": [],
+      "title": "Ban Logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "victorialogs-datasource",
+        "uid": "${logs}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "frameIndex": 2,
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0-19055320022",
+      "targets": [
         {
           "datasource": {
-            "default": false,
             "type": "victorialogs-datasource",
             "uid": "${logs}"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 24,
-            "x": 0,
-            "y": 59
-          },
-          "id": 5,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 2,
-            "showHeader": true
-          },
-          "pluginVersion": "12.0.0+security-01",
-          "targets": [
-            {
-              "datasource": {
-                "type": "victorialogs-datasource",
-                "uid": "${logs}"
-              },
-              "editorMode": "code",
-              "expr": "(tags.host:~$host) AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>`",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "Ban Log",
-          "transformations": [
-            {
-              "id": "extractFields",
-              "options": {
-                "source": "labels"
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Line": true,
-                  "Time": true,
-                  "__name": true,
-                  "_stream_id": true,
-                  "fields.level": true,
-                  "host": true,
-                  "id": true,
-                  "labels": true,
-                  "path": true,
-                  "tags.path": true,
-                  "time": false,
-                  "tsNs": true
-                },
-                "includeByName": {},
-                "indexByName": {
-                  "Line": 1,
-                  "Time": 2,
-                  "_stream_id": 3,
-                  "asn": 11,
-                  "ban_duration": 12,
-                  "ban_ip": 13,
-                  "behavior": 8,
-                  "country": 10,
-                  "fields.level": 4,
-                  "fields.time": 6,
-                  "ip": 9,
-                  "labels": 0,
-                  "name": 14,
-                  "tags.host": 7,
-                  "tags.path": 5
-                },
-                "renameByName": {}
-              }
-            }
-          ],
-          "type": "table"
+          "editorMode": "code",
+          "expr": "(tags.host:~$host) AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>`",
+          "queryType": "range",
+          "refId": "A"
         }
       ],
-      "title": "Ban Logs",
-      "type": "row"
+      "title": "Ban Log",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Line": true,
+              "Time": true,
+              "__name": true,
+              "_stream_id": true,
+              "fields.level": true,
+              "host": true,
+              "id": true,
+              "labels": true,
+              "path": true,
+              "tags.path": true,
+              "time": false,
+              "tsNs": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Line": 1,
+              "Time": 2,
+              "_stream_id": 3,
+              "asn": 11,
+              "ban_duration": 12,
+              "ban_ip": 13,
+              "behavior": 8,
+              "country": 10,
+              "fields.level": 4,
+              "fields.time": 6,
+              "ip": 9,
+              "labels": 0,
+              "name": 14,
+              "tags.host": 7,
+              "tags.path": 5
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -1296,5 +1301,5 @@
   "timezone": "",
   "title": "Crowdsec",
   "uid": "shiftmon-crowdsec",
-  "version": 2
+  "version": 1
 }
