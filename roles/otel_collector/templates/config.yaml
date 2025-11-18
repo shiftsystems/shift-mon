@@ -49,12 +49,14 @@ receivers:
     protocol: rfc5424
   journald:
     directory: /var/log/journal
-  filelog:
+{% if 'tetragon.service' in ansible_facts.services %}
+  filelog/tetragon:
     include:
        - /var/log/tetragon/tetragon.log
     operators:
       - type: json_parser
         parse_from: body
+{% endif %}
 processors:
   batch:
   attributes/metrics:
@@ -121,7 +123,7 @@ service:
       receivers:
         - otlp
         - journald
-        - filelog
+        {{ '- filelog/tetragon' if 'tetragon.service' in ansible_facts.services else Continue }}
         - syslog
       processors:
         - batch
