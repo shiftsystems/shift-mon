@@ -22,9 +22,12 @@ receivers:
       cpu:
       disk:
       filesystem:
-      load:
       memory:
       network:
+        exclude:
+          interfaces:
+            - 'veth.*'
+          match_type: regexp
       paging:
       process:
         include:
@@ -57,13 +60,13 @@ receivers:
       - type: json_parser
         parse_from: body
 {% endif %}
+{% if 'docker.service' in ansible_facts.services %}
+  docker_stats:
+    endpoint: '{{ shiftmon_docker_endpoint }}'
+    api_version: "1.24"
+{% endif %}
 processors:
   batch:
-  attributes/metrics:
-    actions:
-      - key: device
-        action: delete
-        pattern: 'veth.*'
   resourcedetection/system:
     detectors:
       - "system"
@@ -113,9 +116,9 @@ service:
         - otlp
         - hostmetrics
         - prometheus
+        {{ '- docker_stats' if 'docker.service' in ansible_facts.services else Continue }}
       processors:
         - batch
-        - attributes/metrics
         - resourcedetection/system
       exporters: 
         - otlphttp/metrics

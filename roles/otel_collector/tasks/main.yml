@@ -64,6 +64,9 @@
   become: true
   notify: Restart otel collector
 
+- name: Gather Systemd units
+  ansible.builtin.service_facts:
+
 - name: Ensure Otel collector config
   ansible.builtin.template:
     src: config.yaml
