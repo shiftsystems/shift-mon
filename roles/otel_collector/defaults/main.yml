@@ -5,7 +5,8 @@ shiftmon_otel_collector_user: root
 shiftmon_otel_processes:
   - otelcol-contrib
   - tetragon
-shiftmon_otel_collector_version: '0.137.0'
+shiftmon_docker_endpoint: 'unix:///var/run/docker.sock'
+shiftmon_otel_collector_version: '0.139.0'
 shiftmon_syslog_listen_address: '0.0.0.0'
 shiftmon_syslog_address: '127.0.0.1'
 shiftmon_syslog_proto: 'udp'
