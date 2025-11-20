@@ -83,6 +83,7 @@ services:
     command:
       - "-retentionPeriod={{ victoria.retention_period | default('90d') }}"
       - "-storageDataPath=/victoriametrics-storage"
+      - "-enableMetadata"
       - "-httpListenAddr=:8428"
       - "-vmalert.proxyURL=http://vmalert:8880"
       - "-promscrape.config=/victoriametrics/scrape-config.yml"
