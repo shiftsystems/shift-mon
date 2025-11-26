@@ -8,12 +8,6 @@ extensions:
     scheme: "Bearer"
     token: "{{ shiftmon_otel_collector_token }}"
 receivers:
-  otlp:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:4317
-      http:
-        endpoint: 0.0.0.0:4318
   hostmetrics:
     collection_interval: 10s # default = 1m
     initial_delay: 1s # default = 1s
@@ -46,6 +40,40 @@ receivers:
         static_configs:
         - targets:
             - '0.0.0.0:8888'
+{% if shiftmon_httpchecks is defined %}
+{% for check in shiftmon_httpchecks %}
+  httpcheck/{{ check.name }}:
+    collection_interval: "{{ check.collection_interval | default('30s') }}"
+    targets:
+      - method: "{{ check.method | default('GET') }}"
+        endpoints:
+          - "{{ check.url }}"
+{% endfor %}
+{% endif %}
+{% if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined %}
+  otlp:
+    protocols:
+{% if shiftmon_otlp_grpc_receiver_endpoint is defined %}
+      grpc:
+        endpoint: '{{ shiftmon_otlp_grpc_receiver_endpoint }}'
+{% endif %}
+{% if shiftmon_otlp_http_receiver_endpoint is defined %}
+      http:
+        endpoint: '{{ shiftmon_otlp_http_receiver_endpoint }}'
+{% endif %}
+{% endif %}
+{% if shiftmon_jaeger_grpc_receiver_endpoint is defined or shiftmon_jaeger_thrift_compact_receiver_endpoint is defined %}
+  jaeger:
+    protocols:
+{% if shiftmon_jaeger_grpc_receiver_endpoint is defined %}
+      grpc:
+        endpoint: '{{ shiftmon_jaeger_grpc_receiver_endpoint }}'
+{% endif %}
+{% if shiftmon_jaeger_thrift_compact_receiver_endpoint is defined %}
+      thrift_compact:
+        endpoint: '{{shiftmon_jaeger_thrift_compact_receiver_endpoint }}'
+{% endif %}
+{% endif %}
   syslog:
     {{ shiftmon_syslog_proto }}:
       listen_address: "{{ shiftmon_syslog_listen_address }}:{{ shiftmon_syslog_port }}"
@@ -63,7 +91,6 @@ receivers:
 {% if 'docker.service' in ansible_facts.services %}
   docker_stats:
     endpoint: '{{ shiftmon_docker_endpoint }}'
-    api_version: "1.24"
 {% endif %}
 processors:
   batch:
@@ -103,20 +130,28 @@ exporters:
 
 service:
   pipelines:
+{% if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined or shiftmon_jaeger_grpc_receiver_endpoint is defined or shiftmon_jaeger_thrift_compact_receiver_endpoint is defined %}
     traces:
       receivers:
-        - otlp
+        {{ '- otlp' if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined }}
+        {{ '- jaeger' if shiftmon_jaeger_grpc_receiver_endpoint is defined or shiftmon_jaeger_thrift_compact_receiver_endpoint is defined }}
       processors:
         - batch
         - resourcedetection/system
       exporters:
         - otlphttp/traces
+{% endif %}
     metrics:
       receivers:
-        - otlp
         - hostmetrics
         - prometheus
-        {{ '- docker_stats' if 'docker.service' in ansible_facts.services else Continue }}
+        {{ '- otlp' if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined }}
+        {{ '- docker_stats' if 'docker.service' in ansible_facts.services }}
+{% if shiftmon_httpchecks is defined %}
+{% for check in shiftmon_httpchecks %}
+        - httpcheck/{{ check.name }}
+{% endfor %}
+{% endif %}
       processors:
         - batch
         - resourcedetection/system
@@ -124,10 +159,10 @@ service:
         - otlphttp/metrics
     logs:
       receivers:
-        - otlp
         - journald
-        {{ '- filelog/tetragon' if 'tetragon.service' in ansible_facts.services else Continue }}
         - syslog
+        {{ '- filelog/tetragon' if 'tetragon.service' in ansible_facts.services }}
+        {{ '- otlp' if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined }}
       processors:
         - batch
         - resourcedetection/system

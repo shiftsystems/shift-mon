@@ -6,7 +6,7 @@
   when: syslog is defined and syslog == "rsyslog"
   notify: Restart Syslog
 
-- name: Remove Telegraf config
+- name: Remove syslog Telegraf config
   ansible.builtin.file:
     path: /etc/rsyslog.d/50-telegraf.conf
     state: absent
@@ -73,6 +73,9 @@
     dest: /etc/otelcol-contrib/config.yaml
   become: true
   notify: Restart otel collector
+
+- name: Validate configuration
+  ansible.builtin.shell: '/usr/bin/otelcol-contrib validate --config /etc/otelcol-contrib/config.yaml'
 
 - name: Start and enabled Otel collector
   ansible.builtin.systemd:
