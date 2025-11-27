@@ -1,3 +1,6 @@
+- name: Gather Systemd units
+  ansible.builtin.service_facts:
+
 - name: Install Rsyslog
   ansible.builtin.package:
     name: rsyslog
@@ -5,6 +8,21 @@
   become: true
   when: syslog is defined and syslog == "rsyslog"
   notify: Restart Syslog
+
+- name: Stop Telegraf
+  ansible.builtin.systemd:
+    name: telegraf
+    state: stopped
+    enabled: true
+  become: true
+  when: "'telegraf.service' in ansible_facts.services"
+
+- name: Uninstall Telegraf
+  ansible.builtin.package:
+    name: telegraf
+    state: absent
+  become: true
+  when: "'telegraf.service' in ansible_facts.services"
 
 - name: Remove syslog Telegraf config
   ansible.builtin.file:
@@ -51,21 +69,34 @@
   when: ansible_facts['os_family'] == "Debian"
   notify: Restart otel collector
 
-- name: Ensure override directory
+- name: Ensure override service directory
   ansible.builtin.file:
     path: /etc/systemd/system/otelcol-contrib.service.d
     state: directory
   become: true
 
-- name: Set Otel Collector
+- name: Set Otel Collector Systemd Settings
   ansible.builtin.template:
     src: override.conf
     dest: /etc/systemd/system/otelcol-contrib.service.d/override.conf
   become: true
   notify: Restart otel collector
 
-- name: Gather Systemd units
-  ansible.builtin.service_facts:
+
+- name: Create docker group when docker is selected
+  ansible.builtin.group:
+    name: docker
+    state: present
+  when: "'docker.service' in ansible_facts.services and 'docker' not in shiftmon_do_not_instrument"
+
+- name: Add otel collector user to docker group when docker is installed
+  ansible.builtin.user:
+    name: "{{ shiftmon_otel_collector_user }}"
+    groups: docker
+    append: true
+  become: true
+  when: "'docker.service' in ansible_facts.services and 'docker' not in shiftmon_do_not_instrument"
+  notify: Restart otel collector
 
 - name: Ensure Otel collector config
   ansible.builtin.template:

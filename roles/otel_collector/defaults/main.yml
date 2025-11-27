@@ -1,3 +1,6 @@
+shiftmon_do_not_instrument: []
+shiftmon_json_apps: '.*synapse.*|.*traefik.*'
+shiftmon_user_json_apps: ''
 shiftmon_otlp_metrics_endpoint: "{{ victoriametrics_url }}/opentelemetry/v1/metrics"
 shiftmon_otlp_logs_endpoint: "{{ victorialogs_url }}/insert/opentelemetry/v1/logs"
 shiftmon_otlp_traces_endpoint: "{{ victoriatraces_url }}/insert/opentelemetry/v1/traces"

@@ -50,6 +50,28 @@ receivers:
           - "{{ check.url }}"
 {% endfor %}
 {% endif %}
+{% if shiftmon_postgres_endpoints is defined %}
+{% for endpoint in shiftmon_postgres_endpoints %}
+  postgresql:
+    endpoint: '{{ endpoint.hostname }}'
+    transport: {{ endpoint.transport | default('tcp') }}
+    username: '{{ endpoint.username }}'
+    password: '{{ endpoint.password }}'
+    tls:
+      insecure: {{ endpoint.is_secure | default('true') }}
+    collection_interval: '{{ endpoint.collection_interval | default('10s') }}'
+    events:
+      db.server.query_sample:
+        enabled: true
+      db.server.top_query:
+        enabled: true
+    query_sample_collection:
+      max_rows_per_query: {{ endpoint.max_rows_per_query | default('100') }}
+    top_query_collection:
+      max_rows_per_query: {{ endpoint.max_rows_per_query | default('100') }}
+      top_n_query: {{ endpoint.top_n_query | default('100') }}
+{% endfor %}
+{% endif %}
 {% if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined %}
   otlp:
     protocols:
@@ -73,6 +95,15 @@ receivers:
       thrift_compact:
         endpoint: '{{shiftmon_jaeger_thrift_compact_receiver_endpoint }}'
 {% endif %}
+{% if shiftmon_jaeger_thrift_http_receiver_endpoint is defined %}
+      thrift_compact:
+        endpoint: '{{shiftmon_jaeger_thrift_http_receiver_endpoint }}'
+{% endif %}
+{% if shiftmon_jaeger_thrift_binary_receiver_endpoint is defined %}
+      thrift_compact:
+        endpoint: '{{shiftmon_jaeger_thrift_binary_receiver_endpoint }}'
+{% endif %}
+
 {% endif %}
   syslog:
     {{ shiftmon_syslog_proto }}:
@@ -91,6 +122,7 @@ receivers:
 {% if 'docker.service' in ansible_facts.services %}
   docker_stats:
     endpoint: '{{ shiftmon_docker_endpoint }}'
+    api_version: "1.44"
 {% endif %}
 processors:
   batch:
@@ -101,6 +133,13 @@ processors:
       hostname_sources:
         - "os"
         - "dns"
+  transform/parse_structured_logs:
+    log_statements:
+      - context: log
+        conditions:
+          - IsMatch(attributes["appname"], "{{ shiftmon_json_apps }}|{{ shiftmon_user_json_apps }}")
+        statements:
+          - merge_maps(log.attributes, ParseJSON(attributes["message"]), "insert")
   transform/parse_pbs_tasks:
     error_mode: ignore
     log_statements:
@@ -127,6 +166,10 @@ exporters:
       authenticator: bearertokenauth
   otlphttp/traces:
     traces_endpoint: '{{ shiftmon_otlp_traces_endpoint }}'
+    compression: gzip
+    encoding: proto
+    auth:
+      authenticator: bearertokenauth
 
 service:
   pipelines:
@@ -147,6 +190,7 @@ service:
         - prometheus
         {{ '- otlp' if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined }}
         {{ '- docker_stats' if 'docker.service' in ansible_facts.services }}
+        {{ '- postgresql' if shiftmon_postgres_endpoints is defined  }}
 {% if shiftmon_httpchecks is defined %}
 {% for check in shiftmon_httpchecks %}
         - httpcheck/{{ check.name }}
@@ -166,6 +210,7 @@ service:
       processors:
         - batch
         - resourcedetection/system
+        - transform/parse_structured_logs
         - transform/parse_pbs_tasks
       exporters:
         - otlphttp/logs
