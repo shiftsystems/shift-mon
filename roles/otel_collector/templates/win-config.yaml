@@ -1,0 +1,125 @@
+extensions:
+  health_check:
+  pprof:
+    endpoint: 0.0.0.0:1777
+  zpages:
+    endpoint: 0.0.0.0:55679
+  bearertokenauth:
+    scheme: "Bearer"
+    token: "$SHIFTMON_TOKEN"
+receivers:
+  hostmetrics:
+    collection_interval: 10s # default = 1m
+    initial_delay: 1s # default = 1s
+    scrapers:
+      cpu:
+      disk:
+      filesystem:
+      memory:
+      network:
+        exclude:
+          interfaces:
+            - 'veth.*'
+          match_type: regexp
+      paging:
+      process:
+        include:
+          match_type: 'regexp'
+          names:
+            - otelcol-contrib
+            - tetragon
+      processes:
+      system:
+  prometheus:
+    config:
+      scrape_configs:
+      - job_name: 'otel-collector'
+        scrape_interval: 10s
+        static_configs:
+        - targets:
+            - '0.0.0.0:8888'
+  windowseventlog/application:
+    channel: application
+  windowseventlog/security:
+    channel: security
+  windowseventlog/sysmon:
+    channel: Microsoft-Windows-Sysmon/Operational
+processors:
+  batch:
+  resourcedetection/system:
+    detectors:
+      - "system"
+    system:
+      hostname_sources:
+        - "os"
+        - "dns"
+  transform/parse_structured_logs:
+    log_statements:
+      - context: log
+        conditions:
+          - IsMatch(attributes["appname"], ".*synapse.*|.*traefik.*|")
+        statements:
+          - merge_maps(log.attributes, ParseJSON(body), "insert")
+      - context: log
+        conditions:
+          - attributes["event_type"] == "Sysmon"
+        statements:
+          - merge_maps(log.attributes, ParseJSON(body["event_data"]["data"]),"insert")
+  transform/parse_pbs_tasks:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        conditions:
+          - IsMatch(body,"pbs.*")
+        statements:
+          - merge_maps(log.attributes, ExtractGrokPatterns(log.attributes["message"], "UPID:%{DATA:pbs_host}:%{DATA:task_id_1}:%{DATA:task_id_2}:%{DATA:task_id_3}:%{DATA:task_id_4}:%{DATA:cmd}:%{DATA:task_path}:%{DATA:user}:%{GREEDYDATA:log_message}", true, ["WOOHOO=%{ELB_URI} otel"]), "insert")
+exporters:
+  otlphttp/metrics:
+    metrics_endpoint: '$SHIFTMON_METRICS_ENDPOINT'
+    compression: gzip
+    encoding: proto
+    auth:
+      authenticator: bearertokenauth
+  otlphttp/logs:
+    logs_endpoint: '$SHIFTMON_LOGS_ENDPOINT'
+    compression: gzip
+    encoding: proto
+    headers:
+      VL-Msg-Field: 'message,MESSAGE'
+      VL-Stream-Fields: 'host.name,appname,provider.name,channel,log.file.name'
+    auth:
+      authenticator: bearertokenauth
+  otlphttp/traces:
+    traces_endpoint: '$SHFITMON_TRACES_ENDPOINT'
+    compression: gzip
+    encoding: proto
+    auth:
+      authenticator: bearertokenauth
+service:
+  pipelines:
+    metrics:
+      receivers:
+        - hostmetrics
+        - prometheus
+      processors:
+        - batch
+        - resourcedetection/system
+      exporters:
+        - otlphttp/metrics
+    logs:
+      receivers:
+        - windowseventlog/application
+        - windowseventlog/security
+        - windowseventlog/sysmon
+      processors:
+        - batch
+        - resourcedetection/system
+        - transform/parse_structured_logs
+        - transform/parse_pbs_tasks
+      exporters:
+        - otlphttp/logs
+  extensions:
+    - health_check
+    - pprof
+    - zpages
+    - bearertokenauth
