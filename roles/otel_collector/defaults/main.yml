@@ -8,6 +8,13 @@ shiftmon_otel_collector_user: root
 shiftmon_otel_processes:
   - otelcol-contrib
   - tetragon
+shiftmon_prometheus_scrape_config:
+  scrape_configs:
+  - job_name: 'otel-collector'
+    scrape_interval: 10s
+    static_configs:
+    - targets:
+      - '0.0.0.0:8888'
 shiftmon_docker_endpoint: 'unix:///var/run/docker.sock'
 shiftmon_otel_collector_version: '0.139.0'
 shiftmon_syslog_listen_address: '0.0.0.0'
