@@ -18,16 +18,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 179,
+  "id": 28,
   "links": [
     {
       "asDropdown": true,
       "icon": "external link",
       "includeVars": true,
       "keepTime": true,
-      "tags": [
-        "windows"
-      ],
+      "tags": ["windows"],
       "targetBlank": true,
       "title": "Dashboards",
       "tooltip": "",
@@ -87,26 +85,22 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "fields": "",
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-19842126546",
       "targets": [
         {
           "datasource": {
@@ -114,7 +108,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText) count() events",
+          "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText) count() events",
           "queryType": "range",
           "refId": "A"
         }
@@ -192,6 +186,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -207,7 +202,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -227,11 +222,7 @@
       "id": 5,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
@@ -244,7 +235,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-19842126546",
       "targets": [
         {
           "datasource": {
@@ -252,7 +243,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText,_time:1m) count() \" \"",
+          "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText) count() \" \"",
           "legendFormat": "{{fields.TaskText}}",
           "queryType": "statsRange",
           "refId": "A"
@@ -287,9 +278,7 @@
           "disabled": true,
           "id": "partitionByValues",
           "options": {
-            "fields": [
-              "fields.TaskText"
-            ],
+            "fields": ["fields.TaskText"],
             "keepFields": true,
             "naming": {
               "asLabels": true
@@ -322,12 +311,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-19842126546",
       "targets": [
         {
           "datasource": {
@@ -335,7 +325,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational",
+          "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational",
           "queryType": "range",
           "refId": "A"
         }
@@ -370,6 +360,9 @@
                   "type": "auto"
                 },
                 "filterable": true,
+                "footer": {
+                  "reducers": []
+                },
                 "inspect": false
               },
               "mappings": [],
@@ -377,7 +370,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -446,18 +440,10 @@
           "id": 18,
           "options": {
             "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -465,7 +451,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:13",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:13",
               "queryType": "range",
               "refId": "A"
             }
@@ -590,6 +576,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -604,7 +591,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -619,16 +607,12 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 207
+            "y": 27
           },
           "id": 46,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -636,11 +620,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -648,7 +633,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.TaskText,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.TaskText) count() \" \"",
               "legendFormat": "{{fields.TaskText}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -685,7 +670,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 216
+            "y": 36
           },
           "id": 48,
           "maxDataPoints": 3,
@@ -695,25 +680,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -721,7 +703,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User) count() \" \"",
               "legendFormat": "{{fields.Data_User}}",
               "queryType": "stats",
               "refId": "A"
@@ -765,6 +747,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -779,7 +762,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -794,16 +778,12 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 216
+            "y": 36
           },
           "id": 47,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -811,11 +791,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -823,7 +804,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User) count() \" \"",
               "legendFormat": "{{fields.Data_User}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -860,7 +841,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 225
+            "y": 45
           },
           "id": 49,
           "maxDataPoints": 3,
@@ -870,25 +851,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -896,7 +874,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image) count() \" \"",
               "legendFormat": "{{fields.Data_Image}}",
               "queryType": "stats",
               "refId": "A"
@@ -940,6 +918,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -954,7 +933,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -969,16 +949,12 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 225
+            "y": 45
           },
           "id": 50,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -986,11 +962,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -998,47 +975,13 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image,_time:1m) count() \" \"",
-              "queryType": "range",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image) count() \" \"",
+              "legendFormat": "{{fields.Data_Image}}",
+              "queryType": "statsRange",
               "refId": "A"
             }
           ],
           "title": "Registry Events per Image",
-          "transformations": [
-            {
-              "id": "extractFields",
-              "options": {
-                "format": "auto",
-                "keepTime": false,
-                "replace": false,
-                "source": "Line"
-              }
-            },
-            {
-              "id": "convertFieldType",
-              "options": {
-                "conversions": [
-                  {
-                    "destinationType": "number",
-                    "targetField": " "
-                  }
-                ],
-                "fields": {}
-              }
-            },
-            {
-              "id": "partitionByValues",
-              "options": {
-                "fields": [
-                  "fields.Data_Image"
-                ],
-                "keepFields": true,
-                "naming": {
-                  "asLabels": true
-                }
-              }
-            }
-          ],
           "type": "timeseries"
         }
       ],
@@ -1072,6 +1015,9 @@
                   "type": "auto"
                 },
                 "filterable": true,
+                "footer": {
+                  "reducers": []
+                },
                 "inspect": false
               },
               "mappings": [],
@@ -1079,7 +1025,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -1148,18 +1095,10 @@
           "id": 51,
           "options": {
             "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -1167,7 +1106,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)",
               "queryType": "range",
               "refId": "A"
             }
@@ -1294,6 +1233,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -1308,7 +1248,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -1323,16 +1264,12 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 140
+            "y": 28
           },
           "id": 52,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -1340,11 +1277,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -1352,47 +1290,13 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26) | stats by (fields.TaskText,_time:1m) count() \" \"",
-              "queryType": "range",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26) | stats by (fields.TaskText,_time:1m) count() \" \"",
+              "legendFormat": "{{fields.TaskText}}",
+              "queryType": "statsRange",
               "refId": "A"
             }
           ],
           "title": "File Events",
-          "transformations": [
-            {
-              "id": "extractFields",
-              "options": {
-                "format": "auto",
-                "keepTime": false,
-                "replace": false,
-                "source": "Line"
-              }
-            },
-            {
-              "id": "convertFieldType",
-              "options": {
-                "conversions": [
-                  {
-                    "destinationType": "number",
-                    "targetField": " "
-                  }
-                ],
-                "fields": {}
-              }
-            },
-            {
-              "id": "partitionByValues",
-              "options": {
-                "fields": [
-                  "fields.TaskText"
-                ],
-                "keepFields": true,
-                "naming": {
-                  "asLabels": true
-                }
-              }
-            }
-          ],
           "type": "timeseries"
         },
         {
@@ -1423,7 +1327,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 149
+            "y": 37
           },
           "id": 55,
           "maxDataPoints": 3,
@@ -1433,25 +1337,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -1459,7 +1360,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1530,7 +1431,7 @@
             "h": 9,
             "w": 6,
             "x": 12,
-            "y": 149
+            "y": 37
           },
           "id": 56,
           "maxDataPoints": 3,
@@ -1540,25 +1441,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -1566,7 +1464,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.TaskText) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.TaskText) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1637,7 +1535,7 @@
             "h": 9,
             "w": 6,
             "x": 18,
-            "y": 149
+            "y": 37
           },
           "id": 57,
           "maxDataPoints": 3,
@@ -1647,25 +1545,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -1673,7 +1568,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -1751,6 +1646,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -1765,7 +1661,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -1780,16 +1677,12 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 158
+            "y": 46
           },
           "id": 53,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -1797,11 +1690,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -1809,7 +1703,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_Image}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -1853,6 +1747,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -1867,7 +1762,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -1882,16 +1778,12 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 158
+            "y": 46
           },
           "id": 54,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -1899,11 +1791,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -1911,47 +1804,13 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User,_time:1m) count() \" \"",
-              "queryType": "range",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User) count() \" \"",
+              "legendFormat": "{{fields.Data_User}}",
+              "queryType": "statsRange",
               "refId": "A"
             }
           ],
           "title": "Registry Events per Image",
-          "transformations": [
-            {
-              "id": "extractFields",
-              "options": {
-                "format": "auto",
-                "keepTime": false,
-                "replace": false,
-                "source": "Line"
-              }
-            },
-            {
-              "id": "convertFieldType",
-              "options": {
-                "conversions": [
-                  {
-                    "destinationType": "number",
-                    "targetField": " "
-                  }
-                ],
-                "fields": {}
-              }
-            },
-            {
-              "id": "partitionByValues",
-              "options": {
-                "fields": [
-                  "fields.Data_User"
-                ],
-                "keepFields": true,
-                "naming": {
-                  "asLabels": true
-                }
-              }
-            }
-          ],
           "type": "timeseries"
         }
       ],
@@ -2016,15 +1875,17 @@
           "id": 58,
           "options": {
             "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
             "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
+            "showControls": false,
             "showLabels": false,
             "showTime": true,
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2032,7 +1893,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)",
               "queryType": "range",
               "refId": "A"
             }
@@ -2075,6 +1936,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -2089,7 +1951,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -2104,16 +1967,12 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 97
+            "y": 29
           },
           "id": 59,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -2121,11 +1980,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2133,7 +1993,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.TaskText,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.TaskText,_time:1m) count() \" \"",
               "legendFormat": "{{fields.TaskText}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2170,7 +2030,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 106
+            "y": 38
           },
           "id": 60,
           "maxDataPoints": 3,
@@ -2180,25 +2040,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2206,7 +2063,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_User) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_User) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -2284,6 +2141,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -2298,7 +2156,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -2313,16 +2172,12 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 106
+            "y": 38
           },
           "id": 61,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -2330,11 +2185,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2342,7 +2198,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_User,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_User,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_User}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2379,7 +2235,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 115
+            "y": 47
           },
           "id": 64,
           "maxDataPoints": 3,
@@ -2389,25 +2245,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2415,7 +2268,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_Image) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_Image) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -2493,6 +2346,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -2507,7 +2361,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -2522,16 +2377,12 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 115
+            "y": 47
           },
           "id": 65,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -2539,11 +2390,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2551,7 +2403,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_Image,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_Image,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_Image}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2588,7 +2440,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 124
+            "y": 56
           },
           "id": 62,
           "maxDataPoints": 3,
@@ -2598,25 +2450,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2624,7 +2473,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_CurrentDirectory) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_CurrentDirectory) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -2702,6 +2551,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -2716,7 +2566,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -2731,16 +2582,12 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 124
+            "y": 56
           },
           "id": 63,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -2748,11 +2595,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2760,7 +2608,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_CurrentDirectory,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5) | stats by (fields.Data_CurrentDirectory,_time:1m) count() \" \"",
               "legendFormat": "{{fields.Data_CurrentDirectory}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2831,15 +2679,17 @@
           "id": 72,
           "options": {
             "dedupStrategy": "none",
+            "enableInfiniteScrolling": false,
             "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
+            "showControls": false,
             "showLabels": false,
             "showTime": false,
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2847,7 +2697,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(3)",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(3)",
               "queryType": "range",
               "refId": "A"
             }
@@ -2890,6 +2740,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -2904,7 +2755,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -2919,16 +2771,12 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 65
+            "y": 30
           },
           "id": 73,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -2936,11 +2784,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -2948,7 +2797,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.TaskText,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.TaskText,_time:1m) count() \" \"",
               "legendFormat": "{{tags.host}} - {{fields.TaskText}}",
               "queryType": "statsRange",
               "refId": "A"
@@ -2992,6 +2841,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -3006,7 +2856,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -3021,16 +2872,12 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 73
+            "y": 38
           },
           "id": 77,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -3038,11 +2885,12 @@
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "desc"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -3050,7 +2898,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.Data_Image,_time:1m) count() \" \"",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (tags.host,fields.Data_Image,_time:1m) count() \" \"",
               "queryType": "range",
               "refId": "A"
             }
@@ -3081,9 +2929,7 @@
             {
               "id": "partitionByValues",
               "options": {
-                "fields": [
-                  "fields.Data_Image"
-                ],
+                "fields": ["fields.Data_Image"],
                 "keepFields": true,
                 "naming": {
                   "asLabels": true
@@ -3121,7 +2967,7 @@
             "h": 9,
             "w": 6,
             "x": 0,
-            "y": 81
+            "y": 46
           },
           "id": 74,
           "maxDataPoints": 3,
@@ -3131,25 +2977,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -3157,7 +3000,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_User) count() events",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_User) count() events",
               "queryType": "range",
               "refId": "A"
             }
@@ -3228,7 +3071,7 @@
             "h": 9,
             "w": 6,
             "x": 6,
-            "y": 81
+            "y": 46
           },
           "id": 75,
           "maxDataPoints": 3,
@@ -3238,25 +3081,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -3264,7 +3104,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_DestinationPort) count() events",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_DestinationPort) count() events",
               "queryType": "range",
               "refId": "A"
             }
@@ -3335,7 +3175,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 81
+            "y": 46
           },
           "id": 76,
           "maxDataPoints": 3,
@@ -3345,25 +3185,22 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
+            "sort": "desc",
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -3371,7 +3208,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_Image) count() events",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_Image) count() events",
               "queryType": "range",
               "refId": "A"
             }
@@ -3419,7 +3256,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3427,741 +3264,692 @@
         "y": 22
       },
       "id": 12,
-      "panels": [],
+      "panels": [
+        {
+          "datasource": {
+            "default": false,
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "footer": {
+                  "reducers": []
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 167
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Data_ProcessId"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 121
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Data_EventType"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 126
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "fields.Data_Image"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 282
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 23
+          },
+          "id": 66,
+          "options": {
+            "cellHeight": "sm",
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "12.4.0-19842126546",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22)",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "File Events",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "keepTime": false,
+                "replace": false,
+                "source": "labels"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Line": true,
+                  "_stream_id": true,
+                  "fields.Data_CreationUtcTime": true,
+                  "fields.Data_Details": false,
+                  "fields.Data_EventType": false,
+                  "fields.Data_PreviousCreationUtcTime": true,
+                  "fields.Data_ProcessGuid": true,
+                  "fields.Data_ProcessId": false,
+                  "fields.Data_RuleName": true,
+                  "fields.Data_UtcTime": true,
+                  "fields.EventRecordID": true,
+                  "fields.OpcodeText": true,
+                  "fields.ProcessName": true,
+                  "fields.Task": true,
+                  "fields.TaskText": true,
+                  "fields.TimeCreated": true,
+                  "fields.UserID": true,
+                  "fields.UserName": true,
+                  "fields.Version": true,
+                  "fields.order": true,
+                  "labels": true,
+                  "name": true,
+                  "tags.Channel": true,
+                  "tags.Computer": true,
+                  "tags.EventID": true,
+                  "tags.Keywords": true,
+                  "tags.Level": true,
+                  "tags.LevelText": true,
+                  "tags.Source": true
+                },
+                "includeByName": {},
+                "indexByName": {
+                  "Line": 10,
+                  "Time": 0,
+                  "_stream_id": 12,
+                  "fields.Data_Image": 3,
+                  "fields.Data_ProcessGuid": 9,
+                  "fields.Data_ProcessId": 4,
+                  "fields.Data_QueryName": 5,
+                  "fields.Data_QueryResults": 6,
+                  "fields.Data_QueryStatus": 7,
+                  "fields.Data_RuleName": 13,
+                  "fields.Data_User": 2,
+                  "fields.Data_UtcTime": 14,
+                  "fields.EventRecordID": 15,
+                  "fields.OpcodeText": 16,
+                  "fields.ProcessName": 17,
+                  "fields.Task": 18,
+                  "fields.TaskText": 8,
+                  "fields.TimeCreated": 19,
+                  "fields.UserID": 20,
+                  "fields.UserName": 21,
+                  "fields.Version": 22,
+                  "fields.order": 23,
+                  "labels": 11,
+                  "name": 24,
+                  "tags.Channel": 25,
+                  "tags.Computer": 26,
+                  "tags.EventID": 27,
+                  "tags.Keywords": 28,
+                  "tags.Level": 29,
+                  "tags.LevelText": 30,
+                  "tags.Source": 31,
+                  "tags.host": 1
+                },
+                "renameByName": {
+                  "Line": "Message"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 31
+          },
+          "id": 67,
+          "options": {
+            "legend": {
+              "calcs": ["min", "max", "mean"],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Max",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.4.0-19842126546",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (tags.host) count() \"Queries\"",
+              "legendFormat": "{{tags.host}}",
+              "queryType": "statsRange",
+              "refId": "A"
+            }
+          ],
+          "title": "Dns Lookups per Domain",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 40
+          },
+          "id": 68,
+          "options": {
+            "legend": {
+              "calcs": ["min", "max", "mean"],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Max",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.4.0-19842126546",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (fields.Data_QueryName,_time:1m) count() \" \"",
+              "legendFormat": "{{fields.Data_QueryName}}",
+              "queryType": "statsRange",
+              "refId": "A"
+            }
+          ],
+          "title": "Dns Lookups per Domain",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "victorialogs-datasource",
+            "uid": "P4463C362D59DE675"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 40
+          },
+          "id": 70,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": ["value", "percent"]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": ["sum"],
+              "fields": "",
+              "values": true
+            },
+            "sort": "desc",
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.4.0-19842126546",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "P4463C362D59DE675"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_QueryName) count() \" \"",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Registry Events Per Image",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "source": "labels"
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": " "
+                  }
+                ],
+                "fields": {}
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Line": true,
+                  "Time": false,
+                  "client_ip": false,
+                  "labels": false,
+                  "requests": false
+                },
+                "includeByName": {},
+                "indexByName": {},
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "piechart"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "victorialogs-datasource",
+            "uid": "${logs}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 49
+          },
+          "id": 69,
+          "options": {
+            "legend": {
+              "calcs": ["min", "max", "mean"],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Max",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "12.4.0-19842126546",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "${logs}"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22 | stats by (fields.Data_Image) count() \" \"",
+              "legendFormat": "{{fields.Data_Image}}",
+              "queryType": "statsRange",
+              "refId": "A"
+            }
+          ],
+          "title": "Dns Lookups per Domain",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "victorialogs-datasource",
+            "uid": "P4463C362D59DE675"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 49
+          },
+          "id": 71,
+          "maxDataPoints": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": ["value", "percent"]
+            },
+            "pieType": "donut",
+            "reduceOptions": {
+              "calcs": ["sum"],
+              "fields": "",
+              "values": true
+            },
+            "sort": "desc",
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.4.0-19842126546",
+          "targets": [
+            {
+              "datasource": {
+                "type": "victorialogs-datasource",
+                "uid": "P4463C362D59DE675"
+              },
+              "editorMode": "code",
+              "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_Image) count() \" \"",
+              "legendFormat": "{{fields.Data_Image}}",
+              "queryType": "stats",
+              "refId": "A"
+            }
+          ],
+          "title": "DNS Queries Per Image",
+          "type": "piechart"
+        }
+      ],
       "title": "DNS Events",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 167
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Data_ProcessId"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 121
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Data_EventType"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 126
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "fields.Data_Image"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 282
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 23
-      },
-      "id": 66,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "11.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "victorialogs-datasource",
-            "uid": "${logs}"
-          },
-          "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22)",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "File Events",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "keepTime": false,
-            "replace": false,
-            "source": "labels"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "_stream_id": true,
-              "fields.Data_CreationUtcTime": true,
-              "fields.Data_Details": false,
-              "fields.Data_EventType": false,
-              "fields.Data_PreviousCreationUtcTime": true,
-              "fields.Data_ProcessGuid": true,
-              "fields.Data_ProcessId": false,
-              "fields.Data_RuleName": true,
-              "fields.Data_UtcTime": true,
-              "fields.EventRecordID": true,
-              "fields.OpcodeText": true,
-              "fields.ProcessName": true,
-              "fields.Task": true,
-              "fields.TaskText": true,
-              "fields.TimeCreated": true,
-              "fields.UserID": true,
-              "fields.UserName": true,
-              "fields.Version": true,
-              "fields.order": true,
-              "labels": true,
-              "name": true,
-              "tags.Channel": true,
-              "tags.Computer": true,
-              "tags.EventID": true,
-              "tags.Keywords": true,
-              "tags.Level": true,
-              "tags.LevelText": true,
-              "tags.Source": true
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Line": 10,
-              "Time": 0,
-              "_stream_id": 12,
-              "fields.Data_Image": 3,
-              "fields.Data_ProcessGuid": 9,
-              "fields.Data_ProcessId": 4,
-              "fields.Data_QueryName": 5,
-              "fields.Data_QueryResults": 6,
-              "fields.Data_QueryStatus": 7,
-              "fields.Data_RuleName": 13,
-              "fields.Data_User": 2,
-              "fields.Data_UtcTime": 14,
-              "fields.EventRecordID": 15,
-              "fields.OpcodeText": 16,
-              "fields.ProcessName": 17,
-              "fields.Task": 18,
-              "fields.TaskText": 8,
-              "fields.TimeCreated": 19,
-              "fields.UserID": 20,
-              "fields.UserName": 21,
-              "fields.Version": 22,
-              "fields.order": 23,
-              "labels": 11,
-              "name": 24,
-              "tags.Channel": 25,
-              "tags.Computer": 26,
-              "tags.EventID": 27,
-              "tags.Keywords": 28,
-              "tags.Level": 29,
-              "tags.LevelText": 30,
-              "tags.Source": 31,
-              "tags.host": 1
-            },
-            "renameByName": {
-              "Line": "Message"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "bars",
-            "fillOpacity": 100,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 31
-      },
-      "id": 67,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "11.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "victorialogs-datasource",
-            "uid": "${logs}"
-          },
-          "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (_time:1m,tags.host) count() \"Queries\"",
-          "legendFormat": "{{tags.host}}",
-          "queryType": "statsRange",
-          "refId": "A"
-        }
-      ],
-      "title": "Dns Lookups per Domain",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "bars",
-            "fillOpacity": 100,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 40
-      },
-      "id": 68,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "victorialogs-datasource",
-            "uid": "${logs}"
-          },
-          "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(22) | stats by (fields.Data_QueryName,_time:1m) count() \" \"",
-          "legendFormat": "{{fields.Data_QueryName}}",
-          "queryType": "statsRange",
-          "refId": "A"
-        }
-      ],
-      "title": "Dns Lookups per Domain",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "P4463C362D59DE675"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 40
-      },
-      "id": 70,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
-          },
-          "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_QueryName) count() \" \"",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Registry Events Per Image",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "source": "labels"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": " "
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": false,
-              "client_ip": false,
-              "labels": false,
-              "requests": false
-            },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "${logs}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "bars",
-            "fillOpacity": 100,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 49
-      },
-      "id": 69,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "victorialogs-datasource",
-            "uid": "${logs}"
-          },
-          "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22 | stats by (fields.Data_Image,_time:1m) count() \" \"",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Dns Lookups per Domain",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "format": "auto",
-            "keepTime": false,
-            "replace": false,
-            "source": "Line"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": " "
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "partitionByValues",
-          "options": {
-            "fields": [
-              "fields.Data_Image"
-            ],
-            "keepFields": true,
-            "naming": {
-              "asLabels": true
-            }
-          }
-        }
-      ],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "victorialogs-datasource",
-        "uid": "P4463C362D59DE675"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 49
-      },
-      "id": 71,
-      "maxDataPoints": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
-          },
-          "editorMode": "code",
-          "expr": "tags.host:~$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_Image) count() \" \"",
-          "legendFormat": "{{fields.Data_Image}}",
-          "queryType": "stats",
-          "refId": "A"
-        }
-      ],
-      "title": "DNS Queries Per Image",
-      "type": "piechart"
     }
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -4181,9 +3969,7 @@
       {
         "current": {
           "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "value": ["$__all"]
         },
         "datasource": {
           "type": "loki",
@@ -4215,6 +4001,5 @@
   "timezone": "browser",
   "title": "Sysmon",
   "uid": "shiftmon-sysmon",
-  "version": 1,
-  "weekStart": ""
+  "version": 3
 }

@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 41,
+  "id": 45,
   "links": [],
   "panels": [
     {
@@ -48,6 +48,9 @@
             "align": "auto",
             "cellOptions": {
               "type": "auto"
+            },
+            "footer": {
+              "reducers": []
             },
             "inspect": false
           },
@@ -90,18 +93,10 @@
       "id": 1,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "frameIndex": 1,
         "showHeader": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0-19842126546",
       "targets": [
         {
           "datasource": {
@@ -109,7 +104,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "tags.host:~\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_bytes_toserver) as \"Bytes to Server\"",
+          "expr": "tags.host:\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_bytes_toserver) as \"Bytes to Server\"",
           "queryType": "instant",
           "refId": "A"
         },
@@ -119,7 +114,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "tags.host:~\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_bytes_toclient) as \"Bytes to Client\"",
+          "expr": "tags.host:\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_bytes_toclient) as \"Bytes to Client\"",
           "hide": false,
           "queryType": "instant",
           "refId": "B"
@@ -130,7 +125,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "tags.host:~\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_pkts_toserver) as \"Packets to Server\"",
+          "expr": "tags.host:\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_pkts_toserver) as \"Packets to Server\"",
           "hide": false,
           "queryType": "instant",
           "refId": "C"
@@ -141,7 +136,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "tags.host:~\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_pkts_toclient) as \"Packets to to Client\"",
+          "expr": "tags.host:\"$host\" AND tags.appname:suricata | stats by (tags.host) sum(fields.flow_pkts_toclient) as \"Packets to to Client\"",
           "hide": false,
           "queryType": "instant",
           "refId": "D"
@@ -152,7 +147,7 @@
             "uid": "P4463C362D59DE675"
           },
           "editorMode": "code",
-          "expr": "tags.host:~\"$host\" AND tags.appname:suricata | stats by (tags.host) count_uniq(fields.flow_id) as \"Flows\"",
+          "expr": "tags.host:\"$host\" AND tags.appname:suricata | stats by (tags.host) count_uniq(fields.flow_id) as \"Flows\"",
           "hide": false,
           "queryType": "instant",
           "refId": "E"
@@ -222,6 +217,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -258,11 +254,7 @@
           "id": 5,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -275,7 +267,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -283,7 +275,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_bytes_toclient)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_bytes_toclient)",
               "legendFormat": "{{ $fields }}",
               "queryType": "statsRange",
               "refId": "A"
@@ -329,16 +321,11 @@
               "showLegend": true,
               "sortBy": "Value",
               "sortDesc": false,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": true
             },
@@ -349,7 +336,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -357,7 +344,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_bytes_toclient)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_bytes_toclient)",
               "legendFormat": "{{ $fields  }}",
               "queryType": "stats",
               "refId": "A"
@@ -400,6 +387,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -436,11 +424,7 @@
           "id": 10,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -453,7 +437,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -461,7 +445,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_pkts_toclient)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_pkts_toclient)",
               "legendFormat": "{{ $fields }}",
               "queryType": "statsRange",
               "refId": "A"
@@ -506,16 +490,11 @@
               "showLegend": true,
               "sortBy": "Value",
               "sortDesc": false,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": true
             },
@@ -526,7 +505,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -534,7 +513,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_pkts_toclient)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_pkts_toclient)",
               "legendFormat": "{{ $fields  }}",
               "queryType": "stats",
               "refId": "A"
@@ -577,6 +556,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -613,11 +593,7 @@
           "id": 6,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -630,7 +606,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -638,7 +614,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_bytes_toserver)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_bytes_toserver)",
               "legendFormat": "{{ $fields }}",
               "queryType": "statsRange",
               "refId": "A"
@@ -684,16 +660,11 @@
               "showLegend": true,
               "sortBy": "Value",
               "sortDesc": false,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": true
             },
@@ -704,7 +675,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -712,7 +683,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_bytes_toserver)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_bytes_toserver)",
               "legendFormat": "{{ $fields  }}",
               "queryType": "stats",
               "refId": "A"
@@ -755,6 +726,7 @@
                   "type": "linear"
                 },
                 "showPoints": "auto",
+                "showValues": false,
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -791,11 +763,7 @@
           "id": 12,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
@@ -808,7 +776,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -816,7 +784,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_pkts_toserver)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) rate_sum(fields.flow_pkts_toserver)",
               "legendFormat": "{{ $fields }}",
               "queryType": "statsRange",
               "refId": "A"
@@ -861,16 +829,11 @@
               "showLegend": true,
               "sortBy": "Value",
               "sortDesc": false,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": true
             },
@@ -881,7 +844,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.1.1",
+          "pluginVersion": "12.4.0-19842126546",
           "targets": [
             {
               "datasource": {
@@ -889,7 +852,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_pkts_toserver)",
+              "expr": "tags.host:\"$host\" AND tags.appname:suricata AND $fields:!=\"\" | stats by (tags.host,$fields) sum(fields.flow_pkts_toserver)",
               "legendFormat": "{{ $fields  }}",
               "queryType": "stats",
               "refId": "A"
@@ -905,7 +868,7 @@
     }
   ],
   "preload": false,
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -938,9 +901,7 @@
         "allowCustomValue": false,
         "current": {
           "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "value": ["$__all"]
         },
         "datasource": {
           "type": "victoriametrics-logs-datasource",
@@ -966,48 +927,27 @@
         "allowCustomValue": true,
         "current": {
           "text": [
-            "$__all"
+            "fields.app_proto",
+            "fields.proto",
+            "fields.src_ip",
+            "fields.dest_ip",
+            "fields.dest_port",
+            "fields.src_port"
           ],
           "value": [
-            "$__all"
+            "fields.app_proto",
+            "fields.proto",
+            "fields.src_ip",
+            "fields.dest_ip",
+            "fields.dest_port",
+            "fields.src_port"
           ]
         },
         "description": "",
-        "includeAll": true,
+        "includeAll": false,
         "multi": true,
         "name": "fields",
-        "options": [
-          {
-            "selected": false,
-            "text": "fields.app_proto",
-            "value": "fields.app_proto"
-          },
-          {
-            "selected": false,
-            "text": "fields.proto",
-            "value": "fields.proto"
-          },
-          {
-            "selected": false,
-            "text": "src_ip",
-            "value": "src_ip"
-          },
-          {
-            "selected": false,
-            "text": "src_port",
-            "value": "src_port"
-          },
-          {
-            "selected": false,
-            "text": "dest_ip",
-            "value": "dest_ip"
-          },
-          {
-            "selected": false,
-            "text": "dest_port",
-            "value": "dest_port"
-          }
-        ],
+        "options": [],
         "query": "fields.app_proto,fields.proto,fields.src_ip,fields.src_port,fields.dest_ip,fields.dest_port",
         "type": "custom"
       }
@@ -1021,5 +961,5 @@
   "timezone": "browser",
   "title": "Suricata",
   "uid": "shiftmon-suricata",
-  "version": 8
+  "version": 2
 }

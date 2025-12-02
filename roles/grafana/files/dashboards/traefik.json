@@ -107,11 +107,7 @@
       "id": 15,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -124,7 +120,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -208,11 +204,7 @@
       "id": 16,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -225,7 +217,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -311,11 +303,7 @@
       "id": 17,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -328,7 +316,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -419,7 +407,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -511,7 +499,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -603,7 +591,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -744,9 +732,7 @@
             "orientation": "horizontal",
             "percentChangeColorMode": "standard",
             "reduceOptions": {
-              "calcs": [
-                "mean"
-              ],
+              "calcs": ["mean"],
               "fields": "",
               "values": false
             },
@@ -821,16 +807,11 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "fields": "",
           "values": true
         },
@@ -841,7 +822,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -849,7 +830,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "_time:$__range AND tags.appname:traefik AND fields.RequestProtocol:!=\"\" AND (tags.host:$host) | stats by(fields.RequestProtocol) count()",
+          "expr": "_time:$__range AND tags.appname:traefik AND fields.RequestProtocol:!=\"\" AND tags.host:\"$host\" | stats by(fields.RequestProtocol) count()",
           "legendFormat": "{{  fields.RequestProtocol }}",
           "queryType": "stats",
           "refId": "A"
@@ -891,16 +872,11 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "percent",
-            "value"
-          ]
+          "values": ["percent", "value"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -911,7 +887,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -961,16 +937,11 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "fields": "",
           "limit": 20,
           "values": true
@@ -982,7 +953,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -990,7 +961,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "_time:$__range AND tags.appname:traefik AND tags.host:~$host | stats by(fields.ClientHost) count()",
+          "expr": "_time:$__range AND tags.appname:traefik AND tags.host:$host | stats by(fields.ClientHost) count()",
           "legendFormat": "{{ fields.ClientHost }}",
           "queryType": "instant",
           "refId": "A"
@@ -1067,16 +1038,11 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "fields": "",
           "limit": 20,
           "values": true
@@ -1088,7 +1054,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1096,7 +1062,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "_time:$__range AND tags.appname:traefik AND (tags.host:$host) | stats by(fields.RequestPath) count()",
+          "expr": "_time:$__range AND tags.appname:traefik AND tags.host:\"$host\" | stats by(fields.RequestPath) count()",
           "legendFormat": "{{  fields.RequestPath }}",
           "queryType": "stats",
           "refId": "A"
@@ -1176,11 +1142,7 @@
       "id": 5,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1191,7 +1153,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1228,9 +1190,7 @@
         {
           "id": "partitionByValues",
           "options": {
-            "fields": [
-              "RequestHost"
-            ],
+            "fields": ["RequestHost"],
             "keepFields": false
           }
         }
@@ -1308,11 +1268,7 @@
       "id": 6,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -1323,7 +1279,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1362,12 +1318,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1375,7 +1332,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:traefik AND (tags.host:$host)",
+          "expr": "tags.appname:traefik AND tags.host:\"$host\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -1405,12 +1362,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.3.0-17932099756",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1418,7 +1376,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:traefik AND tags.host:~\"$host\" fields.DownstreamStatus:~`4.*|5.*`",
+          "expr": "tags.appname:traefik AND tags.host:\"$host\" fields.DownstreamStatus:~`4.*|5.*`",
           "queryType": "instant",
           "refId": "A"
         }
@@ -1461,12 +1419,8 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "text": ["All"],
+          "value": ["$__all"]
         },
         "datasource": {
           "type": "prometheus",
@@ -1496,5 +1450,5 @@
   "timezone": "",
   "title": "Traefik",
   "uid": "shiftmon-traefik",
-  "version": 1
+  "version": 3
 }
