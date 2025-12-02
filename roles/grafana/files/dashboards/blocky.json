@@ -147,7 +147,7 @@
         "cellHeight": "sm",
         "showHeader": true
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -364,11 +364,11 @@
             "sortBy": [
               {
                 "desc": true,
-                "displayName": "Time"
+                "displayName": "fields.duration_ms"
               }
             ]
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -376,7 +376,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.appname:blocky AND tags.host:$host AND \" INFO queryLog: query resolved\" | extract \" INFO queryLog: query resolved <msg_logfmt>\" | unpack_logfmt from msg_logfmt fields (client_ip, client_names,question_name,question_type,response_code,response_reason,response_type)| delete msg_logfmt",
+              "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.msg:=\"query resolved\"",
               "queryType": "range",
               "refId": "A"
             }
@@ -467,7 +467,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 256
+            "y": 56
           },
           "id": 64,
           "options": {
@@ -476,12 +476,13 @@
             "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
+            "showControls": false,
             "showLabels": false,
             "showTime": false,
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -489,8 +490,8 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.appname:blocky AND tags.host:$host",
-              "queryType": "range",
+              "expr": "tags.appname:blocky AND tags.host:\"$host\"",
+              "queryType": "instant",
               "refId": "A"
             }
           ],
@@ -549,16 +550,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
@@ -569,7 +565,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -577,7 +573,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.appname:blocky AND tags.host:~\"$host\" AND fields.response_type:!=\"\"  | stats by (fields.client_ip) count() requests",
+              "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.response_type:!=\"\"  | stats by (fields.client_ip) count() requests",
               "legendFormat": "{{ fields.client_ip }}",
               "queryType": "stats",
               "refId": "A"
@@ -658,16 +654,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
@@ -678,7 +669,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -768,16 +759,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
@@ -788,7 +774,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -796,7 +782,7 @@
                 "uid": "P4463C362D59DE675"
               },
               "editorMode": "code",
-              "expr": "tags.appname:blocky AND tags.host:~\"$host\" AND fields.response_type:=\"BLOCKED\" | stats by (fields.client_ip) count() requests",
+              "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.response_type:=\"BLOCKED\" | stats by (fields.client_ip) count() requests",
               "legendFormat": "{{ fields.client_ip }}",
               "queryType": "statsRange",
               "refId": "A"
@@ -878,16 +864,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
@@ -898,7 +879,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -988,16 +969,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
@@ -1008,7 +984,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -1065,16 +1041,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": true
             },
@@ -1085,7 +1056,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -1142,9 +1113,7 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value"
-              ]
+              "values": ["value"]
             },
             "pieType": "donut",
             "reduceOptions": {
@@ -1159,7 +1128,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -1217,16 +1186,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": true
             },
@@ -1237,7 +1201,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -1295,16 +1259,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
+              "calcs": ["sum"],
               "fields": "",
               "values": true
             },
@@ -1315,7 +1274,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -1372,16 +1331,11 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
+              "values": ["value", "percent"]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": true
             },
@@ -1392,7 +1346,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-19840895411",
           "targets": [
             {
               "datasource": {
@@ -1512,11 +1466,7 @@
       "maxDataPoints": 100,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -1529,7 +1479,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1631,12 +1581,7 @@
       "id": 10,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean",
-            "sum"
-          ],
+          "calcs": ["min", "max", "mean", "sum"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1647,7 +1592,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1739,11 +1684,7 @@
       "id": 61,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1754,7 +1695,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1844,12 +1785,7 @@
       "id": 60,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean",
-            "sum"
-          ],
+          "calcs": ["min", "max", "mean", "sum"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1860,7 +1796,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -1945,11 +1881,7 @@
       "id": 45,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1960,7 +1892,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -2050,11 +1982,7 @@
       "id": 52,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -2067,7 +1995,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -2150,7 +2078,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -2255,11 +2183,7 @@
       "maxDataPoints": 100,
       "options": {
         "legend": {
-          "calcs": [
-            "min",
-            "max",
-            "mean"
-          ],
+          "calcs": ["min", "max", "mean"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2270,7 +2194,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-19840895411",
       "targets": [
         {
           "datasource": {
@@ -2359,16 +2283,12 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 344
+            "y": 639
           },
           "id": 49,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "list",
               "placement": "bottom",
               "showLegend": true
@@ -2461,16 +2381,12 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 344
+            "y": 639
           },
           "id": 58,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true
@@ -2560,16 +2476,12 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 354
+            "y": 649
           },
           "id": 53,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true
@@ -2663,16 +2575,12 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 354
+            "y": 649
           },
           "id": 51,
           "options": {
             "legend": {
-              "calcs": [
-                "min",
-                "max",
-                "mean"
-              ],
+              "calcs": ["min", "max", "mean"],
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true
@@ -2770,5 +2678,5 @@
   "timezone": "",
   "title": "Blocky",
   "uid": "shiftmon-blocky",
-  "version": 1
+  "version": 3
 }

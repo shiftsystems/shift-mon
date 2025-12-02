@@ -784,7 +784,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:caddy AND tags.host:~\"$host\" AND fields.status:!=\"\" | stats by (fields.status) count()",
+          "expr": "tags.appname:caddy AND tags.host:\"$host\" AND fields.status:!=\"\" | stats by (fields.status) count()",
           "legendFormat": "{{ fields.status }}",
           "queryType": "stats",
           "refId": "A"
@@ -855,7 +855,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:caddy AND tags.host:~\"$host\" AND fields.request_proto:!=\"\" | stats by (fields.request_proto) count()",
+          "expr": "tags.appname:caddy AND tags.host:\"$host\" AND fields.request_proto:!=\"\" | stats by (fields.request_proto) count()",
           "legendFormat": "{{fields.request_proto}}",
           "queryType": "stats",
           "refId": "A"
@@ -934,7 +934,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:caddy AND tags.host:~\"$host\" AND fields.request_remote_ip:!=\"\" | stats by (fields.request_remote_ip) count()",
+          "expr": "tags.appname:caddy AND tags.host:\"$host\" AND fields.request_remote_ip:!=\"\" | stats by (fields.request_remote_ip) count()",
           "legendFormat": "{{ fields.request_remote_ip }}",
           "queryType": "stats",
           "refId": "A"
@@ -1172,7 +1172,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.host:~\"$host\" AND tags.appname:caddy",
+              "expr": "tags.host:\"$host\" AND tags.appname:caddy",
               "queryType": "instant",
               "refId": "A"
             }

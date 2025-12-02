@@ -847,7 +847,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.appname:watchtower tags.host:~\"$host\"",
+              "expr": "tags.appname:watchtower tags.host:\"$host\"",
               "queryType": "instant",
               "refId": "A"
             }
@@ -919,7 +919,7 @@
                 "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.appname:watchtower tags.host:~\"$host\"",
+              "expr": "tags.appname:watchtower tags.host:\"$host\"",
               "queryType": "instant",
               "refId": "A"
             }
