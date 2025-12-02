@@ -12,7 +12,7 @@ docker_daemon_options:
     tag: "{% raw %}{{.Name}}{% endraw %}"
 shiftmon_alertmanager_version: 'v0.29.0'
 shiftmon_grafana_version: '12.3.0'
-shiftmon_victoriametrics_version: 'v1.130.0'
+shiftmon_victoriametrics_version: 'v1.131.0'
 shiftmon_victorialogs_version: 'v1.39.0'
 shiftmon_victoriatraces_version: 'v0.5.1'
 shiftmon_vmanomaly_version: 'v1.28.0'
