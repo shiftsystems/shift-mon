@@ -14,6 +14,7 @@ victoria:
   cert_path:  absolute path to TLS certificate for Victoriametrics should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
   key_path:  absolute path to TLS key for Victoriametrics should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
   slow_query_threshold: Duration when queries should be logged for troubleshooting and if a license is defined it will log stats for all queries longer than this threshold. Slow queries will be logged if they take longer than 5s if not defined and query stats will not be gathered unless this is defined
+  rule_files: vmalert rule values represented as a key value pairs where the key is the name of the file to that will be uploaded and the value the path to file that will be uploaded
 ## Victorialogs
   domain: Fully Qualified Domain Name to use for accessing Victorialogs
   url: URL Telegraf uses for sending logs
