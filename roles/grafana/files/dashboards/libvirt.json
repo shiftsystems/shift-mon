@@ -45,7 +45,7 @@
     {
       "datasource": {
         "type": "victoriametrics-metrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -170,7 +170,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -185,7 +185,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -200,7 +200,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -215,7 +215,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -230,7 +230,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -245,7 +245,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -352,7 +352,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -366,7 +366,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -732,7 +732,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -836,7 +836,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -984,7 +984,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1092,14 +1092,14 @@
               "Value #E": 7,
               "domain_name": 1,
               "host": 2,
-              "{domain_name=\"server-2025\", host=\"zoe.local.shiftsystems.net\"}": 6
+              "{domain_name=\"server-2025\", host=\"$host\"}": 6
             },
             "renameByName": {
               "Value #A": "Mem Total",
               "Value #C": "State",
               "Value #D": "CPUs",
               "Value #E": "CPU Usage",
-              "{domain_name=\"server-2025\", host=\"zoe.local.shiftsystems.net\"}": "Storage"
+              "{domain_name=\"server-2025\", host=\"$host\"}": "Storage"
             }
           }
         }
@@ -1116,7 +1116,7 @@
       {
         "current": {
           "text": "shift-victoriametrics",
-          "value": "P342DAF48C1D70AE5"
+          "value": "${metrics}"
         },
         "includeAll": false,
         "name": "metrics",

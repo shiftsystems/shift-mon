@@ -22,7 +22,7 @@
       {
         "datasource": {
           "type": "victoriametrics-metrics-datasource",
-          "uid": "P342DAF48C1D70AE5"
+          "uid": "${metrics}"
         },
         "enable": true,
         "hide": false,
@@ -210,7 +210,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -655,7 +655,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -765,7 +765,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -851,7 +851,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1060,7 +1060,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1161,7 +1161,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1264,7 +1264,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1434,7 +1434,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1649,7 +1649,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1817,7 +1817,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "uid": "${logs}"
           },
           "direction": "backward",
           "editorMode": "code",
@@ -1861,7 +1861,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "uid": "${logs}"
           },
           "direction": "backward",
           "editorMode": "code",
@@ -1938,7 +1938,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -2020,7 +2020,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2121,7 +2121,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2857,7 +2857,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2957,7 +2957,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -3057,7 +3057,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -3157,7 +3157,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -3187,7 +3187,7 @@
       {
         "current": {
           "text": "shift-victoriametrics",
-          "value": "P342DAF48C1D70AE5"
+          "value": "${metrics}"
         },
         "includeAll": false,
         "name": "metrics",

@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 219,
+  "id": 31,
   "links": [
     {
       "asDropdown": true,
@@ -65,6 +65,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -72,7 +75,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -105,7 +109,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green"
+                      "color": "green",
+                      "value": 0
                     },
                     {
                       "color": "#EAB839",
@@ -142,7 +147,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green"
+                      "color": "green",
+                      "value": 0
                     },
                     {
                       "color": "#EAB839",
@@ -216,18 +222,10 @@
       "id": 3,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.6.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -252,7 +250,6 @@
           "exemplar": false,
           "expr": "cpustat_cpu{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -267,7 +264,6 @@
           "exemplar": false,
           "expr": "memory_memused{host=~\"$host\"} / memory_memtotal{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -282,7 +278,6 @@
           "exemplar": false,
           "expr": "memory_memtotal{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -297,7 +292,6 @@
           "exemplar": false,
           "expr": "cpustat_cpu_count{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -312,7 +306,6 @@
           "exemplar": false,
           "expr": "increase(blockstat_read_bytes{host=~\"$host\"}[$__range])",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -327,7 +320,6 @@
           "exemplar": false,
           "expr": "increase(blockstat_write_bytes{host=~\"$host\"}[$__range])",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -437,6 +429,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -445,7 +440,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -482,7 +478,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green"
+                      "color": "green",
+                      "value": 0
                     },
                     {
                       "color": "#EAB839",
@@ -508,14 +505,6 @@
       "id": 9,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "frameIndex": 0,
         "showHeader": true,
         "sortBy": [
@@ -525,18 +514,17 @@
           }
         ]
       },
-      "pluginVersion": "11.6.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "blockstat_used{host=~\"$host\"} ",
           "format": "table",
-          "hide": false,
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
@@ -546,13 +534,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "blockstat_total{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
@@ -568,7 +555,6 @@
           "exemplar": false,
           "expr": "blockstat_used{host=~\"$host\"} / blockstat_total{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -583,7 +569,6 @@
           "exemplar": false,
           "expr": "blockstat_total{host=~\"$host\"} - blockstat_used{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -700,6 +685,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -714,7 +700,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -752,7 +739,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -804,6 +791,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -818,7 +806,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -852,7 +841,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -873,7 +862,6 @@
           "editorMode": "code",
           "exemplar": true,
           "expr": "rate(nics_send{host=~\"$host\"})",
-          "hide": false,
           "interval": "",
           "legendFormat": "{{host}} - {{ instance }} - send",
           "range": true,
@@ -917,6 +905,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -931,7 +920,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -965,7 +955,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -986,7 +976,6 @@
           "editorMode": "code",
           "exemplar": true,
           "expr": "rate(blockstat_write_bytes{host=~\"$host\"})",
-          "hide": false,
           "interval": "",
           "legendFormat": "{{host}} - write",
           "range": true,
@@ -1025,6 +1014,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1032,7 +1024,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1089,14 +1082,6 @@
       "id": 1,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true,
         "sortBy": [
           {
@@ -1105,7 +1090,7 @@
           }
         ]
       },
-      "pluginVersion": "11.6.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1113,7 +1098,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.appname:\"pbs\" AND tags.hostname:~\"$host\"",
+          "expr": "tags.appname:\"pbs\" AND tags.hostname:\"$host\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -1246,12 +1231,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.6.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1260,7 +1246,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "tags.hostname:~\"$host\"",
+          "expr": "tags.hostname:\"$host\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -1270,7 +1256,7 @@
     }
   ],
   "preload": false,
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [
     "proxmox"
   ],
@@ -1279,7 +1265,7 @@
       {
         "current": {
           "text": "shift-metrics",
-          "value": "P84D368831E8B3638"
+          "value": "${metrics}"
         },
         "includeAll": false,
         "name": "metrics",
@@ -1327,6 +1313,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -1339,5 +1326,6 @@
   "timezone": "browser",
   "title": "Proxmox Backup Server",
   "uid": "shiftmon-pbs",
-  "version": 4
+  "version": 1,
+  "weekStart": ""
 }

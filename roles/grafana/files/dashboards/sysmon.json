@@ -51,7 +51,7 @@
       "datasource": {
         "default": false,
         "type": "victorialogs-datasource",
-        "uid": "P4463C362D59DE675"
+        "uid": "${logs}"
       },
       "fieldConfig": {
         "defaults": {
@@ -105,7 +105,7 @@
         {
           "datasource": {
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "editorMode": "code",
           "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational | stats by (fields.TaskText) count() events",
@@ -646,7 +646,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -700,7 +700,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_User) count() \" \"",
@@ -817,7 +817,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -871,7 +871,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:\"13\"| stats by (fields.Data_Image) count() \" \"",
@@ -1303,7 +1303,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1357,7 +1357,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_Image) count() \" \"",
@@ -1407,7 +1407,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1461,7 +1461,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.TaskText) count() \" \"",
@@ -1511,7 +1511,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1565,7 +1565,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(11,2,15,23,26)| stats by (fields.Data_User) count() \" \"",
@@ -2006,7 +2006,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2060,7 +2060,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_User) count() \" \"",
@@ -2211,7 +2211,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2265,7 +2265,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_Image) count() \" \"",
@@ -2416,7 +2416,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2470,7 +2470,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:in(1,5)| stats by (fields.Data_CurrentDirectory) count() \" \"",
@@ -2943,7 +2943,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2997,7 +2997,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_User) count() events",
@@ -3047,7 +3047,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3101,7 +3101,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_DestinationPort) count() events",
@@ -3151,7 +3151,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3205,7 +3205,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:3 | stats by (fields.Data_Image) count() events",
@@ -3671,7 +3671,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3725,7 +3725,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_QueryName) count() \" \"",
@@ -3876,7 +3876,7 @@
           "datasource": {
             "default": false,
             "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3930,7 +3930,7 @@
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host AND tags.Channel:Microsoft-Windows-Sysmon/Operational AND fields.Task:22| stats by (fields.Data_Image) count() \" \"",
@@ -3956,7 +3956,7 @@
       {
         "current": {
           "text": "shiftmon-victorialogs",
-          "value": "P4463C362D59DE675"
+          "value": "${logs}"
         },
         "includeAll": false,
         "name": "logs",

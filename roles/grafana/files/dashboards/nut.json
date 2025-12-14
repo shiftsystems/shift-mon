@@ -16,7 +16,7 @@
       {
         "datasource": {
           "type": "victoriametrics-metrics-datasource",
-          "uid": "P342DAF48C1D70AE5"
+          "uid": "${metrics}"
         },
         "enable": true,
         "expr": "sum(changes(upsd_ups_power_nominal{host=~\"$host\",ups_name=~\"$ups\"}[$__interval])) by (host,ups_name,model,ups_status)",
@@ -50,7 +50,7 @@
     {
       "datasource": {
         "type": "victoriametrics-metrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -229,7 +229,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -244,7 +244,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -259,7 +259,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -274,7 +274,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -289,7 +289,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -357,7 +357,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P84D368831E8B3638"
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -451,7 +451,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "upsd_load_percent{}",
@@ -1160,7 +1160,7 @@
       {
         "current": {
           "text": "shift-victoriametrics",
-          "value": "P342DAF48C1D70AE5"
+          "value": "${metrics}"
         },
         "includeAll": false,
         "name": "metrics",

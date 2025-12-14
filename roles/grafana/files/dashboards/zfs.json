@@ -43,7 +43,7 @@
     {
       "datasource": {
         "type": "victoriametrics-metrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -220,7 +220,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -235,7 +235,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -250,7 +250,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -265,7 +265,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -280,7 +280,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1450,7 +1450,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1542,7 +1542,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1634,7 +1634,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1726,7 +1726,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1818,7 +1818,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1910,7 +1910,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2016,7 +2016,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2108,7 +2108,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2200,7 +2200,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2292,7 +2292,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2384,7 +2384,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2476,7 +2476,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2568,7 +2568,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2660,7 +2660,7 @@
         {
           "datasource": {
             "type": "victoriametrics-metrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2763,7 +2763,7 @@
       {
         "current": {
           "text": "shift-victoriametrics",
-          "value": "P342DAF48C1D70AE5"
+          "value": "${metrics}"
         },
         "includeAll": false,
         "name": "metrics",
@@ -2776,7 +2776,7 @@
       {
         "current": {
           "text": "shiftmon-victorialogs",
-          "value": "P4463C362D59DE675"
+          "value": "${logs}"
         },
         "includeAll": false,
         "name": "logs",

@@ -199,7 +199,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -796,7 +796,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -864,7 +864,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -981,7 +981,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1086,7 +1086,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1257,7 +1257,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1752,7 +1752,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1853,7 +1853,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1957,7 +1957,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2058,7 +2058,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2117,7 +2117,7 @@
             {
               "datasource": {
                 "type": "loki",
-                "uid": "P53E94FA6B1E28789"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host name:suricata",
@@ -2179,7 +2179,7 @@
             {
               "datasource": {
                 "type": "loki",
-                "uid": "P53E94FA6B1E28789"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.host:$host name:suricata | stats count()",
@@ -2279,7 +2279,7 @@
             {
               "datasource": {
                 "type": "loki",
-                "uid": "P53E94FA6B1E28789"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
@@ -2380,7 +2380,7 @@
             {
               "datasource": {
                 "type": "loki",
-                "uid": "P53E94FA6B1E28789"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",
@@ -2482,7 +2482,7 @@
             {
               "datasource": {
                 "type": "loki",
-                "uid": "P53E94FA6B1E28789"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "{__name=\"resolver\",host=\"$host\"} | logfmt",

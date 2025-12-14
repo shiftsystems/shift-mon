@@ -29,9 +29,8 @@
   "panels": [
     {
       "datasource": {
-        "default": true,
-        "type": "victoriametrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -147,18 +146,17 @@
         "cellHeight": "sm",
         "showHeader": true
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "blocky_build_info{host=~\"$host\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -166,14 +164,13 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum(time() - blocky_last_list_group_refresh_timestamp_seconds{host=~\"$host\"}) by (host)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -181,14 +178,13 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum by (host) (blocky_denylist_cache_entries{host=~\"$host\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -196,14 +192,13 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum by (host) (blocky_blocking_enabled{host=~\"$host\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -211,14 +206,13 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum by (host) (blocky_query_total{host=~\"$host\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -226,14 +220,13 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum by (host) (increase(blocky_response_total{response_type=\"BLOCKED\",host=~\"$host\"}[$__range])) / sum by (host) (increase(blocky_query_total{host=~\"$host\"}[$__range])) ",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -241,14 +234,13 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "1 - (sum by (host) (blocky_cache_entry_count{host=~\"$host\"}) / sum by (host) (increase(blocky_query_total{host=~\"$host\"}[$__range])))",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -368,12 +360,12 @@
               }
             ]
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.msg:=\"query resolved\"",
@@ -482,12 +474,12 @@
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
                 "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "uid": "%"
               },
               "editorMode": "code",
               "expr": "tags.appname:blocky AND tags.host:\"$host\"",
@@ -514,9 +506,8 @@
       "panels": [
         {
           "datasource": {
-            "default": false,
-            "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -550,11 +541,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["sum"],
+              "calcs": [
+                "sum"
+              ],
               "fields": "",
               "values": true
             },
@@ -565,17 +561,17 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
-                "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.response_type:!=\"\"  | stats by (fields.client_ip) count() requests",
               "legendFormat": "{{ fields.client_ip }}",
-              "queryType": "stats",
+              "queryType": "statsRange",
               "refId": "A"
             }
           ],
@@ -619,9 +615,8 @@
         },
         {
           "datasource": {
-            "default": false,
-            "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -654,11 +649,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["sum"],
+              "calcs": [
+                "sum"
+              ],
               "fields": "",
               "values": true
             },
@@ -669,17 +669,16 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
-                "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND fields.response_type:!=\"\"| stats by (fields.question_name) count() requests",
-              "legendFormat": "{{ fields.question_name }}",
-              "queryType": "stats",
+              "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.response_type:!=\"\"| stats by (fields.question_name) count() requests",
+              "queryType": "statsRange",
               "refId": "A"
             }
           ],
@@ -723,9 +722,8 @@
         },
         {
           "datasource": {
-            "default": false,
-            "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -759,11 +757,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["sum"],
+              "calcs": [
+                "sum"
+              ],
               "fields": "",
               "values": true
             },
@@ -774,12 +777,12 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
-                "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
               },
               "editorMode": "code",
               "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.response_type:=\"BLOCKED\" | stats by (fields.client_ip) count() requests",
@@ -828,9 +831,8 @@
         },
         {
           "datasource": {
-            "default": false,
-            "type": "victorialogs-datasource",
-            "uid": "P4463C362D59DE675"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "${logs}"
           },
           "fieldConfig": {
             "defaults": {
@@ -864,11 +866,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["sum"],
+              "calcs": [
+                "sum"
+              ],
               "fields": "",
               "values": true
             },
@@ -879,17 +886,17 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
-                "type": "victorialogs-datasource",
-                "uid": "P4463C362D59DE675"
+                "type": "victoriametrics-logs-datasource",
+                "uid": "${logs}"
               },
               "editorMode": "code",
-              "expr": "tags.appname:blocky AND tags.host:\"moses.local.shiftsystems.net\" AND fields.response_type:!=\"\" | stats by (fields.question_name) count() requests",
+              "expr": "tags.appname:blocky AND tags.host:\"$host\" AND fields.response_type:!=\"\" | stats by (fields.question_name) count() requests",
               "legendFormat": "{{ fields.question_name }}",
-              "queryType": "stats",
+              "queryType": "statsRange",
               "refId": "A"
             }
           ],
@@ -969,11 +976,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["sum"],
+              "calcs": [
+                "sum"
+              ],
               "fields": "",
               "values": true
             },
@@ -984,7 +996,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
@@ -1041,11 +1053,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "fields": "",
               "values": true
             },
@@ -1056,7 +1073,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
@@ -1077,9 +1094,8 @@
         },
         {
           "datasource": {
-            "default": false,
-            "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1113,7 +1129,9 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value"]
+              "values": [
+                "value"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
@@ -1128,12 +1146,12 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P84D368831E8B3638"
+                "type": "victoriametrics-metrics-datasource",
+                "uid": "${metrics}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1186,11 +1204,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "fields": "",
               "values": true
             },
@@ -1201,7 +1224,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
@@ -1259,11 +1282,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["sum"],
+              "calcs": [
+                "sum"
+              ],
               "fields": "",
               "values": true
             },
@@ -1274,7 +1302,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
@@ -1331,11 +1359,16 @@
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "values": ["value", "percent"]
+              "values": [
+                "value",
+                "percent"
+              ]
             },
             "pieType": "donut",
             "reduceOptions": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "fields": "",
               "values": true
             },
@@ -1346,7 +1379,7 @@
               "sort": "none"
             }
           },
-          "pluginVersion": "12.4.0-19840895411",
+          "pluginVersion": "12.4.0-20183986522",
           "targets": [
             {
               "datasource": {
@@ -1466,7 +1499,11 @@
       "maxDataPoints": 100,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -1479,7 +1516,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1499,7 +1536,6 @@
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.5, sum(rate(blocky_request_duration_seconds_bucket{}[$__rate_interval])) by (le,host))",
-          "hide": false,
           "legendFormat": "{{host}} - p50",
           "range": true,
           "refId": "B"
@@ -1581,7 +1617,12 @@
       "id": 10,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean", "sum"],
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "sum"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1592,7 +1633,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1684,7 +1725,11 @@
       "id": 61,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1695,7 +1740,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1785,7 +1830,12 @@
       "id": 60,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean", "sum"],
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "sum"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1796,7 +1846,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1881,7 +1931,11 @@
       "id": 45,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1892,7 +1946,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1982,7 +2036,11 @@
       "id": 52,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -1995,7 +2053,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -2078,7 +2136,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -2183,7 +2241,11 @@
       "maxDataPoints": 100,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2194,7 +2256,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -2283,12 +2345,16 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 639
+            "y": 734
           },
           "id": 49,
           "options": {
             "legend": {
-              "calcs": ["min", "max", "mean"],
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
               "displayMode": "list",
               "placement": "bottom",
               "showLegend": true
@@ -2381,12 +2447,16 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 639
+            "y": 734
           },
           "id": 58,
           "options": {
             "legend": {
-              "calcs": ["min", "max", "mean"],
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true
@@ -2476,12 +2546,16 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 649
+            "y": 744
           },
           "id": 53,
           "options": {
             "legend": {
-              "calcs": ["min", "max", "mean"],
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true
@@ -2575,12 +2649,16 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 649
+            "y": 744
           },
           "id": 51,
           "options": {
             "legend": {
-              "calcs": ["min", "max", "mean"],
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true
@@ -2635,7 +2713,7 @@
       {
         "current": {
           "text": "shiftmon-victorialogs",
-          "value": "P4463C362D59DE675"
+          "value": "${logs}"
         },
         "includeAll": false,
         "name": "logs",
@@ -2651,8 +2729,8 @@
           "value": "$__all"
         },
         "datasource": {
-          "type": "victoriametrics-datasource",
-          "uid": "P342DAF48C1D70AE5"
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "${metrics}"
         },
         "definition": "label_values(blocky_build_info,host)",
         "includeAll": true,
@@ -2666,6 +2744,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -2675,8 +2754,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Blocky",
   "uid": "shiftmon-blocky",
-  "version": 3
+  "version": 5,
+  "weekStart": ""
 }

@@ -224,7 +224,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(django_http_requests_latency_including_middlewares_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
@@ -385,7 +385,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(django_db_query_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
@@ -559,7 +559,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(authentik_flows_stage_time_bucket{host=~\"$host\"}[$__rate_interval]))",
@@ -651,7 +651,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(authentik_flows_plan_time_bucket{host=~\"$host\"}[$__rate_interval]))",
@@ -743,7 +743,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(authentik_main_request_duration_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
@@ -835,7 +835,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(authentik_policies_engine_time_total_seconds_bucket{host=~\"$host\"}[$__rate_interval]))",
@@ -927,7 +927,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(authentik_policies_execution_time_bucket{host=~\"$host\"}[$__rate_interval]))",
@@ -1019,7 +1019,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "sum by (le) (rate(authentik_property_mapping_execution_time_bucket{host=~\"$host\"}[$__rate_interval]))",
