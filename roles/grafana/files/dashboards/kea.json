@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 113,
+  "id": 26,
   "links": [],
   "panels": [
     {
@@ -55,6 +55,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -70,7 +71,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -108,7 +109,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -164,7 +165,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -200,7 +201,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -233,9 +234,8 @@
     },
     {
       "datasource": {
-        "default": true,
-        "type": "victoriametrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -266,6 +266,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -281,7 +282,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -319,11 +320,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
-            "uid": "Prometheus"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "kea_dhcp4_addresses_total{host=~\"$host\", subnet=~\"$subnet\"}",
@@ -339,9 +341,8 @@
     },
     {
       "datasource": {
-        "default": true,
-        "type": "victoriametrics-datasource",
-        "uid": "P342DAF48C1D70AE5"
+        "type": "victoriametrics-metrics-datasource",
+        "uid": "${metrics}"
       },
       "fieldConfig": {
         "defaults": {
@@ -372,6 +373,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -387,7 +389,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -425,11 +427,12 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
-            "uid": "Prometheus"
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "expr": "kea_dhcp4_addresses_assigned_total{host=~\"$host\", subnet=~\"$subnet\"}",
@@ -477,6 +480,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -492,7 +496,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -528,7 +532,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -578,6 +582,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -593,7 +598,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -631,7 +636,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -683,6 +688,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -698,7 +704,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -736,7 +742,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -789,6 +795,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -804,7 +811,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -842,7 +849,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -881,12 +888,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -924,12 +932,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -967,12 +976,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -991,7 +1001,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 42,
   "tags": [
     "kea",
     "stork",
@@ -1047,6 +1057,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1071,6 +1082,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -1080,9 +1092,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Kea DHCPv4",
   "uid": "shiftmon-kea-dhcp4",
-  "version": 11,
+  "version": 1,
   "weekStart": ""
 }

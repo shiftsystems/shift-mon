@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 143,
+  "id": 15,
   "links": [
     {
       "asDropdown": false,
@@ -79,7 +79,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -110,7 +110,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -150,7 +150,7 @@
             "steps": [
               {
                 "color": "red",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -181,7 +181,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -237,6 +237,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [
@@ -255,7 +258,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -304,14 +307,6 @@
       "id": 1,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true,
         "sortBy": [
           {
@@ -320,7 +315,7 @@
           }
         ]
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -463,12 +458,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -476,7 +472,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND name:=\"freeipa_healthcheck\"",
+          "expr": "tags.host:\"$host\" AND name:=\"freeipa_healthcheck\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -506,12 +502,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -519,7 +516,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "(tags.host:$host) AND name:=\"freeipa_healthcheck\" AND fields.result:!=\"SUCCESS\"",
+          "expr": "tags.host:\"$host\" AND name:=\"freeipa_healthcheck\" AND fields.result:!=\"SUCCESS\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -562,21 +559,24 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "P53E94FA6B1E28789"
+            "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.path:=\"/var/log/krb5kdc.log\" AND (tag.host:$host)",
+          "expr": "tags.path:=\"/var/log/krb5kdc.log\" AND tags.host:\"$host\"",
+          "format": "time_series",
           "queryType": "range",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -618,12 +618,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -631,7 +632,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\" AND (tags.host:$host)",
+          "expr": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\" AND tags.host:\"$host\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -661,12 +662,13 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -674,7 +676,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\" AND (tags.host:$host)",
+          "expr": "tags.path:~\"/var/log/dirsrv/slapd-.*/access\" AND tags.host:\"$host\"",
           "queryType": "instant",
           "refId": "A"
         }
@@ -685,7 +687,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -738,6 +740,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -747,9 +750,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Shiftmon FreeIPA",
   "uid": "shiftmon-freeipa",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }

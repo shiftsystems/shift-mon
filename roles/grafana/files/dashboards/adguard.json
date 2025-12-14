@@ -98,7 +98,7 @@
         {
           "datasource": {
             "type": "victoriametrics-datasource",
-            "uid": "P342DAF48C1D70AE5"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1114,7 +1114,7 @@
       {
         "current": {
           "text": "shift-victoriametrics",
-          "value": "P342DAF48C1D70AE5"
+          "value": "${metrics}"
         },
         "includeAll": false,
         "name": "metrics",

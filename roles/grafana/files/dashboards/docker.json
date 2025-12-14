@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 8,
+  "id": 34,
   "links": [
     {
       "asDropdown": true,
@@ -58,6 +58,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -66,7 +69,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -159,7 +162,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "#EAB839",
@@ -185,14 +188,6 @@
       "id": 22,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true,
         "sortBy": [
           {
@@ -201,12 +196,12 @@
           }
         ]
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -226,7 +221,6 @@
           "exemplar": false,
           "expr": "avg by (host) (mem_used_percent{db=\"linux\",host=~\"$host\"}[$__range])",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -241,7 +235,6 @@
           "exemplar": false,
           "expr": "avg by (host) (cpu_usage_iowait{host=~\"$host\",db=\"linux\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -256,7 +249,6 @@
           "exemplar": false,
           "expr": "sum by (host) (system_uptime{host=~\"$host\",db=\"linux\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -271,7 +263,6 @@
           "exemplar": false,
           "expr": "sum by (host) (system_n_cpus{host=~\"$host\",db=\"linux\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -286,7 +277,6 @@
           "exemplar": false,
           "expr": "sum by (host) (mem_total{host=~\"$host\",db=\"linux\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -336,6 +326,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -344,7 +337,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -429,22 +422,14 @@
       "id": 23,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P84D368831E8B3638"
+            "uid": "${metrics}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -464,7 +449,6 @@
           "exemplar": false,
           "expr": "docker_container_mem_usage_percent{host=~\"$host\",container_name=~\"$container\"}",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -479,7 +463,6 @@
           "exemplar": false,
           "expr": "increase(docker_container_blkio_io_service_bytes_recursive_read{host=~\"$host\",container_name=~\"$container\"}[$__range]) ",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -494,7 +477,6 @@
           "exemplar": false,
           "expr": "increase(docker_container_blkio_io_service_bytes_recursive_write{host=~\"$host\",container_name=~\"$container\"}[$__range])",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -597,6 +579,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -612,7 +595,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -645,11 +628,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -703,6 +687,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -718,7 +703,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -751,11 +736,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -807,6 +793,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -822,7 +809,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -852,11 +839,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -909,6 +897,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -924,7 +913,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -953,11 +942,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1021,12 +1011,14 @@
           "fields": "",
           "values": true
         },
+        "sort": "desc",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1051,7 +1043,6 @@
         "type": "victoriametrics-datasource",
         "uid": "${metrics}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1081,6 +1072,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1096,7 +1088,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -1124,11 +1116,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1192,12 +1185,14 @@
           "fields": "",
           "values": false
         },
+        "sort": "desc",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.4.0-20183986522",
       "targets": [
         {
           "datasource": {
@@ -1218,7 +1213,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -1243,7 +1238,7 @@
         "includeAll": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
         "type": "datasource"
@@ -1272,6 +1267,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1299,6 +1295,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -1308,9 +1305,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Docker",
   "uid": "shiftmon-docker",
-  "version": 16,
+  "version": 1,
   "weekStart": ""
 }
