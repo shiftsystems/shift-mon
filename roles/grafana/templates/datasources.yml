@@ -1,8 +1,28 @@
 apiVersion: 1
+deleteDatasources:
+  - name: shift-metrics
+    orgId: 1
+  - name: shift-victoriametrics
+    orgId: 1
+  - name: shiftmon-victorialogs
+    orgId: 1
+  - name: shiftmon-alertmanager
+    orgId: 1
+  - name: shiftmon-alertmanager-stats
+    orgId: 1
+  - name: shift-victoriatraces
+    orgId: 1
+  - name: shift-traces
+    orgId: 1
+
+  - name: shift-logs
+    orgId: 1
 datasources:
   - name: shift-metrics
     type: prometheus
     url: 'http://victoriametrics:8428'
+    uid: 'shiftmon-prometheus-datasource'
+    version: 2
     jsonData:
       httpmethod: POST
       manageAlerts: true
@@ -10,41 +30,55 @@ datasources:
       prometheusVersion: 2.53.0
       disableRecordingRules: false
       timeInterval: {{ interval }}
-{% if shiftmon_loki_enabled %}
-  - name: shift-logs
-    type: loki
-    url: 'http://loki:3100'
   - name: shift-victoriametrics
     type: victoriametrics-metrics-datasource
+    uid: 'shiftmon-victoriametrics-datasource'
+    version: 2
     url: 'http://victoriametrics:8428'
     isDefault: true
     jsonData:
       httpmethod: POST
       vmuiUrl: 'https://{{victoria.domain }}/vmui'
       timeInterval: {{ interval }}
-{% endif %}
   - name: shiftmon-victorialogs
+    version: 2
     type: victoriametrics-logs-datasource
+    uid: 'shiftmon-victorialogs-datasource'
     url: http://victorialogs:9428
   - name: shiftmon-alertmanager
+    version: 2
     type: alertmanager
+    uid: 'shiftmon-alertmanager-datasource'
     url: http://alertmanager:9093
     access: proxy
     jsonData:
       implementation: prometheus
       handleGrafanaManagedAlerts: false
   - name: shiftmon-alertmanager-stats
+    version: 2
     type: camptocamp-prometheus-alertmanager-datasource 
+    uid: 'shiftmon-alertmanager-stats-datasource'
     url: http://alertmanager:9093
   - name: shift-victoriatraces
     type: jaeger
+    version: 2
     url: http://victoriatraces:10428/select/jaeger
+    uid: 'shiftmon-victoriatraces-datasource'
     readOnly: false
     isDefault: false
     jsonData:
       tracesToLogsV2:
-        datasourceUid: 'shiftmon-victorialogs'
+        datasourceUid: 'shiftmon-victorialogs-datasource'
         filterByTraceID: false
         filterBySpanID: false
         customQuery: true
-        query: '"${__span.traceId}"'
+        query: '"$${__trace.traceId}"'
+        spanStartTimeShift: '-5m'
+        spanEndTimeShift: '5m'
+{% if shiftmon_loki_enabled %}
+  - name: shift-logs
+    version: 2
+    type: loki
+    url: 'http://loki:3100'
+    uid: 'shiftmon-loki-datasource'
+{% endif %}
