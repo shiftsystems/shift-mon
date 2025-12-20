@@ -56,11 +56,13 @@ processors:
   transform/parse_structured_logs:
     log_statements:
       - context: log
+        error_mode: ignore
         conditions:
           - IsMatch(attributes["appname"], ".*synapse.*|.*traefik.*|")
         statements:
           - merge_maps(log.attributes, ParseJSON(body), "insert")
       - context: log
+        error_mode: ignore
         conditions:
           - attributes["event_type"] == "Sysmon"
         statements:
@@ -96,6 +98,8 @@ exporters:
     auth:
       authenticator: bearertokenauth
 service:
+  logs:
+    level: "warn"
   pipelines:
     metrics:
       receivers:

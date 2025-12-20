@@ -106,6 +106,7 @@ receivers:
     {{ shiftmon_syslog_proto }}:
       listen_address: "{{ shiftmon_syslog_listen_address }}:{{ shiftmon_syslog_port }}"
     protocol: rfc5424
+    on_error: drop_quiet
   journald:
     directory: /var/log/journal
 {% if 'tetragon.service' in ansible_facts.services %}
@@ -133,6 +134,7 @@ processors:
   transform/parse_structured_logs:
     log_statements:
       - context: log
+        error_mode: ignore
         conditions:
           - IsMatch(attributes["appname"], "{{ shiftmon_json_apps }}|{{ shiftmon_user_json_apps }}")
         statements:
@@ -141,6 +143,7 @@ processors:
     error_mode: ignore
     log_statements:
       - context: log
+        error_mode: ignore
         conditions:
           - IsMatch(body,"pbs.*")
         statements:
@@ -169,6 +172,8 @@ exporters:
       authenticator: bearertokenauth
 
 service:
+  logs:
+    level: "warn"
   pipelines:
 {% if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined or shiftmon_jaeger_grpc_receiver_endpoint is defined or shiftmon_jaeger_thrift_compact_receiver_endpoint is defined %}
     traces:
