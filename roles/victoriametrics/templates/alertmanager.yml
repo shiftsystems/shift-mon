@@ -8,6 +8,14 @@ global:
   smtp_auth_password: "{{ alertmanager.smtp_password }}"
   smtp_auth_identity: "{{ alertmanager.smtp_auth_identity }}"
   smtp_require_tls: {{ alertmanager.smtp_require_tls | default(true) }}
+{% if victoriatraces is defined %}
+tracing:
+  client_type: "grpc"
+  endpoint: "victoriatraces:4317"
+  sampling_fraction: 0.5
+  timeout: 5s
+  insecure: true
+{% endif %}
 {% if shiftmon_alertmanager_templates is defined %}
 templates:
 {% for template in shiftmon_alertmanager_templates.values() %}
