@@ -116,6 +116,7 @@ receivers:
     operators:
       - type: json_parser
         parse_from: body
+        on_error: drop_quiet
 {% endif %}
 {% if 'docker.service' in ansible_facts.services %}
   docker_stats:
@@ -172,8 +173,9 @@ exporters:
       authenticator: bearertokenauth
 
 service:
-  logs:
-    level: "warn"
+  telemetry:
+    logs:
+      level: "warn"
   pipelines:
 {% if shiftmon_otlp_http_receiver_endpoint is defined or shiftmon_otlp_grpc_receiver_endpoint is defined or shiftmon_jaeger_grpc_receiver_endpoint is defined or shiftmon_jaeger_thrift_compact_receiver_endpoint is defined %}
     traces:

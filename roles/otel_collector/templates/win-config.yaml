@@ -71,6 +71,7 @@ processors:
     error_mode: ignore
     log_statements:
       - context: log
+        error_mode: ignore
         conditions:
           - IsMatch(body,"pbs.*")
         statements:
