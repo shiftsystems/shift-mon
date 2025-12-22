@@ -297,9 +297,12 @@ services:
         source: /opt/shift-mon/victoriatraces
         target: /victoriatraces
     command:
-      - "-storageDataPath=/victoriatraces"
-      - "-retentionPeriod={{ victoriatraces.retention_period }}"
-      - "-loggerFormat=json"
+      - '-storageDataPath=/victoriatraces'
+      - '-retentionPeriod={{ victoriatraces.retention_period }}'
+      - '-loggerFormat=json'
+      - '-otlpGRPCListenAddr=:4317'
+      - '-otlpGRPC.tls=false'
+      - '-servicegraph.enableTask'
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:10428/health"]
       interval: 5s
