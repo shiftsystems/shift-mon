@@ -380,7 +380,6 @@
     path: /opt/rocm/rocm-smi
   register: rocm_smi_propetairy
 
-
 - name: Add ROCM SMI config to telegraf
   ansible.builtin.template:
     src: "rocm.conf"
@@ -392,8 +391,7 @@
   notify: Restart Telegraf
   when: 
     - rocm_smi_repo.stat.exists or rocm_smi_propetairy.stat.exists
-    - rocm not in do_not_instrument
-
+    - '"rocm" not in do_not_instrument'
 
 - name: Deploy VSphere config when Vsphere Creds are Available
   ansible.builtin.copy:
@@ -546,7 +544,7 @@
     owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
-  when: blackbox_https_urls is defined and blackbox_https_urls is defined
+  when: blackbox_https_urls is defined
   notify: Restart Telegraf
 
 - name: Add DNS Blackbox config
@@ -557,7 +555,7 @@
     owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
-  when: blackbox_dns_queries is defined and blackbox_dns_queries
+  when: blackbox_dns_queries is defined
   notify: Restart Telegraf
 
 - name: Add Ping Blackbox config
@@ -568,7 +566,7 @@
     owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
-  when: blackbox_ping_hosts is defined and blackbox_ping_hosts
+  when: blackbox_ping_hosts is defined
   notify: Restart Telegraf
 
 - name: Add Net Response Blackbox config
@@ -579,7 +577,7 @@
     owner: "{{ telegraf_user }}"
     group: "telegraf"
   become: true
-  when: blackbox_net_hosts is defined and blackbox_net_hosts
+  when: blackbox_net_hosts is defined
   notify: Restart Telegraf
 
 - name: Add Blocky DNS config
@@ -658,10 +656,18 @@
     shiftmon_json_apps: "{{ shiftmon_json_apps + shiftmon_user_json_apps }}"
   when: shiftmon_user_json_apps is defined
 
+- name: print json apps
+  ansible.builtin.debug: 
+    var: shiftmon_json_apps
+
 - name: Merge logfmt apps list
   ansible.builtin.set_fact:
-    shiftmon_logfmt_apps: "{{ shiftmon_logfmt_apps.extend(shiftmon_user_logfmt_apps) }}"
+    shiftmon_logfmt_apps: "{{ shiftmon_logfmt_apps + shiftmon_user_logfmt_apps }}"
   when: shiftmon_user_logfmt_apps is defined
+
+- name: print logfmt apps
+  ansible.builtin.debug: 
+    var: shiftmon_logfmt_apps
 
 - name: Add Telegraf config for syslog
   ansible.builtin.template:
