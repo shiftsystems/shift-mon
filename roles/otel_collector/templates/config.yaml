@@ -24,6 +24,7 @@ receivers:
           match_type: regexp
       paging:
       process:
+        mute_process_all_errors: true
         include:
           match_type: 'regexp'
           names:
@@ -124,6 +125,10 @@ receivers:
     api_version: "1.44"
 {% endif %}
 processors:
+  attributes/removal:
+    actions:
+      - key: service.instance.id
+        action: delete
   batch:
   resourcedetection/system:
     detectors:
@@ -184,6 +189,7 @@ service:
         {{ '- jaeger' if shiftmon_jaeger_grpc_receiver_endpoint is defined or shiftmon_jaeger_thrift_compact_receiver_endpoint is defined }}
       processors:
         - batch
+        - attributes/removal
         - resourcedetection/system
       exporters:
         - otlphttp/traces
@@ -202,6 +208,7 @@ service:
 {% endif %}
       processors:
         - batch
+        - attributes/removal
         - resourcedetection/system
       exporters: 
         - otlphttp/metrics
@@ -214,6 +221,7 @@ service:
       processors:
         - batch
         - resourcedetection/system
+        - attributes/removal
         - transform/parse_structured_logs
         - transform/parse_pbs_tasks
       exporters:
