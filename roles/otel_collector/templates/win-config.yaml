@@ -99,8 +99,9 @@ exporters:
     auth:
       authenticator: bearertokenauth
 service:
-  logs:
-    level: "warn"
+  telemetry:
+    logs:
+      level: "warn"
   pipelines:
     metrics:
       receivers:
