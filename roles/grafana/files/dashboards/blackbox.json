@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 13,
+  "id": 6,
   "links": [
     {
       "asDropdown": true,
@@ -103,7 +103,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -170,7 +170,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -248,7 +248,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -319,7 +319,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -399,7 +399,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -466,7 +466,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -536,7 +536,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -604,7 +604,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -766,7 +766,7 @@
           }
         ]
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -778,6 +778,7 @@
           "expr": "sum by (host,server) (share_le_over_time(http_response_result_code{host=~\"$host\",server=~\"$http_check\"}[$__range], 0))",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "A"
@@ -792,6 +793,7 @@
           "expr": "sum by (server,host) (clamp(http_response_result_code{host=~\"$host\",server=~\"$http_check\"},0,1))",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "B"
@@ -905,7 +907,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -983,7 +985,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1050,7 +1052,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1120,7 +1122,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1188,7 +1190,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1348,7 +1350,7 @@
           }
         ]
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1360,6 +1362,7 @@
           "expr": "1 - ((sum_over_time(sum by (server,record_type,domain,host) (clamp(dns_query_result_code{host=~\"$host\",domain=~\"$dns_check\"},0,1))[$__range])) / (sum_over_time(sum by (server,record_type,domain,host) (clamp(dns_query_result_code{host=~\"$host\",domain=~\"$dns_check\"},1,1))[$__range])))",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "A"
@@ -1374,6 +1377,7 @@
           "expr": "sum by (server,record_type,domain,host) (clamp(dns_query_result_code{host=~\"$host\",domain=~\"$dns_check\"},0,1))",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "B"
@@ -1487,7 +1491,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1565,7 +1569,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1632,7 +1636,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1699,7 +1703,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1770,7 +1774,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1941,7 +1945,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -1953,6 +1957,7 @@
           "expr": "share_le_over_time(net_response_result_code{host=~\"$host\",server=~\"$net_check\"}[$__range],0)",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "A"
@@ -1967,6 +1972,7 @@
           "expr": "clamp(net_response_result_code{host=~\"$host\",server=~\"$net_check\"},0,1)",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "B"
@@ -2097,7 +2103,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2175,7 +2181,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2242,7 +2248,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2309,7 +2315,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2380,7 +2386,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2540,7 +2546,7 @@
           }
         ]
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2552,6 +2558,7 @@
           "expr": "share_le_over_time(ping_result_code{host=~\"$host\",url=~\"$ping_check\"}[$__range],0)",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "A"
@@ -2566,6 +2573,7 @@
           "expr": "clamp(ping_result_code{host=~\"$host\",url=~\"$ping_check\"},0,1)",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "__auto",
           "range": false,
           "refId": "B"
@@ -2684,7 +2692,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2821,7 +2829,7 @@
           }
         ]
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -2990,7 +2998,7 @@
           }
         ]
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -3002,6 +3010,7 @@
           "expr": "(x509_cert_enddate{type=\"intermediate\",host=~\"$host\"} - time())",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "{{common_name}}",
           "range": false,
           "refId": "B"
@@ -3159,7 +3168,7 @@
           }
         ]
       },
-      "pluginVersion": "12.4.0-20183986522",
+      "pluginVersion": "12.4.0-20530045502",
       "targets": [
         {
           "datasource": {
@@ -3171,6 +3180,7 @@
           "expr": "(x509_cert_enddate{type=\"root\",host=~\"$host\"} - time())",
           "format": "table",
           "instant": true,
+          "interval": "5m",
           "legendFormat": "{{common_name}}",
           "range": false,
           "refId": "B"
