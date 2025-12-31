@@ -11,7 +11,7 @@ global:
 {% if victoriatraces is defined %}
 tracing:
   client_type: "grpc"
-  endpoint: "victoriatraces:4317"
+  endpoint: "{{ shiftmon_tracing_endpoint }}"
   sampling_fraction: 0.5
   timeout: 5s
   insecure: true

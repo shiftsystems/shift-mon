@@ -230,7 +230,7 @@ The assumption of shiftmon is that each container will be running the latest ver
 - shiftmon_loki_version: Version of Loki Shiftmon will use
 
 ## Tracing
-- shiftmon_tracing_endpoint: gRPC endpoint for sending otel traces from Traefik and Grafana
+- shiftmon_tracing_endpoint: gRPC endpoint for sending otel traces from Traefik,Alertmanager, and Grafana
 
 ## vmanomaly
 - vmanomaly_log_level: How verbose vmanomaly logs should be defaults to `INFO` supports `DEBUG`,`INFO`, `WARNING`, and `ERROR`
