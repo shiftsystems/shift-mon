@@ -40,3 +40,13 @@
     mode: '770'
     setype: container_file_t
   become: true
+
+- name: Add vmanomaly healthcheck script
+  ansible.builtin.copy:
+    src: vmanomaly-healthcheck.py
+    dest: /vmanomaly-healthcheck.py
+    owner: shiftmon
+    group: shiftmon
+    mode: '770'
+    setype: container_file_t
+  become: true
