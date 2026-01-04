@@ -188,7 +188,7 @@ services:
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
     restart: always
     healthcheck:
-      test: ["CMD","curl","http://127.0.0.1:8490/health"]
+      test: ["CMD","/vmanomaly-healthcheck.py"]
       interval: "30s"
       timeout: "10s"
       retries: 5
@@ -208,6 +208,9 @@ services:
       - type: bind
         source: /opt/shift-mon/victoriametricslicense
         target: /victoriametricslicense
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-healthcheck.py
+        target: /vmanomaly-healthcheck.py
     command:
       - "/config"
       - "--licenseFile=/victoriametricslicense"
@@ -221,7 +224,7 @@ services:
     user: "2070:100"
     restart: always
     healthcheck:
-      test: ["CMD","curl","http://127.0.0.1:8490/health"]
+      test: ["CMD","/vmanomaly-healthcheck.py"]
       interval: "30s"
       timeout: "10s"
       retries: 5
@@ -241,6 +244,9 @@ services:
       - type: bind
         source: /opt/shift-mon/victoriametricslicense
         target: /victoriametricslicense
+      - type: bind
+        source: /opt/shift-mon/vmanomaly-healthcheck.py
+        target: /vmanomaly-healthcheck.py
     command:
       - "/config"
       - "--licenseFile=/victoriametricslicense"
