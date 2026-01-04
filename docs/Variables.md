@@ -22,6 +22,7 @@ victoria:
   tokens: a list of tokens that have Read write access to the Victorialogs in addition to the `victorialogs_token` variable
   cert_path:  absolute path to TLS certificate for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
   key_path:  absolute path to TLS key for Victorialogs should be pem encoded this is optional. By default, shiftmon tries to get certs via letsencrypt
+  query_time_range: go duration specifying how the max duration victorialogs will allow queries over queries that query a longer duration will be rejected and logged. Defaults to retention_period
 
 ## Victoriatraces (Optional)
 victoriatraces:
