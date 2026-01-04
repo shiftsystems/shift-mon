@@ -287,6 +287,7 @@ services:
     command:
       - -storageDataPath=/victorialogs
       - -retentionPeriod={{ victorialogs.retention_period }}
+      - -search.maxQueryTimeRange={{ victorialogs.query_time_range | default(victorialogs.retention_period) }}
       - "-loggerFormat=json"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9428/health"]
