@@ -63,6 +63,15 @@
   with_items:
     - watchtower.json
 
+- name: Copy Home Dashboard
+  ansible.builtin.copy:
+    src: "{{ grafana.home_dashboard_path | default('home.json') }}"
+    dest: /opt/shift-mon/grafana/home.json
+    owner: shiftmon
+    group: shiftmon
+  become: true
+
+
 - name: Configure Dashboard Provisioning 
   ansible.builtin.template:
     src: dashboards.yml
