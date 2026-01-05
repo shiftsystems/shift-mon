@@ -128,7 +128,7 @@ shiftmon_tokens:
 * domain: Fully qualified domain name of the grafana server
 * cert_path:  absolute path to TLS certificate for Grafana should be pem encoded this is optional
 * key_path:  absolute path to TLS key for Grafana should be pem encoded this is optional
-
+* home_dashboard_path: path on the ansible controller to the Grafana dashboard that users see when they sign in this is optional
 ### Email this is optional
 * email
   * enabled: weather or not grafana should be configured for SMTP/E-mail alerts
