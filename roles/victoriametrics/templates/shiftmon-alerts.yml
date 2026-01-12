@@ -436,3 +436,18 @@ groups:
           dashboard: 'https://{{ $externalURL }}/d/shiftmon-watchtower/watchtower?var-host={{ $labels."host.name" }}'
 {% endraw %}
 {% endif %}
+{% if shiftmon_alerts_telegraf_enabled %}
+{% raw %}
+  - name: Telegraf
+    interval: 1m
+    type: vlogs
+    rules:
+      - alert: Telegraf Scrape Issues
+        expr: 'tags.appname:telegraf AND fields.level:ERROR AND fields.plugin:~"prometheus|http" | stats by (tags.host,fields.msg) count() as scrape_errors | scrape_errors:>0'
+        for: 5m
+        annotations:
+          summary: 'failed scrape jobs on {{ index $labels "tags.host" }}'
+          description: '{{ index $labels "tags.host" }} is returning the following message for scrape jobs {{ index $labels "fields.msg" }}'
+{% endraw %}
+{% endif %}
+

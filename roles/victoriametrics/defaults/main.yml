@@ -10,6 +10,7 @@ shiftmon_alerts_victoriametrics_enabled: false
 shiftmon_alerts_adguardhome_enabled: false
 shiftmon_alerts_log_rules: false
 shiftmon_alerts_watchtower_enabled: false
+shiftmon_alerts_telegraf_enabled: false
 shiftmon_alerts_empty_rule_rules: false
 telegraf_victoriametrics_config: true
 shiftmon_loki_enabled: true
