@@ -19,6 +19,7 @@ shiftmon_json_apps:
   - 'shift-mon-vmauth*'
   - 'shift-mon-vmalert*'
   - 'shift-mon-victoria*'
+  - 'telegraf*'
 shiftmon_logfmt_apps:
   - '*alertmanager*'
   - '*dendrite-monolith*'
