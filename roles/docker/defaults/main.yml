@@ -10,7 +10,7 @@ docker_daemon_options:
     syslog-address: 'udp://localhost:6667'
     syslog-format: rfc5424
     tag: "{% raw %}{{.Name}}{% endraw %}"
-shiftmon_alertmanager_version: 'v0.30.0'
+shiftmon_alertmanager_version: 'v0.30.1'
 shiftmon_grafana_version: '12.3.1'
 shiftmon_victoriametrics_version: 'v1.133.0'
 shiftmon_victorialogs_version: 'v1.43.1'
