@@ -75,6 +75,22 @@ datasources:
         query: '"$${__trace.traceId}"'
         spanStartTimeShift: '-5m'
         spanEndTimeShift: '5m'
+      tracesToMetrics:
+        datasourceUid: 'shiftmon-victoriametrics-datasource'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '5m'
+        tags:
+#          - { key: 'host.name', value: 'host' }
+          - { key: 'host.name', value: 'host.name' }
+        queries:
+#          - name: CPU Usage
+#            query: '100 - cpu_usage_idle{$$__tags}'
+#          - name: Memory Usage
+#            query: 'mem_used_percent{$$__tags}'
+          - name: CPU Usage
+            query: '100 * (1 - avg(rate(system.cpu.time{state="idle",$$__tags}[5m])))'
+          - name: Memory Usage
+            query: '100 * sum(system.memory.usage{$$__tags,state="used"}) by (host.name) / sum(system.memory.usage{$$__tags}) by (host.name)'
 {% if shiftmon_loki_enabled %}
   - name: shift-logs
     version: 2
