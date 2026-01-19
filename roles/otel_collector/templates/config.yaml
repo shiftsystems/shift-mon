@@ -94,11 +94,11 @@ receivers:
         endpoint: '{{shiftmon_jaeger_thrift_compact_receiver_endpoint }}'
 {% endif %}
 {% if shiftmon_jaeger_thrift_http_receiver_endpoint is defined %}
-      thrift_compact:
+      thrift_http:
         endpoint: '{{shiftmon_jaeger_thrift_http_receiver_endpoint }}'
 {% endif %}
 {% if shiftmon_jaeger_thrift_binary_receiver_endpoint is defined %}
-      thrift_compact:
+      thrift_binary:
         endpoint: '{{shiftmon_jaeger_thrift_binary_receiver_endpoint }}'
 {% endif %}
 
@@ -125,11 +125,28 @@ receivers:
     api_version: "1.44"
 {% endif %}
 processors:
-  attributes/removal:
-    actions:
-      - key: service.instance.id
-        action: delete
   batch:
+  deltatocumulative:
+    max_stale: 5m
+  transform/metric_attributes:
+    error_mode: ignore
+    metric_statements:
+      - context: resource
+        statements:
+          - delete_key(attributes, "service.instance.id")
+          - delete_key(attributes, "network.protocol.name")
+          - delete_key(attributes, "process.command_args")
+          - delete_key(attributes, "process.executable.name")
+          - delete_key(attributes, "process.pid")
+          - delete_key(attributes, "process.runtime.name")
+          - delete_key(attributes, "process.runtime.description")
+          - delete_key(attributes, "service.version")
+          - delete_key(attributes, "telemetry.sdk.language")
+          - delete_key(attributes, "telemetry.sdk.version")
+      - context: scope
+        statements:
+          - set(name, "")
+          - set(version, "")
   resourcedetection/system:
     detectors:
       - "system"
@@ -189,7 +206,6 @@ service:
         {{ '- jaeger' if shiftmon_jaeger_grpc_receiver_endpoint is defined or shiftmon_jaeger_thrift_compact_receiver_endpoint is defined }}
       processors:
         - batch
-        - attributes/removal
         - resourcedetection/system
       exporters:
         - otlphttp/traces
@@ -207,9 +223,10 @@ service:
 {% endfor %}
 {% endif %}
       processors:
+        - deltatocumulative
         - batch
-        - attributes/removal
         - resourcedetection/system
+        - transform/metric_attributes
       exporters: 
         - otlphttp/metrics
     logs:
@@ -221,7 +238,6 @@ service:
       processors:
         - batch
         - resourcedetection/system
-        - attributes/removal
         - transform/parse_structured_logs
         - transform/parse_pbs_tasks
       exporters:
