@@ -219,6 +219,8 @@ services:
     environment:
       VMANOMALY_MODEL_DUMPS_DIR: /models
       VMANOMALY_DATA_DUMPS_DIR: /data
+{% endif %}
+{% if vmanomaly_logs_enabled and victoria.license is defined %}
   vmanomaly-logs:
     image: quay.io/victoriametrics/vmanomaly:{{ shiftmon_vmanomaly_version }}
     user: "2070:100"
