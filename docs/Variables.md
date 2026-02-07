@@ -64,8 +64,9 @@ shiftmon_alertmanager_url: string to that alertmanager will point at to show ale
 
 ### vmanomaly
 These features require a valid Victoriametrics license defined in `victoria.license`
-vmanomaly_enabled: false
-vmanomaly_config_path: path to vmanomaly metrics config file
+vmanomaly_enabled: enables vmanomaly with default config for finding latency anomalies defaults to false
+vmanomaly_logs_enabled: enables vmanomaly instance for victorialogs requires vmanomaly_logs_config_path is defined defaults to false
+vmanomaly_config_path: path to vmanomaly metrics config file defaults to included config for detecting latency anomalies
 vmanomaly_logs_config_path: path to vmanomaly logs config file
 vmanomaly_workers: number of worker processes vmanomaly should spawn defaults to 2
 shiftmon_vmanomaly_domain: domain to use for vmanomaly requests

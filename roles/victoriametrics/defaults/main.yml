@@ -17,5 +17,6 @@ shiftmon_loki_enabled: true
 alertmanager_from_email: "{{ alertmanager_smtp_username }}"
 alertmanger_smtp_auth_identity: "{{ alertmanager_smtp_username }}"
 vmanomaly_enabled: false
+vmanomaly_logs_enabled: false
 victorialogs_tokens: []
 victoriametrics_tokens: []
