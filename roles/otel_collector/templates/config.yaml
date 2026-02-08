@@ -45,7 +45,23 @@ receivers:
     targets:
       - method: "{{ check.method | default('GET') }}"
         endpoints:
-          - "{{ check.url }}"
+          - "{{ check.endpoint }}"
+{% if check.endpoint.startswith('https') %}
+  tlscheck/{{ check.name }}:
+    targets:
+      - endpoint: {{ check.endpoint | urlsplit('netloc') }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if shiftmon_icmpchecks is defined %}
+{% for check in shiftmon_icmpchecks %}
+  icmpcheck/{{ check.name }}:
+    collection_interval: "{{ check.collection_interval | default('30s') }}"
+    targets:
+      - host: "{{ check.endpoint }}"
+        ping_count: {{ check.ping_count | default(4) }}
+        ping_timeout: "{{ check.ping_timeout | default('3s') }}"
+        ping_interval: "{{ check.ping_interval | default('2s') }}"
 {% endfor %}
 {% endif %}
 {% if shiftmon_postgres_endpoints is defined %}
@@ -143,6 +159,9 @@ processors:
           - delete_key(attributes, "service.version")
           - delete_key(attributes, "telemetry.sdk.language")
           - delete_key(attributes, "telemetry.sdk.version")
+      - context: datapoint # <--- ADD THIS NEW BLOCK
+        statements:
+          - delete_key(attributes, "tlscheck.x509.san")
       - context: scope
         statements:
           - set(name, "")
@@ -162,6 +181,12 @@ processors:
           - IsMatch(attributes["appname"], "{{ shiftmon_json_apps }}|{{ shiftmon_user_json_apps }}")
         statements:
           - merge_maps(log.attributes, ParseJSON(attributes["message"]), "insert")
+      - context: log
+        error_mode: ignore
+        conditions:
+          - IsMatch(attributes["appname"], "{{ shiftmon_logfmt_apps }}|{{ shiftmon_user_logfmt_apps }}")
+        statements:
+          - merge_maps(log.attributes, ParseKeyValue(attributes["message"]), "insert")
   transform/parse_pbs_tasks:
     error_mode: ignore
     log_statements:
@@ -220,6 +245,14 @@ service:
 {% if shiftmon_httpchecks is defined %}
 {% for check in shiftmon_httpchecks %}
         - httpcheck/{{ check.name }}
+{% if check.endpoint.startswith('https') %}
+        - tlscheck/{{ check.name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if shiftmon_icmpchecks is defined %}
+{% for check in shiftmon_icmpchecks %}
+        - icmpcheck/{{ check.name }}
 {% endfor %}
 {% endif %}
       processors:
