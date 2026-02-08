@@ -1,6 +1,8 @@
 shiftmon_do_not_instrument: []
 shiftmon_json_apps: '.*synapse.*|.*traefik.*'
 shiftmon_user_json_apps: ''
+shiftmon_logfmt_apps: '.*alertmanager.*|.*dendrite-monolith.*|.*watchtower.*|.*dockerd.*'
+shiftmon_user_logfmt_apps: ''
 shiftmon_otlp_metrics_endpoint: "{{ victoriametrics_url }}/opentelemetry/v1/metrics"
 shiftmon_otlp_logs_endpoint: "{{ victorialogs_url }}/insert/opentelemetry/v1/logs"
 shiftmon_otlp_traces_endpoint: "{{ victoriatraces_url }}/insert/opentelemetry/v1/traces"
@@ -16,7 +18,7 @@ shiftmon_prometheus_scrape_config:
     - targets:
       - '0.0.0.0:8888'
 shiftmon_docker_endpoint: 'unix:///var/run/docker.sock'
-shiftmon_otel_collector_version: '0.139.0'
+shiftmon_otel_collector_version: '0.145.0'
 shiftmon_syslog_listen_address: '0.0.0.0'
 shiftmon_syslog_address: '127.0.0.1'
 shiftmon_syslog_proto: 'udp'
