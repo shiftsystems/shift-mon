@@ -53,17 +53,6 @@ receivers:
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if shiftmon_icmpchecks is defined %}
-{% for check in shiftmon_icmpchecks %}
-  icmpcheck/{{ check.name }}:
-    collection_interval: "{{ check.collection_interval | default('30s') }}"
-    targets:
-      - host: "{{ check.endpoint }}"
-        ping_count: {{ check.ping_count | default(4) }}
-        ping_timeout: "{{ check.ping_timeout | default('3s') }}"
-        ping_interval: "{{ check.ping_interval | default('2s') }}"
-{% endfor %}
-{% endif %}
 {% if shiftmon_postgres_endpoints is defined %}
 {% for endpoint in shiftmon_postgres_endpoints %}
   postgresql:
@@ -248,11 +237,6 @@ service:
 {% if check.endpoint.startswith('https') %}
         - tlscheck/{{ check.name }}
 {% endif %}
-{% endfor %}
-{% endif %}
-{% if shiftmon_icmpchecks is defined %}
-{% for check in shiftmon_icmpchecks %}
-        - icmpcheck/{{ check.name }}
 {% endfor %}
 {% endif %}
       processors:
