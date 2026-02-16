@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 33,
   "links": [],
   "panels": [
     {
@@ -151,7 +150,7 @@
         "cellHeight": "sm",
         "showHeader": true
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -176,7 +175,6 @@
           "exemplar": false,
           "expr": "sum(changes(caddy_config_last_reload_success_timestamp_seconds{host=~\"$host\"}[$__range])) by (host)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -191,7 +189,6 @@
           "exemplar": false,
           "expr": "sum(process_resident_memory_bytes{host=~\"$host\",url=\"http://localhost:2019/metrics\"}[$__range]) by (host)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -206,7 +203,6 @@
           "exemplar": false,
           "expr": "sum(rate(process_cpu_seconds_total{host=~\"$host\",url=\"http://localhost:2019/metrics\"})) by (host)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -343,7 +339,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -446,7 +442,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -577,7 +573,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -705,7 +701,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -776,7 +772,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -847,7 +843,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -926,7 +922,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1017,7 +1013,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1109,7 +1105,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1159,12 +1155,14 @@
             "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
+            "showControls": false,
             "showLabels": false,
             "showTime": false,
             "sortOrder": "Descending",
+            "unwrappedColumns": false,
             "wrapLogMessage": false
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-22000047192",
           "targets": [
             {
               "datasource": {
@@ -1185,7 +1183,7 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1193,156 +1191,173 @@
         "y": 41
       },
       "id": 15,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "axisPlacement": "auto",
-                "fillOpacity": 70,
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineWidth": 0.7
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red",
-                    "value": 0
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 19,
-            "x": 0,
-            "y": 58
-          },
-          "id": 13,
-          "options": {
-            "colWidth": 1,
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "rowHeight": 0.9,
-            "showValue": "auto",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${Metrics}"
-              },
-              "editorMode": "code",
-              "expr": "caddy_reverse_proxy_upstreams_healthy{host=~\"$host\"}",
-              "legendFormat": "{{upstream}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Health Checks",
-          "type": "status-history"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Metrics}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red",
-                    "value": 0
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  }
-                ]
-              },
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 5,
-            "x": 19,
-            "y": 58
-          },
-          "id": 18,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "mean"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${Metrics}"
-              },
-              "editorMode": "code",
-              "expr": "caddy_reverse_proxy_upstreams_healthy{host=~\"$host\"}",
-              "legendFormat": "{{upstream}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Health Checks",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Origin Health",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisPlacement": "auto",
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 0.7
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 19,
+        "x": 0,
+        "y": 42
+      },
+      "id": 13,
+      "maxDataPoints": 60,
+      "options": {
+        "colWidth": 1,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-22000047192",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "min_over_time(caddy_reverse_proxy_upstreams_healthy{host=~\"$host\"}[$__interval])",
+          "format": "time_series",
+          "legendFormat": "{{upstream}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Health Checks",
+      "type": "status-history"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 19,
+        "y": 42
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.0-22000047192",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Metrics}"
+          },
+          "editorMode": "code",
+          "expr": "caddy_reverse_proxy_upstreams_healthy{host=~\"$host\"}",
+          "legendFormat": "{{upstream}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Health Checks",
+      "type": "stat"
     },
     {
       "collapsed": true,
@@ -1350,7 +1365,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 51
       },
       "id": 25,
       "panels": [
@@ -1416,7 +1431,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 43
+            "y": 52
           },
           "id": 26,
           "options": {
@@ -1436,7 +1451,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-22000047192",
           "targets": [
             {
               "datasource": {
@@ -1515,7 +1530,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 43
+            "y": 52
           },
           "id": 27,
           "options": {
@@ -1535,7 +1550,7 @@
               "sort": "desc"
             }
           },
-          "pluginVersion": "12.2.0",
+          "pluginVersion": "12.4.0-22000047192",
           "targets": [
             {
               "datasource": {
@@ -1555,7 +1570,6 @@
               },
               "editorMode": "code",
               "expr": "process_virtual_memory_bytes{url=\"http://localhost:2019/metrics\",host=~\"$host\"}",
-              "hide": false,
               "legendFormat": "{{host}} - available",
               "range": true,
               "refId": "B"
@@ -1627,6 +1641,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1658,7 +1673,8 @@
           }
         ],
         "query": ".50,.90,.95,.99",
-        "type": "custom"
+        "type": "custom",
+        "valuesFormat": "csv"
       }
     ]
   },
@@ -1667,8 +1683,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Caddy",
   "uid": "shiftmon-caddy",
-  "version": 2
+  "version": 1,
+  "weekStart": ""
 }

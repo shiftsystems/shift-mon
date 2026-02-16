@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 14,
   "links": [],
   "panels": [
     {
@@ -131,7 +130,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -139,7 +138,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.host:\"$host\" AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
+          "expr": "tags.host:\"$host\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
           "queryType": "instant",
           "refId": "A"
         }
@@ -205,7 +204,10 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
@@ -220,7 +222,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -228,45 +230,13 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.host:\"$host\" AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (behavior) count() events",
-          "queryType": "range",
+          "expr": "tags.host:\"$host\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (behavior) count() events",
+          "legendFormat": "{{ behavior }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "Behaviors",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "format": "auto",
-            "source": "labels"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": "events"
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Line": true,
-              "Time": true
-            },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
       "type": "piechart"
     },
     {
@@ -315,15 +285,17 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": true
         },
         "showUnfilled": true,
         "sizing": "auto",
-        "valueMode": "color"
+        "valueMode": "text"
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -331,34 +303,13 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.host:\"$host\" AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() events",
-          "queryType": "range",
+          "expr": "tags.host:\"$host\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (country) count() as events | sort by (events desc)",
+          "legendFormat": "{{ country }}",
+          "queryType": "stats",
           "refId": "A"
         }
       ],
       "title": "Top countries",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "format": "auto",
-            "replace": true,
-            "source": "labels"
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "number",
-                "targetField": "events"
-              }
-            ],
-            "fields": {}
-          }
-        }
-      ],
       "type": "bargauge"
     },
     {
@@ -407,7 +358,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": true
         },
@@ -415,7 +368,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -423,7 +376,7 @@
             "uid": "${logs}"
           },
           "editorMode": "code",
-          "expr": "tags.host:$host AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (asn) count() events",
+          "expr": "tags.host:$host AND tags.path:\"crowdsec.log\" AND \"ban\" | extract `(<_>) <behavior> by ip <ip> (<country>/<asn>) : <ban_duration> ban on Ip <ban_ip>` | stats by (asn) count() as events | sort by (events desc)",
           "queryType": "range",
           "refId": "A"
         }
@@ -540,7 +493,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -565,7 +518,6 @@
           "exemplar": false,
           "expr": "sum by (host,version) (cs_info{host=~\"$host\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -580,7 +532,6 @@
           "exemplar": false,
           "expr": "label_move(sum by (host,version) (go_info{url=\"http://127.0.0.1:6060/metrics\",host=~\"$host\"}),\"version\",\"go_version\")",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -595,7 +546,6 @@
           "exemplar": false,
           "expr": "sum(go_memstats_sys_bytes{host=~\"$host\",url=\"http://127.0.0.1:6060/metrics\"}) by (host)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -610,7 +560,6 @@
           "exemplar": false,
           "expr": "sum(rate(process_cpu_seconds_total{host=~\"$host\",url=\"http://127.0.0.1:6060/metrics\"})) by (host)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -724,7 +673,11 @@
       "id": 13,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -737,7 +690,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -825,7 +778,11 @@
       "id": 14,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -838,7 +795,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -925,7 +882,11 @@
       "id": 11,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -938,7 +899,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1025,7 +986,12 @@
       "id": 15,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean", "sum"],
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "sum"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -1038,7 +1004,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1119,7 +1085,7 @@
         "frameIndex": 2,
         "showHeader": true
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1216,13 +1182,15 @@
       {
         "current": {
           "text": "All",
-          "value": ["$__all"]
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "victorialogs-datasource",
           "uid": "${logs}"
         },
-        "definition": "tags.path:crowdsec.log",
+        "definition": "tags.path:crowdsec",
         "includeAll": true,
         "multi": true,
         "name": "host",
@@ -1230,18 +1198,23 @@
         "query": {
           "field": "tags.host",
           "limit": 25,
-          "query": "tags.path:crowdsec.log",
+          "query": "tags.path:crowdsec",
           "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
           "type": "fieldValue"
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
         "current": {
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "victoriametrics-metrics-datasource",
@@ -1259,6 +1232,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -1268,8 +1242,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Crowdsec",
   "uid": "shiftmon-crowdsec",
-  "version": 3
+  "version": 1,
+  "weekStart": ""
 }

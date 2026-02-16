@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
   "links": [],
   "panels": [
     {
@@ -107,7 +106,11 @@
       "id": 15,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -120,7 +123,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -204,7 +207,11 @@
       "id": 16,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -217,7 +224,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -303,7 +310,11 @@
       "id": 17,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -316,7 +327,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -407,7 +418,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -499,7 +510,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -591,7 +602,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -610,7 +621,7 @@
       "type": "heatmap"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -618,148 +629,171 @@
         "y": 20
       },
       "id": 21,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
+      "panels": [],
+      "title": "Origin Health",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "fillOpacity": 70,
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
+          "custom": {
+            "axisPlacement": "auto",
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 0.7
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
                 },
-                "lineWidth": 0.7
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                }
               },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 19,
-            "x": 0,
-            "y": 11
-          },
-          "id": 19,
-          "options": {
-            "colWidth": 1,
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "rowHeight": 0.9,
-            "showValue": "auto",
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "11.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "traefik_service_server_up_gauge{host=~\"$host\"}",
-              "legendFormat": "{{service}}",
-              "range": true,
-              "refId": "A"
+              "type": "value"
             }
           ],
-          "title": "Origin Health",
-          "type": "status-history"
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 19,
+        "x": 0,
+        "y": 21
+      },
+      "id": 19,
+      "maxDataPoints": 50,
+      "options": {
+        "colWidth": 1,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-22000047192",
+      "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${metrics}"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 5,
-            "x": 19,
-            "y": 11
-          },
-          "id": 24,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": ["mean"],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "11.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${metrics}"
-              },
-              "editorMode": "code",
-              "expr": "traefik_service_server_up_gauge{host=~\"$host\"}",
-              "legendFormat": "{{service}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Origin Health",
-          "type": "stat"
+          "editorMode": "code",
+          "expr": "min_over_time(traefik_service_server_up_gauge{host=~\"$host\"}[$__interval])",
+          "format": "time_series",
+          "legendFormat": "{{service}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Origin Health",
-      "type": "row"
+      "type": "status-history"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 5,
+        "x": 19,
+        "y": 21
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.0-22000047192",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "traefik_service_server_up_gauge{host=~\"$host\"}",
+          "legendFormat": "{{service}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Origin Health",
+      "type": "stat"
     },
     {
       "collapsed": false,
@@ -767,7 +801,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 31
       },
       "id": 23,
       "panels": [],
@@ -799,7 +833,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 32
       },
       "id": 31,
       "options": {
@@ -807,11 +841,16 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["sum"],
+          "calcs": [
+            "sum"
+          ],
           "fields": "",
           "values": true
         },
@@ -822,7 +861,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -864,7 +903,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 32
       },
       "id": 7,
       "options": {
@@ -872,11 +911,16 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": ["percent", "value"]
+          "values": [
+            "percent",
+            "value"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -887,7 +931,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -929,7 +973,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 42
       },
       "id": 25,
       "options": {
@@ -937,11 +981,16 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["sum"],
+          "calcs": [
+            "sum"
+          ],
           "fields": "",
           "limit": 20,
           "values": true
@@ -953,7 +1002,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1030,7 +1079,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 42
       },
       "id": 2,
       "options": {
@@ -1038,11 +1087,16 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["sum"],
+          "calcs": [
+            "sum"
+          ],
           "fields": "",
           "limit": 20,
           "values": true
@@ -1054,7 +1108,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1137,12 +1191,16 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 42
+        "y": 52
       },
       "id": 5,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1153,7 +1211,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1190,7 +1248,9 @@
         {
           "id": "partitionByValues",
           "options": {
-            "fields": ["RequestHost"],
+            "fields": [
+              "RequestHost"
+            ],
             "keepFields": false
           }
         }
@@ -1263,12 +1323,16 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 42
+        "y": 52
       },
       "id": 6,
       "options": {
         "legend": {
-          "calcs": ["min", "max", "mean"],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -1279,7 +1343,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1309,7 +1373,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 52
+        "y": 62
       },
       "id": 9,
       "options": {
@@ -1322,9 +1386,10 @@
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
+        "unwrappedColumns": false,
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1353,7 +1418,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 52
+        "y": 62
       },
       "id": 10,
       "options": {
@@ -1366,9 +1431,10 @@
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
+        "unwrappedColumns": false,
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.4.0-19840895411",
+      "pluginVersion": "12.4.0-22000047192",
       "targets": [
         {
           "datasource": {
@@ -1419,8 +1485,12 @@
       },
       {
         "current": {
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -1438,6 +1508,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -1447,8 +1518,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Traefik",
   "uid": "shiftmon-traefik",
-  "version": 3
+  "version": 1,
+  "weekStart": ""
 }
