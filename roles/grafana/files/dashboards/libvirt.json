@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 213,
   "links": [
     {
       "asDropdown": true,
@@ -43,6 +42,19 @@
   ],
   "panels": [
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Host Overview",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "victoriametrics-metrics-datasource",
         "uid": "${metrics}"
@@ -58,6 +70,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -66,7 +81,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -113,7 +128,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "#EAB839",
@@ -140,22 +155,14 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 26,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-22144362431",
       "targets": [
         {
           "editorMode": "code",
@@ -176,7 +183,6 @@
           "exemplar": false,
           "expr": "sum by (host) (mem_total{host=~\"$hypervisor\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -191,7 +197,6 @@
           "exemplar": false,
           "expr": "sum by (host) ((100 - mem_used_percent{host=~\"$hypervisor\"}) * mem_total{host=~\"$hypervisor\"} / 100)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -206,7 +211,6 @@
           "exemplar": false,
           "expr": "count by (host) (libvirt_vcpu_total_current{host=~\"$hypervisor\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -221,7 +225,6 @@
           "exemplar": false,
           "expr": "sum by (host) (system_uptime{host=~\"$hypervisor\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -236,7 +239,6 @@
           "exemplar": false,
           "expr": "sum by (host) (mem_used_percent{host=~\"$hypervisor\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -251,7 +253,6 @@
           "exemplar": false,
           "expr": "100 - sum by (host) (cpu_usage_idle{host=~\"$hypervisor\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -298,6 +299,19 @@
       "type": "table"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 28,
+      "panels": [],
+      "title": "Host Metrics",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "${metrics}"
@@ -312,6 +326,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -320,7 +337,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -332,22 +349,14 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 9
       },
       "id": 13,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-22144362431",
       "targets": [
         {
           "datasource": {
@@ -372,7 +381,6 @@
           "exemplar": false,
           "expr": "sum without (__name__,db,label,mode) (disk_free{host=~\"$hypervisor\"})",
           "format": "table",
-          "hide": false,
           "instant": true,
           "interval": "",
           "legendFormat": "__auto",
@@ -446,6 +454,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -456,13 +465,12 @@
             }
           },
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -476,13 +484,26 @@
           },
           "unit": "binbps"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*sent/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 15
+        "y": 17
       },
       "id": 25,
       "options": {
@@ -503,7 +524,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-22144362431",
       "targets": [
         {
           "datasource": {
@@ -511,10 +532,23 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "rate(net_bytes_sent{host=~\"$hypervisor\"} + net_bytes_recv{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"}[$__rate_interval])",
-          "legendFormat": "{{host}} - {{interface}}",
+          "expr": "rate(net_bytes_sent{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"}[$__rate_interval])",
+          "format": "time_series",
+          "legendFormat": "{{host}} - {{interface}} - sent",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "rate(net_bytes_recv{host=~\"$hypervisor\",interface!~\"macvtap.*|vnet.*|podman.*|veth.*\"}[$__rate_interval])",
+          "format": "time_series",
+          "legendFormat": "{{host}} - {{interface}} - received",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Host Network Usage",
@@ -554,6 +588,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -564,13 +599,12 @@
             }
           },
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -584,13 +618,26 @@
           },
           "unit": "bytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*read/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 15
+        "y": 17
       },
       "id": 17,
       "options": {
@@ -611,7 +658,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-22144362431",
       "targets": [
         {
           "datasource": {
@@ -619,10 +666,23 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "expr": "increase(diskio_read_bytes{host=~\"$hypervisor\"} + diskio_write_bytes{host=~\"$hypervisor\"}[1s]) > 0",
-          "legendFormat": "{{host}} - {{name}}",
+          "expr": "rate(diskio_read_bytes{host=~\"$hypervisor\"}) > 0",
+          "format": "time_series",
+          "legendFormat": "{{host}} - {{name}} - read",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "rate(diskio_write_bytes{host=~\"$hypervisor\"}) > 0",
+          "format": "time_series",
+          "legendFormat": "{{host}} - {{name}} - write",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Host Diskio",
@@ -634,9 +694,286 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 23
       },
-      "id": 21,
+      "id": 29,
+      "panels": [],
+      "title": "Guest Overview",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 70
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/State|CPUs/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 70
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 15,
+      "options": {
+        "cellHeight": "sm",
+        "enablePagination": false,
+        "frameIndex": 4,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.4.0-22144362431",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (domain_name,host) (libvirt_balloon_current{host=~\"$hypervisor\",domain_name=~\"$guest\"})",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (domain_name,host) (libvirt_block_capacity{host=~\"$hypervisor\",domain_name=~\"$guest\"})",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (domain_name,host) (libvirt_state_state{host=~\"$hypervisor\",domain_name=~\"$guest\"})",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (domain_name,host) (libvirt_vcpu_total_current{host=~\"$hypervisor\",domain_name=~\"$guest\"})",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (domain_name,host) (rate(libvirt_cpu_time{host=~\"$hypervisor\",domain_name=~\"$guest\"}) / 1000000000)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "victoriametrics-metrics-datasource",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(libvirt_balloon_rss{host=~\"$hypervisor\",domain_name=~\"$guest\"} / libvirt_balloon_maximum{host=~\"$hypervisor\",domain_name=~\"$guest\"}) by (domain_name,host)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
+        }
+      ],
+      "title": "Guest Resource Usage",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value #A": 7,
+              "Value #B": 8,
+              "Value #C": 3,
+              "Value #D": 5,
+              "Value #E": 4,
+              "Value #F": 6,
+              "domain_name": 1,
+              "host": 2
+            },
+            "renameByName": {
+              "Value #A": "Mem Total",
+              "Value #B": "Disk Size",
+              "Value #C": "State",
+              "Value #D": "CPUs",
+              "Value #E": "CPU Usage",
+              "Value #F": "Mem Usage",
+              "{domain_name=\"server-2025\", host=\"$host\"}": "Storage"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 30,
       "panels": [],
       "title": "Guest Metrics",
       "type": "row"
@@ -676,6 +1013,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -691,23 +1029,32 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
+                "value": 0
               }
             ]
           },
           "unit": "binBps"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*received/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 7,
-        "w": 10,
+        "w": 12,
         "x": 0,
-        "y": 22
+        "y": 40
       },
       "id": 16,
       "options": {
@@ -727,7 +1074,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-22144362431",
       "targets": [
         {
           "datasource": {
@@ -736,11 +1083,26 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(libvirt_net_tx_bytes{host=~\"$hypervisor\"} + libvirt_net_rx_bytes{host=~\"$hypervisor\"}[$__rate_interval]) * 8",
+          "expr": "rate(libvirt_net_tx_bytes{host=~\"$hypervisor\",domain_name=~\"$guest\"}[$__rate_interval])",
+          "format": "time_series",
           "interval": "",
-          "legendFormat": "{{host}} - {{domain_name}}",
+          "legendFormat": "{{host}} - {{domain_name}} - sent",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "rate(libvirt_net_rx_bytes{host=~\"$hypervisor\",domain_name=~\"$guest\"}[$__rate_interval])",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "{{host}} - {{domain_name}} - received",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": " Guest Bandwidth Usage",
@@ -780,6 +1142,141 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*read/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 40
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "min",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.4.0-22144362431",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "rate(libvirt_block_rd_bytes{host=~\"$hypervisor\",domain_name=~\"$guest\"}) > 0",
+          "format": "time_series",
+          "legendFormat": "{{domain_name}} - read",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${metrics}"
+          },
+          "editorMode": "code",
+          "expr": "rate(libvirt_block_wr_bytes{host=~\"$hypervisor\",domain_name=~\"$guest\"}) > 0",
+          "format": "time_series",
+          "legendFormat": "{{domain_name}} - write",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Guest Diskio",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${metrics}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -795,7 +1292,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -809,9 +1306,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 14,
-        "x": 10,
-        "y": 22
+        "w": 12,
+        "x": 0,
+        "y": 47
       },
       "id": 18,
       "options": {
@@ -831,7 +1328,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-22144362431",
       "targets": [
         {
           "datasource": {
@@ -840,7 +1337,8 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(libvirt_cpu_time{host=~\"$hypervisor\"}) / (1000000000 * libvirt_vcpu_total_current{host=~\"$hypervisor\"})",
+          "expr": "rate(libvirt_cpu_time{host=~\"$hypervisor\",domain_name=~\"$guest\"}) / (1000000000 * libvirt_vcpu_total_current{host=~\"$hypervisor\",domain_name=~\"$guest\"})",
+          "format": "time_series",
           "interval": "",
           "legendFormat": "{{host}} - {{domain_name}}",
           "range": true,
@@ -858,15 +1356,41 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "filterable": false,
-            "inspect": false
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -874,112 +1398,43 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "percentunit"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "CPU"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "none"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "CPU Usage"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percent"
-              },
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 70
-                    },
-                    {
-                      "color": "red",
-                      "value": 90
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/State|CPUs/"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "none"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Mem Total"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "kbytes"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 15,
-        "w": 24,
-        "x": 0,
-        "y": 29
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 47
       },
-      "id": 15,
+      "id": 32,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
           ],
-          "show": false
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "frameIndex": 4,
-        "showHeader": true,
-        "sortBy": []
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "11.5.1",
+      "pluginVersion": "12.4.0-22144362431",
       "targets": [
         {
           "datasource": {
@@ -987,136 +1442,29 @@
             "uid": "${metrics}"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (domain_name,host) (libvirt_balloon_current{host=~\"$hypervisor\"})",
-          "format": "table",
-          "instant": true,
+          "exemplar": true,
+          "expr": "libvirt_balloon_rss{host=~\"$hypervisor\",domain_name=~\"$guest\"} / libvirt_balloon_maximum{host=~\"$hypervisor\",domain_name=~\"$guest\"}",
+          "format": "time_series",
           "interval": "",
-          "legendFormat": "__auto",
-          "range": false,
+          "legendFormat": "{{host}} - {{domain_name}}",
+          "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (domain_name,host) (libvirt_block_capacity{host=~\"$hypervisor\"})",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (domain_name,host) (libvirt_state_state{host=~\"$hypervisor\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (domain_name,host) (libvirt_vcpu_total_current{host=~\"$hypervisor\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-metrics-datasource",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (domain_name,host) (rate(libvirt_cpu_time{host=~\"$hypervisor\"}) / 1000000000)",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "victoriametrics-metrics-datasource",
-            "uid": "${metrics}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (domain_name,host) (libvirt_balloon_current{host=~\"$hypervisor\"} - libvirt_balloon_unused{host=~\"$hypervisor\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "F"
         }
       ],
-      "title": "Guest Resource Usage",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": true
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Time": 0,
-              "Value #A": 5,
-              "Value #C": 3,
-              "Value #D": 4,
-              "Value #E": 7,
-              "domain_name": 1,
-              "host": 2,
-              "{domain_name=\"server-2025\", host=\"$host\"}": 6
-            },
-            "renameByName": {
-              "Value #A": "Mem Total",
-              "Value #C": "State",
-              "Value #D": "CPUs",
-              "Value #E": "CPU Usage",
-              "{domain_name=\"server-2025\", host=\"$host\"}": "Storage"
-            }
-          }
-        }
-      ],
-      "type": "table"
+      "title": " Guest Mem Usage",
+      "type": "timeseries"
     }
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
           "text": "shift-victoriametrics",
-          "value": "${metrics}"
+          "value": "shiftmon-victoriametrics-datasource"
         },
         "includeAll": false,
         "name": "metrics",
@@ -1128,21 +1476,25 @@
       },
       {
         "current": {
-          "text": "shift-logs",
-          "value": "P53E94FA6B1E28789"
+          "text": "shiftmon-victorialogs",
+          "value": "shiftmon-victorialogs-datasource"
         },
         "includeAll": false,
         "name": "logs",
         "options": [],
-        "query": "loki",
+        "query": "victoriametrics-logs-datasource",
         "refresh": 1,
         "regex": "",
         "type": "datasource"
       },
       {
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -1161,6 +1513,36 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
+        "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "victoriametrics-metrics-datasource",
+          "uid": "shiftmon-victoriametrics-datasource"
+        },
+        "definition": "label_values(libvirt_vcpu_total_current{host=~\"$hypervisor\"},domain_name)",
+        "includeAll": true,
+        "multi": true,
+        "name": "guest",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(libvirt_vcpu_total_current{host=~\"$hypervisor\"},domain_name)",
+          "refId": "VariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -1170,9 +1552,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Libvirt",
   "uid": "shiftmon-libvirt",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
