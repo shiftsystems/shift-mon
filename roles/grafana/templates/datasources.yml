@@ -45,6 +45,34 @@ datasources:
     type: victoriametrics-logs-datasource
     uid: 'shiftmon-victorialogs-datasource'
     url: http://victorialogs:9428
+    jsonData:
+      vmuiUrl: 'https://{{victorialogs.domain }}/select/vmui'
+      logLevelRules:
+        - level: "critical"
+          enable: true
+          field: "fields.level"
+          operator: "regex"
+          value: "crit|critical"
+        - level: "error"
+          enable: true
+          field: "fields.level"
+          operator: "regex"
+          value: "err|error|emergency|crit|critical"
+        - level: "warning"
+          enable: true
+          field: "fields.level"
+          operator: "regex"
+          value: "warn|warning|notice"
+        - level: "info"
+          enable: true
+          field: "fields.level"
+          operator: "regex"
+          value: "info|informational"
+        - level: "debug"
+          enable: true
+          field: "fields.level"
+          operator: "equals"
+          value: "debug"
   - name: shiftmon-alertmanager
     version: 2
     type: alertmanager
