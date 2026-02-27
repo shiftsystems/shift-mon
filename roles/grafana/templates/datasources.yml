@@ -103,6 +103,10 @@ datasources:
         query: '"$${__trace.traceId}"'
         spanStartTimeShift: '-5m'
         spanEndTimeShift: '5m'
+  - name: shift-infinity
+    uid: shift-infinity
+    version: 1
+    type: yesoreyeram-infinity-datasource
 {% if shiftmon_loki_enabled %}
   - name: shift-logs
     version: 2
