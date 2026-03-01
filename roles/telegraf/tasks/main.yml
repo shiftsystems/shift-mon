@@ -437,6 +437,17 @@
   when: "shiftmon_snmp_if_agents is defined"
   notify: Restart Telegraf
 
+- name: Deploy sFlow config
+  ansible.builtin.template:
+    src: "sflow.conf"
+    dest: /etc/telegraf/telegraf.d/sflow.conf
+    mode: "660"
+    owner: "{{ telegraf_user }}"
+    group: "telegraf"
+  become: true
+  when: "shiftmon_sflow_address is defined"
+  notify: Restart Telegraf
+
 - name: Install snmp tools on Redhat based systems
   ansible.builtin.dnf:
     name: net-snmp-utils
