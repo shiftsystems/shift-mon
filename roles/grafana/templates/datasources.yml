@@ -52,27 +52,27 @@ datasources:
           enable: true
           field: "fields.level"
           operator: "regex"
-          value: "crit|critical"
+          value: "crit|critical|emergency|CRIT|CRITICAL|EMERGENCY"
         - level: "error"
           enable: true
           field: "fields.level"
           operator: "regex"
-          value: "err|error|emergency|crit|critical"
+          value: "err|error|ERR|ERROR"
         - level: "warning"
           enable: true
           field: "fields.level"
           operator: "regex"
-          value: "warn|warning|notice"
+          value: "warn|warning|notice|WARN|WARNING|NOTICE"
         - level: "info"
           enable: true
           field: "fields.level"
           operator: "regex"
-          value: "info|informational"
+          value: "info|informational|INFO|INFORMATIONAL"
         - level: "debug"
           enable: true
           field: "fields.level"
-          operator: "equals"
-          value: "debug"
+          operator: "regex"
+          value: "debug|DEBUG"
   - name: shiftmon-alertmanager
     version: 2
     type: alertmanager
@@ -103,6 +103,10 @@ datasources:
         query: '"$${__trace.traceId}"'
         spanStartTimeShift: '-5m'
         spanEndTimeShift: '5m'
+  - name: shift-infinity
+    uid: shift-infinity
+    version: 1
+    type: yesoreyeram-infinity-datasource
 {% if shiftmon_loki_enabled %}
   - name: shift-logs
     version: 2

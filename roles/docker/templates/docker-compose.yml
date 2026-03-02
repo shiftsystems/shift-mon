@@ -19,7 +19,7 @@ services:
       timeout: '10s'
       retries: 5
     environment:
-      GF_INSTALL_PLUGINS: victoriametrics-metrics-datasource,victoriametrics-logs-datasource,camptocamp-prometheus-alertmanager-datasource
+      GF_INSTALL_PLUGINS: victoriametrics-metrics-datasource,victoriametrics-logs-datasource,camptocamp-prometheus-alertmanager-datasource,yesoreyeram-infinity-datasource
   alertmanager:
     image: quay.io/prometheus/alertmanager:{{ shiftmon_alertmanager_version }}
     user: "{{ shiftmon_user_id.stdout }}:{{ shiftmon_group_id.stdout }}"
