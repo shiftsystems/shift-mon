@@ -54,7 +54,7 @@
         "content": "This dashboard mimics [VictoriaMetrics Cardinality Explorer](https://docs.victoriametrics.com/victoriametrics/#cardinality-explorer). Dashboard is in `Work in Progress` status.\nDashboard always show cardinality for **TODAY ONLY**. Can't find a good way to allow selecting date.\n\n- `Limit entries` - show N entries in tables\n- `Time series selector` - automatically updates with click on table rows. Can be manually edited.\n- `Focus label` - automatically updates with click on table rows. Can be manually edited.\n- `RESET FILTERS` - resets the filters.\n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "13.0.0-22505902166",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -205,7 +205,7 @@
           }
         ]
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "13.0.0-22505902166",
       "targets": [
         {
           "columns": [],
@@ -348,7 +348,7 @@
           }
         ]
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "13.0.0-22505902166",
       "targets": [
         {
           "columns": [],
@@ -491,7 +491,7 @@
           }
         ]
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "13.0.0-22505902166",
       "targets": [
         {
           "columns": [],
@@ -784,7 +784,7 @@
           "value": "http://victoriametrics:8428"
         },
         "description": "URL of the Victoriametrics API instance",
-        "label": "Focus label",
+        "label": "Victoriametrics URL",
         "name": "victoriametrics_url",
         "options": [
           {
@@ -806,6 +806,6 @@
   "timezone": "browser",
   "title": "VictoriMetrics - Cardinality Explorer",
   "uid": "add4lqn",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
