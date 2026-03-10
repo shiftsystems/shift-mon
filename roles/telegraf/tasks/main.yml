@@ -405,7 +405,7 @@
   notify: Restart Telegraf
 
 - name: Deploy Nut config
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "linux/nut.conf"
     dest: /etc/telegraf/telegraf.d/nut.conf
     mode: "660"
