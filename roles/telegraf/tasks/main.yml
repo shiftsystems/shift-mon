@@ -7,9 +7,9 @@
 
 - name: Add GPG key for Influx data on Debian based systems
   ansible.builtin.apt_key:
-    url: https://repos.influxdata.com/influxdata-archive_compat.key
+    url: https://repos.influxdata.com/influxdata-archive.key
     state: present
-    keyring: /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg
+    keyring: /etc/apt/trusted.gpg.d/influxdata-archive.gpg
   become: true
   when: ansible_facts['os_family'] == "Debian"
 
