@@ -406,7 +406,7 @@
 
 - name: Deploy Nut config
   ansible.builtin.template:
-    src: "linux/nut.conf"
+    src: "nut.conf"
     dest: /etc/telegraf/telegraf.d/nut.conf
     mode: "660"
     owner: "{{ telegraf_user }}"
