@@ -204,6 +204,8 @@ oauth:
 * shiftmon_logfmt_apps: apps that Telegraf will parse as JSON by default. Overriding this variable will break rules and dashboards included with shiftmon
 * shiftmon_user_json_apps: a list of patterns that telegraf will try to parse as JSON in addition to the apps in `shiftmon_json_apps` is empty by default
 * shiftmon_user_logfmt_apps: a list of patterns that telegraf will try to parse as logfmt in addition to the patterns in `shiftmon_logfmt_apps` is empty by default
+* shiftmon_sflow_address: ip address to listen for sflow traffic undefined by default when defined it will add the sflow configuration to telegraf
+* shiftmon_sflow_port: port to listen for sflow logs on defaults to 6343
 
 * do_not_instrument: a list of services that shiftmon Should not instrument. The default value is `['nftables']`
 ## Loki
