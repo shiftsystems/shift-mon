@@ -12,6 +12,18 @@ shiftmon_alerts_log_rules: false
 shiftmon_alerts_watchtower_enabled: false
 shiftmon_alerts_telegraf_enabled: false
 shiftmon_alerts_empty_rule_rules: false
+shiftmon_user_access_log_skip_status_codes:
+  - 200
+  - 201
+  - 204
+  - 301
+  - 302
+shiftmon_token_access_log_skip_status_codes:
+  - 200
+  - 201
+  - 204
+  - 301
+  - 302
 telegraf_victoriametrics_config: true
 shiftmon_loki_enabled: true
 alertmanager_from_email: "{{ alertmanager_smtp_username }}"

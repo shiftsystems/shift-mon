@@ -3,6 +3,16 @@ users:
 {% for user in shiftmon_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
+{% if  shiftmon_user_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_user_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
     url_map:
       - src_hosts:
         - "{{ victoria.domain }}"
@@ -31,6 +41,16 @@ users:
 {% if shiftmon_tokens is defined %}
 {% for token in shiftmon_tokens %}
   - bearer_token: '{{ token }}'
+{% if  shiftmon_token_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_token_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
     url_map:
       - src_hosts:
         - "{{ victoria.domain }}"
@@ -58,17 +78,47 @@ users:
 {% endif %}
 {% for token in victoriametrics_merged_tokens %}
   - bearer_token: '{{ token }}'
+{% if  shiftmon_token_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_token_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
     url_prefix: 'http://victoriametrics:8428'
 {% endfor %}
 {% for token in victorialogs_merged_tokens %}
   - bearer_token: '{{ token }}'
     url_prefix: 'http://victorialogs:9428'
+{% if  shiftmon_token_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_token_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
 {% endfor %}
 {% if victoriametrics_users is defined %}
 {% for user in victoriametrics_users %}
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
     url_prefix: 'http://victoriametrics:8428'
+{% if  shiftmon_user_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_user_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if victorialogs_users is defined %}
@@ -76,6 +126,16 @@ users:
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
     url_prefix: 'http://victorialogs:9428'
+{% if  shiftmon_user_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_user_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if alertmanager_users is defined %}
@@ -83,6 +143,16 @@ users:
   - username: '{{ user.user }}'
     password: '{{ user.password }}'
     url_prefix: 'http://alertmanager:9093'
+{% if  shiftmon_user_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_user_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if vmanomaly_users is defined %}
@@ -91,6 +161,16 @@ users:
     password: '{{ user.password }}'
     url_prefix: 'http://vmanomaly:8490'
     keep_original_host: true
+{% if  shiftmon_user_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_user_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if vmanomaly_logs_users is defined %}
@@ -99,9 +179,29 @@ users:
     password: '{{ user.password }}'
     url_prefix: 'http://vmanomaly-logs:8490'
     keep_original_host: true
+{% if  shiftmon_user_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_user_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
 {% endfor %}
 {% endif %}
   - bearer_token: '{{ vmalert_token }}'
+{% if  shiftmon_token_access_log_skip_status_codes|length > 0 %}
+    access_log:
+      filters:
+        skip_status_codes:
+{% for status_code in shiftmon_token_access_log_skip_status_codes %}
+          - {{ status_code }}
+{% endfor %}
+{% else %}
+    access_log: {}
+{% endif %}
     url_map:
       - src_paths:
         - "/api/v1/query.*"
