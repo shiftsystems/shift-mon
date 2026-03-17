@@ -1,4 +1,3 @@
-
 {
   "__inputs": [],
   "__elements": {},
@@ -11,8 +10,8 @@
     },
     {
       "type": "datasource",
-      "id": "victoriametrics-metrics-datasource",
-      "name": "VictoriaMetrics",
+      "id": "prometheus",
+      "name": "Prometheus",
       "version": "1.0.0"
     },
     {
@@ -56,7 +55,7 @@
       },
       {
         "datasource": {
-          "type": "victoriametrics-metrics-datasource",
+          "type": "prometheus",
           "uid": "$ds"
         },
         "enable": true,
@@ -128,7 +127,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": "Shows the rate of requests.",
@@ -178,7 +177,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -194,7 +193,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": "Shows the total number of users defined at configuration file.",
@@ -243,7 +242,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -260,7 +259,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": "Shows the rate of request errors.",
@@ -310,7 +309,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -326,7 +325,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": "Shows if the last configuration update was successful. \"Not Ok\" means there was an unsuccessful attempt to update the configuration due to some error. Check the log for details.",
@@ -397,7 +396,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "exemplar": false,
@@ -412,7 +411,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "fieldConfig": {
@@ -486,7 +485,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -503,7 +502,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "fieldConfig": {
@@ -594,7 +593,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -625,7 +624,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": "Shows the rate of rejected requests by a reason.",
@@ -709,7 +708,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -725,7 +724,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": " The number of concurrent connections processed by vmauth reached one of limits. Possible solutions:\n- increase global limit with flag -maxConcurrentRequests\n- increase limit with flag: -maxConcurrentPerUserRequests for all users or with config option `max_concurrent_requests` per user.\n- deploy additional vmauth replicas\n- check requests latency at backend service and allocate resources to it if needed",
@@ -809,7 +808,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -821,7 +820,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -833,7 +832,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -849,7 +848,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "fieldConfig": {
@@ -932,7 +931,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -944,7 +943,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -960,7 +959,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "fieldConfig": {
@@ -1043,7 +1042,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -1055,7 +1054,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -1071,7 +1070,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": "Shows percent utilization of  per concurrent requests capacity.",
@@ -1162,7 +1161,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -1179,7 +1178,7 @@
     },
     {
       "datasource": {
-        "type": "victoriametrics-metrics-datasource",
+        "type": "prometheus",
         "uid": "$ds"
       },
       "description": "Shows duration in seconds of user requests by quantile.",
@@ -1269,7 +1268,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -1281,7 +1280,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "editorMode": "code",
@@ -1307,7 +1306,7 @@
       "panels": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "Percentage of used memory (resident).\nThe application's performance will significantly degrade when memory usage is close to 100%.",
@@ -1396,7 +1395,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -1413,7 +1412,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "fieldConfig": {
@@ -1501,7 +1500,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -1520,7 +1519,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "",
@@ -1609,10 +1608,10 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
-              "expr": "sum(go_memstats_sys_bytes{job=~\"$job\", instance=~\"$instance\"}) + sum(vm_cache_size_bytes{job=~\"$job\", instance=~\"$instance\"})",
+              "expr": "sum(go_memstats_sys_bytes{job=~\"$job\", instance=~\"$instance\"})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -1621,10 +1620,10 @@
             },
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
-              "expr": "sum(go_memstats_heap_inuse_bytes{job=~\"$job\", instance=~\"$instance\"}) + sum(vm_cache_size_bytes{job=~\"$job\", instance=~\"$instance\"})",
+              "expr": "sum(go_memstats_heap_inuse_bytes{job=~\"$job\", instance=~\"$instance\"})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -1633,7 +1632,7 @@
             },
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "expr": "sum(go_memstats_stack_inuse_bytes{job=~\"$job\", instance=~\"$instance\"})",
@@ -1645,7 +1644,7 @@
             },
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "expr": "sum(process_resident_memory_bytes{job=~\"$job\", instance=~\"$instance\"})",
@@ -1658,7 +1657,7 @@
             },
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "exemplar": false,
@@ -1676,7 +1675,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "",
@@ -1781,7 +1780,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "expr": "rate(process_cpu_seconds_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval])",
@@ -1793,7 +1792,7 @@
             },
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "exemplar": false,
@@ -1811,7 +1810,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "",
@@ -1900,7 +1899,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "expr": "sum(vm_tcplistener_conns{job=~\"$job\", instance=~\"$instance\"})",
@@ -1916,7 +1915,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "",
@@ -2005,7 +2004,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -2023,7 +2022,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "Shows the percentage of open file descriptors compared to the limit set in the OS.\nReaching the limit of open files can cause various issues and must be prevented.\n\nSee how to change limits here https://medium.com/@muhammadtriwibowo/set-permanently-ulimit-n-open-files-in-ubuntu-4d61064429a",
@@ -2129,7 +2128,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -2148,7 +2147,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "fieldConfig": {
@@ -2237,7 +2236,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "expr": "sum(go_goroutines{job=~\"$job\", instance=~\"$instance\"})",
@@ -2252,7 +2251,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "fieldConfig": {
@@ -2341,7 +2340,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "expr": "sum(process_num_threads{job=~\"$job\", instance=~\"$instance\"})",
@@ -2370,7 +2369,7 @@
       "panels": [
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "fieldConfig": {
@@ -2459,7 +2458,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -2500,7 +2499,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "Shows number of generated  error and warning messages in  logs. Non-zero value may be a sign of connectivity or misconfiguration errors.",
@@ -2581,7 +2580,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -2596,7 +2595,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "Shows the number of restarts per job. The chart can be useful to identify periodic process restarts and correlate them with potential issues or anomalies. Normally, processes shouldn't restart unless restart was inited by user. The reason of restarts should be figured out by checking the logs of each specific service. ",
@@ -2685,7 +2684,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -2701,7 +2700,7 @@
         },
         {
           "datasource": {
-            "type": "victoriametrics-metrics-datasource",
+            "type": "prometheus",
             "uid": "$ds"
           },
           "description": "This metric helps identify slow-uploading clients. Elevated buffering percentiles together with a drop in incoming request rate, in the absence of CPU, memory, or upstream saturation, usually indicate slow client uploads (for example, a client on EDGE connection).\n\nSlow clients can hold concurrency slots for extended periods, causing vmauth to hit concurrency limits and reject requests even when upstream services have sufficient capacity. Increasing `-requestBufferSize` decouples client upload speed from request processing, reducing concurrency pressure and protecting vmauth and upstream services, at the cost of higher memory usage.\n\nThis metric is available only when `-requestBufferSize` is non-zero (default: 32KiB). The maximum time vmauth waits for the request body to be fully read (or for the buffer to be filled) is controlled by `-maxQueueDuration` (default: 10s).\n\nRead more in [request body buffering](https://docs.victoriametrics.com/victoriametrics/vmauth/#request-body-buffering) documentation.",
@@ -2789,7 +2788,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "victoriametrics-metrics-datasource",
+                "type": "prometheus",
                 "uid": "$ds"
               },
               "editorMode": "code",
@@ -2826,7 +2825,7 @@
         "multi": false,
         "name": "ds",
         "options": [],
-        "query": "victoriametrics-metrics-datasource",
+        "query": "prometheus",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
@@ -2836,7 +2835,7 @@
       {
         "current": {},
         "datasource": {
-          "type": "victoriametrics-metrics-datasource",
+          "type": "prometheus",
           "uid": "$ds"
         },
         "definition": "label_values(vm_app_version{version=~\"^vmauth.*\"}, job)",
@@ -2859,7 +2858,7 @@
         "allValue": ".*",
         "current": {},
         "datasource": {
-          "type": "victoriametrics-metrics-datasource",
+          "type": "prometheus",
           "uid": "$ds"
         },
         "definition": "label_values(vm_app_version{job=~\"$job\"}, instance)",
@@ -2881,7 +2880,7 @@
       {
         "current": {},
         "datasource": {
-          "type": "victoriametrics-metrics-datasource",
+          "type": "prometheus",
           "uid": "$ds"
         },
         "definition": "label_values(vmauth_user_requests_total{job=~\"$job\", instance=~\"$instance\"}, username)",
@@ -2919,8 +2918,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "VictoriaMetrics - vmauth (VM)",
-  "uid": "nbuo5Mr4k_vm",
+  "title": "VictoriaMetrics - vmauth",
+  "uid": "nbuo5Mr4k",
   "version": 1,
   "weekStart": ""
 }
