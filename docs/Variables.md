@@ -73,6 +73,11 @@ shiftmon_vmanomaly_domain: domain to use for vmanomaly requests
 
 ### Tokens and Users
 
+
+shiftmon_user_access_log_skip_status_codes: http status codes that ARE NOT logged by vmauth for all vmauth users
+shiftmon_token_access_log_skip_status_codes: http status codes that ARE NOT logged by vmauth for all vmauth tokens
+both of these values default to `[200,201,204,301,302]`
+
 victorialogs_token: token that has read write access to the Victorialogs API. By default this will be the only token that has access. If you need multiple tokens additional tokens can be defined in `victoria.tokens`
 
 victoriametrics_token: token that has read write access to the Victoriametrics API. By default this will be the only token that has access. If you need multiple tokens additional tokens can be defined in `victorialogs.tokens`
