@@ -71,13 +71,14 @@ vmanomaly_logs_config_path: path to vmanomaly logs config file
 vmanomaly_workers: number of worker processes vmanomaly should spawn defaults to 2
 shiftmon_vmanomaly_domain: domain to use for vmanomaly requests
 
-### Tokens and Users
+### Authorization, Tokens, and Users
 
 
 shiftmon_user_access_log_skip_status_codes: http status codes that ARE NOT logged by vmauth for all vmauth users
 shiftmon_token_access_log_skip_status_codes: http status codes that ARE NOT logged by vmauth for all vmauth tokens
 both of these values default to `[200,201,204,301,302]`
 
+shiftmon_log_invalid_tokens: boolean to determine weather invalid requests to vmauth are logged defaults to true
 victorialogs_token: token that has read write access to the Victorialogs API. By default this will be the only token that has access. If you need multiple tokens additional tokens can be defined in `victoria.tokens`
 
 victoriametrics_token: token that has read write access to the Victoriametrics API. By default this will be the only token that has access. If you need multiple tokens additional tokens can be defined in `victorialogs.tokens`

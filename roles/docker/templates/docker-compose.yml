@@ -172,6 +172,9 @@ services:
       - "-loggerFormat=json"
       - "-httpListenAddr=0.0.0.0:8427"
       - "-httpInternalListenAddr=0.0.0.0:9999"
+{% if shiftmon_log_invalid_tokens %}
+      - "-logInvalidAuthTokens"
+{% endif %}
 {% if victoria.license is defined %}
       - "-license=%{VICTORIAMETRICS_LICENSE}"
 {% endif %}
