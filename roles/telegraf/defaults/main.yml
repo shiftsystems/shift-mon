@@ -25,6 +25,8 @@ shiftmon_logfmt_apps:
   - '*dendrite-monolith*'
   - '*watchtower*'
   - '*dockerd*'
+shiftmon_logfmt_msg_apps:
+  - '*vmauth*'
 traefik_container_name: shift-mon_traefik_1
 user_secrets: {}
 global_telegraf_tags: {}
