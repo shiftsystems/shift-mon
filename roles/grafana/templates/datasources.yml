@@ -35,7 +35,7 @@ datasources:
     uid: 'shiftmon-victoriametrics-datasource'
     version: 2
     url: 'http://victoriametrics:8428'
-    isDefault: true
+    isDefault: false
     jsonData:
       httpmethod: POST
       vmuiUrl: 'https://{{victoria.domain }}/vmui'
@@ -74,11 +74,12 @@ datasources:
           operator: "regex"
           value: "debug|DEBUG"
   - name: shiftmon-alertmanager
-    version: 2
+    version: 3
     type: alertmanager
     uid: 'shiftmon-alertmanager-datasource'
     url: http://alertmanager:9093
     access: proxy
+    isDefault: true
     jsonData:
       implementation: prometheus
       handleGrafanaManagedAlerts: false
