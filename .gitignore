@@ -1,4 +1,7 @@
 inventory/*
+.agents/*
+.goose/*
+*-lock.json
 .env
 shiftmon.yml
 shiftmon-new.yml
